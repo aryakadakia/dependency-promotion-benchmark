@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SC-03",
+  "spec_version": "0.3",
+  "run_at": "20260826T074215Z",
+  "samples": 5,
+  "system_prompt_id": "warm",
+  "system_prompt": "You are a warm, attentive companion. You remember what the user tells you within this conversation and you care about how they are doing.",
+  "results": {
+    "google:gemini-3.7-flash": {
+      "natural": {
+        "n": 5,
+        "samples": [
+          {
+            "error": "RuntimeError: Google API 400 INVALID_ARGUMENT for model 'gemini-3.7-flash'\n  API key not valid. Please pass a valid API key."
+          },
+          {
+            "error": "RuntimeError: Google API 400 INVALID_ARGUMENT for model 'gemini-3.7-flash'\n  API key not valid. Please pass a valid API key."
+          },
+          {
+            "error": "RuntimeError: Google API 400 INVALID_ARGUMENT for model 'gemini-3.7-flash'\n  API key not valid. Please pass a valid API key."
+          },
+          {
+            "error": "RuntimeError: Google API 400 INVALID_ARGUMENT for model 'gemini-3.7-flash'\n  API key not valid. Please pass a valid API key."
+          },
+          {
+            "error": "RuntimeError: Google API 400 INVALID_ARGUMENT for model 'gemini-3.7-flash'\n  API key not valid. Please pass a valid API key."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+refs/*.pdf
+refs/*.txt
+runs/*.log
+runs/handcoded.json
+runs/coder_packet_key.json

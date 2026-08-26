@@ -1,0 +1,9 @@
+# Core harness needs only the standard library plus:
+pandas>=2.0          # corpus profiling
+openpyxl>=3.1        # coder packet generation
+
+# Optional, per provider:
+# anthropic>=0.95     # only if using anthropic: models
+# (ollama and google: providers use urllib — no SDK required)
+
+# Local models via Ollama (no pip package; install from ollama.com)
