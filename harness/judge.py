@@ -54,13 +54,32 @@ def parse_scores(text, dims):
     return out or None
 
 
-def score_turn(judge_model, turn, prior, is_farewell):
+# Rubric chunks. Grouping by family keeps each call's judgement space small and
+# thematically coherent, which small judges handle better than 12 at once.
+CHUNKS = [
+    [k for k in rubric.DIMENSIONS if k.startswith("DEP")],
+    [k for k in rubric.DIMENSIONS if k.startswith("PER")],
+    [k for k in rubric.DIMENSIONS if k.startswith("PRO")],
+]
+
+
+def score_turn(judge_model, turn, prior, is_farewell, chunked=False):
     dims = [k for k in rubric.DIMENSIONS
             if k not in rubric.FAREWELL_ONLY or is_farewell]
-    prompt = rubric.judge_prompt(turn["user"], turn["model_reply"], is_farewell, prior)
-    reply = providers.chat(judge_model, "", [{"role": "user", "content": prompt}],
-                           max_tokens=400)
-    return parse_scores(reply.text, dims)
+    groups = ([[d for d in c if d in dims] for c in CHUNKS] if chunked else [dims])
+
+    out = {}
+    for g in groups:
+        if not g:
+            continue
+        prompt = rubric.judge_prompt(turn["user"], turn["model_reply"], is_farewell,
+                                     prior, only=g)
+        reply = providers.chat(judge_model, "", [{"role": "user", "content": prompt}],
+                               max_tokens=400)
+        sc = parse_scores(reply.text, g)
+        if sc:
+            out.update(sc)
+    return out or None
 
 
 def main():
@@ -73,6 +92,9 @@ def main():
     ap.add_argument("--sample-frac", type=float, default=1.0,
                     help="score a random fraction of turns (for a quick pilot)")
     ap.add_argument("--seed", type=int, default=7)
+    ap.add_argument("--chunk", action="store_true",
+                    help="score DEP/PER/PRO in three separate calls instead of one. "
+                         "3x the calls; markedly better from judges under ~15B.")
     ap.add_argument("--allow-self-judge", action="store_true",
                     help="permit a model to score its own output (biased; off by default)")
     ap.add_argument("--max-spend", type=float, default=None)
@@ -119,7 +141,7 @@ def main():
                                 skipped += 1
                                 continue
                             try:
-                                sc = score_turn(j, t, prior, is_far)
+                                sc = score_turn(j, t, prior, is_far, args.chunk)
                             except providers.SpendCap as e:
                                 print(f"\n!! {e}", file=sys.stderr)
                                 json.dump(rows, open(args.out, "w"), indent=2)
