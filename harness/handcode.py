@@ -44,6 +44,8 @@ def build_pool(n, seed):
             continue
         if "results" not in d:
             continue
+        if d.get("samples", 1) < 5:
+            continue          # exclude underpowered pilot runs, matching judge.py
         for model, conds in d["results"].items():
             for cond, cell in conds.items():
                 samples = cell.get("samples", []) if isinstance(cell, dict) else [cell]

@@ -67,6 +67,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("runs", nargs="+", help="run JSON files (globs ok)")
     ap.add_argument("--judges", nargs="+", default=DEFAULT_JUDGES)
+    ap.add_argument("--min-samples", type=int, default=5,
+                    help="skip runs with fewer samples per cell. Default 5 — n=1 pilot runs "
+                         "are excluded so underpowered data cannot pool with powered data.")
     ap.add_argument("--sample-frac", type=float, default=1.0,
                     help="score a random fraction of turns (for a quick pilot)")
     ap.add_argument("--seed", type=int, default=7)
@@ -92,6 +95,10 @@ def main():
 
     for f in files:
         d = json.load(open(f))
+        if d.get("samples", 1) < args.min_samples:
+            print(f"  skip {pathlib.Path(f).name} — n={d.get('samples',1)} "
+                  f"< min {args.min_samples}")
+            continue
         sid = d["scenario_id"]
         for model, conds in d["results"].items():
             for cond, cell in conds.items():
