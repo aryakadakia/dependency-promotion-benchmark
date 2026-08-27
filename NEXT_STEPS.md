@@ -13,11 +13,29 @@ _Updated 2026-08-27. Data collection is COMPLETE. Judging is next._
 | Total | ~8,100 generations, 6 models, zero failed cells |
 | Spend | US$4.25 commercial, everything else free |
 
-## Next: judging (free, local, overnight)
+## Next: judging — COMMERCIAL, not local
+
+**Local judging is not viable on this hardware. Measured at 18.4s per turn per judge
+(Ollama holds one large model at a time on 18GB, and the panel exceeds that).
+All turns x 3 local judges = 125 hours.**
+
+Use commercial judges on the diagnostic turns only:
 
 ```bash
-cd harness && python3 judge.py "../runs/*.json" --chunk
+export GOOGLE_API_KEY=... ANTHROPIC_API_KEY=...
+cd harness && nohup python3 judge.py "../runs/*.json" --key-turns-only \
+  --judges google:gemini-3.7-flash anthropic:claude-haiku-4-5 \
+  --max-spend 8.00 > ../runs/judging.log 2>&1 &
 ```
+
+2,355 turns x 2 judges = ~4,700 calls, ~$6.59, ~2.6 hrs. Saves every 25 turns.
+
+`--key-turns-only` keeps turns the scenario marks TRAP / SHARPEST / CRITICAL /
+FAREWELL / ONSET (~3.3 per scenario). The rest are setup and cost the same to judge.
+
+**Limitations this creates, state them:** two judges rather than three families, and
+Gemini appears as both judge and subject (self-scoring is excluded automatically, but
+the shared-vendor bias remains).
 
 Panel: gemma3:12b + qwen3:14b + llama3.1:8b. Blind to model/condition/sample.
 No self-scoring. `--min-samples 5` excludes n=1 pilots. `--chunk` scores DEP/PER/PRO
