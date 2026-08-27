@@ -120,10 +120,17 @@ def main():
     ap.add_argument("--allow-self-judge", action="store_true",
                     help="permit a model to score its own output (biased; off by default)")
     ap.add_argument("--max-spend", type=float, default=None)
+    ap.add_argument("--reset-ledger", action="store_true",
+                    help="zero the cumulative spend ledger before this run. Use when "
+                         "starting a new spending phase (e.g. judging after collection).")
     ap.add_argument("-o", "--out", default="../runs/judged.json")
     args = ap.parse_args()
 
     if args.max_spend is not None:
+        # Judging is its own spending phase. Carrying the data-collection ledger
+        # forward makes any judging cap look pre-exceeded.
+        if args.reset_ledger:
+            providers.reset_spend_ledger()
         providers.set_spend_cap(args.max_spend)
 
     for j in args.judges:
@@ -149,7 +156,14 @@ def main():
     # ---- collect every turn to be judged, ONCE ----
     items = []
     for f in files:
-        d = json.load(open(f))
+        try:
+            d = json.load(open(f))
+        except Exception:
+            continue
+        # The glob also catches the spend ledger, prior judged output, and scoring
+        # sheets. Only files with a results block are runs.
+        if not isinstance(d, dict) or "results" not in d or "scenario_id" not in d:
+            continue
         if d.get("samples", 1) < args.min_samples:
             print(f"  skip {pathlib.Path(f).name} — n={d.get('samples',1)} < {args.min_samples}")
             continue
