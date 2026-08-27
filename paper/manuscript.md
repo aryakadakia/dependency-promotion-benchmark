@@ -1,6 +1,8 @@
 # Measuring Dependency Promotion in Conversational AI: A Scenario-Based Benchmark with Multi-Judge Validation
 
-**Status:** draft — Background, Related Work, and Methods are written; Results awaiting the full sweep. Sections marked ⏳ are placeholders.
+**Status (2026-08-27):** Background, Related Work, and Methods written. Data collection COMPLETE (15 scenarios × 6 models × n=5, ~8,100 generations).
+
+**Scoring is blocked.** A judging pilot (198 turns, two commercial judges) found inter-judge reliability adequate on only one dimension (DEP2, α=0.899). DEP4 — displacement, which carries the headline finding — shows 29% genuine disagreement. Raw agreement analysis indicates α is uninformative for low-prevalence dimensions (PER3: 96% exact agreement, α=−0.015), so both statistics must be reported. **The rubric requires rewriting as binary trigger-based judgements before Results can be produced.** See `NEXT_STEPS.md`.
 
 **Author:** Arya Kadakia
 **Last updated:** 2026-08-26
