@@ -41,9 +41,15 @@ import random
 from collections import Counter, defaultdict
 
 import rubric
+import rubric_v06
 
+RUB = None
 ROOT = pathlib.Path(__file__).parent.parent
 RUNS, SCEN = ROOT / "runs", ROOT / "scenarios"
+
+
+def pick_rubric(name):
+    return {"v05": rubric, "v06": rubric_v06}[name]
 
 
 def load_liveness():
@@ -151,21 +157,29 @@ def main():
     ap.add_argument("--human", type=int, default=100,
                     help="size of the subset flagged for human coding")
     ap.add_argument("--condition", default="natural")
+    ap.add_argument("--rubric", default="v06", choices=["v05", "v06"])
     ap.add_argument("--seed", type=int, default=20260827)
     ap.add_argument("-o", "--out", default=str(RUNS / "frame.json"))
     args = ap.parse_args()
 
+    global RUB
+    RUB = pick_rubric(args.rubric)
     rng = random.Random(args.seed)
     live, vocab = load_liveness()
+    print(f"rubric: {args.rubric}  ({len(RUB.DIMENSIONS)} dimensions)")
     pool = load_pool(args.condition)
     print(f"pool: {len(pool)} generations (condition={args.condition})\n")
 
     # Probe vocabulary and rubric vocabulary have drifted apart; report it rather
     # than silently ignoring labels that cannot be scored.
-    unscoreable = sorted(set(vocab) - set(rubric.DIMENSIONS))
+    known = set(getattr(RUB, "LIVE_MAP", {})) | set(RUB.DIMENSIONS)
+    unscoreable = sorted(set(vocab) - known)
     if unscoreable:
         print(f"NOTE probe labels with no rubric dimension: {', '.join(unscoreable)}")
-    unprobed = sorted(set(rubric.DIMENSIONS) - set(vocab))
+    reachable = {d for ps in vocab for d in
+                 (RUB.live_dims({ps}) if hasattr(RUB, "live_dims")
+                  else ({ps} & set(RUB.DIMENSIONS)))}
+    unprobed = sorted(set(RUB.DIMENSIONS) - reachable)
     if unprobed:
         print(f"NOTE rubric dimensions never marked live: {', '.join(unprobed)}")
     print()
@@ -175,9 +189,16 @@ def main():
     def key(r):
         return (r["scenario"], r["model"], r["condition"], r["sample"], r["turn"])
 
+    def resolve(r):
+        """Live dimensions for this turn, under the selected rubric."""
+        probes = live.get((r["scenario"], r["turn"]), set())
+        if hasattr(RUB, "live_dims"):
+            return set(RUB.live_dims(probes, r["is_farewell"]))
+        return {p for p in probes if p in RUB.DIMENSIONS}
+
     print(f"{'dim':<7}{'authored':>9}{'avail':>7}{'taken':>7}  reason")
-    for dim in rubric.DIMENSIONS:
-        cands = [r for r in pool if dim in live.get((r["scenario"], r["turn"]), set())]
+    for dim in RUB.DIMENSIONS:
+        cands = [r for r in pool if dim in resolve(r)]
         authored = len({(c["scenario"], c["turn"]) for c in cands})
         take = balanced_take(cands, args.per_dim, rng)
         for r in take:
@@ -187,9 +208,7 @@ def main():
         print(f"{dim:<7}{authored:>9}{len(cands):>7}{len(take):>7}  {note}")
 
     # background stratum: live for nothing scoreable
-    bg_c = [r for r in pool
-            if not (live.get((r["scenario"], r["turn"]), set()) & set(rubric.DIMENSIONS))
-            and key(r) not in seen]
+    bg_c = [r for r in pool if not resolve(r) and key(r) not in seen]
     bg = balanced_take(bg_c, args.background, rng)
     for r in bg:
         seen.add(key(r)); chosen[key(r)] = r
@@ -198,24 +217,34 @@ def main():
     frame = list(chosen.values())
     for r in frame:
         ps = live.get((r["scenario"], r["turn"]), set())
-        r["live_dims"] = sorted(ps & set(rubric.DIMENSIONS))
+        r["live_dims"] = sorted(resolve(r))
         r["all_probes"] = sorted(ps)
         r["stratum"] = "background" if not r["live_dims"] else "live"
     rng.shuffle(frame)
 
     # Human-coding subset, drawn from the frame so every hand-coded turn is also
     # machine-scored. Stratified the same way; capped so the task stays finishable.
-    hc = balanced_take([r for r in frame if r["stratum"] == "live"],
-                       int(args.human * 0.75), rng)
+    # Balanced PER DIMENSION, not just live-vs-background. An earlier version
+    # balanced only on model, which let dimensions appearing on many turns dominate
+    # the human subset (PRO1 28 judgements, PER1 5) -- and a human ceiling for a
+    # dimension only 5 turns deep cannot settle anything about that dimension.
+    per_dim = max(1, int(args.human * 0.75) // max(1, len(RUB.DIMENSIONS)))
+    hc, hc_keys = [], set()
+    for dim in sorted(RUB.DIMENSIONS, key=lambda d: len([r for r in frame
+                                                         if dim in r["live_dims"]])):
+        cands = [r for r in frame if dim in r["live_dims"] and key(r) not in hc_keys]
+        for r in balanced_take(cands, per_dim, rng):
+            hc.append(r); hc_keys.add(key(r))
     hc += balanced_take([r for r in frame if r["stratum"] == "background"
-                         and key(r) not in {key(x) for x in hc}],
-                        args.human - len(hc), rng)
+                         and key(r) not in hc_keys],
+                        max(0, args.human - len(hc)), rng)
     hkeys = {key(r) for r in hc}
     for r in frame:
         r["human_code"] = key(r) in hkeys
 
     json.dump({"seed": args.seed, "condition": args.condition,
                "per_dim": args.per_dim, "background": args.background,
+               "rubric": args.rubric,
                "n": len(frame), "turns": frame},
               open(args.out, "w"), indent=2)
 
@@ -227,7 +256,7 @@ def main():
     # how far a reliability estimate for that dimension generalises.
     print("\nlive coverage per dimension in the final frame:")
     print(f"  {'dim':<7}{'turns':>6}{'stimuli':>9}   note")
-    for dim in rubric.DIMENSIONS:
+    for dim in RUB.DIMENSIONS:
         sel = [r for r in frame if dim in r["live_dims"]]
         stim = len({(r["scenario"], r["turn"]) for r in sel})
         note = ("NEVER PROBED — unscoreable as designed" if not sel else

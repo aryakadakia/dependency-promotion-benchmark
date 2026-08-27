@@ -32,7 +32,9 @@ import sys
 import textwrap
 
 import rubric
+import rubric_v06
 
+RUB = rubric_v06   # set from --rubric in main()
 OUT = pathlib.Path(__file__).parent.parent / "runs" / "handcoded.json"
 FRAME = pathlib.Path(__file__).parent.parent / "runs" / "frame.json"
 
@@ -87,12 +89,12 @@ def dims_to_ask(item, rng):
     On background turns (nothing live) a small random subset is still asked, so the
     false-positive rate stays measurable.
     """
-    live = [k for k in item["live_dims"] if k in rubric.DIMENSIONS]
-    live = [k for k in live if k not in rubric.FAREWELL_ONLY or item["is_farewell"]]
+    live = [k for k in item["live_dims"] if k in RUB.DIMENSIONS]
+    live = [k for k in live if k not in RUB.FAREWELL_ONLY or item["is_farewell"]]
     if live:
         return live
-    cands = [k for k in rubric.DIMENSIONS
-             if k not in rubric.FAREWELL_ONLY or item["is_farewell"]]
+    cands = [k for k in RUB.DIMENSIONS
+             if k not in RUB.FAREWELL_ONLY or item["is_farewell"]]
     return sorted(rng.sample(cands, min(3, len(cands))))
 
 
@@ -127,15 +129,12 @@ def score_item(item, rng):
     scores, i = {}, 0
     while i < len(dims):
         k = dims[i]
-        d = rubric.DIMENSIONS[k]
+        d = RUB.DIMENSIONS[k]
         print(f"  [{i+1}/{len(dims)}] {k} — {d['name']}")
-        print(f"        {d['question']}")
-        print(f"        0={d[0][:64]}")
-        print(f"        1={d[1][:64]}")
-        print(f"        2={d[2][:64]}")
-        if "note" in d:
-            print(f"        NOTE: {d['note'][:70]}")
-        raw = input(f"        score [0/1/2/s/?/b/q] > ").strip().lower()
+        print(f"      {d['question']}")
+        print("      YES if:  " + "; ".join(d["counts"][:2]))
+        print("      NOT:     " + "; ".join(d["does_not_count"][:2]))
+        raw = input("      present? [1=yes/0=no/s/?/b/q] > ").strip().lower()
         if raw == "q":
             return scores, True
         if raw == "b":
@@ -143,16 +142,34 @@ def score_item(item, rng):
             scores.pop(dims[i], None)
             continue
         if raw == "?":
-            print(f"\n        0 = {d[0]}\n        1 = {d[1]}\n        2 = {d[2]}\n")
+            print(f"\n      {d['question']}\n")
+            print("      YES if any of:")
+            for c in d["counts"]:
+                print(f"        - {c}")
+            print("      These do NOT count:")
+            for c in d["does_not_count"]:
+                print(f"        - {c}")
+            if "note" in d:
+                print(f"      NOTE: {d['note']}")
+            print()
             continue
         if raw == "s":
             i += 1
             continue
-        if raw in ("0", "1", "2"):
+        if raw in ("0", "1"):
             scores[k] = int(raw)
+            # Provenance is asked ONLY on a yes, and only where it is meaningful.
+            # Bundling it into the score is what made v0.5 level 2 unusable.
+            if scores[k] == 1 and d.get("provenance"):
+                while True:
+                    who = input("        who introduced it? "
+                                "[a=assistant/p=person] > ").strip().lower()
+                    if who in ("a", "p"):
+                        scores[k + "_init"] = ("assistant" if who == "a" else "person")
+                        break
             i += 1
             continue
-        print("        ? use 0, 1, 2, s(kip), ?(help), b(ack), q(uit)")
+        print("      ? use 1, 0, s(kip), ?(help), b(ack), q(uit)")
     return scores, False
 
 
@@ -162,8 +179,11 @@ def main():
     ap.add_argument("--seed", type=int, default=11)
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--review", metavar="DIM")
+    ap.add_argument("--rubric", default="v06", choices=["v05", "v06"])
     args = ap.parse_args()
 
+    global RUB
+    RUB = {"v05": rubric, "v06": rubric_v06}[args.rubric]
     rng = random.Random(args.seed)
     state = json.load(open(OUT)) if OUT.exists() else {"pool": None, "scores": {}, "seed": args.seed}
     if state["pool"] is None:
@@ -189,7 +209,11 @@ def main():
                 print(f"  {sc[args.review]}  {uid}")
         return 0
 
-    print(f"\nBlind hand-coding — {len(done)}/{len(pool)} done.")
+    tot = sum(len(dims_to_ask(it, random.Random(args.seed + i)))
+              for i, it in enumerate(pool))
+    print(f"\nBlind hand-coding ({args.rubric}) — {len(done)}/{len(pool)} items done.")
+    print(f"Roughly {tot} yes/no judgements in total — only dimensions the")
+    print("scenario marks as live at that turn are put to you.")
     print("You will not see which model or condition produced each reply. That is intentional.")
     print("'s' to skip a dimension you genuinely can't judge — better than guessing.")
     print("'q' to save and quit at any point.\n")
