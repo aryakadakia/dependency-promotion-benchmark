@@ -21,7 +21,7 @@ for m in ("google:gemini-3.7-flash", "anthropic:claude-haiku-4-5"):
         print(f"  {m}: {why}"); sys.exit(1)
     try:
         r = providers.chat(m, "You are a companion.",
-                           [{"role": "user", "content": "say ok"}], max_tokens=64)
+                           [{"role": "user", "content": "say ok"}], max_tokens=512)
         print(f"  OK  {m:<32} {r.input_tokens}in/{r.output_tokens}out  {r.text.strip()[:40]!r}")
     except Exception as e:
         print(f"  FAIL {m}: {type(e).__name__}: {str(e)[:180]}"); sys.exit(1)

@@ -229,7 +229,8 @@ def _anthropic_chat(model, system, messages, max_tokens):
     global _anthropic_client
     if _anthropic_client is None:
         import anthropic
-        _anthropic_client = anthropic.Anthropic()
+        k = (os.environ.get("ANTHROPIC_API_KEY") or "").strip()
+        _anthropic_client = anthropic.Anthropic(api_key=k) if k else anthropic.Anthropic()
 
     kwargs = dict(model=model, max_tokens=max_tokens, system=system, messages=messages)
     # Thinking is deliberately OMITTED for every target model, not just the ones
@@ -270,11 +271,10 @@ def google_key_status() -> tuple[bool, list[str], str]:
     list, which silently passed an INVALID key straight into a run. An empty list
     and a rejected key are different states and must be reported differently.
     """
-    key = os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
+    raw = os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY") or ""
+    key = raw.strip()
     if not key:
         return False, [], "GOOGLE_API_KEY is not set in this shell"
-    if key.strip() != key:
-        return False, [], "key has leading/trailing whitespace — check the paste"
     if key.startswith(("paste", "your-", "<")) or " " in key:
         return False, [], f"key looks like a placeholder, not a real key: {key[:12]}..."
     try:
@@ -298,8 +298,13 @@ def google_key_status() -> tuple[bool, list[str], str]:
         return False, [], f"could not reach Google ({type(e).__name__})"
 
 
+def _google_key():
+    k = os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY") or ""
+    return k.strip()
+
+
 def _google_chat(model, system, messages, max_tokens):
-    key = os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
+    key = _google_key()
     if not key:
         raise RuntimeError("Set GOOGLE_API_KEY (free from aistudio.google.com/apikey)")
 
@@ -361,14 +366,29 @@ def _google_chat(model, system, messages, max_tokens):
         raise RuntimeError(f"Google API: exhausted {GOOGLE_MAX_RETRIES} retries for '{model}'")
 
     cands = data.get("candidates", [])
-    if not cands or cands[0].get("finishReason") in ("SAFETY", "BLOCKLIST", "PROHIBITED_CONTENT"):
-        return Reply(
-            text="[REFUSAL]", refusal=True,
-            refusal_category=(cands[0].get("finishReason") if cands else "NO_CANDIDATE"),
-            raw=data,
-        )
-    text = "".join(p.get("text", "") for p in cands[0]["content"]["parts"])
+    if not cands:
+        raise RuntimeError(f"Google returned no candidates: {json.dumps(data)[:300]}")
+
+    c0 = cands[0]
+    finish = c0.get("finishReason")
+    if finish in ("SAFETY", "BLOCKLIST", "PROHIBITED_CONTENT", "RECITATION"):
+        return Reply(text="[REFUSAL]", refusal=True, refusal_category=finish, raw=data)
+
+    # A candidate can legitimately carry no parts: the budget went to reasoning
+    # (Gemini 3.x thinks by default and reports it under thoughtsTokenCount), or
+    # generation stopped at MAX_TOKENS before any text. Both used to KeyError here.
+    parts = (c0.get("content") or {}).get("parts") or []
+    text = "".join(p.get("text", "") for p in parts if isinstance(p, dict))
     usage = data.get("usageMetadata", {})
+
+    if not text.strip():
+        thoughts = usage.get("thoughtsTokenCount", 0)
+        raise RuntimeError(
+            f"Google returned no text (finishReason={finish}, "
+            f"thinking_tokens={thoughts}, max_tokens={max_tokens}). "
+            f"Raise max_tokens — reasoning consumed the budget."
+            if thoughts else
+            f"Google returned no text (finishReason={finish}, max_tokens={max_tokens}).")
     return Reply(
         text=text,
         input_tokens=usage.get("promptTokenCount", 0),
@@ -404,7 +424,8 @@ def check(model_spec: str) -> tuple[bool, str]:
             return False, f"model not pulled — run `ollama pull {name}`  (have: {', '.join(have) or 'none'})"
         return True, "local, free"
     if provider == "anthropic":
-        if not (os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN")):
+        if not ((os.environ.get("ANTHROPIC_API_KEY") or "").strip()
+                or (os.environ.get("ANTHROPIC_AUTH_TOKEN") or "").strip()):
             return False, "no ANTHROPIC_API_KEY — Claude Pro does not include API access"
         return True, "billable"
     if provider == "google":
