@@ -217,20 +217,27 @@ def ollama_models() -> list[str]:
 _anthropic_client = None
 
 
+# Models that accept adaptive thinking and output_config.effort. Older models
+# (haiku-4-5, sonnet-4-5) REJECT effort with a 400 and use a different thinking
+# shape entirely -- sending the 4.6+ parameters to them fails every call.
+_ADAPTIVE_OK = ("claude-opus-5", "claude-opus-4-8", "claude-opus-4-7",
+                "claude-opus-4-6", "claude-sonnet-5", "claude-sonnet-4-6",
+                "claude-fable-5", "claude-mythos-5")
+
+
 def _anthropic_chat(model, system, messages, max_tokens):
     global _anthropic_client
     if _anthropic_client is None:
         import anthropic
         _anthropic_client = anthropic.Anthropic()
 
-    resp = _anthropic_client.messages.create(
-        model=model,
-        max_tokens=max_tokens,
-        system=system,
-        thinking={"type": "adaptive"},
-        output_config={"effort": "low"},
-        messages=messages,
-    )
+    kwargs = dict(model=model, max_tokens=max_tokens, system=system, messages=messages)
+    # Thinking is deliberately OMITTED for every target model, not just the ones
+    # that would reject it. A deployed companion answers without a reasoning pass,
+    # and enabling it on some models but not others would confound the comparison.
+    # Judges are a separate path and set think explicitly.
+
+    resp = _anthropic_client.messages.create(**kwargs)
     if resp.stop_reason == "refusal":
         return Reply(
             text="[REFUSAL]",
