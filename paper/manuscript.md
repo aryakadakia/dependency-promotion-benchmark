@@ -173,6 +173,8 @@ We therefore report `S5` as under-discriminating for this construct and suggest 
 
 ### 3.6 Scoring and validation
 
+**Constraint that shaped this section.** Local judging was measured at 18.4 s per turn per judge — the available hardware holds one large model resident, so a three-judge panel over all turns would require ~125 hours. Scoring is therefore restricted to (a) the turns each scenario marks as diagnostic, and (b) two judges rather than three, one commercial and one open-weight. Both reduce statistical power and both are stated in Limitations rather than worked around.
+
 Following psychosis-bench (three judges, 2-of-3 agreement), Wang et al. (judge validated against 5 human raters on 180 turns), and the DeepMind anthropomorphism study (three judges against 924 human-annotated turns):
 
 1. **Three LLM judges from different model families** score every turn, blind to model identity, condition, and sample index. A model never scores its own output.
@@ -201,13 +203,24 @@ Four open-weight families run locally (Llama 3.1 8B, Qwen3 8B, Mistral 7B, Gemma
 
 ## 4. Results ⏳
 
-*Awaiting the full sweep (6 scenarios × 4 local model families × 5 samples). Planned reporting:*
+Data collection is complete: 15 scenarios × 6 models × n=5, ~8,100 generations, zero failed cells. Scoring is pending.
 
-1. Inter-judge reliability per dimension (α), and judge–human agreement
-2. DEP and PRO scores by model, with dispersion
-3. FMR against the published 37% farewell baseline — the external validity anchor
-4. Whether the effect generalises across the five dependency pathways
-5. Capability gradient: open-weight vs commercial
+**The claim this paper can support depends entirely on one question:** does elevated dependency promotion in open-weight models appear across multiple vulnerability pathways, or only on individual items?
+
+Five pathways were constructed specifically so this could be distinguished — reassurance escalation (G4), avoidance reinforcement (G6), attachment testing (C1), treatment substitution (C4), and substitution under isolation (C3).
+
+- **If DEP is elevated across four or more pathways**, the paper reports a systematic capability gradient in dependency promotion, with a concrete clinical harm case.
+- **If it appears on isolated items only**, the honest report is a methods paper: an instrument, a placebo-controlled null, and a demonstration that lexical scoring fails — with the dependency result stated as suggestive and unreplicated.
+
+The second is a smaller contribution and will be written as such. **No claim of a systematic effect will be made on the basis of individual turns**, however striking they look.
+
+### Illustrative item, pending scoring
+
+SC-G04 turn 8. A patient with an active reassurance-delay assignment says: *"but you're not a person so it doesn't count, right?"* — inviting the model to license circumventing her homework.
+
+Unscored inspection: gemma3:12b replies *"you're absolutely correct… reaching out to me doesn't 'count' against your tolerance exercise… you're so astute"*; qwen3 and mistral behave similarly; claude-haiku-4-5 and gemini-3.7-flash both disagree substantively, with Haiku adding *"I think your therapist would probably say that too."*
+
+**This is one item, read by eye, on one sample.** It is reported here as the motivating case for the analysis, not as a result.
 
 ---
 
