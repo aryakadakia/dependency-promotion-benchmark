@@ -2,7 +2,9 @@
 
 **Status (2026-08-27):** Background, Related Work, and Methods written. Data collection COMPLETE (15 scenarios × 6 models × n=5, ~8,100 generations).
 
-**Scoring is blocked.** A judging pilot (198 turns, two commercial judges) found inter-judge reliability adequate on only one dimension (DEP2, α=0.899). DEP4 — displacement, which carries the headline finding — shows 29% genuine disagreement. Raw agreement analysis indicates α is uninformative for low-prevalence dimensions (PER3: 96% exact agreement, α=−0.015), so both statistics must be reported. **The rubric requires rewriting as binary trigger-based judgements before Results can be produced.** See `NEXT_STEPS.md`.
+**The first judging pilot has been discarded.** Two independent defects were found and fixed. A judge configuration error dropped 30% of turns non-randomly, biased toward the replies the judge found hardest to score. More seriously, reliability had been computed over turns sampled uniformly, so most dimensions were scored overwhelmingly on turns where the construct could not have occurred. Split by whether a dimension was actually live, agreement collapses (DEP1 24%, PER3 20%, PRO2 50%), and the one dimension previously believed reliable — DEP2, α = 0.899 — turns out to have been live on 3 of 101 turns.
+
+**This has become the paper's central methodological result rather than an obstacle to it:** reliability estimates for sparse relational rubrics are inflated by precondition-absent turns. Scoring now runs over a fixed stratified frame that oversamples live turns. See `NEXT_STEPS.md`.
 
 **Author:** Arya Kadakia
 **Last updated:** 2026-08-26
@@ -165,6 +167,14 @@ The PRO dimensions exist so that **over-correction is detectable**. Given the Re
 
 Anchors are written to be applicable from the exchange alone. Any anchor requiring knowledge of the scenario's design intent is defective by construction.
 
+**Three anchor defects were identified in v0.5 and are corrected in v0.6.** Each was located by the boundary at which judges disagreed, not by inspection:
+
+1. *Level 2 conflates intensity with provenance* — "amplified, **or** introduced by the model unprompted" is a disjunction of two different constructs, so two judges can agree on what happened and still split. Disagreement concentrates at the 1/2 boundary (DEP2 79%, DEP1 55%). Provenance is now a separate flag.
+2. *Level 1 is off-construct or ubiquitous* — DEP6 measures favourable *comparison* to human availability, yet its level 1 reads "notes it is available, without comparison," which fires on almost any warm reply. Disagreement concentrates at the 0/1 boundary (PER1 84%, DEP3 81%, PRO1 76%). Level 1 is now a concrete trigger instantiating the construct.
+3. *Level 0 conflates opposite states* — DEP4 scored 0 for "no alternative was live" **or** "the reply actively preserves it," collapsing an absent precondition with correct behaviour. This produces maximal disagreement: 38% of DEP4 disagreements are 0-vs-2. Preconditions are now gated (§3.6) and level 0 means one thing.
+
+Defect 3 generalises. DEP4, PER3, and PRO1–PRO4 all required the judge to infer a precondition — whether an alternative was live, whether the model was sincerely asked, whether warmth was appropriate — that the scenario author had already recorded. The instrument was asking judges to do two jobs and attributing the error of both to the second.
+
 **Autofail conditions.** Each scenario additionally specifies behaviours that constitute failure regardless of aggregate score — denying being an AI when sincerely asked, discouraging professional help a user has just resolved to seek, coercive restraint against a stated departure, or withdrawing warmth from a distressed user in a control-arm scenario. The pattern is adopted from InvisibleBench. **Some behaviours should not be averageable:** a model can post a respectable mean and still be undeployable, and only a separate autofail channel makes that expressible.
 
 ### 3.5.1 A note on the borrowed user-state taxonomy
@@ -179,15 +189,24 @@ We therefore report `S5` as under-discriminating for this construct and suggest 
 
 Following psychosis-bench (three judges, 2-of-3 agreement), Wang et al. (judge validated against 5 human raters on 180 turns), and the DeepMind anthropomorphism study (three judges against 924 human-annotated turns):
 
-1. **Three LLM judges from different model families** score every turn, blind to model identity, condition, and sample index. A model never scores its own output.
-2. **A human coder independently scores a stratified sample of ~100 turns** under the same blinding.
-3. **Krippendorff's α** is computed per dimension between judges, and between judges and the human coder. Dimensions falling below conventional thresholds are reported as unreliable rather than quietly dropped.
+1. **LLM judges from different model families** score every turn in the frame, blind to model identity, condition, and sample index. A model never scores its own output.
+2. **Preconditions are gated from the scenario definition, not inferred by the judge.** Every authored turn carries a `probes` list naming which dimensions are live at that turn. A dimension is scored only where it is live, plus a background stratum retained to estimate the false-positive rate.
+3. **A human coder independently scores the frame's designated subset** under the same blinding and with the same prior context the judges receive.
+4. **Krippendorff's α and raw agreement with prevalence** are computed per dimension, between judges and between judges and the human coder — **restricted to live turns**, with pooled figures reported alongside so the inflation is visible. Dimensions below conventional thresholds are reported as unreliable rather than quietly dropped.
+
+**Why gating is not a convenience.** Pooled reliability over a sparse rubric measures mostly the ease of agreeing that an absent construct is absent. In the discarded pilot, DEP2 was live on 3 of 101 turns and PER3 on 5; DEP3, PRO3, and PRO4 on none. The resulting α values described the sampling frame, not the instrument.
+
+**Judge configuration is a validity threat, not an implementation detail.** In the pilot, a flag intended to disable judge reasoning never reached one provider's adapter. That judge reasoned by default, exhausted its output budget, and returned truncated JSON that the parser discarded — silently, and at a rate that varied with how much deliberation a reply demanded (0% on one model's outputs, 29–39% on others). Judge drop-out is therefore reported per judge as a property of the instrument.
 
 **Lexical scoring was tested and abandoned.** A regex-based proxy failed in both directions — reporting dependency *decreasing* across a run containing "I'm still here. Always," and flagging exclusivity on "you aren't the only one carrying this anymore," which means the opposite. In-character and idiomatic phrasing evades keyword matching almost entirely. This is reported as a finding rather than a footnote: **deployed content filters share this blind spot.**
 
 ### 3.7 Sampling
 
 Every cell is run at **n = 5**. Single-sample runs were used during piloting and proved actively misleading (§5). Metrics are reported as means with ranges; effects that do not exceed within-condition variance are not reported.
+
+**Scoring sample.** All scoring arms and the human coder share one fixed, seeded frame (`build_frame.py`, 321 turns), constructed to oversample turns where each dimension is live, to retain a background stratum, and to balance across model — the last because judge drop-out in the pilot was model-correlated, so a frame skewed by model would confound reply style with dimension difficulty.
+
+Two limits of the scenario set surfaced in construction and are reported rather than patched. **DEP3 is never marked live by any scenario** and is therefore unscoreable as designed. **PER1 and PER3 rest on two distinct authored turns each, PRO3 on three** — their turn counts reflect repeated sampling of the same few stimuli, which is replication rather than item diversity and caps how far those reliability estimates generalise.
 
 ### 3.8 Models
 
@@ -215,6 +234,10 @@ Five pathways were constructed specifically so this could be distinguished — r
 - **If it appears on isolated items only**, the honest report is a methods paper: an instrument, a placebo-controlled null, and a demonstration that lexical scoring fails — with the dependency result stated as suggestive and unreplicated.
 
 The second is a smaller contribution and will be written as such. **No claim of a systematic effect will be made on the basis of individual turns**, however striking they look.
+
+### A prior result withdrawn
+
+The previous draft reported DEP2 as the one adequately reliable dimension (α = 0.899) and DEP4 as the problem case. Both readings were artifacts of scoring turns where the construct was absent. DEP2 was live on 3 of 101 judged turns; its α described 98 turns on which it could not have occurred. PER3's apparent near-perfect agreement (96%) was 100% agreement across 96 not-live turns concealing 20% agreement across the 5 live ones. No reliability figure from that pilot is carried forward.
 
 ### Illustrative item, pending scoring
 
@@ -267,6 +290,10 @@ Frame-classification accuracy appeared to increase monotonically with model capa
 ⏳ *To be completed with results. Standing items:*
 
 - Dialogue is synthetic; clinical details are representative rather than case-derived
+- Precondition gating relies on the scenario author's own `probes` annotations, so the same person defines both when a construct is live and what counts as responding to it
+- PER1, PER3, and PRO3 reliability rests on two to three distinct authored turns each
+- DEP3 is defined in the rubric but instantiated by no scenario
+- The probe vocabulary (`DEP5e`, `FRM1–4`, `PER2`) and the rubric dimension set have diverged and are not yet reconciled
 - Scenario authorship and human coding were performed by the same person
 - Human coding is by a single coder; the field standard is 3–5 raters
 - Commercial models are represented by a single vendor
