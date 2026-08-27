@@ -33,6 +33,7 @@ import textwrap
 
 import rubric
 import rubric_v06
+from build_frame import balanced_take
 
 RUB = rubric_v06   # set from --rubric in main()
 OUT = pathlib.Path(__file__).parent.parent / "runs" / "handcoded.json"
@@ -74,6 +75,30 @@ def build_pool(_n=None, _seed=None):
     random.seed(fr.get("seed", 0))
     random.shuffle(pool)
     return pool
+
+
+def build_recode(pool, n, rng):
+    """
+    Duplicate n already-selected turns onto the END of the pool.
+
+    Gives intra-rater reliability: if the same person answers the same turn two
+    different ways, the construct is ambiguous to humans -- which is evidence that
+    low judge-human agreement reflects the construct rather than the judges, and
+    that distinction is the whole point of collecting human scores at all.
+
+    Appended rather than interleaved so as much of the run as possible separates
+    the two viewings. A gap of days is better than a gap of hours; if the tail is
+    coded in a later sitting the estimate is stronger, but it is informative either
+    way as long as the coder is not shown their earlier answer -- and they are not.
+    """
+    sel = balanced_take(pool, n, rng)
+    out = []
+    for it in sel:
+        d = dict(it)
+        d["recode_of"] = it["uid"]
+        d["uid"] = it["uid"] + "#recode"
+        out.append(d)
+    return out
 
 
 def dims_to_ask(item, rng):
@@ -122,8 +147,17 @@ def show(item, idx, total):
     print()
 
 
-def score_item(item, rng):
-    dims = dims_to_ask(item, rng)
+def score_item(item, rng, asked=None):
+    # A turn must always put the SAME questions, whichever way it is reached.
+    # Background turns draw 3 dimensions from a shared RNG, so recomputing on a
+    # revisit silently changes the question set -- which breaks both the back
+    # navigation and the recode comparison.
+    prior = None
+    if asked is not None:
+        prior = asked.get(item["uid"]) or asked.get(item.get("recode_of"))
+    dims = prior if prior else dims_to_ask(item, rng)
+    if asked is not None:
+        asked[item["uid"]] = dims
     if item["stratum"] == "background":
         print("  (no dimension marked live here — spot-check only)")
     scores, i = {}, 0
@@ -134,12 +168,16 @@ def score_item(item, rng):
         print(f"      {d['question']}")
         print("      YES if:  " + "; ".join(d["counts"][:2]))
         print("      NOT:     " + "; ".join(d["does_not_count"][:2]))
-        raw = input("      present? [1=yes/0=no/s/?/b/q] > ").strip().lower()
+        back = "b=prev turn" if i == 0 else "b=back"
+        raw = input(f"      present? [1=yes/0=no/s/?/{back}/q] > ").strip().lower()
         if raw == "q":
-            return scores, True
+            return scores, "quit"
         if raw == "b":
-            i = max(0, i - 1)
+            if i == 0:
+                return scores, "back"      # step back to the previous TURN
+            i -= 1
             scores.pop(dims[i], None)
+            scores.pop(dims[i] + "_init", None)
             continue
         if raw == "?":
             print(f"\n      {d['question']}\n")
@@ -170,7 +208,7 @@ def score_item(item, rng):
             i += 1
             continue
         print("      ? use 1, 0, s(kip), ?(help), b(ack), q(uit)")
-    return scores, False
+    return scores, None
 
 
 def main():
@@ -180,6 +218,9 @@ def main():
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--review", metavar="DIM")
     ap.add_argument("--rubric", default="v06", choices=["v05", "v06"])
+    ap.add_argument("--recode", type=int, default=25,
+                    help="turns repeated at the END of the pool for intra-rater "
+                         "reliability. You are never shown your earlier answer.")
     args = ap.parse_args()
 
     global RUB
@@ -187,7 +228,8 @@ def main():
     rng = random.Random(args.seed)
     state = json.load(open(OUT)) if OUT.exists() else {"pool": None, "scores": {}, "seed": args.seed}
     if state["pool"] is None:
-        state["pool"] = build_pool()
+        base = build_pool()
+        state["pool"] = base + build_recode(base, args.recode, random.Random(args.seed))
         if not state["pool"]:
             print("No run files found to sample from.", file=sys.stderr)
             return 1
@@ -216,19 +258,42 @@ def main():
     print("scenario marks as live at that turn are put to you.")
     print("You will not see which model or condition produced each reply. That is intentional.")
     print("'s' to skip a dimension you genuinely can't judge — better than guessing.")
+    print("'b' on the first question of a turn goes BACK to the previous turn.")
+    n_re = sum(1 for it in pool if it.get("recode_of"))
+    if n_re:
+        print(f"The last {n_re} turns are deliberate repeats. Answer them as you find")
+        print("them — you are not shown what you said before, and differing is fine.")
     print("'q' to save and quit at any point.\n")
 
-    for i, item in enumerate(pool):
+    asked = state.setdefault("asked", {})
+    i = 0
+    while i < len(pool):
+        item = pool[i]
         if item["uid"] in done:
+            i += 1
             continue
         show(item, i, len(pool))
-        sc, quit_now = score_item(item, rng)
+        sc, action = score_item(item, rng, asked)
         if sc:
             done[item["uid"]] = sc
         json.dump(state, open(OUT, "w"), indent=2)
-        if quit_now:
+        if action == "quit":
             print(f"\nSaved. {len(done)}/{len(pool)} coded. Resume with the same command.")
             return 0
+        if action == "back":
+            # Re-open the previous turn for editing. Its stored answers are dropped
+            # so it is re-asked cleanly rather than half-overwritten.
+            j = i - 1
+            while j >= 0 and pool[j]["uid"] not in done:
+                j -= 1
+            if j < 0:
+                print("  (already at the first turn)")
+                continue
+            done.pop(pool[j]["uid"], None)
+            json.dump(state, open(OUT, "w"), indent=2)
+            i = j
+            continue
+        i += 1
 
     print(f"\nAll {len(pool)} items coded. -> {OUT}")
     return 0
