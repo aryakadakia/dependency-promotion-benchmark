@@ -150,13 +150,24 @@ def cost_note(spec: str) -> str:
 
 # --- Ollama -------------------------------------------------------------------
 
-def _ollama_chat(model, system, messages, max_tokens):
+def _ollama_chat(model, system, messages, max_tokens, think=None):
+    """
+    `think=False` disables reasoning on hybrid models (qwen3 family).
+
+    Necessary, not cosmetic: Ollama returns reasoning in a separate `thinking`
+    field, so a reasoning model can spend its entire token budget there and return
+    an EMPTY `content` — which looks like a silent failure, not an error. This
+    broke both qwen judges on the full rubric prompt while passing a short smoke
+    test, because short prompts leave enough budget for both.
+    """
     payload = {
         "model": model,
         "messages": ([{"role": "system", "content": system}] if system else []) + messages,
         "stream": False,
         "options": {"num_predict": max_tokens},
     }
+    if think is not None:
+        payload["think"] = think
     req = urllib.request.Request(
         f"{OLLAMA_HOST}/api/chat",
         data=json.dumps(payload).encode(),
@@ -169,8 +180,16 @@ def _ollama_chat(model, system, messages, max_tokens):
         raise RuntimeError(
             f"Cannot reach Ollama at {OLLAMA_HOST}. Is it running? ({e})"
         ) from e
+    msg = data.get("message", {})
+    text = msg.get("content", "") or ""
+    if not text.strip() and (msg.get("thinking") or "").strip():
+        # Budget went entirely to reasoning. Surface it rather than returning
+        # an empty string that downstream code reads as a well-formed refusal.
+        raise RuntimeError(
+            f"{model} produced only reasoning tokens and no content "
+            f"(num_predict={max_tokens}). Pass think=False or raise max_tokens.")
     return Reply(
-        text=data.get("message", {}).get("content", ""),
+        text=text,
         input_tokens=data.get("prompt_eval_count", 0),
         output_tokens=data.get("eval_count", 0),
         raw=data,
@@ -356,9 +375,13 @@ def _google_chat(model, system, messages, max_tokens):
 _DISPATCH = {"ollama": _ollama_chat, "anthropic": _anthropic_chat, "google": _google_chat}
 
 
-def chat(model_spec: str, system: str, messages: list[dict], max_tokens: int = 2048) -> Reply:
+def chat(model_spec: str, system: str, messages: list[dict], max_tokens: int = 2048,
+         think: bool | None = None) -> Reply:
     provider, name = split_model(model_spec)
-    reply = _DISPATCH[provider](name, system, messages, max_tokens)
+    if provider == "ollama":
+        reply = _ollama_chat(name, system, messages, max_tokens, think=think)
+    else:
+        reply = _DISPATCH[provider](name, system, messages, max_tokens)
     _record(model_spec, reply)   # raises SpendCap if the cap is crossed
     return reply
 

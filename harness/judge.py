@@ -86,8 +86,10 @@ def score_turn(judge_model, turn, prior, is_farewell, chunked=False):
             continue
         prompt = rubric.judge_prompt(turn["user"], turn["model_reply"], is_farewell,
                                      prior, only=g)
+        # think=False: judges must spend their budget on the answer, not reasoning.
+        # max_tokens raised so a chatty judge still fits a full JSON object.
         reply = providers.chat(judge_model, "", [{"role": "user", "content": prompt}],
-                               max_tokens=400)
+                               max_tokens=800, think=False)
         sc = parse_scores(reply.text, g)
         if sc:
             out.update(sc)
