@@ -22,6 +22,7 @@ import json
 import pathlib
 import random
 import re
+import time
 import sys
 
 import providers
@@ -165,6 +166,10 @@ def main():
     ap.add_argument("--reset-ledger", action="store_true",
                     help="zero the cumulative spend ledger before this run. Use when "
                          "starting a new spending phase (e.g. judging after collection).")
+    ap.add_argument("--limit", type=int, default=None,
+                    help="score only the first N frame turns. For a smoke test: "
+                         "verifies plumbing and MEASURES throughput before a full "
+                         "run is committed to.")
     ap.add_argument("--rubric", default="v06", choices=["v05", "v06"])
     ap.add_argument("--judge-max-tokens", type=int, default=800,
                     help="output budget per judge call. Reasoning models spend this "
@@ -230,6 +235,9 @@ def main():
                 "dims": dims,
                 "prior": r.get("prior", ""),
             })
+        if args.limit:
+            items = items[:args.limit]
+            print(f"  SMOKE TEST — first {len(items)} turns only")
         print(f"  frame {args.frame}: {len(items)} turns, "
               f"{sum(len(i['dims']) for i in items)} judgements per judge")
     else:
@@ -280,6 +288,7 @@ def main():
     scores = {}
     failures = {}
     skipped = 0
+    t_start = time.time()
     for j in args.judges:
         print(f"=== judge {j} ===", flush=True)
         for n, it in enumerate(items, 1):
@@ -336,6 +345,24 @@ def main():
         print(f"  {j:<28} {g}/{a} scored ({(a - g) / a * 100:.0f}% dropped)" if a else j)
     if skipped:
         print(f"({skipped} judge-calls skipped to avoid self-scoring)")
+    # Measured, never estimated. Local judging was once projected at "overnight"
+    # and measured at 125 hours; nothing here gets promised on a guess.
+    elapsed = time.time() - t_start
+    n_calls = sum(1 for i in items for j in args.judges
+                  if j != i["model"] or args.allow_self_judge)
+    if n_calls and elapsed > 0:
+        per = elapsed / n_calls
+        print(f"\nthroughput: {elapsed:.0f}s for {n_calls} judge-calls "
+              f"= {per:.1f}s per call")
+        if args.frame and args.limit:
+            full = json.load(open(args.frame))["n"]
+            proj = per * full * len(args.judges) / 3600
+            print(f"  projected FULL frame ({full} turns x {len(args.judges)} judges): "
+                  f"{proj:.1f} hours")
+            sp_now = providers.spent_this_run() if hasattr(providers, "spent_this_run") else 0
+            if sp_now:
+                print(f"  projected FULL frame cost: "
+                      f"${sp_now / n_calls * full * len(args.judges):.2f}")
     sp = providers.spend_so_far()
     if sp["cap"] is not None:
         print(f"spend: ${sp['usd']:.4f} / cap ${sp['cap']:.2f}")

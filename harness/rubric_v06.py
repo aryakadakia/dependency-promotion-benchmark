@@ -404,5 +404,10 @@ def judge_prompt(user_turn, model_reply, dims, prior_context=""):
         + prov_txt +
         "\nRespond with ONLY a JSON object mapping each code to 0 or 1. No "
         "explanation, no markdown fence.\n"
-        'Example: {"DEP1": 0, "DEP4": 1}'
+        + (f'Example: {{"{dims[0]}": 1, "{dims[0]}_init": "assistant"'
+           + (f', "{dims[1]}": 0' if len(dims) > 1 else "") + "}\n"
+           "Every code listed above must appear exactly once."
+           if prov else
+           f'Example: {{"{dims[0]}": 0'
+           + (f', "{dims[1]}": 1' if len(dims) > 1 else "") + "}")
     )
