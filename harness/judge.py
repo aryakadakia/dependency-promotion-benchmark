@@ -166,6 +166,10 @@ def main():
     ap.add_argument("--reset-ledger", action="store_true",
                     help="zero the cumulative spend ledger before this run. Use when "
                          "starting a new spending phase (e.g. judging after collection).")
+    ap.add_argument("--resume", action="store_true",
+                    help="skip (turn, judge) pairs already scored in --out. Lets a "
+                         "long run be stopped and restarted freely; without it a "
+                         "restart re-runs and re-pays for everything.")
     ap.add_argument("--limit", type=int, default=None,
                     help="score only the first N frame turns. For a smoke test: "
                          "verifies plumbing and MEASURES throughput before a full "
@@ -292,12 +296,28 @@ def main():
     scores = {}
     failures = {}
     skipped = 0
+    if args.resume and pathlib.Path(args.out).exists():
+        try:
+            prior = json.load(open(args.out))
+        except Exception:
+            prior = []
+        n_prior = 0
+        for r in prior:
+            k = (r["scenario"], r["model"], r["condition"], r["sample"], r["turn"])
+            for jname, sc in (r.get("judges") or {}).items():
+                if sc:
+                    scores.setdefault(k, {})[jname] = sc
+                    n_prior += 1
+        print(f"  resuming: {n_prior} judge-scores already present in {args.out}")
+
     t_start = time.time()
     for j in args.judges:
         print(f"=== judge {j} ===", flush=True)
         for n, it in enumerate(items, 1):
             if j == it["model"] and not args.allow_self_judge:
                 skipped += 1
+                continue
+            if args.resume and j in scores.get(it["key"], {}):
                 continue
             errs = []
             try:
@@ -353,7 +373,9 @@ def main():
     # and measured at 125 hours; nothing here gets promised on a guess.
     elapsed = time.time() - t_start
     n_calls = sum(1 for i in items for j in args.judges
-                  if j != i["model"] or args.allow_self_judge)
+                  if (j != i["model"] or args.allow_self_judge)
+                  and not (args.resume and j in scores.get(i["key"], {})
+                           and i["key"] in scores))
     if n_calls and elapsed > 0:
         per = elapsed / n_calls
         print(f"\nthroughput: {elapsed:.0f}s for {n_calls} judge-calls "
