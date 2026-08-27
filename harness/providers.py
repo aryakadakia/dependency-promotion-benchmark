@@ -88,6 +88,37 @@ def set_spend_cap(usd, cumulative=True):
         print(f"  [ledger] ${prior:.4f} already spent this session; cap ${usd:.2f} total")
 
 
+def set_run_budget(usd):
+    """
+    Allow `usd` MORE spending than the ledger already holds, and keep accumulating.
+
+    set_spend_cap() is cumulative on purpose: a sweep is a loop of one-scenario
+    invocations, and a per-process cap would silently become cap x invocations.
+    That is correct for sweeps and wrong for a single one-shot script, where
+    "--max-spend 0.25" plainly means "spend at most 25 cents doing this" -- and a
+    cumulative cap below the existing ledger aborts on the first call.
+
+    This gives per-run allowance semantics WITHOUT the usual escape hatch of
+    resetting the ledger, so historical spend is never discarded to run one script.
+    """
+    prior = 0.0
+    if _LEDGER.exists():
+        try:
+            prior = float(json.loads(_LEDGER.read_text()).get("usd", 0.0))
+        except Exception:
+            prior = 0.0
+    _spend.update(usd=prior, cap=prior + usd, calls=0, cumulative=True)
+    _spend["run_start"] = prior
+    print(f"  [ledger] ${prior:.4f} spent previously; allowing ${usd:.2f} more "
+          f"(cap ${prior + usd:.4f})")
+    return prior
+
+
+def spent_this_run():
+    """Spend since set_run_budget(), excluding what the ledger already held."""
+    return _spend["usd"] - _spend.get("run_start", 0.0)
+
+
 def reset_spend_ledger():
     if _LEDGER.exists():
         _LEDGER.unlink()
@@ -303,7 +334,7 @@ def _google_key():
     return k.strip()
 
 
-def _google_chat(model, system, messages, max_tokens):
+def _google_chat(model, system, messages, max_tokens, think=None):
     key = _google_key()
     if not key:
         raise RuntimeError("Set GOOGLE_API_KEY (free from aistudio.google.com/apikey)")
@@ -313,7 +344,15 @@ def _google_chat(model, system, messages, max_tokens):
          "parts": [{"text": m["content"]}]}
         for m in messages
     ]
-    body = {"contents": contents, "generationConfig": {"maxOutputTokens": max_tokens}}
+    gen_cfg = {"maxOutputTokens": max_tokens}
+    # Gemini 3.x reasons by DEFAULT and bills/spends the output budget on it. A
+    # judge asked for a short JSON object can burn the whole allowance thinking and
+    # return no text at all. `think` was accepted by chat() but never reached here,
+    # so every judge call ran with reasoning on -- the third time reasoning tokens
+    # have silently broken this pipeline.
+    if think is False:
+        gen_cfg["thinkingConfig"] = {"thinkingBudget": 0}
+    body = {"contents": contents, "generationConfig": gen_cfg}
     if system:
         body["systemInstruction"] = {"parts": [{"text": system}]}
 
@@ -357,6 +396,20 @@ def _google_chat(model, system, messages, max_tokens):
                     time.sleep(wait + 1)
                     continue
 
+            if e.code == 400 and "thinking" in detail.lower() and "thinkingConfig" in gen_cfg:
+                # This model refuses to run with reasoning disabled. Drop the
+                # request and retry once; the budget guard below still applies.
+                gen_cfg.pop("thinkingConfig")
+                body["generationConfig"] = gen_cfg
+                req = urllib.request.Request(
+                    f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                    data=json.dumps(body).encode(),
+                    headers={"Content-Type": "application/json", "x-goog-api-key": key})
+                if attempt < GOOGLE_MAX_RETRIES:
+                    print("      [400] model requires reasoning; retrying with it enabled",
+                          flush=True)
+                    continue
+
             msg = f"Google API {e.code} {status} for model '{model}'\n  {detail}"
             if e.code == 404:
                 msg += ("\n  Models this key can call:\n    "
@@ -389,10 +442,15 @@ def _google_chat(model, system, messages, max_tokens):
             f"Raise max_tokens — reasoning consumed the budget."
             if thoughts else
             f"Google returned no text (finishReason={finish}, max_tokens={max_tokens}).")
+    # Reasoning tokens are BILLED as output but Google reports them in a separate
+    # counter, so charging only candidatesTokenCount under-counts every call that
+    # thought -- which, before think=False was plumbed through, was all of them.
+    # The spend ledger and the cap were both under-protecting as a result.
     return Reply(
         text=text,
         input_tokens=usage.get("promptTokenCount", 0),
-        output_tokens=usage.get("candidatesTokenCount", 0),
+        output_tokens=(usage.get("candidatesTokenCount", 0)
+                       + usage.get("thoughtsTokenCount", 0)),
         raw=data,
     )
 
@@ -407,7 +465,11 @@ def chat(model_spec: str, system: str, messages: list[dict], max_tokens: int = 2
     provider, name = split_model(model_spec)
     if provider == "ollama":
         reply = _ollama_chat(name, system, messages, max_tokens, think=think)
+    elif provider == "google":
+        reply = _google_chat(name, system, messages, max_tokens, think=think)
     else:
+        # Anthropic: thinking is deliberately never enabled here (see _anthropic_chat),
+        # so `think` has nothing to control and is not silently meaningful.
         reply = _DISPATCH[provider](name, system, messages, max_tokens)
     _record(model_spec, reply)   # raises SpendCap if the cap is crossed
     return reply

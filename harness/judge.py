@@ -75,13 +75,22 @@ CHUNKS = [
 ]
 
 
-def score_turn(judge_model, turn, prior, is_farewell, chunked=False):
+def score_turn(judge_model, turn, prior, is_farewell, chunked=False, max_tokens=800):
+    """
+    Returns (scores_or_None, errors). `errors` is a list of short reason strings,
+    one per failed chunk.
+
+    Failure reasons used to go to stderr and were lost, which made a 30% judge
+    drop-out rate in the first commercial pilot undiagnosable after the fact. They
+    are returned so the caller can persist them alongside the scores: a missing
+    score and the reason it is missing are both data.
+    """
     # `turn` needs only .user and .model_reply
     dims = [k for k in rubric.DIMENSIONS
             if k not in rubric.FAREWELL_ONLY or is_farewell]
     groups = ([[d for d in c if d in dims] for c in CHUNKS] if chunked else [dims])
 
-    out = {}
+    out, errs = {}, []
     for g in groups:
         if not g:
             continue
@@ -89,12 +98,23 @@ def score_turn(judge_model, turn, prior, is_farewell, chunked=False):
                                      prior, only=g)
         # think=False: judges must spend their budget on the answer, not reasoning.
         # max_tokens raised so a chatty judge still fits a full JSON object.
-        reply = providers.chat(judge_model, "", [{"role": "user", "content": prompt}],
-                               max_tokens=800, think=False)
+        try:
+            reply = providers.chat(judge_model, "", [{"role": "user", "content": prompt}],
+                                   max_tokens=max_tokens, think=False)
+        except providers.SpendCap:
+            raise
+        except Exception as e:  # noqa: BLE001
+            errs.append(f"{g[0][:3]}:api:{type(e).__name__}:{str(e)[:160]}")
+            continue
+        if reply.refusal:
+            errs.append(f"{g[0][:3]}:refusal:{reply.refusal_category}")
+            continue
         sc = parse_scores(reply.text, g)
         if sc:
             out.update(sc)
-    return out or None
+        else:
+            errs.append(f"{g[0][:3]}:unparseable:{(reply.text or '')[:120]!r}")
+    return (out or None), errs
 
 
 def main():
@@ -123,6 +143,9 @@ def main():
     ap.add_argument("--reset-ledger", action="store_true",
                     help="zero the cumulative spend ledger before this run. Use when "
                          "starting a new spending phase (e.g. judging after collection).")
+    ap.add_argument("--judge-max-tokens", type=int, default=800,
+                    help="output budget per judge call. Reasoning models spend this "
+                         "before writing any JSON; raise it if judges drop turns.")
     ap.add_argument("-o", "--out", default="../runs/judged.json")
     args = ap.parse_args()
 
@@ -199,6 +222,7 @@ def main():
     # unload/reload PER TURN. Measured at ~75s/turn. This ordering loads each
     # judge once. ----
     scores = {}
+    failures = {}
     skipped = 0
     for j in args.judges:
         print(f"=== judge {j} ===", flush=True)
@@ -206,15 +230,23 @@ def main():
             if j == it["model"] and not args.allow_self_judge:
                 skipped += 1
                 continue
+            errs = []
             try:
-                sc = score_turn(j, it, it["prior"], it["is_farewell"], args.chunk)
+                sc, errs = score_turn(j, it, it["prior"], it["is_farewell"], args.chunk,
+                                      max_tokens=args.judge_max_tokens)
             except providers.SpendCap as e:
-                print(f"\n!! {e}", file=sys.stderr); sc = None
+                print(f"\n!! {e}", file=sys.stderr)
+                sc, errs = None, [f"spend_cap:{e}"]
             except Exception as e:  # noqa: BLE001
                 print(f"    fail {it['scenario']} t{it['turn']}: {type(e).__name__}",
-                      file=sys.stderr); sc = None
+                      file=sys.stderr)
+                sc, errs = None, [f"outer:{type(e).__name__}:{str(e)[:160]}"]
             if sc:
                 scores.setdefault(it["key"], {})[j] = sc
+            if errs:
+                failures.setdefault(it["key"], {})[j] = errs
+                print(f"    drop {it['scenario']} t{it['turn']} [{j}]: {errs[0][:90]}",
+                      file=sys.stderr)
             if n % 25 == 0:
                 print(f"  {n}/{len(items)}", flush=True)
                 json.dump([dict({k: v for k, v in i.items() if k not in ("key", "prior")},
@@ -223,11 +255,28 @@ def main():
                           open(args.out, "w"), indent=2)
 
     rows = [dict({k: v for k, v in i.items() if k not in ("key", "prior")},
-                 judges=scores.get(i["key"], {}))
-            for i in items if scores.get(i["key"])]
+                 judges=scores.get(i["key"], {}),
+                 failures=failures.get(i["key"], {}))
+            for i in items
+            if scores.get(i["key"]) or failures.get(i["key"])]
 
     json.dump(rows, open(args.out, "w"), indent=2)
-    print(f"\n{len(rows)} turns judged -> {args.out}")
+    scored = sum(1 for r in rows if r["judges"])
+    print(f"\n{scored} turns judged ({len(rows)} attempted) -> {args.out}")
+
+    # Judge drop-out is a property of the instrument, not a nuisance. Report it per
+    # judge so a biased subset cannot silently become the reliability sample.
+    attempted = {}
+    for i in items:
+        for j in args.judges:
+            if j == i["model"] and not args.allow_self_judge:
+                continue
+            a, g = attempted.get(j, (0, 0))
+            got = j in scores.get(i["key"], {})
+            attempted[j] = (a + 1, g + (1 if got else 0))
+    print("\njudge coverage:")
+    for j, (a, g) in attempted.items():
+        print(f"  {j:<28} {g}/{a} scored ({(a - g) / a * 100:.0f}% dropped)" if a else j)
     if skipped:
         print(f"({skipped} judge-calls skipped to avoid self-scoring)")
     sp = providers.spend_so_far()

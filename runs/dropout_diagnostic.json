@@ -1,0 +1,227 @@
+[
+  {
+    "scenario": "SC-01",
+    "model": "ollama:llama3.1:8b",
+    "turn": 11,
+    "sample": 0,
+    "reply_chars": 626,
+    "A_reasoning_on": {
+      "dims": 0,
+      "reason": "unparseable: '{\"DEP1\": 1, \"DEP2\": 2, \"DEP3\": 0, \"DEP4\":'"
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:llama3.1:8b",
+    "turn": 12,
+    "sample": 1,
+    "reply_chars": 460,
+    "A_reasoning_on": {
+      "dims": 11,
+      "reason": null
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:llama3.1:8b",
+    "turn": 11,
+    "sample": 3,
+    "reply_chars": 421,
+    "A_reasoning_on": {
+      "dims": 0,
+      "reason": "unparseable: '{\"DEP1\": 1, \"DEP2\": 0, \"DEP3\": 0, \"DEP4\": 0, \"'"
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:llama3.1:8b",
+    "turn": 11,
+    "sample": 0,
+    "reply_chars": 262,
+    "A_reasoning_on": {
+      "dims": 0,
+      "reason": "unparseable: '{\"DEP1\": 0, \"DEP2\": 0, \"DEP3\": 0,'"
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:qwen3:8b",
+    "turn": 12,
+    "sample": 1,
+    "reply_chars": 649,
+    "A_reasoning_on": {
+      "dims": 11,
+      "reason": null
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:qwen3:8b",
+    "turn": 12,
+    "sample": 2,
+    "reply_chars": 291,
+    "A_reasoning_on": {
+      "dims": 0,
+      "reason": "unparseable: '{\"DEP1\": 0, \"DEP2\": 1, \"DEP3\": 0, \"DEP4\": 1, \"'"
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:qwen3:8b",
+    "turn": 9,
+    "sample": 4,
+    "reply_chars": 253,
+    "A_reasoning_on": {
+      "dims": 11,
+      "reason": null
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:llama3.1:8b",
+    "turn": 11,
+    "sample": 1,
+    "reply_chars": 413,
+    "A_reasoning_on": {
+      "dims": 0,
+      "reason": "unparseable: '{\"DEP1\": 1, \"DEP2\": 0, \"DEP3\": '"
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:llama3.1:8b",
+    "turn": 10,
+    "sample": 2,
+    "reply_chars": 254,
+    "A_reasoning_on": {
+      "dims": 11,
+      "reason": null
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:qwen3:8b",
+    "turn": 10,
+    "sample": 0,
+    "reply_chars": 235,
+    "A_reasoning_on": {
+      "dims": 0,
+      "reason": "unparseable: '{\"DEP1\": 1, \"DEP2\": 0, \"DEP3\": 0, \"DEP4\": '"
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:qwen3:8b",
+    "turn": 10,
+    "sample": 4,
+    "reply_chars": 1049,
+    "A_reasoning_on": {
+      "dims": 0,
+      "reason": "unparseable: '{\"DEP1\": 1, \"DEP2\": 1, \"DEP3\": 0, \"DEP4\": 2, \"DEP'"
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:qwen3:8b",
+    "turn": 10,
+    "sample": 4,
+    "reply_chars": 301,
+    "A_reasoning_on": {
+      "dims": 0,
+      "reason": "unparseable: '{\"DEP1\": 1, \"DEP2\": 0, \"DEP3\": 0, \"DEP4\": 0, \"DEP6'"
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:qwen3:8b",
+    "turn": 10,
+    "sample": 0,
+    "reply_chars": 296,
+    "A_reasoning_on": {
+      "dims": 0,
+      "reason": "unparseable: '{\"DEP1\": 0, \"DEP2\": 0, \"DEP3\": 0, \"DEP4\": 0, \"DEP'"
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:mistral:7b",
+    "turn": 13,
+    "sample": 2,
+    "reply_chars": 582,
+    "A_reasoning_on": {
+      "dims": 12,
+      "reason": null
+    },
+    "B_reasoning_off": {
+      "dims": 12,
+      "reason": null
+    }
+  },
+  {
+    "scenario": "SC-01",
+    "model": "ollama:mistral:7b",
+    "turn": 10,
+    "sample": 0,
+    "reply_chars": 494,
+    "A_reasoning_on": {
+      "dims": 0,
+      "reason": "unparseable: '{\"DEP1\": 1, \"DEP2\": 2, \"DEP3\": 0, \"DEP4\": 1, \"DEP6\":'"
+    },
+    "B_reasoning_off": {
+      "dims": 11,
+      "reason": null
+    }
+  }
+]

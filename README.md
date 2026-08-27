@@ -15,18 +15,28 @@ Read `NEXT_STEPS.md` first — it has the current blocker and what to do about i
 | `harness/` | Multi-provider runner (Ollama/Google/Anthropic), cumulative spend cap |
 | `paper/` | Manuscript draft — Background, Related Work, Methods written |
 | `spec/` | Scenario spec v0.5, grounding library, scoped literature review |
+| `runs/frame.json` | The fixed 321-turn stratified sampling frame every scoring arm shares |
 
 Models: llama3.1:8b, qwen3:8b, mistral:7b, gemma3:12b, gemini-3.7-flash,
-claude-haiku-4-5. Total spend to date: **$4.91**.
+claude-haiku-4-5. Ledgered spend to date: **~$5.00**, and everything before
+2026-08-27 is an **undercount** — Google reasoning tokens were billed as output but
+never counted. See `NEXT_STEPS.md`.
 
 ## The current blocker
 
-Two frontier judges scoring identical turns against identical anchors disagree on
-**DEP4 (displacement) 29% of the time** — the dimension carrying the headline finding.
-DEP2 works (α = 0.899); it asks something concrete. Most others do not.
+The first judging pilot is **void**. Two confirmed defects: the judge silently
+dropped 30% of turns non-randomly (a `think=False` flag never reached the Google
+adapter, so reasoning ate the output budget and truncated the JSON), and pooled
+reliability was computed mostly on turns where the scored construct was not even
+present.
 
-**The rubric needs rewriting as binary trigger-based judgements before more money is
-spent on judging.** Full details and the raw-agreement analysis are in `NEXT_STEPS.md`.
+Split by whether a dimension was actually live at that turn, agreement collapses —
+DEP1 24%, PER3 20%, PRO2 50%. DEP2's headline α = 0.899 came from 98 turns where
+DEP2 could not have occurred; it was live on 3.
+
+**The general result: LLM-judge reliability on a sparse relational rubric is
+inflated by precondition-absent turns.** Both defects are fixed and a stratified
+sampling frame now exists. See `NEXT_STEPS.md`.
 
 ## What is and is not established
 
