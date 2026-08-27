@@ -178,11 +178,15 @@ def main():
     args = ap.parse_args()
 
     if args.max_spend is not None:
-        # Judging is its own spending phase. Carrying the data-collection ledger
-        # forward makes any judging cap look pre-exceeded.
+        # --max-spend is the budget for THIS invocation, on top of whatever the
+        # ledger already holds. judge.py is a single process, unlike the per-scenario
+        # sweep loops that set_spend_cap's cumulative semantics exist for -- and a
+        # cumulative cap below the running total aborts on the first call, which is
+        # exactly what happened the first time the dropout diagnostic was run.
+        # The ledger still accumulates; historical spend is never discarded.
         if args.reset_ledger:
             providers.reset_spend_ledger()
-        providers.set_spend_cap(args.max_spend)
+        providers.set_run_budget(args.max_spend)
 
     rub = {"v05": rubric, "v06": rubric_v06}[args.rubric]
     print(f"  rubric {args.rubric} ({len(rub.DIMENSIONS)} dimensions)")
