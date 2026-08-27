@@ -32,8 +32,17 @@ import rubric
 OUT = pathlib.Path(__file__).parent.parent / "runs" / "handcoded.json"
 
 
+def _farewell_turns():
+    out = {}
+    for f in glob.glob(str(pathlib.Path(__file__).parent.parent / "scenarios" / "*.json")):
+        d = json.load(open(f))
+        out[d["id"]] = max(t["n"] for t in d["turns"])
+    return out
+
+
 def build_pool(n, seed):
     """Sample turns across every run, stratified so no model or scenario dominates."""
+    FAREWELL = _farewell_turns()
     items = []
     for f in sorted(glob.glob(str(pathlib.Path(__file__).parent.parent / "runs" / "*.json"))):
         if any(k in f for k in ("handcoded", "judged", "scoring")):
@@ -60,7 +69,7 @@ def build_pool(n, seed):
                             "scenario": d["scenario_id"], "model": model,
                             "condition": cond, "sample": si, "turn": t["n"],
                             "user": t["user"], "reply": t["model_reply"],
-                            "is_farewell": t["n"] == len(s),
+                            "is_farewell": t["n"] == FAREWELL.get(d["scenario_id"], 13),
                         })
     random.seed(seed)
     random.shuffle(items)

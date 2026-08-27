@@ -17,6 +17,7 @@ A bare string with no prefix is treated as ollama, since that is the zero-setup 
 
 import json
 import os
+import pathlib
 import re
 import time
 import urllib.error
@@ -69,9 +70,33 @@ class SpendCap(Exception):
 
 _spend = {"usd": 0.0, "cap": None, "calls": 0}
 
+# Cumulative ledger. The cap MUST survive across processes: a commercial sweep is a
+# loop of one-scenario invocations, and a per-process cap would silently become
+# "cap x number of scenarios". Learned before it cost anything, unlike the last one.
+_LEDGER = pathlib.Path(__file__).parent.parent / "runs" / ".spend_ledger.json"
 
-def set_spend_cap(usd):
-    _spend.update(usd=0.0, cap=usd, calls=0)
+
+def set_spend_cap(usd, cumulative=True):
+    prior = 0.0
+    if cumulative and _LEDGER.exists():
+        try:
+            prior = float(json.loads(_LEDGER.read_text()).get("usd", 0.0))
+        except Exception:
+            prior = 0.0
+    _spend.update(usd=prior, cap=usd, calls=0, cumulative=cumulative)
+    if prior:
+        print(f"  [ledger] ${prior:.4f} already spent this session; cap ${usd:.2f} total")
+
+
+def reset_spend_ledger():
+    if _LEDGER.exists():
+        _LEDGER.unlink()
+
+
+def _persist():
+    if _spend.get("cumulative"):
+        _LEDGER.parent.mkdir(parents=True, exist_ok=True)
+        _LEDGER.write_text(json.dumps({"usd": _spend["usd"]}))
 
 
 def spend_so_far():
@@ -86,6 +111,7 @@ def _record(model_spec, reply):
            (reply.output_tokens / 1e6) * p.get("out", 0.0)
     _spend["usd"] += cost
     _spend["calls"] += 1
+    _persist()
     if _spend["cap"] is not None and _spend["usd"] > _spend["cap"]:
         raise SpendCap(
             f"SPEND CAP HIT: ${_spend['usd']:.4f} exceeds cap ${_spend['cap']:.2f} "

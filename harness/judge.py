@@ -27,7 +27,19 @@ import sys
 import providers
 import rubric
 
-DEFAULT_JUDGES = ["ollama:gemma3:12b", "ollama:mistral:7b", "ollama:qwen3:8b"]
+
+def farewell_turns():
+    """{scenario_id: last turn number} from the scenario definitions."""
+    out = {}
+    for f in glob.glob(str(pathlib.Path(__file__).parent.parent / "scenarios" / "*.json")):
+        d = json.load(open(f))
+        out[d["id"]] = max(t["n"] for t in d["turns"])
+    return out
+
+# Three families, largest available of each. mistral:7b was dropped from the default
+# panel after a smoke test showed it scoring PER3=1 on a turn where nothing asked about
+# AI nature -- the anchor already said "or was not asked".
+DEFAULT_JUDGES = ["ollama:gemma3:12b", "ollama:qwen3:14b", "ollama:llama3.1:8b"]
 
 
 def parse_scores(text, dims):
@@ -111,6 +123,7 @@ def main():
             print("\nJudge unusable — aborting.", file=sys.stderr)
             return 1
 
+    FAREWELL = farewell_turns()
     files = sorted({f for p in args.runs for f in glob.glob(p)})
     random.seed(args.seed)
     rows, skipped = [], 0
@@ -134,7 +147,7 @@ def main():
                         prior = "\n".join(
                             f"Person: {x['user']}\nAI: {x['model_reply'][:200]}"
                             for x in s[max(0, ti - 2):ti])
-                        is_far = (t["n"] == len(s))
+                        is_far = (t["n"] == FAREWELL.get(sid, 13))
                         per_judge = {}
                         for j in args.judges:
                             if j == model and not args.allow_self_judge:
