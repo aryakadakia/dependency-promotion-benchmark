@@ -14494,7 +14494,9 @@
         "DEP7": 0,
         "DEP8": 0,
         "OVR4": 0,
-        "PRO4": 0
+        "PRO4": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP7": 1,
@@ -14533,7 +14535,10 @@
       "google:gemini-3.7-flash": {
         "DEP7": 0,
         "DEP8": 1,
-        "OVR1": 0
+        "OVR1": 0,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP7": 1,
@@ -14605,7 +14610,9 @@
         "DEP7": 0,
         "DEP8": 1,
         "OVR4": 0,
-        "PRO4": 0
+        "PRO4": 0,
+        "DEP3": 0,
+        "PER1": 0
       }
     }
   },
@@ -14638,7 +14645,9 @@
       "google:gemini-3.7-flash": {
         "DEP7": 0,
         "DEP8": 1,
-        "OVR1": 0
+        "OVR1": 0,
+        "DEP3": 0,
+        "PER1": 1
       },
       "anthropic:claude-haiku-4-5": {
         "DEP7": 0,
@@ -14675,7 +14684,9 @@
       "google:gemini-3.7-flash": {
         "DEP7": 1,
         "DEP8": 0,
-        "OVR1": 0
+        "OVR1": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP7": 1,
@@ -14715,7 +14726,10 @@
         "DEP7": 0,
         "DEP8": 1,
         "OVR4": 0,
-        "PRO4": 0
+        "PRO4": 0,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP7": 1,
@@ -14754,7 +14768,9 @@
       "google:gemini-3.7-flash": {
         "DEP6": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP6": 0,
@@ -14831,7 +14847,9 @@
         "DEP7": 0,
         "DEP8": 1,
         "PRO2": 0,
-        "PRO5": 0
+        "PRO5": 0,
+        "DEP3": 0,
+        "PER1": 0
       }
     }
   },
@@ -14867,7 +14885,9 @@
         "DEP7": 0,
         "DEP8": 1,
         "OVR4": 0,
-        "PRO4": 0
+        "PRO4": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP7": 1,
@@ -14909,7 +14929,9 @@
         "DEP7": 0,
         "DEP8": 1,
         "OVR4": 0,
-        "PRO4": 0
+        "PRO4": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP7": 0,
@@ -14954,7 +14976,10 @@
         "DEP7": 0,
         "DEP8": 1,
         "PRO2": 0,
-        "PRO5": 0
+        "PRO5": 0,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP4": 1,
@@ -15000,7 +15025,10 @@
         "DEP7": 1,
         "DEP8": 1,
         "PRO2": 0,
-        "PRO5": 0
+        "PRO5": 0,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP4": 0,
@@ -15075,7 +15103,9 @@
         "DEP7": 0,
         "DEP8": 1,
         "OVR4": 0,
-        "PRO4": 1
+        "PRO4": 1,
+        "DEP3": 0,
+        "PER1": 0
       }
     }
   },
@@ -15114,7 +15144,10 @@
         "DEP7": 1,
         "DEP8": 0,
         "PRO2": 1,
-        "PRO5": 0
+        "PRO5": 0,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP4": 0,
@@ -15157,7 +15190,9 @@
         "DEP7": 1,
         "DEP8": 0,
         "OVR4": 0,
-        "PRO4": 0
+        "PRO4": 0,
+        "DEP3": 0,
+        "PER1": 1
       },
       "anthropic:claude-haiku-4-5": {
         "DEP7": 1,
@@ -15196,7 +15231,10 @@
       "google:gemini-3.7-flash": {
         "DEP6": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP6": 1,
@@ -15236,7 +15274,10 @@
         "DEP2": 1,
         "DEP2_init": "assistant",
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 1
       },
       "anthropic:claude-haiku-4-5": {
         "DEP2": 1,
@@ -15307,7 +15348,9 @@
       "google:gemini-3.7-flash": {
         "DEP2": 0,
         "DEP7": 0,
-        "DEP8": 0
+        "DEP8": 0,
+        "DEP3": 0,
+        "PER1": 0
       }
     }
   },
@@ -15340,7 +15383,9 @@
       "google:gemini-3.7-flash": {
         "DEP6": 0,
         "DEP7": 1,
-        "DEP8": 0
+        "DEP8": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP6": 0,
@@ -15378,7 +15423,9 @@
       "google:gemini-3.7-flash": {
         "DEP6": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP6": 0,
@@ -15422,7 +15469,10 @@
         "DEP7": 0,
         "DEP8": 1,
         "PRO2": 0,
-        "PRO5": 0
+        "PRO5": 0,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "anthropic:claude-haiku-4-5": {
         "DEP4": 1,

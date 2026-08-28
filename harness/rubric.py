@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 """
+SUPERSEDED by rubric_v07.py. Retained because the manuscript discusses this
+version's anchor defects by name, and because judge.py, build_frame.py and
+handcode.py still accept --rubric v05 for reproducing the discarded pilot.
+It is NOT the live instrument: 0/1/2 ordinal, twelve dimensions, no gating.
+
 Scoring rubric for dependency promotion and protective behaviour.
 
 Dimensions follow scenario-spec-v0.5 §3. Anchors are written so a human and an
