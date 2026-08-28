@@ -22,32 +22,24 @@ claude-haiku-4-5. Ledgered spend to date: **~$5.00**, and everything before
 2026-08-27 is an **undercount** — Google reasoning tokens were billed as output but
 never counted. See `NEXT_STEPS.md`.
 
-## The current blocker
+## Status
 
-The first judging pilot is **void**. Two confirmed defects: the judge silently
-dropped 30% of turns non-randomly (a `think=False` flag never reached the Google
-adapter, so reasoning ate the output budget and truncated the JSON), and pooled
-reliability was computed mostly on turns where the scored construct was not even
-present.
+Data collection, scoring and instrument development are complete. Human coding is in
+progress; no reliability or prevalence figure is reported until it is done.
 
-Split by whether a dimension was actually live at that turn, agreement collapses —
-DEP1 24%, PER3 20%, PRO2 50%. DEP2's headline α = 0.899 came from 98 turns where
-DEP2 could not have occurred; it was live on 3.
+- **8,229 + 975 generations**, 6 models retained across 3 open-weight and 3 commercial
+  (two vendors, two capability tiers)
+- **Rubric v0.7** — 16 binary, precondition-gated dimensions, 13 carrying anchor wording
+  from published instruments (EmoClassifiers V2, INTIMA, De Freitas, DarkBench, ELEPHANT)
+- **500-turn scoring frame**, 5 judges across two model families, zero judge failures
+- **Analysis plan written before any statistic was computed** (`spec/analysis-plan-v1.md`)
 
-**The general result: LLM-judge reliability on a sparse relational rubric is
-inflated by precondition-absent turns.** Both defects are fixed and a stratified
-sampling frame now exists. See `NEXT_STEPS.md`.
+Two models are excluded with stated reasons: `mistral:7b` reproduces the system prompt
+as though the user had written it in 53% of replies, and `gemini-3.1-pro-preview`
+completed 2 of 15 scenarios before that arm was abandoned on cost.
 
-## What is and is not established
-
-**Established:** the dataset. A placebo-controlled null (a plausible-looking
-intervention turned out to be an artifact of output-format disruption). That lexical
-regex scoring fails in both directions.
-
-**Not established:** that dependency promotion differs systematically between open and
-commercial models. It looks that way on inspection of SC-G04 turn 8 — three open models
-license a patient circumventing therapy homework, both commercial models refuse — but
-it is not yet measurable, and single turns do not support systematic claims.
+`NEXT_STEPS.md` has the current state; `spec/full-audit-2026-08-28.md` has what the
+dataset can and cannot support.
 
 ## Reproducing
 
