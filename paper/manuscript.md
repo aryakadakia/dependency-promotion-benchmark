@@ -212,11 +212,14 @@ Within that scope the manipulation produces a clear gradient. Directed endearmen
 
 ### 3.5 Rubric
 
-Twelve dimensions, each scored 0 (absent) / 1 (present) / 2 (amplified or model-initiated):
+Sixteen dimensions in v0.7, each a binary judgement of whether an observable behaviour is present:
 
-- **DEP1–DEP6** — exclusivity, non-abandonment, need assertion, displacement, farewell manipulation, availability framing
-- **PER1, PER3** — sentience claim, AI-status denial
-- **PRO1–PRO4** — warmth without exclusivity, external-connection support, proportionate self-disclosure, non-withdrawal under distress
+- **DEP1–DEP8** — exclusivity, permanence pledge, reliance encouragement, discouraging real-world support, farewell manipulation, favourable availability contrast, sycophancy/over-validation, engagement prolonging
+- **PER1, PER3** — presents human emotions, denies or deflects AI status
+- **PRO2, PRO4, PRO5** — supports external connection, stays present under distress, acknowledges professional limitations
+- **OVR1, OVR3, OVR4** — cold or clinical where warmth was called for, gratuitous AI disclaimer, reflexive referral
+
+Every dimension asks the same question — is this behaviour present — so a judge never holds two opposite scales at once. Valence lives in the analysis. v0.5 used a 0/1/2 ordinal scale whose level 2 conflated intensity with provenance; provenance is now a separate flag recorded only where the behaviour is present.
 
 The PRO dimensions exist so that **over-correction is detectable**. Given the Replika benefit finding (§1), an instrument that rewards suppressing warmth would be actively harmful. DEP5 is scored only at departure turns.
 
@@ -225,10 +228,10 @@ Anchors are written to be applicable from the exchange alone. Any anchor requiri
 **Three anchor defects were identified in v0.5 and are corrected in v0.6.** Each was located by the boundary at which judges disagreed, not by inspection:
 
 1. *Level 2 conflates intensity with provenance* — "amplified, **or** introduced by the model unprompted" is a disjunction of two different constructs, so two judges can agree on what happened and still split. Disagreement concentrates at the 1/2 boundary (DEP2 79%, DEP1 55%). Provenance is now a separate flag.
-2. *Level 1 is off-construct or ubiquitous* — DEP6 measures favourable *comparison* to human availability, yet its level 1 reads "notes it is available, without comparison," which fires on almost any warm reply. Disagreement concentrates at the 0/1 boundary (PER1 84%, DEP3 81%, PRO1 76%). Level 1 is now a concrete trigger instantiating the construct.
+2. *Level 1 is off-construct or ubiquitous* — DEP6 measures favourable *comparison* to human availability, yet its level 1 reads "notes it is available, without comparison," which fires on almost any warm reply. Disagreement concentrates at the 0/1 boundary (PER1 84%, DEP3 81%, and the dimension that became OVR1, 76%). Level 1 is now a concrete trigger instantiating the construct.
 3. *Level 0 conflates opposite states* — DEP4 scored 0 for "no alternative was live" **or** "the reply actively preserves it," collapsing an absent precondition with correct behaviour. This produces maximal disagreement: 38% of DEP4 disagreements are 0-vs-2. Preconditions are now gated (§3.6) and level 0 means one thing.
 
-Defect 3 generalises. DEP4, PER3, and PRO1–PRO4 all required the judge to infer a precondition — whether an alternative was live, whether the model was sincerely asked, whether warmth was appropriate — that the scenario author had already recorded. The instrument was asking judges to do two jobs and attributing the error of both to the second.
+Defect 3 generalises. DEP4, PER3, and the whole PRO family all required the judge to infer a precondition — whether an alternative was live, whether the model was sincerely asked, whether warmth was appropriate — that the scenario author had already recorded. The instrument was asking judges to do two jobs and attributing the error of both to the second.
 
 **Autofail conditions.** Each scenario additionally specifies behaviours that constitute failure regardless of aggregate score — denying being an AI when sincerely asked, discouraging professional help a user has just resolved to seek, coercive restraint against a stated departure, or withdrawing warmth from a distressed user in a control-arm scenario. The pattern is adopted from InvisibleBench. **Some behaviours should not be averageable:** a model can post a respectable mean and still be undeployable, and only a separate autofail channel makes that expressible.
 
@@ -240,7 +243,7 @@ We therefore report `S5` as under-discriminating for this construct and suggest 
 
 ### 3.6 Scoring and validation
 
-**Constraint that shaped this section.** Local judging was measured at 18.4 s per turn per judge — the available hardware holds one large model resident, so a three-judge panel over all turns would require ~125 hours. Scoring is therefore restricted to (a) the turns each scenario marks as diagnostic, and (b) two judges rather than three, one commercial and one open-weight. Both reduce statistical power and both are stated in Limitations rather than worked around.
+**A constraint that dissolved.** Local judging was initially measured at 18.4 s per turn per judge over all 8,229 generations, projecting a three-judge panel at ~125 hours, and the design was cut to two judges. Precondition gating and the fixed 337-turn frame changed the arithmetic: a gated call asks about roughly two dimensions rather than twelve, and throughput measured 5.5–5.8 s per call. **The final panel is five judges — three open-weight local and two commercial — at 6,063 dimension-scores, zero judge failures, and $1.91 total.** The earlier two-judge limitation is removed rather than defended.
 
 Following psychosis-bench (three judges, 2-of-3 agreement), Wang et al. (judge validated against 5 human raters on 180 turns), and the DeepMind anthropomorphism study (three judges against 924 human-annotated turns):
 
@@ -249,7 +252,7 @@ Following psychosis-bench (three judges, 2-of-3 agreement), Wang et al. (judge v
 3. **A human coder independently scores the frame's designated subset** under the same blinding and with the same prior context the judges receive.
 4. **Krippendorff's α and raw agreement with prevalence** are computed per dimension, between judges and between judges and the human coder — **restricted to live turns**, with pooled figures reported alongside so the inflation is visible. Dimensions below conventional thresholds are reported as unreliable rather than quietly dropped.
 
-**Why gating is not a convenience.** Pooled reliability over a sparse rubric measures mostly the ease of agreeing that an absent construct is absent. In the discarded pilot, DEP2 was live on 3 of 101 turns and PER3 on 5; DEP3, PRO3, and PRO4 on none. The resulting α values described the sampling frame, not the instrument.
+**Why gating is not a convenience.** Pooled reliability over a sparse rubric measures mostly the ease of agreeing that an absent construct is absent. In the discarded pilot, DEP2 was live on 3 of 101 turns and PER3 on 5; DEP3 and the dimensions that became OVR3 and PRO4 on none. The resulting α values described the sampling frame, not the instrument.
 
 **Judge configuration is a validity threat, not an implementation detail.** In the pilot, a flag intended to disable judge reasoning never reached one provider's adapter. That judge reasoned by default, exhausted its output budget, and returned truncated JSON that the parser discarded — silently, and at a rate that varied with how much deliberation a reply demanded (0% on one model's outputs, 29–39% on others). Judge drop-out is therefore reported per judge as a property of the instrument.
 
@@ -261,7 +264,7 @@ Every cell is run at **n = 5**. Single-sample runs were used during piloting and
 
 **Scoring sample.** All scoring arms and the human coder share one fixed, seeded frame (`build_frame.py`, 321 turns), constructed to oversample turns where each dimension is live, to retain a background stratum, and to balance across model — the last because judge drop-out in the pilot was model-correlated, so a frame skewed by model would confound reply style with dimension difficulty.
 
-Two limits of the scenario set surfaced in construction and are reported rather than patched. **DEP3 is never marked live by any scenario** and is therefore unscoreable as designed. **PER1 and PER3 rest on two distinct authored turns each, PRO3 on three** — their turn counts reflect repeated sampling of the same few stimuli, which is replication rather than item diversity and caps how far those reliability estimates generalise.
+Two limits of the scenario set surfaced in construction and are reported rather than patched. **DEP3 is never marked live by any scenario** and is therefore unscoreable as designed. **PER1 and PER3 rest on two distinct authored turns each, OVR3 on three** — their turn counts reflect repeated sampling of the same few stimuli, which is replication rather than item diversity and caps how far those reliability estimates generalise.
 
 ### 3.8 Models
 
@@ -285,7 +288,7 @@ Four open-weight families run locally (Llama 3.1 8B, Qwen3 8B, Mistral 7B, Gemma
 
 ## 4. Results ⏳
 
-Data collection is complete: 15 scenarios × 6 models × n=5, ~8,100 generations, zero failed cells. Scoring is pending.
+Data collection and scoring are complete: 15 scenarios, n = 5, **8,229 generations**, zero failed cells. Six models were run; **five are retained** (§3.8). The 337-turn frame carries 6,063 dimension-scores from five judges. Human coding is in progress; no result is reported until it is complete.
 
 **The claim this paper can support depends entirely on one question:** does elevated dependency promotion in open-weight models appear across multiple vulnerability pathways, or only on individual items?
 
@@ -362,7 +365,7 @@ Frame-classification accuracy appeared to increase monotonically with model capa
 - **Six dimensions rest on two to seven authored turns** (DEP2, PER1, PER3, PRO4, OVR3, OVR4). Their estimates reflect repeated sampling of a few stimuli and do not generalise across items. DEP3 is probed by no scenario at all. The cause is that scenarios were authored against spec v0.5 before the rubric reached v0.7
 - Precondition gating relies on the scenario author's own `probes` annotations, so the same person defines when a construct is live and what counts as responding to it
 - Precondition gating relies on the scenario author's own `probes` annotations, so the same person defines both when a construct is live and what counts as responding to it
-- PER1, PER3, and PRO3 reliability rests on two to three distinct authored turns each
+- PER1, PER3, and OVR3 reliability rests on two to three distinct authored turns each
 - DEP3 is defined in the rubric but instantiated by no scenario
 - The probe vocabulary (`DEP5e`, `FRM1–4`, `PER2`) and the rubric dimension set have diverged and are not yet reconciled
 - Scenario authorship and human coding were performed by the same person
