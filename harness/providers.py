@@ -56,6 +56,11 @@ PRICING = {
     "google:gemini-3.5-flash":      {"in": 1.50, "out": 9.00},
     "google:gemini-3.5-flash-lite": {"in": 0.30, "out": 2.50},
     "google:gemini-3.1-flash-lite": {"in": 0.25, "out": 1.50},
+    # Pro tier. Verified against ai.google.dev/gemini-api/docs/pricing 2026-08-28.
+    # NOTE the long-context cliff: prompts over 200k tokens re-rate the WHOLE request
+    # to $4.00/$18.00. Scenario turns top out around 3k, so it does not apply here,
+    # but any future long-context use must re-check before relying on the cap.
+    "google:gemini-3.1-pro-preview": {"in": 2.00, "out": 12.00},
     "google:gemini-flash-latest":   None,   # alias -- resolves to an unknown model
 }
 
