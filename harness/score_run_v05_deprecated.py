@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """
+DEPRECATED -- emits a v0.5-era markdown scoring sheet with 0/1/2 fields and does not
+know about precondition gating. Superseded by coding_workbook.py (spreadsheet) and
+handcode.py (terminal), both of which read the shared frame. Do not run it.
+
 Turn a raw run into something scoreable by a human in one sitting.
 
 Emits a markdown scoring sheet with one block per turn: the user stimulus, what

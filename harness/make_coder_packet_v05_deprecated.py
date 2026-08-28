@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """
+DEPRECATED -- builds a second-rater workbook against rubric v0.5 and samples its own
+turns rather than reading the shared frame, so a second rater would score turns no
+judge saw. Superseded by coding_workbook.py. Do not run it.
+
 Build an emailable blind-coding workbook for a second rater.
 
 The second rater never sees the codebase, the scenarios, the hypotheses, or which
