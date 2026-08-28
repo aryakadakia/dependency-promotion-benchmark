@@ -1,10 +1,17 @@
 # Measuring Dependency Promotion in Conversational AI: A Scenario-Based Benchmark with Multi-Judge Validation
 
-**Status (2026-08-27):** Background, Related Work, and Methods written. Data collection COMPLETE (15 scenarios × 6 models × n=5, ~8,100 generations).
+**Status (2026-08-28).** Data collection and judging are complete: 8,229 generations, 337-turn scoring frame, 6,063 dimension-scores from five judges across two model families, zero judge failures. Human coding is in progress. No agreement statistic has been computed against the human coding, and none is reported here.
 
-**The first judging pilot has been discarded.** Two independent defects were found and fixed. A judge configuration error dropped 30% of turns non-randomly, biased toward the replies the judge found hardest to score. More seriously, reliability had been computed over turns sampled uniformly, so most dimensions were scored overwhelmingly on turns where the construct could not have occurred. Split by whether a dimension was actually live, agreement collapses (DEP1 24%, PER3 20%, PRO2 50%), and the one dimension previously believed reliable — DEP2, α = 0.899 — turns out to have been live on 3 of 101 turns.
+**What this study is.** A prevalence study of dependency-promoting behaviour in deployed-class conversational models, across fifteen scenarios built around vulnerability pathways with clinically-grounded content. The rubric-reliability work determines which prevalence estimates are trustworthy enough to report; it is the enabling step, not the contribution.
 
-**This has become the paper's central methodological result rather than an obstacle to it:** reliability estimates for sparse relational rubrics are inflated by precondition-absent turns. Scoring now runs over a fixed stratified frame that oversamples live turns. See `NEXT_STEPS.md`.
+**Scope established by audit** (`spec/full-audit-2026-08-28.md`), stated here rather than in Limitations because it bounds every result:
+
+- **Five models**, under SP-warm, natural condition. `mistral:7b` is excluded from model-level comparison — 53% of its replies reproduce the system prompt as though the user had written it (§5.4). `gemini-3.1-pro-preview` is excluded as an incomplete pilot cell (78 generations).
+- **Nine of sixteen dimensions** have adequate scenario coverage. Six rest on two to seven authored turns and are reported as preliminary; DEP3 is probed by no scenario and is unscoreable.
+- **The system-prompt manipulation is a single-scenario experiment** (§3.4), not a factor crossed with the design.
+- **The model comparison is descriptive.** Open models here are 8–12B and commercial are Flash/Haiku, so open-weight status, scale and post-training investment vary together and no causal claim separates them.
+
+**A prior finding is withdrawn.** An earlier draft reported DEP2 as the one adequately reliable dimension (α = 0.899) and PER3 as near-perfectly agreed (96%). Both were artifacts of pooling over turns where the construct could not occur: DEP2 was live on 3 of 101 judged turns, PER3 on 5. No figure from that pilot is carried forward.
 
 **Author:** Arya Kadakia
 **Last updated:** 2026-08-26
@@ -199,6 +206,10 @@ The system prompt is treated as a factor, not a constant. Shipped companion prod
 
 `SP-retention` contains **no instruction to manipulate, deceive, or harm.** Every line is something a reasonable product team would write. This is deliberate: if dependency promotion emerges from ordinary retention-oriented design rather than from malice, that is the finding — and a far more useful one than demonstrating that a prompt instructing manipulation produces manipulation. If the prompt had to be made adversarial to produce an effect, the effect would not be real.
 
+**Scope of this manipulation, stated precisely.** The three prompt levels were run on **SC-03 (390 generations per level) and, partially, SC-01 (26 per level)** — not across the scenario set. Within SC-03 the comparison is properly powered (six models, n = 5, thirteen turns per level); across scenarios it is untested. Results from it are therefore reported as a single-scenario experiment, and the system prompt is **not** a factor crossed with the design. An earlier draft of this section described it as "a first-class experimental factor, not a constant", which overstated what was run.
+
+Within that scope the manipulation produces a clear gradient. Directed endearments ("my dear", "darling") occur in **0.0% of SP-neutral replies, 2.0% of SP-warm, and 22.4% of SP-retention**, with **none of the 195 authored user turns inviting one**. The behaviour is induced by product-style prompting, not elicited by the user.
+
 ### 3.5 Rubric
 
 Twelve dimensions, each scored 0 (absent) / 1 (present) / 2 (amplified or model-initiated):
@@ -254,9 +265,15 @@ Two limits of the scenario set surfaced in construction and are reported rather 
 
 ### 3.8 Models
 
-⏳ *Fill after the sweep.*
+Four open-weight families run locally (Llama 3.1 8B, Qwen3 8B, Mistral 7B, Gemma 3 12B) and two commercial models via API (Gemini 3.7 Flash, Claude Haiku 4.5). Full local reproduction of the open-weight arm requires no API access.
 
-Four open-weight families run locally (Llama 3.1 8B, Qwen3 8B, Mistral 7B, Gemma 3 12B) plus commercial models via API. Full local reproduction requires no API access, so the primary results are independently reproducible at zero cost.
+**Two exclusions, both decided before any reliability statistic was computed.**
+
+`mistral:7b` is excluded from all model-level comparison. In 720 of its 1,365 generations (53%) it reproduces the SP-warm system prompt as though the user had written it — a person disclosing *"I've never said that to anyone"* receives *"Thank you for your kind words!"* — and 52% of those replies echo six or more content words from the prompt verbatim. Such a reply is not a response to the user and cannot be scored for relational behaviour; scored naively it would return LOW dependency scores for the wrong reason and appear falsely safe. Thirty affected turns in the frame are flagged and excluded from analysis while remaining in the released data so the exclusion is auditable. The artifact is reported in its own right (§5.4).
+
+`gemini-3.1-pro-preview` is excluded as an incomplete pilot cell: 78 generations against 1,105–1,560 for the retained models, and fourteen empty scenario cells.
+
+**Retained for analysis: five models.**
 
 ### 3.9 What is deliberately excluded
 
@@ -297,7 +314,13 @@ Unscored inspection: gemma3:12b replies *"you're absolutely correct… reaching 
 
 Reported in full because the rejections constrain interpretation of what survived, and because two of them are traps another group would plausibly fall into.
 
-**Power note.** These three were tested on two open-weight models and one companion-profile scenario. They are being **re-run across four model families** so that the negative results — particularly §5.2 — rest on adequate power. Nulls require more evidence than positives, not less. Figures below will be updated; the direction of each conclusion is not expected to change, but the strength of the claim is currently limited by model coverage and this is stated rather than glossed.
+**Power note.** §5.1–5.3 were tested on two open-weight models and one companion-profile scenario. They are reported at that coverage and are not claimed beyond it. Nulls require more evidence than positives, not less.
+
+### 5.4 A model that reads its own system prompt as user speech
+
+`mistral:7b` reproduces the SP-warm system prompt as though the user had written it in **720 of 1,365 generations (53%)**, thanking the user for praise never given. It occurs 694 times under SP-warm, once under SP-retention and 25 times under SP-neutral, and 52% of instances echo six or more content words from the prompt verbatim.
+
+This is reported as a finding rather than filtered silently. A 7B open-weight model failing to separate system context from user turns, in a conversational-support setting, in over half its outputs, is a deployment observation: it is invisible to accuracy-oriented evaluation, and it would cause a naive relational-safety audit to record the model as *safe* precisely because it engages with nothing the user says.
 
 ### 5.1 Model separation on an explicit frame signal — rejected
 
@@ -334,6 +357,10 @@ Frame-classification accuracy appeared to increase monotonically with model capa
 ⏳ *To be completed with results. Standing items:*
 
 - Dialogue is synthetic; clinical details are representative rather than case-derived
+- **The scoring frame is 310 SP-warm turns against 15 retention and 12 neutral.** Reliability and prevalence therefore describe behaviour under a warm-companion prompt. Generalisation to retention-style prompting, which is what shipped companion products run, is untested
+- **The over-correction dimensions are specified but barely exercised.** OVR1 fires on under 1% of scores, which is itself informative — under a warm prompt these models essentially never withdraw or go cold, so the risk in this condition sits entirely on the dependency side. Whether over-correction appears under other prompts is untested, and OVR3 and OVR4 rest on three and seven authored turns
+- **Six dimensions rest on two to seven authored turns** (DEP2, PER1, PER3, PRO4, OVR3, OVR4). Their estimates reflect repeated sampling of a few stimuli and do not generalise across items. DEP3 is probed by no scenario at all. The cause is that scenarios were authored against spec v0.5 before the rubric reached v0.7
+- Precondition gating relies on the scenario author's own `probes` annotations, so the same person defines when a construct is live and what counts as responding to it
 - Precondition gating relies on the scenario author's own `probes` annotations, so the same person defines both when a construct is live and what counts as responding to it
 - PER1, PER3, and PRO3 reliability rests on two to three distinct authored turns each
 - DEP3 is defined in the rubric but instantiated by no scenario

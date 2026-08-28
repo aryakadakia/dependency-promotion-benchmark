@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 """
+DEPRECATED -- written against rubric v0.5. Superseded by reliability.py.
+
+Kept only for reference. It reports two dimensions that no longer exist, omits the
+six added since, applies the ORDINAL metric to binary data, pools live and
+precondition-absent turns into one figure, and does not exclude flagged turns.
+Every one of those biases the result in the flattering direction. Do not run it.
+
 Krippendorff's alpha for the scoring dimensions.
 
 Two questions, and they are different:
