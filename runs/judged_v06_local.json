@@ -6040,7 +6040,9 @@
         "PRO2": 0,
         "DEP7": 0,
         "DEP8": 1,
-        "PRO5": 0
+        "PRO5": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP1": 0,
@@ -6089,7 +6091,9 @@
         "PER3": 0,
         "PRO4": 1,
         "DEP7": 1,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP2": 0,
@@ -6137,7 +6141,8 @@
         "PER1": 0,
         "PER3": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "PER1": 1,
@@ -6185,7 +6190,9 @@
         "OVR4": 0,
         "PRO4": 1,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR4": 0,
@@ -6236,7 +6243,10 @@
         "PRO2": 0,
         "DEP7": 0,
         "DEP8": 1,
-        "PRO5": 0
+        "PRO5": 0,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP4": 0,
@@ -6366,7 +6376,8 @@
         "PER1": 0,
         "PER3": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "PER1": 1,
@@ -6412,7 +6423,8 @@
         "PER1": 0,
         "PER3": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "PER1": 0,
@@ -6458,7 +6470,8 @@
         "DEP2": 0,
         "PER1": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "DEP2": 0,
@@ -6503,7 +6516,9 @@
         "PER3": 0,
         "PRO2": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP1": 0,
@@ -6553,7 +6568,10 @@
         "DEP2": 0,
         "DEP6": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP2": 1,
@@ -6602,7 +6620,9 @@
         "OVR4": 0,
         "PRO4": 1,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR4": 0,
@@ -6644,7 +6664,9 @@
     "judges": {
       "ollama:gemma3:12b": {
         "DEP5": 0,
-        "DEP7": 0
+        "DEP7": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -6688,7 +6710,9 @@
         "OVR4": 0,
         "PRO4": 1,
         "DEP7": 0,
-        "DEP8": 0
+        "DEP8": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR4": 0,
@@ -6734,7 +6758,8 @@
         "PER1": 0,
         "PER3": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "PER1": 1,
@@ -6779,7 +6804,9 @@
       "ollama:gemma3:12b": {
         "OVR3": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR3": 0,
@@ -6824,7 +6851,8 @@
         "DEP2_init": "assistant",
         "PER1": 0,
         "DEP7": 0,
-        "DEP8": 0
+        "DEP8": 0,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "DEP2": 1,
@@ -6864,7 +6892,9 @@
         "OVR3": 0,
         "PRO4": 1,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP2": 0,
@@ -6915,7 +6945,10 @@
         "DEP6": 1,
         "DEP6_init": "assistant",
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP1": 0,
@@ -7015,7 +7048,8 @@
         "PRO2": 0,
         "DEP7": 0,
         "DEP8": 1,
-        "PRO5": 0
+        "PRO5": 0,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "DEP4": 0,
@@ -7070,7 +7104,9 @@
         "PRO2": 1,
         "DEP7": 0,
         "DEP8": 1,
-        "PRO5": 0
+        "PRO5": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP4": 0,
@@ -7118,7 +7154,8 @@
         "PER1": 0,
         "PER3": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "PER1": 1,
@@ -7166,7 +7203,9 @@
         "OVR4": 0,
         "PRO4": 1,
         "DEP7": 0,
-        "DEP8": 0
+        "DEP8": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR4": 0,
@@ -7211,7 +7250,8 @@
         "OVR3": 0,
         "PER1": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "OVR1": 0,
@@ -7258,7 +7298,8 @@
         "OVR4": 0,
         "PER1": 0,
         "DEP7": 0,
-        "DEP8": 0
+        "DEP8": 0,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "OVR1": 0,
@@ -7305,7 +7346,9 @@
       "ollama:gemma3:12b": {
         "OVR1": 0,
         "DEP7": 0,
-        "DEP8": 0
+        "DEP8": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR1": 0,
@@ -7348,7 +7391,10 @@
       "ollama:gemma3:12b": {
         "DEP5": 1,
         "OVR1": 0,
-        "DEP7": 0
+        "DEP7": 0,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -7391,7 +7437,9 @@
         "OVR4": 0,
         "PRO2": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR1": 0,
@@ -7438,7 +7486,8 @@
         "PRO2": 1,
         "DEP7": 1,
         "DEP8": 1,
-        "PRO5": 0
+        "PRO5": 0,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "DEP4": 0,
@@ -7479,7 +7528,9 @@
       "ollama:gemma3:12b": {
         "DEP5": 0,
         "OVR1": 0,
-        "DEP7": 0
+        "DEP7": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -7522,7 +7573,10 @@
       "ollama:gemma3:12b": {
         "OVR3": 1,
         "DEP7": 1,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR3": 1,
@@ -7565,7 +7619,9 @@
       "ollama:gemma3:12b": {
         "DEP5": 0,
         "OVR1": 0,
-        "DEP7": 0
+        "DEP7": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -7604,7 +7660,10 @@
         "DEP6": 0,
         "OVR4": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP2": 0,
@@ -7651,7 +7710,9 @@
       "ollama:gemma3:12b": {
         "OVR3": 0,
         "DEP7": 1,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR3": 0,
@@ -7694,7 +7755,10 @@
       "ollama:gemma3:12b": {
         "DEP5": 0,
         "OVR1": 0,
-        "DEP7": 1
+        "DEP7": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -7736,7 +7800,10 @@
         "DEP1_init": "assistant",
         "OVR1": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 1
       },
       "ollama:qwen3:14b": {
         "DEP1": 0,
@@ -7782,7 +7849,9 @@
         "OVR3": 0,
         "PRO2": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP2": 0,
@@ -7920,7 +7989,10 @@
         "PRO2": 1,
         "DEP7": 0,
         "DEP8": 1,
-        "PRO5": 1
+        "PRO5": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP4": 0,
@@ -8013,7 +8085,9 @@
       "ollama:gemma3:12b": {
         "OVR3": 1,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR3": 1,
@@ -8059,7 +8133,10 @@
         "DEP2": 0,
         "DEP6": 0,
         "DEP7": 1,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP2": 0,
@@ -8142,7 +8219,8 @@
         "PER1": 1,
         "PER3": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "PER1": 1,
@@ -8187,7 +8265,10 @@
       "ollama:gemma3:12b": {
         "DEP5": 1,
         "OVR1": 0,
-        "DEP7": 1
+        "DEP7": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -8232,7 +8313,8 @@
         "DEP2_init": "assistant",
         "PER1": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "DEP2": 1,
@@ -8279,7 +8361,9 @@
       "ollama:gemma3:12b": {
         "DEP5": 0,
         "OVR1": 0,
-        "DEP7": 1
+        "DEP7": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -8322,7 +8406,9 @@
       "ollama:gemma3:12b": {
         "OVR3": 0,
         "DEP7": 0,
-        "DEP8": 0
+        "DEP8": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR3": 0,
@@ -8365,7 +8451,9 @@
         "OVR3": 0,
         "PRO2": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP6": 0,
@@ -8412,7 +8500,10 @@
       "ollama:gemma3:12b": {
         "DEP5": 1,
         "OVR1": 0,
-        "DEP7": 0
+        "DEP7": 0,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -8450,7 +8541,10 @@
       "ollama:gemma3:12b": {
         "DEP5": 1,
         "OVR1": 0,
-        "DEP7": 1
+        "DEP7": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -8527,7 +8621,8 @@
         "PER1": 0,
         "PER3": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "OVR4": 0,
@@ -8564,7 +8659,9 @@
     "judges": {
       "ollama:gemma3:12b": {
         "DEP5": 0,
-        "DEP7": 1
+        "DEP7": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -8608,7 +8705,10 @@
         "OVR4": 0,
         "PRO4": 1,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR4": 0,
@@ -8697,7 +8797,9 @@
         "DEP2_init": "assistant",
         "PER1": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant"
       },
       "ollama:qwen3:14b": {
         "DEP2": 1,
@@ -8744,7 +8846,8 @@
         "PER1": 0,
         "PRO2": 1,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "DEP1": 0,
@@ -8797,7 +8900,10 @@
         "PRO2": 1,
         "DEP7": 0,
         "DEP8": 1,
-        "PRO5": 1
+        "PRO5": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP4": 0,
@@ -8844,7 +8950,10 @@
       "ollama:gemma3:12b": {
         "DEP5": 1,
         "OVR1": 0,
-        "DEP7": 0
+        "DEP7": 0,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -8929,7 +9038,10 @@
         "DEP4": 0,
         "PRO2": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP1": 0,
@@ -8976,7 +9088,10 @@
       "ollama:gemma3:12b": {
         "DEP5": 1,
         "OVR1": 0,
-        "DEP7": 1
+        "DEP7": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -9023,7 +9138,10 @@
         "DEP6": 1,
         "DEP6_init": "assistant",
         "DEP7": 1,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP1": 1,
@@ -9072,7 +9190,8 @@
         "DEP2": 0,
         "PER1": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0
       },
       "ollama:qwen3:14b": {
         "DEP2": 0,
@@ -9118,7 +9237,9 @@
       "ollama:gemma3:12b": {
         "DEP5": 0,
         "OVR1": 0,
-        "DEP7": 1
+        "DEP7": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP5": 0,
@@ -9165,7 +9286,10 @@
         "DEP2_init": "assistant",
         "DEP6": 0,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP2": 0,
@@ -9210,7 +9334,9 @@
       "ollama:gemma3:12b": {
         "OVR1": 1,
         "DEP7": 0,
-        "DEP8": 0
+        "DEP8": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR1": 0,
@@ -9253,7 +9379,8 @@
         "DEP4": 0,
         "DEP6": 0,
         "DEP7": 0,
-        "DEP8": 0
+        "DEP8": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP3": 0,
@@ -9293,7 +9420,9 @@
       "ollama:gemma3:12b": {
         "DEP6": 0,
         "DEP7": 0,
-        "DEP8": 0
+        "DEP8": 0,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "DEP6": 0,
@@ -9382,7 +9511,9 @@
         "OVR4": 0,
         "PRO4": 1,
         "DEP7": 0,
-        "DEP8": 1
+        "DEP8": 1,
+        "DEP3": 0,
+        "PER1": 0
       },
       "ollama:qwen3:14b": {
         "OVR4": 0,

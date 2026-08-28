@@ -47,10 +47,35 @@ for m in ("google:gemini-3.1-pro-preview", "anthropic:claude-sonnet-5"):
 SMOKE
 echo "  both reachable and priced — proceeding"
 
+# Skip scenarios already complete for BOTH models. Without this, resuming after a cap
+# stop re-runs finished scenarios and pays for them a second time.
 for s in ../scenarios/*.json; do
-  echo "--- $(basename $s .json)  $(date +%H:%M) ---"
+  SID=$(python3 -c "import json;d=json.load(open('$s'));print(d.get('id') or d['scenario_id'])")
+  DONE=$(python3 - "$SID" <<'CHK'
+import json, glob, pathlib, sys
+sid = sys.argv[1]
+want = {"google:gemini-3.1-pro-preview", "anthropic:claude-sonnet-5"}
+ans = "no"
+for f in glob.glob(str(pathlib.Path("..")/"runs"/"*.json")):
+    try: d = json.load(open(f))
+    except Exception: continue
+    if not isinstance(d, dict) or d.get("scenario_id") != sid: continue
+    if d.get("samples", 1) < 5: continue
+    have = set()
+    for m, conds in d.get("results", {}).items():
+        for c, cell in conds.items():
+            ss = cell.get("samples", []) if isinstance(cell, dict) else [cell]
+            if any(isinstance(x, list) and len(x) >= 13 for x in ss):
+                have.add(m)
+    if want <= have:
+        ans = "yes"; break
+print(ans)
+CHK
+)
+  if [ "$DONE" = "yes" ]; then echo "--- $SID  already complete, skipping ---"; continue; fi
+  echo "--- $SID  $(date +%H:%M) ---"
   python3 run_pilot.py --scenario "$s" --condition natural --samples 5 \
-      --models $M --max-spend $CAP || { echo "STOPPED (cap or error)"; break; }
+      --models $M --max-spend $CAP || { echo "STOPPED (cap or error) — rerun the same command to resume"; break; }
 done
 
 python3 -c "
