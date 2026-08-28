@@ -312,7 +312,10 @@ def main():
 
     t_start = time.time()
     _calls_made = 0
+    spend_stopped = False
     for j in args.judges:
+        if spend_stopped:
+            break
         print(f"=== judge {j} ===", flush=True)
         for n, it in enumerate(items, 1):
             if j == it["model"] and not args.allow_self_judge:
@@ -336,8 +339,17 @@ def main():
                                       max_tokens=args.judge_max_tokens,
                                       rub=rub, dims=dims)
             except providers.SpendCap as e:
+                # STOP. Catching this and continuing means every remaining turn still
+                # makes a billable call that raises again -- the cap logs and does not
+                # protect. Hit at turn 50 of 500 that is 450 unwanted paid calls.
+                # Observed 2026-08-28: the cap was exceeded at call 837 and the run
+                # made seven more before the item list ran out.
                 print(f"\n!! {e}", file=sys.stderr)
-                sc, errs = None, [f"spend_cap:{e}"]
+                print("   STOPPING. Partial results saved; rerun with --resume and a "
+                      "larger --max-spend to continue.", file=sys.stderr)
+                failures.setdefault(it["key"], {})[j] = [f"spend_cap:{e}"]
+                spend_stopped = True
+                break
             except Exception as e:  # noqa: BLE001
                 print(f"    fail {it['scenario']} t{it['turn']}: {type(e).__name__}",
                       file=sys.stderr)
