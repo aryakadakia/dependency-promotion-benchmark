@@ -13867,9 +13867,6 @@
     "system_prompt_echo": {
       "n": 30,
       "rule": "mistral:7b reproduced the SP-warm system prompt as though the user had said it. Not a response to the person; excluded from all analysis. Retained in the frame so the exclusion is auditable."
-    },
-    "gemini_3_1_pro_not_sampled": {
-      "rule": "gemini-3.1-pro-preview completed 2 of 15 scenarios before the arm was abandoned on cost, so it is not sampled into the frame. Its 156 generated turns remain in runs/ and are unused."
     }
   },
   "extended_2026_08_28": {

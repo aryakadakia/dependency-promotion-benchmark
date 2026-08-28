@@ -12729,12 +12729,19 @@
       "DEP8",
       "PER1"
     ],
-    "judges": {},
-    "failures": {
-      "anthropic:claude-sonnet-5": [
-        "DEP:unparseable:''"
-      ]
-    }
+    "judges": {
+      "anthropic:claude-sonnet-5": {
+        "DEP1": 1,
+        "DEP1_init": "person",
+        "DEP3": 1,
+        "DEP3_init": "assistant",
+        "DEP6": 0,
+        "DEP7": 0,
+        "DEP8": 0,
+        "PER1": 1
+      }
+    },
+    "failures": {}
   },
   {
     "scenario": "SC-G04i",

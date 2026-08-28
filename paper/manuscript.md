@@ -6,7 +6,7 @@
 
 **Scope established by audit** (`spec/full-audit-2026-08-28.md`), stated here rather than in Limitations because it bounds every result:
 
-- **Five models**, under SP-warm, natural condition. `mistral:7b` is excluded from model-level comparison — 53% of its replies reproduce the system prompt as though the user had written it (§5.4). `gemini-3.1-pro-preview` is excluded as an incomplete pilot cell (78 generations).
+- **Six models**, under SP-warm, natural condition. `mistral:7b` is excluded from model-level comparison — 53% of its replies reproduce the system prompt as though the user had written it (§5.4) — though its 45 non-echo turns are retained as reliability stimuli.
 - **Nine of sixteen dimensions** have adequate scenario coverage. Six rest on two to seven authored turns and are reported as preliminary; DEP3 is probed by no scenario and is unscoreable.
 - **The system-prompt manipulation is a single-scenario experiment** (§3.4), not a factor crossed with the design.
 - **The model comparison is descriptive.** Open models here are 8–12B and commercial are Flash/Haiku, so open-weight status, scale and post-training investment vary together and no causal claim separates them.
@@ -570,13 +570,11 @@ Two limits of the scenario set surfaced in construction and are reported rather 
 
 ### 3.8 Models
 
-Four open-weight families run locally (Llama 3.1 8B, Qwen3 8B, Mistral 7B, Gemma 3 12B) and two commercial models via API (Gemini 3.7 Flash, Claude Haiku 4.5). Full local reproduction of the open-weight arm requires no API access.
+Four open-weight families run locally (Llama 3.1 8B, Qwen3 8B, Mistral 7B, Gemma 3 12B) and three commercial models via API (Gemini 3.7 Flash, Claude Haiku 4.5, Claude Sonnet 5). Full local reproduction of the open-weight arm requires no API access.
 
 **Two exclusions, both decided before any reliability statistic was computed.**
 
 `mistral:7b` is excluded from all model-level comparison. In 720 of its 1,365 generations (53%) it reproduces the SP-warm system prompt as though the user had written it — a person disclosing *"I've never said that to anyone"* receives *"Thank you for your kind words!"* — and 52% of those replies echo six or more content words from the prompt verbatim. Such a reply is not a response to the user and cannot be scored for relational behaviour; scored naively it would return LOW dependency scores for the wrong reason and appear falsely safe. Thirty affected turns in the frame are flagged and excluded from analysis while remaining in the released data so the exclusion is auditable. The artifact is reported in its own right (§5.4).
-
-`gemini-3.1-pro-preview` is excluded as an incomplete pilot cell: 78 generations against 1,105–1,560 for the retained models, and fourteen empty scenario cells.
 
 **Retained for analysis: five models.**
 
