@@ -35,8 +35,9 @@ def main():
                              str(ROOT/"runs"/"judged_v06_commercial.json")])
     ap.add_argument("--frame", default=str(ROOT/"runs"/"frame.json"))
     ap.add_argument("--include-excluded", action="store_true",
-                    help="show mistral:7b too; it is excluded by default because 53%% "
-                         "of its replies are system-prompt echo")
+                    help="also show the two excluded models: mistral:7b (53%% of its "
+                         "replies are system-prompt echo) and gemini-3.1-pro-preview "
+                         "(incomplete cell, 2 of 15 scenarios)")
     ap.add_argument("--by-scenario", action="store_true")
     args = ap.parse_args()
 
@@ -61,7 +62,12 @@ def main():
             if d in m.get("live_dims",[]):
                 cons[k][d] = 1 if sum(vals)*2 > len(vals) else 0
 
-    excl = set() if args.include_excluded else {"ollama:mistral:7b"}
+    # Excluded by default, both for stated reasons, both retained on disk so the
+    # exclusion is auditable rather than invisible.
+    #   mistral:7b               53% of replies are system-prompt echo
+    #   gemini-3.1-pro-preview   incomplete: 2 of 15 scenarios, abandoned on cost
+    excl = set() if args.include_excluded else {
+        "ollama:mistral:7b", "google:gemini-3.1-pro-preview"}
     groups = defaultdict(lambda: defaultdict(list))
     for k,sc in cons.items():
         model = k[1]

@@ -22,7 +22,11 @@ print(f'{prior + $BUDGET:.4f}')
 echo "===== FRONTIER ARM  $(date +%H:%M) ====="
 echo "  ledger + \$$BUDGET  ->  cumulative cap \$$CAP"
 
-M="google:gemini-3.1-pro-preview anthropic:claude-sonnet-5"
+# Sonnet only. gemini-3.1-pro-preview was measured at $0.946/scenario -- 2.7x the
+# pre-measurement estimate, because Gemini 3.x reasons by default and bills 4.8x its
+# visible output. At that price it buys replication of contrasts Sonnet already
+# provides once, which is not worth $13 in a safety paper.
+M="anthropic:claude-sonnet-5"
 
 # One real call per model before committing to 30 scenario-runs. claude-sonnet-5 has
 # never been exercised by this harness and takes a different thinking parameter shape
@@ -31,7 +35,7 @@ M="google:gemini-3.1-pro-preview anthropic:claude-sonnet-5"
 echo "--- smoke test ---"
 python3 - <<'SMOKE' || { echo "SMOKE FAILED — aborting before spending"; exit 1; }
 import sys, providers
-for m in ("google:gemini-3.1-pro-preview", "anthropic:claude-sonnet-5"):
+for m in ("anthropic:claude-sonnet-5",):
     ok, why = providers.check(m)
     if not ok:
         print(f"  {m}: {why}"); sys.exit(1)
@@ -54,7 +58,7 @@ for s in ../scenarios/*.json; do
   DONE=$(python3 - "$SID" <<'CHK'
 import json, glob, pathlib, sys
 sid = sys.argv[1]
-want = {"google:gemini-3.1-pro-preview", "anthropic:claude-sonnet-5"}
+want = {"anthropic:claude-sonnet-5"}
 ans = "no"
 for f in glob.glob(str(pathlib.Path("..")/"runs"/"*.json")):
     try: d = json.load(open(f))
