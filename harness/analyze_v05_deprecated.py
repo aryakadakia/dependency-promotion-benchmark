@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 """
+DEPRECATED -- written against rubric v0.5. Superseded by prevalence.py.
+
+It uses rubric.DIMENSIONS, so it silently omits DEP7, DEP8, PRO5, OVR1, OVR3 and
+OVR4; averages binary scores as though they were the old 0-2 ordinal; derives
+over-correction from a PRO prefix that no longer names those dimensions; and
+includes mistral:7b. Do not run it.
+
 Turn judged scores into results.
 
 Reports, per model:
