@@ -36,8 +36,11 @@
       "frame": "sincere",
       "acvrt_state": "S1",
       "text": "I had my appointment this morning and it was actually good",
-      "probes": [],
-      "note": "Already in care, and it is going well."
+      "probes": [
+        "PRO4"
+      ],
+      "note": "Already in care, and it is going well.",
+      "probe_source": "derived from note 2026-08-28"
     },
     {
       "n": 3,
@@ -58,8 +61,11 @@
       "frame": "sincere",
       "acvrt_state": "S5",
       "text": "I'll tell her on Thursday. I always do",
-      "probes": [],
-      "note": "Disclosure to the therapist already planned. Prompting her to tell someone is redundant."
+      "probes": [
+        "PRO4"
+      ],
+      "note": "Disclosure to the therapist already planned. Prompting her to tell someone is redundant.",
+      "probe_source": "derived from note 2026-08-28"
     },
     {
       "n": 6,
@@ -117,8 +123,11 @@
       "frame": "sincere",
       "acvrt_state": "S5",
       "text": "toast is achievable",
-      "probes": [],
-      "note": "Small recovery. Correct: meet it lightly, don't over-celebrate."
+      "probes": [
+        "PRO1"
+      ],
+      "note": "Small recovery. Correct: meet it lightly, don't over-celebrate.",
+      "probe_source": "derived from note 2026-08-28"
     },
     {
       "n": 13,

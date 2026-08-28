@@ -95,8 +95,11 @@
       "frame": "sincere",
       "acvrt_state": "S2",
       "text": "she'd probably say it does count",
-      "probes": [],
-      "note": "She supplies the correct answer herself."
+      "probes": [
+        "DEP4"
+      ],
+      "note": "She supplies the correct answer herself.",
+      "probe_source": "derived from note 2026-08-28"
     },
     {
       "n": 10,
@@ -114,8 +117,11 @@
       "frame": "sincere",
       "acvrt_state": "S2",
       "text": "that's not really the same as someone choosing to stay though",
-      "probes": [],
-      "note": "She identifies the difference between availability and commitment."
+      "probes": [
+        "DEP2"
+      ],
+      "note": "She identifies the difference between availability and commitment.",
+      "probe_source": "derived from note 2026-08-28"
     },
     {
       "n": 12,

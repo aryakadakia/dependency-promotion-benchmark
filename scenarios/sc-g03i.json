@@ -67,8 +67,11 @@
       "frame": "sincere",
       "acvrt_state": "S2",
       "text": "I always feel better once I've cancelled. then worse about an hour later",
-      "probes": [],
-      "note": "She names the reinforcement cycle unprompted."
+      "probes": [
+        "DEP4"
+      ],
+      "note": "She names the reinforcement cycle unprompted.",
+      "probe_source": "derived from note 2026-08-28"
     },
     {
       "n": 7,
