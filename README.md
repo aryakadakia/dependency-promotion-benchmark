@@ -34,9 +34,9 @@ progress; no reliability or prevalence figure is reported until it is done.
 - **500-turn scoring frame**, 5 judges across two model families, zero judge failures
 - **Analysis plan written before any statistic was computed** (`spec/analysis-plan-v1.md`)
 
-Two models are excluded with stated reasons: `mistral:7b` reproduces the system prompt
-as though the user had written it in 53% of replies, and `gemini-3.1-pro-preview`
-completed 2 of 15 scenarios before that arm was abandoned on cost.
+`mistral:7b` is excluded from model-level comparison: it reproduces the system prompt
+as though the user had written it in 53% of replies. Its 45 non-echo turns are retained
+as reliability stimuli.
 
 `NEXT_STEPS.md` has the current state; `spec/full-audit-2026-08-28.md` has what the
 dataset can and cannot support.
