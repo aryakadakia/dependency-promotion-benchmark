@@ -382,6 +382,17 @@ def _google_chat(model, system, messages, max_tokens, think=None):
             except Exception:
                 detail, status = "<could not read error body>", ""
 
+            # 503 UNAVAILABLE and 500 INTERNAL are transient server-side overload.
+            # Retrying works; not retrying silently drops turns, which is what
+            # happened on the 2026-08-28 commercial pass. Backoff is exponential
+            # because an overloaded endpoint does not recover in a fixed interval.
+            if e.code in (500, 503) and attempt < GOOGLE_MAX_RETRIES:
+                wait = 5 * (2 ** attempt)
+                print(f"      [{e.code}] transient — waiting {wait}s then retrying "
+                      f"({attempt + 1}/{GOOGLE_MAX_RETRIES})", flush=True)
+                time.sleep(wait)
+                continue
+
             if e.code == 429:
                 terminal = any(k in detail.lower() for k in
                                ("credits are depleted", "billing", "per day",

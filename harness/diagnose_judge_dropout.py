@@ -34,7 +34,7 @@ import sys
 from collections import Counter
 
 import providers
-import rubric
+import rubric_v07 as rubric
 import judge as judgemod
 
 RUNS = pathlib.Path(__file__).parent.parent / "runs"

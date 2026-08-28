@@ -31,7 +31,6 @@ import random
 import sys
 import textwrap
 
-import rubric
 import rubric_v06
 import rubric_v07
 from build_frame import balanced_take
@@ -225,14 +224,14 @@ def main():
     ap.add_argument("--seed", type=int, default=11)
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--review", metavar="DIM")
-    ap.add_argument("--rubric", default="v07", choices=["v05", "v06", "v07"])
+    ap.add_argument("--rubric", default="v07", choices=["v06", "v07"])
     ap.add_argument("--recode", type=int, default=25,
                     help="turns repeated at the END of the pool for intra-rater "
                          "reliability. You are never shown your earlier answer.")
     args = ap.parse_args()
 
     global RUB
-    RUB = {"v05": rubric, "v06": rubric_v06, "v07": rubric_v07}[args.rubric]
+    RUB = {"v06": rubric_v06, "v07": rubric_v07}[args.rubric]
     rng = random.Random(args.seed)
     state = json.load(open(OUT)) if OUT.exists() else {"pool": None, "scores": {}, "seed": args.seed}
     if state["pool"] is None:

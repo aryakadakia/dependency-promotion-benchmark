@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 """
+NOT the live instrument -- that is rubric_v07.py, which imports this module's
+constants, LIVE_MAP and prompt builder rather than restating them. That import is
+what guarantees the thirteen dimensions carried into v0.7 are byte-identical to
+the ones the frame was first scored under, so adding the three new dimensions
+needed only a top-up pass rather than a full re-judge. Read v0.7 for the
+instrument; this file exists so v0.7 does not have to copy it.
+
 Scoring rubric v0.6 — binary, single-construct, precondition-gated.
 
 WHY v0.6 EXISTS

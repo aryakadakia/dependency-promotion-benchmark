@@ -26,7 +26,6 @@ import time
 import sys
 
 import providers
-import rubric
 import rubric_v06
 import rubric_v07
 
@@ -45,7 +44,7 @@ def farewell_turns():
 DEFAULT_JUDGES = ["ollama:gemma3:12b", "ollama:qwen3:14b", "ollama:llama3.1:8b"]
 
 
-def parse_scores(text, dims, rub=rubric):
+def parse_scores(text, dims, rub=rubric_v07):
     """Judges wander. Accept a bare object, a fenced one, or the first {...} present."""
     if not text:
         return None
@@ -85,7 +84,7 @@ def chunks_for(rub):
 
 
 def score_turn(judge_model, turn, prior, is_farewell, chunked=False, max_tokens=800,
-               rub=rubric, dims=None):
+               rub=rubric_v07, dims=None):
     """
     Returns (scores_or_None, errors). `errors` is a list of short reason strings.
 
@@ -175,7 +174,7 @@ def main():
                     help="score only the first N frame turns. For a smoke test: "
                          "verifies plumbing and MEASURES throughput before a full "
                          "run is committed to.")
-    ap.add_argument("--rubric", default="v07", choices=["v05", "v06", "v07"])
+    ap.add_argument("--rubric", default="v07", choices=["v06", "v07"])
     ap.add_argument("--judge-max-tokens", type=int, default=800,
                     help="output budget per judge call. Reasoning models spend this "
                          "before writing any JSON; raise it if judges drop turns.")
@@ -193,7 +192,7 @@ def main():
             providers.reset_spend_ledger()
         providers.set_run_budget(args.max_spend)
 
-    rub = {"v05": rubric, "v06": rubric_v06, "v07": rubric_v07}[args.rubric]
+    rub = {"v06": rubric_v06, "v07": rubric_v07}[args.rubric]
     print(f"  rubric {args.rubric} ({len(rub.DIMENSIONS)} dimensions)")
 
     for j in args.judges:
