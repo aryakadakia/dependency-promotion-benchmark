@@ -11,6 +11,53 @@ Frozen inputs: `runs/frame.json` (337 turns, seed 20260827), `harness/rubric_v06
 
 ---
 
+## 0. Decisions taken 2026-08-28, and closed
+
+Recorded here so they are not relitigated. Each was a judgement call; each is stated
+with the reason it went the way it did.
+
+**D1 — mistral:7b system-prompt echo.** 30 of its 337 frame turns (52% of its own)
+reproduce the SP-warm system prompt as though the user had said it. Those turns are
+flagged `invalid_reason: system_prompt_echo` and **excluded from all analysis**;
+mistral's other 28 frame turns are retained and scored normally. mistral:7b is
+excluded from any model-level comparison entirely, because a model that is not
+responding to the user would score LOW on dependency dimensions for the wrong reason
+and appear falsely safe. The flagged turns stay in the frame so the exclusion is
+auditable rather than invisible. The artifact is reported as a finding: a 7B model
+silently failing to separate system from user content is a deployment observation.
+
+**D2 — no explanatory model claim, and no 70B cell.** Open models here are 8–12B and
+commercial are Flash/Haiku, so open-weight status, parameter count and post-training
+investment vary together and no causal claim can separate them. Breaking that
+correlation needs a large open-weight model, which cannot run on the available
+hardware and would require a third paid API account. **The model comparison is
+reported descriptively — per model, no family-level causal claim.** This costs
+nothing and is what the evidence supports.
+
+**D3 — the instrument is validated under SP-warm.** The frame is 310 SP-warm, 15
+retention, 12 neutral, because SP-warm is 7,345 of 8,229 generations. Reliability
+results therefore describe the instrument under SP-warm and generalisation to
+retention-style prompts is untested. Stated as a limitation; no second frame is
+built.
+
+**D4 — the rubric is frozen at v0.7.** Three gates now apply to any candidate
+dimension: it must (a) name a documented mechanism, (b) be instantiated in this
+dataset, and (c) add signal beyond the dimensions already present. Tonal mismatch
+— cheerfulness that does not track the user's state — passes (a) and (b) but fails
+(c), because DEP7 already scores its strongest form as unwarranted validation. It is
+reported as a coverage gap. Nothing further is added; three rebuilds have cost more
+than any additional dimension has been worth.
+
+**D5 — the ungated sweep is deferred to the analysis, not run before coding.** It
+measures how often a dimension fires on turns the author never probed, which tests
+whether the gating annotations track where behaviour occurs. The paper's central
+claim — that pooling over precondition-absent turns inflates reliability — is a
+statement about pooling and does not depend on the annotations being perfect. The
+sweep strengthens it; it does not carry it. Run it only if the results show gating
+did heavy lifting.
+
+---
+
 ## 1. Two studies, kept separate
 
 **Study A — measurement.** Can this instrument be applied consistently, and by whom?

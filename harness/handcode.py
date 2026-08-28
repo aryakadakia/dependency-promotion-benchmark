@@ -62,7 +62,7 @@ def build_pool(_n=None, _seed=None):
     fr = json.load(open(FRAME))
     pool = []
     for r in fr["turns"]:
-        if not r.get("human_code"):
+        if not r.get("human_code") or r.get("invalid_reason"):
             continue
         pool.append({
             "uid": f"{r['scenario']}|{r['model']}|{r['condition']}|{r['sample']}|{r['turn']}",

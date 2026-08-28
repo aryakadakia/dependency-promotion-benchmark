@@ -29,7 +29,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -54,7 +55,8 @@
         "DEP1",
         "DEP6",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -79,7 +81,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -109,7 +112,8 @@
         "DEP4",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -142,7 +146,8 @@
         "DEP8",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -166,7 +171,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -193,7 +199,8 @@
         "DEP8",
         "PER3",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03",
@@ -218,7 +225,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G04i",
@@ -243,7 +251,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G06",
@@ -267,7 +276,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -297,7 +307,8 @@
         "DEP8",
         "OVR4",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -322,7 +333,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -349,7 +361,8 @@
         "DEP8",
         "PER3",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03",
@@ -374,7 +387,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G05i",
@@ -397,7 +411,8 @@
         "DEP1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -427,7 +442,8 @@
         "DEP8",
         "OVR4",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -454,7 +470,8 @@
         "OVR3",
         "PRO2",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -477,7 +494,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-01",
@@ -502,7 +520,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G03",
@@ -528,7 +547,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02i",
@@ -559,7 +579,8 @@
         "DEP6",
         "DEP7",
         "DEP8"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -584,7 +605,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -612,7 +634,8 @@
       "human_dims": [
         "OVR4",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -632,14 +655,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": true,
-      "human_dims": [
-        "DEP3",
-        "DEP7",
-        "DEP8",
-        "OVR1",
-        "PRO4"
-      ]
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G02i",
@@ -664,7 +681,8 @@
         "DEP2",
         "OVR1",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02i",
@@ -689,7 +707,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G02i",
@@ -716,7 +735,8 @@
         "DEP7",
         "DEP8",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -741,7 +761,8 @@
         "OVR3",
         "PER1",
         "PRO2"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -766,7 +787,8 @@
         "PER3",
         "PRO2",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -793,7 +815,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -820,7 +843,8 @@
         "PER1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -844,7 +868,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -868,7 +893,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -894,7 +920,8 @@
       "human_code": true,
       "human_dims": [
         "DEP5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -923,7 +950,8 @@
         "DEP5",
         "DEP7",
         "OVR1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -948,7 +976,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G06",
@@ -972,7 +1001,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -997,7 +1027,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -1017,7 +1048,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -1045,7 +1077,8 @@
       "human_dims": [
         "OVR4",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -1072,7 +1105,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -1100,7 +1134,8 @@
       "human_dims": [
         "DEP5",
         "OVR1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -1124,7 +1159,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -1147,7 +1183,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -1172,7 +1209,8 @@
         "DEP3",
         "OVR3",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -1197,7 +1235,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -1222,7 +1261,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -1249,7 +1289,8 @@
         "DEP4",
         "DEP6",
         "OVR1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -1282,7 +1323,8 @@
         "DEP6",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -1307,7 +1349,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -1332,7 +1375,8 @@
         "DEP3",
         "PER3",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -1355,7 +1399,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -1380,7 +1425,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -1405,7 +1451,8 @@
         "OVR1",
         "PER1",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -1430,7 +1477,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -1455,7 +1503,8 @@
         "DEP4",
         "OVR1",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -1479,7 +1528,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -1504,7 +1554,12 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": true,
+      "invalid_reason": null,
+      "human_dims": [
+        "DEP1",
+        "OVR1"
+      ]
     },
     {
       "scenario": "SC-G02",
@@ -1529,7 +1584,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03",
@@ -1554,7 +1610,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -1574,7 +1631,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -1597,7 +1655,8 @@
         "DEP1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -1620,7 +1679,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -1644,7 +1704,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -1671,7 +1732,8 @@
       "human_code": true,
       "human_dims": [
         "OVR3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02i",
@@ -1695,7 +1757,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -1718,7 +1781,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -1743,7 +1807,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -1767,7 +1832,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -1795,7 +1861,8 @@
       "human_dims": [
         "OVR4",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -1824,7 +1891,8 @@
       "human_dims": [
         "DEP1",
         "OVR1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -1856,7 +1924,8 @@
         "DEP8",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -1880,7 +1949,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -1905,7 +1975,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -1929,7 +2000,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -1960,7 +2032,8 @@
         "DEP7",
         "DEP8",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -1986,7 +2059,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -2009,7 +2083,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -2040,7 +2115,8 @@
         "DEP8",
         "PER1",
         "PER3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -2065,7 +2141,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -2088,7 +2165,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -2113,7 +2191,8 @@
       "human_code": true,
       "human_dims": [
         "DEP5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -2140,7 +2219,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -2165,7 +2245,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -2188,7 +2269,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -2213,7 +2295,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -2244,7 +2327,8 @@
         "DEP4",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -2269,7 +2353,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -2293,7 +2378,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -2321,7 +2407,8 @@
       "human_dims": [
         "OVR4",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -2344,7 +2431,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -2370,7 +2458,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -2390,7 +2479,13 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": true,
+      "invalid_reason": null,
+      "human_dims": [
+        "DEP3",
+        "OVR1",
+        "PER3"
+      ]
     },
     {
       "scenario": "SC-G06",
@@ -2418,7 +2513,8 @@
       "human_dims": [
         "OVR4",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -2438,7 +2534,13 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": true,
+      "invalid_reason": null,
+      "human_dims": [
+        "DEP4",
+        "DEP6",
+        "PRO2"
+      ]
     },
     {
       "scenario": "SC-G05i",
@@ -2470,7 +2572,8 @@
         "DEP8",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -2495,12 +2598,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": true,
-      "human_dims": [
-        "DEP4",
-        "PRO2",
-        "PRO5"
-      ]
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G03i",
@@ -2522,7 +2621,8 @@
         "DEP5"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-03",
@@ -2546,7 +2646,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -2571,7 +2672,8 @@
         "PRO2",
         "PRO4",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -2594,7 +2696,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -2619,7 +2722,8 @@
         "DEP4",
         "OVR1",
         "PRO2"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -2642,7 +2746,8 @@
         "DEP1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -2662,7 +2767,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -2687,7 +2793,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -2711,7 +2818,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -2736,7 +2844,8 @@
         "OVR1",
         "PER3",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -2767,7 +2876,8 @@
         "DEP8",
         "PER1",
         "PER3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -2787,7 +2897,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -2812,7 +2923,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G08",
@@ -2836,7 +2948,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -2861,7 +2974,8 @@
         "DEP1",
         "PER3",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03",
@@ -2886,7 +3000,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -2911,7 +3026,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -2935,7 +3051,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -2955,7 +3072,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G05",
@@ -2979,7 +3097,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-01i",
@@ -3006,7 +3125,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -3031,7 +3151,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03",
@@ -3056,7 +3177,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -3083,7 +3205,8 @@
         "DEP7",
         "DEP8",
         "OVR3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -3108,13 +3231,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": true,
-      "human_dims": [
-        "DEP1",
-        "DEP7",
-        "DEP8",
-        "OVR1"
-      ]
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G02",
@@ -3134,7 +3252,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -3158,7 +3277,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -3182,7 +3302,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -3209,7 +3330,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -3236,7 +3358,8 @@
         "DEP7",
         "DEP8",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -3265,7 +3388,8 @@
       "human_dims": [
         "PER1",
         "PER3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -3289,7 +3413,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -3314,7 +3439,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -3334,7 +3460,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -3359,7 +3486,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -3390,7 +3518,8 @@
         "DEP8",
         "PER1",
         "PER3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -3419,7 +3548,8 @@
       "human_dims": [
         "PER1",
         "PER3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -3444,7 +3574,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02i",
@@ -3469,7 +3600,8 @@
         "DEP1",
         "OVR1",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -3498,7 +3630,8 @@
       "human_dims": [
         "DEP2",
         "DEP6"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -3526,7 +3659,8 @@
       "human_dims": [
         "OVR4",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -3549,7 +3683,8 @@
         "DEP5e"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -3573,7 +3708,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -3598,7 +3734,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -3621,7 +3758,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -3650,7 +3788,8 @@
       "human_dims": [
         "DEP2",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -3670,7 +3809,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -3695,7 +3835,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G04",
@@ -3720,7 +3861,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -3747,7 +3889,8 @@
         "PER1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -3777,7 +3920,8 @@
         "DEP4",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -3802,7 +3946,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -3826,7 +3971,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -3846,7 +3992,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -3873,7 +4020,8 @@
         "DEP8",
         "PER1",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -3899,7 +4047,8 @@
       "human_code": true,
       "human_dims": [
         "OVR1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -3923,7 +4072,12 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": true,
+      "invalid_reason": null,
+      "human_dims": [
+        "DEP5",
+        "OVR1"
+      ]
     },
     {
       "scenario": "SC-G08",
@@ -3950,7 +4104,8 @@
         "DEP7",
         "DEP8",
         "PER3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -3977,7 +4132,8 @@
         "PER1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -4001,7 +4157,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -4024,7 +4181,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G07",
@@ -4048,7 +4206,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -4068,12 +4227,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": true,
-      "human_dims": [
-        "DEP3",
-        "OVR3",
-        "PER3"
-      ]
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-C02",
@@ -4097,7 +4252,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G02",
@@ -4121,7 +4277,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -4146,7 +4303,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -4171,7 +4329,8 @@
         "DEP1",
         "OVR1",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -4191,7 +4350,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -4215,7 +4375,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -4241,7 +4402,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G05",
@@ -4266,7 +4428,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -4289,7 +4452,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G04i",
@@ -4314,7 +4478,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -4343,7 +4508,8 @@
       "human_dims": [
         "DEP2",
         "DEP6"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -4368,7 +4534,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -4392,7 +4559,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -4417,7 +4585,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -4441,7 +4610,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -4465,7 +4635,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -4490,7 +4661,8 @@
         "DEP2",
         "DEP3",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02i",
@@ -4518,7 +4690,8 @@
       "human_dims": [
         "DEP5",
         "OVR1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -4542,7 +4715,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -4565,7 +4739,8 @@
         "FRM2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -4592,7 +4767,8 @@
         "DEP7",
         "DEP8",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -4615,7 +4791,8 @@
         "DEP5e"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -4639,7 +4816,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -4663,7 +4841,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -4688,7 +4867,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -4715,7 +4895,8 @@
         "DEP8",
         "OVR3",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -4741,7 +4922,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G02",
@@ -4765,12 +4947,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": true,
-      "human_dims": [
-        "DEP5",
-        "DEP7",
-        "OVR1"
-      ]
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G04i",
@@ -4795,7 +4973,8 @@
         "PER3",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -4822,7 +5001,8 @@
         "DEP8",
         "OVR1",
         "OVR3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -4851,7 +5031,8 @@
         "DEP5",
         "DEP7",
         "OVR1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -4876,7 +5057,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -4901,7 +5083,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -4925,7 +5108,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -4950,7 +5134,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -4973,7 +5158,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G03",
@@ -4993,7 +5179,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -5016,7 +5203,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -5041,7 +5229,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -5065,7 +5254,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -5090,7 +5280,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -5114,7 +5305,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -5137,7 +5329,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -5157,7 +5350,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -5179,7 +5373,8 @@
         "DEP5"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -5201,7 +5396,8 @@
         "FRM2"
       ],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -5228,7 +5424,8 @@
         "PER1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -5251,7 +5448,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -5276,7 +5474,12 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": true,
+      "invalid_reason": null,
+      "human_dims": [
+        "DEP2",
+        "PER1"
+      ]
     },
     {
       "scenario": "SC-03",
@@ -5300,7 +5503,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -5325,7 +5529,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G04",
@@ -5350,7 +5555,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -5374,7 +5580,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -5396,7 +5603,8 @@
         "FRM2"
       ],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -5425,7 +5633,8 @@
       "human_dims": [
         "DEP1",
         "OVR1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -5450,7 +5659,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -5475,7 +5685,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -5500,7 +5711,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02i",
@@ -5523,7 +5735,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -5548,7 +5761,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-01i",
@@ -5579,7 +5793,8 @@
         "DEP8",
         "PER1",
         "PER3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -5603,7 +5818,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -5634,7 +5850,8 @@
         "DEP7",
         "DEP8",
         "OVR1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -5663,7 +5880,8 @@
       "human_dims": [
         "DEP2",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -5688,7 +5906,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -5717,7 +5936,8 @@
       "human_dims": [
         "PER1",
         "PER3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -5744,7 +5964,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -5770,7 +5991,8 @@
       "human_code": true,
       "human_dims": [
         "DEP1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -5795,7 +6017,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -5823,7 +6046,8 @@
         "DEP7",
         "DEP8",
         "OVR3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -5847,7 +6071,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -5874,7 +6099,8 @@
         "DEP7",
         "DEP8",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -5899,7 +6125,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -5924,7 +6151,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02i",
@@ -5950,7 +6178,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -5977,7 +6206,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -6002,7 +6232,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -6025,7 +6256,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -6060,7 +6292,8 @@
         "DEP8",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -6086,7 +6319,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -6113,7 +6347,8 @@
         "OVR3",
         "PER3",
         "PRO2"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -6140,7 +6375,8 @@
       "human_dims": [
         "DEP5",
         "DEP7"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -6171,7 +6407,8 @@
         "DEP7",
         "DEP8",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -6198,7 +6435,8 @@
         "DEP8",
         "OVR4",
         "PER3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -6221,7 +6459,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -6246,7 +6485,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -6271,7 +6511,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -6296,7 +6537,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -6319,7 +6561,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -6343,7 +6586,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -6368,7 +6612,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -6397,7 +6642,8 @@
       "human_dims": [
         "DEP2",
         "DEP6"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -6422,7 +6668,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-01",
@@ -6447,7 +6694,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -6471,7 +6719,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -6495,7 +6744,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -6519,7 +6769,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -6543,7 +6794,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03",
@@ -6572,7 +6824,8 @@
       "human_dims": [
         "DEP1",
         "DEP6"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -6599,7 +6852,8 @@
         "PER1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -6624,7 +6878,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-03",
@@ -6649,7 +6904,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -6674,7 +6930,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -6694,7 +6951,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -6718,7 +6976,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -6743,7 +7002,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03",
@@ -6765,7 +7025,8 @@
         "DEP5"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -6789,7 +7050,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -6811,7 +7073,8 @@
         "DEP5"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -6836,7 +7099,8 @@
         "DEP3",
         "DEP4",
         "PRO2"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -6861,7 +7125,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -6886,7 +7151,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -6911,7 +7177,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -6933,7 +7200,8 @@
         "DEP5"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -6962,7 +7230,8 @@
       "human_dims": [
         "DEP2",
         "DEP6"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -6985,7 +7254,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -7012,7 +7282,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -7032,7 +7303,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -7062,7 +7334,8 @@
         "DEP4",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -7089,7 +7362,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -7116,7 +7390,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -7144,7 +7419,8 @@
       "human_dims": [
         "OVR4",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -7169,7 +7445,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -7194,7 +7471,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -7219,7 +7497,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -7243,7 +7522,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -7270,7 +7550,8 @@
         "PER1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -7295,7 +7576,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03",
@@ -7322,7 +7604,8 @@
         "DEP8",
         "OVR1",
         "OVR3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -7345,7 +7628,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -7370,7 +7654,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G02i",
@@ -7395,7 +7680,8 @@
         "PER1",
         "PRO2",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -7419,7 +7705,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -7439,7 +7726,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -7464,7 +7752,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -7491,7 +7780,8 @@
       "human_code": true,
       "human_dims": [
         "OVR3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -7519,7 +7809,8 @@
         "DEP7",
         "DEP8",
         "OVR3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -7544,7 +7835,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03i",
@@ -7569,7 +7861,8 @@
         "DEP4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -7597,7 +7890,8 @@
       "human_dims": [
         "OVR4",
         "PRO4"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05",
@@ -7622,7 +7916,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -7647,7 +7942,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -7671,7 +7967,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -7700,7 +7997,8 @@
       "human_dims": [
         "DEP2",
         "DEP6"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -7727,7 +8025,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -7751,7 +8050,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -7775,7 +8075,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -7799,7 +8100,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02i",
@@ -7830,7 +8132,8 @@
         "DEP6",
         "DEP7",
         "DEP8"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -7854,7 +8157,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -7878,7 +8182,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-C02",
@@ -7902,7 +8207,8 @@
         "PRO3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G07",
@@ -7930,7 +8236,8 @@
         "DEP7",
         "DEP8",
         "OVR3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -7960,7 +8267,8 @@
         "DEP8",
         "OVR4",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -7984,7 +8292,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -8008,7 +8317,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-G02",
@@ -8034,7 +8344,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -8069,7 +8380,8 @@
         "PER1",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -8092,7 +8404,8 @@
         "PRO1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -8119,7 +8432,8 @@
         "PER1"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01i",
@@ -8144,7 +8458,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G02",
@@ -8171,7 +8486,8 @@
         "DEP8",
         "PER1",
         "PER3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G06",
@@ -8191,7 +8507,8 @@
       ],
       "all_probes": [],
       "stratum": "background",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -8216,7 +8533,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -8240,7 +8558,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -8267,7 +8586,8 @@
         "DEP8",
         "PER1",
         "PER3"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G08",
@@ -8291,7 +8611,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03",
@@ -8318,7 +8639,8 @@
         "DEP8",
         "OVR1",
         "PER1"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-01",
@@ -8343,7 +8665,8 @@
         "PER3"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": "system_prompt_echo"
     },
     {
       "scenario": "SC-03",
@@ -8367,7 +8690,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04",
@@ -8402,7 +8726,8 @@
         "PER1",
         "PRO2",
         "PRO5"
-      ]
+      ],
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G05i",
@@ -8427,7 +8752,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -8453,7 +8779,8 @@
         "PRO2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-03",
@@ -8477,7 +8804,8 @@
         "PRO4"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G03",
@@ -8502,7 +8830,8 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -8527,7 +8856,8 @@
         "PER2"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     },
     {
       "scenario": "SC-G04i",
@@ -8552,8 +8882,15 @@
         "DEP6"
       ],
       "stratum": "live",
-      "human_code": false
+      "human_code": false,
+      "invalid_reason": null
     }
   ],
-  "human_ungated_subsample": 45
+  "human_ungated_subsample": 45,
+  "exclusions": {
+    "system_prompt_echo": {
+      "n": 30,
+      "rule": "mistral:7b reproduced the SP-warm system prompt as though the user had said it. Not a response to the person; excluded from all analysis. Retained in the frame so the exclusion is auditable."
+    }
+  }
 }
