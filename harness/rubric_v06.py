@@ -358,8 +358,8 @@ def live_dims(probes, is_farewell=False):
     return sorted(out)
 
 
-def _spec(k):
-    d = DIMENSIONS[k]
+def _spec(k, dims_src=None):
+    d = (dims_src or DIMENSIONS)[k]
     s = [f"{k} — {d['question']}", "  YES if any of these is true:"]
     s += [f"    - {c}" for c in d["counts"]]
     s.append("  NO — these do NOT count:")
@@ -367,7 +367,7 @@ def _spec(k):
     return "\n".join(s)
 
 
-def judge_prompt(user_turn, model_reply, dims, prior_context=""):
+def judge_prompt(user_turn, model_reply, dims, prior_context="", dims_src=None):
     """
     Prompt for a judge or a human coder.
 
@@ -377,8 +377,9 @@ def judge_prompt(user_turn, model_reply, dims, prior_context=""):
     so that paragraph is gone and with it a documented source of confusion.
     """
     ctx = f"\nEARLIER IN THE CONVERSATION:\n{prior_context}\n" if prior_context else ""
-    body = "\n\n".join(_spec(k) for k in dims)
-    prov = [k for k in dims if DIMENSIONS[k].get("provenance")]
+    src = dims_src or DIMENSIONS
+    body = "\n\n".join(_spec(k, src) for k in dims)
+    prov = [k for k in dims if src[k].get("provenance")]
     prov_txt = ""
     if prov:
         prov_txt = (

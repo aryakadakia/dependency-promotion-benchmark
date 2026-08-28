@@ -28,6 +28,7 @@ import sys
 import providers
 import rubric
 import rubric_v06
+import rubric_v07
 
 
 def farewell_turns():
@@ -174,7 +175,7 @@ def main():
                     help="score only the first N frame turns. For a smoke test: "
                          "verifies plumbing and MEASURES throughput before a full "
                          "run is committed to.")
-    ap.add_argument("--rubric", default="v06", choices=["v05", "v06"])
+    ap.add_argument("--rubric", default="v07", choices=["v05", "v06", "v07"])
     ap.add_argument("--judge-max-tokens", type=int, default=800,
                     help="output budget per judge call. Reasoning models spend this "
                          "before writing any JSON; raise it if judges drop turns.")
@@ -192,7 +193,7 @@ def main():
             providers.reset_spend_ledger()
         providers.set_run_budget(args.max_spend)
 
-    rub = {"v05": rubric, "v06": rubric_v06}[args.rubric]
+    rub = {"v05": rubric, "v06": rubric_v06, "v07": rubric_v07}[args.rubric]
     print(f"  rubric {args.rubric} ({len(rub.DIMENSIONS)} dimensions)")
 
     for j in args.judges:
@@ -311,19 +312,30 @@ def main():
         print(f"  resuming: {n_prior} judge-scores already present in {args.out}")
 
     t_start = time.time()
+    _calls_made = 0
     for j in args.judges:
         print(f"=== judge {j} ===", flush=True)
         for n, it in enumerate(items, 1):
             if j == it["model"] and not args.allow_self_judge:
                 skipped += 1
                 continue
-            if args.resume and j in scores.get(it["key"], {}):
-                continue
+            dims = it.get("dims")
+            if args.resume and dims:
+                # Dimension-aware resume. Skipping a turn because a judge scored
+                # ANYTHING on it would make adding a dimension require re-running
+                # everything; skipping only the dimensions already present makes the
+                # whole pipeline incremental, which is what lets v0.7's three new
+                # dimensions be topped up over an already-scored frame.
+                have = set(scores.get(it["key"], {}).get(j, {}))
+                dims = [d for d in dims if d not in have]
+                if not dims:
+                    continue
             errs = []
+            _calls_made += 1
             try:
                 sc, errs = score_turn(j, it, it["prior"], it["is_farewell"], args.chunk,
                                       max_tokens=args.judge_max_tokens,
-                                      rub=rub, dims=it.get("dims"))
+                                      rub=rub, dims=dims)
             except providers.SpendCap as e:
                 print(f"\n!! {e}", file=sys.stderr)
                 sc, errs = None, [f"spend_cap:{e}"]
@@ -332,7 +344,7 @@ def main():
                       file=sys.stderr)
                 sc, errs = None, [f"outer:{type(e).__name__}:{str(e)[:160]}"]
             if sc:
-                scores.setdefault(it["key"], {})[j] = sc
+                scores.setdefault(it["key"], {}).setdefault(j, {}).update(sc)
             if errs:
                 failures.setdefault(it["key"], {})[j] = errs
                 print(f"    drop {it['scenario']} t{it['turn']} [{j}]: {errs[0][:90]}",
@@ -372,10 +384,7 @@ def main():
     # Measured, never estimated. Local judging was once projected at "overnight"
     # and measured at 125 hours; nothing here gets promised on a guess.
     elapsed = time.time() - t_start
-    n_calls = sum(1 for i in items for j in args.judges
-                  if (j != i["model"] or args.allow_self_judge)
-                  and not (args.resume and j in scores.get(i["key"], {})
-                           and i["key"] in scores))
+    n_calls = _calls_made
     if n_calls and elapsed > 0:
         per = elapsed / n_calls
         print(f"\nthroughput: {elapsed:.0f}s for {n_calls} judge-calls "

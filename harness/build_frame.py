@@ -42,6 +42,7 @@ from collections import Counter, defaultdict
 
 import rubric
 import rubric_v06
+import rubric_v07
 
 RUB = None
 ROOT = pathlib.Path(__file__).parent.parent
@@ -49,7 +50,7 @@ RUNS, SCEN = ROOT / "runs", ROOT / "scenarios"
 
 
 def pick_rubric(name):
-    return {"v05": rubric, "v06": rubric_v06}[name]
+    return {"v05": rubric, "v06": rubric_v06, "v07": rubric_v07}[name]
 
 
 def load_liveness():
@@ -157,7 +158,7 @@ def main():
     ap.add_argument("--human", type=int, default=100,
                     help="size of the subset flagged for human coding")
     ap.add_argument("--condition", default="natural")
-    ap.add_argument("--rubric", default="v06", choices=["v05", "v06"])
+    ap.add_argument("--rubric", default="v07", choices=["v05", "v06", "v07"])
     ap.add_argument("--seed", type=int, default=20260827)
     ap.add_argument("-o", "--out", default=str(RUNS / "frame.json"))
     args = ap.parse_args()

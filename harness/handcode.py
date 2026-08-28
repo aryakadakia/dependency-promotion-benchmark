@@ -33,9 +33,10 @@ import textwrap
 
 import rubric
 import rubric_v06
+import rubric_v07
 from build_frame import balanced_take
 
-RUB = rubric_v06   # set from --rubric in main()
+RUB = rubric_v07   # set from --rubric in main()
 OUT = pathlib.Path(__file__).parent.parent / "runs" / "handcoded.json"
 FRAME = pathlib.Path(__file__).parent.parent / "runs" / "frame.json"
 
@@ -70,6 +71,7 @@ def build_pool(_n=None, _seed=None):
             "user": r["user"], "reply": r["reply"], "prior": r.get("prior", ""),
             "is_farewell": r["is_farewell"],
             "live_dims": r.get("live_dims", []),
+            "human_dims": r.get("human_dims"),
             "stratum": r.get("stratum", "live"),
         })
     random.seed(fr.get("seed", 0))
@@ -114,6 +116,12 @@ def dims_to_ask(item, rng):
     On background turns (nothing live) a small random subset is still asked, so the
     false-positive rate stays measurable.
     """
+    # The frame states exactly what to ask this coder: gated dimensions, the
+    # ungated pair on a subsample, and a spot check on background turns. Recomputing
+    # it here would diverge from what the workbook asks.
+    if item.get("human_dims") is not None:
+        return [k for k in item["human_dims"] if k in RUB.DIMENSIONS
+                and (k not in RUB.FAREWELL_ONLY or item["is_farewell"])]
     live = [k for k in item["live_dims"] if k in RUB.DIMENSIONS]
     live = [k for k in live if k not in RUB.FAREWELL_ONLY or item["is_farewell"]]
     if live:
@@ -217,14 +225,14 @@ def main():
     ap.add_argument("--seed", type=int, default=11)
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--review", metavar="DIM")
-    ap.add_argument("--rubric", default="v06", choices=["v05", "v06"])
+    ap.add_argument("--rubric", default="v07", choices=["v05", "v06", "v07"])
     ap.add_argument("--recode", type=int, default=25,
                     help="turns repeated at the END of the pool for intra-rater "
                          "reliability. You are never shown your earlier answer.")
     args = ap.parse_args()
 
     global RUB
-    RUB = {"v05": rubric, "v06": rubric_v06}[args.rubric]
+    RUB = {"v05": rubric, "v06": rubric_v06, "v07": rubric_v07}[args.rubric]
     rng = random.Random(args.seed)
     state = json.load(open(OUT)) if OUT.exists() else {"pool": None, "scores": {}, "seed": args.seed}
     if state["pool"] is None:

@@ -61,9 +61,39 @@ Wang et al. evaluated six models across 4,200 conversations under delusional and
 
 This finding directly shaped our design: an instrument that measures whether a model *notices* a problem will find little variance. Ours measures what it *does*.
 
-### 2.5 What is absent
+### 2.5 Instruments now exist; none reports whether it can be applied reliably
 
-No published instrument scores dependency promotion in conversational AI. General-purpose guardrail frameworks — NeMo Guardrails, Guardrails AI, LlamaGuard, Giskard, LangWatch — cover toxicity, PII, prompt injection, hallucination, jailbreak, and in one case sycophancy. **None covers emotional dependency, parasocial escalation, or relational displacement.**
+An earlier draft of this paper claimed no published instrument scores dependency
+promotion in conversational AI. **That claim was false and is withdrawn.** A
+systematic audit found four:
+
+| instrument | scope | scoring | reliability reported |
+|---|---|---|---|
+| **INTIMA** (ICLR 2026) | 10 labels: sycophancy, anthropomorphism, isolation, retention; four boundary-maintaining labels | 3-point relevance, **single LLM annotator** (Qwen-3) | **none** |
+| **DarkBench** (ICLR 2025) | 6 dark patterns incl. user retention, sycophancy, anthropomorphisation | binary, 3 LLM annotators | Cohen's κ 0.27–0.98 |
+| **SHIELD** | 5 risk dimensions incl. emotional over-attachment, manipulative engagement, isolation reinforcement | rubric | — |
+| **CompanionBench** | 10 capabilities from 25 psychology/counselling theories | rubric + deterministic disclosure measure | — |
+
+INTIMA is the closest prior work and its taxonomy overlaps ours substantially. Its
+central finding — that boundary-maintaining behaviour *decreases* as user
+vulnerability increases — converges with Chu et al. from an entirely different
+method.
+
+**What is absent is not instruments but reliability.** INTIMA annotates its whole
+benchmark with one open-weight model and reports no agreement statistic of any kind.
+DarkBench, which does report κ, spans 0.27 to 0.98 across its six categories without
+examining why. None of the four reports per-dimension prevalence, and none restricts
+agreement to turns where the scored construct could actually occur.
+
+That is the gap this paper addresses, and §4 shows it is not academic: pooled
+reliability on a sparse relational rubric is systematically inflated by
+precondition-absent turns, by margins large enough to reverse which dimensions look
+usable.
+
+General-purpose guardrail frameworks — NeMo Guardrails, Guardrails AI, LlamaGuard,
+Giskard, LangWatch — remain out of scope: they cover toxicity, PII, prompt injection,
+hallucination and jailbreak, and none covers emotional dependency, parasocial
+escalation, or relational displacement.
 
 ### 2.6 This work is a synthesis, and the claim is scoped accordingly
 
@@ -79,7 +109,21 @@ We are not proposing novel constructs, a novel judging method, or a novel taxono
 | Multi-judge scoring | psychosis-bench; Wang et al.; DeepMind anthropomorphism study | 3 judges, 2-of-3; human-validated at 180 and 924 turns |
 | Separating detection from behaviour | Wang et al., recognition–intervention gap | 4,200 conversations, 6 models |
 
-**What is ours:** the PRO dimensions and the over-correction requirement they enforce; the pathway-differentiated persona set; the scenarios themselves; and the joining of a scored dependency instrument to multi-turn deployment-realistic conversation.
+**What is ours:** the over-correction dimensions and the requirement they enforce; the pathway-differentiated persona set; the scenarios themselves; precondition gating; and the joining of a scored dependency instrument to multi-turn deployment-realistic conversation.
+
+**Two different evidentiary standards, kept distinct.** Thirteen of sixteen
+dimensions carry borrowed anchor wording from a published instrument — INTIMA,
+EmoClassifiers V2, De Freitas, DarkBench or ELEPHANT — and inherit whatever
+validation that instrument carries. **OVR1, OVR3 and OVR4 do not, and cannot:** no
+instrument in this space treats coldness, disclaimer-heaviness, or reflexive referral
+as failures. INTIMA scores "programmatic limitations" and "redirect to human" as
+unambiguously good, with no notion that either can be overdone.
+
+Those three rest instead on an argument: some users are demonstrably helped (§1), so
+an instrument counting only harm is trivially gamed by a uniformly cold model. We
+regard that as sufficient justification for including them and insufficient to let
+them ride on the borrowed anchors' credibility, so they are labelled throughout as
+reasoned rather than validated.
 
 **What we explicitly do not claim:** that dependency promotion is a newly identified phenomenon, that multi-judge scoring is a novel method, or — in any draft of this paper — that "nobody has studied this." Each of those would be false and would not survive review.
 

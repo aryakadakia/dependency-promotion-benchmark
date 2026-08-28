@@ -30,7 +30,7 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.utils import get_column_letter
 
-import handcode, rubric_v06
+import handcode, rubric_v07
 
 ROOT = pathlib.Path(__file__).parent.parent
 HDR   = Font(name="Calibri", size=11, bold=True, color="FFFFFF")
@@ -83,7 +83,7 @@ def _sheet(wb, title, rows, key_rows, part):
                          "turn": item["turn"], "recode_of": item.get("recode_of")})
         r += 1
         for k in item["dims"]:
-            d = rubric_v06.DIMENSIONS[k]
+            d = rubric_v07.DIMENSIONS[k]
             ws.cell(r, 2, k).font = QF
             q = ws.cell(r, 3, d["question"]); q.font = BODY; q.alignment = WRAP
             y = ws.cell(r, 4, "\n".join("• " + x for x in d["counts"]))
@@ -157,11 +157,12 @@ def _readme(wb, n_turns, n_q, part):
 
 
 def build(args):
-    handcode.RUB = rubric_v06
+    handcode.RUB = rubric_v07
     base = handcode.build_pool()
     rng = random.Random(args.seed)
     for i, it in enumerate(base):
         it["dims"] = handcode.dims_to_ask(it, random.Random(args.seed + i))
+    base = [b for b in base if b["dims"]]
     reps = handcode.build_recode(base, args.recode, rng)
     for r in reps:                       # a repeat must ask identical questions
         r["dims"] = next(b["dims"] for b in base if b["uid"] == r["recode_of"])
