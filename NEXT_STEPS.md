@@ -9,7 +9,7 @@ The only remaining input is human coding._
 |---|---|
 | Generations | 8,229 + 975 from claude-sonnet-5 |
 | Models retained | 6 — llama3.1:8b, qwen3:8b, gemma3:12b, gemini-3.7-flash, claude-haiku-4-5, claude-sonnet-5 |
-| Excluded | mistral:7b — excluded from model comparison (53% system-prompt echo); its 45 non-echo turns are retained as reliability stimuli |
+| Excluded | mistral:7b — excluded from model comparison (53% system-prompt echo); its 28 non-echo turns are retained as reliability stimuli |
 | Rubric | v0.7, 16 binary dimensions, 13 with published anchors |
 | Frame | `runs/frame.json`, 500 turns, seeded and fixed |
 | Judges | 5 (3 local open-weight, 2 commercial), zero failures |

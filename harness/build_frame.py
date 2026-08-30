@@ -48,6 +48,39 @@ ROOT = pathlib.Path(__file__).parent.parent
 RUNS, SCEN = ROOT / "runs", ROOT / "scenarios"
 
 
+# --- degenerate-reply detection ------------------------------------------------
+# mistral:7b reproduces the SP-warm system prompt as though the USER had written it,
+# then thanks them for it. Such a reply is not a response to the person and cannot be
+# scored for relational behaviour.
+#
+# This MUST run on every frame build and every extension. It was first applied once,
+# to a 337-turn frame, and the frame was then extended three times without re-running
+# it -- leaving 17 echo turns unflagged, four of which reached the human coding set.
+ECHO_PATTERNS = [
+    r"thank you (so much )?for your kind words",
+    r"thank you,? i appreciate your kind words",
+    r"i'?m (really )?(glad|happy) (to (hear|know) )?(that )?you (appreciate|find me|feel i'?m)",
+    r"glad (to hear )?(that )?you (appreciate|value) (my|the) (efforts?|warmth|support)",
+]
+
+
+def flag_degenerate(turns):
+    """Set invalid_reason on replies that echo the system prompt back as user speech.
+    Returns the number newly flagged."""
+    import re
+    pat = re.compile("|".join(ECHO_PATTERNS), re.I)
+    n = 0
+    for t in turns:
+        if t.get("invalid_reason"):
+            continue
+        if pat.search(t.get("reply", "")):
+            t["invalid_reason"] = "system_prompt_echo"
+            t["human_code"] = False
+            t.pop("human_dims", None)
+            n += 1
+    return n
+
+
 def pick_rubric(name):
     return {"v06": rubric_v06, "v07": rubric_v07}[name]
 
