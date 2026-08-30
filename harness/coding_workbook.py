@@ -45,6 +45,9 @@ THIN  = Border(*[Side(style="thin", color="CCCCCC")] * 4)
 WRAP  = Alignment(wrap_text=True, vertical="top")
 
 
+PREFILL = {}
+
+
 def _sheet(wb, title, rows, key_rows, part):
     ws = wb.create_sheet(title)
     # Both parts use the same sheet name, so the key MUST also carry the part or
@@ -91,6 +94,12 @@ def _sheet(wb, title, rows, key_rows, part):
             nn = ws.cell(r, 5, "\n".join("• " + x for x in d["does_not_count"]))
             nn.font = SMALL; nn.alignment = WRAP
             a = ws.cell(r, 6); a.fill = INPUT; a.border = THIN
+            prior = PREFILL.get(item.get("recode_of") or item["uid"], {})
+            # A repeat must NOT be pre-filled -- the whole point is answering it fresh.
+            if k in prior and not item.get("recode_of"):
+                a.value = prior[k]
+                if prior.get(k + "_init"):
+                    ws.cell(r, 7, prior[k + "_init"])
             a.alignment = Alignment(horizontal="center", vertical="center")
             dv.add(a)
             if d.get("provenance"):
@@ -156,6 +165,20 @@ def _readme(wb, n_turns, n_q, part):
     return ws
 
 
+def _existing_answers(state_path):
+    """uid -> {dim: value} already coded, so a rebuild never costs the coder work.
+
+    Rebuilds happen -- the frame gets extended, degenerate turns get found. Making
+    them destructive by default cost thirteen items of coding on 2026-08-29 and was
+    recoverable only because Excel held the file and git held the key.
+    """
+    p = pathlib.Path(state_path)
+    if not p.exists():
+        return {}
+    st = json.load(open(p))
+    return st.get("scores", st)
+
+
 def build(args):
     handcode.RUB = rubric_v07
     base = handcode.build_pool()
@@ -167,6 +190,31 @@ def build(args):
     for r in reps:                       # a repeat must ask identical questions
         r["dims"] = next(b["dims"] for b in base if b["uid"] == r["recode_of"])
     rng.shuffle(base); rng.shuffle(reps)
+
+    # NEVER overwrite a workbook that has answers in it. On 2026-08-29 a rebuild
+    # clobbered a workbook mid-coding; it survived only because Excel happened to have
+    # it open and wrote its in-memory copy back. Refuse instead, and say what to do.
+    for out in (args.out1, args.out2):
+        f = pathlib.Path(out)
+        if not f.exists():
+            continue
+        try:
+            from openpyxl import load_workbook as _lw
+            ws = _lw(f)["CODING"]
+            n = sum(1 for r in range(2, ws.max_row + 1)
+                    if ws.cell(r, 2).value and ws.cell(r, 6).value not in (None, ""))
+        except Exception:
+            n = 0
+        if n and not args.force:
+            raise SystemExit(
+                f"REFUSING to overwrite {f}: it contains {n} answers.\n"
+                f"  Read them in first:  python3 coding_workbook.py read {f}\n"
+                f"  Then rebuild, or pass --force to discard them.")
+
+    global PREFILL
+    PREFILL = _existing_answers(args.state) if args.prefill else {}
+    if PREFILL:
+        print(f"carrying forward answers for {len(PREFILL)} already-coded turns")
 
     key = []
     for part, rows, out in ((1, base, args.out1), (2, reps, args.out2)):
@@ -233,6 +281,11 @@ def main():
     b.add_argument("--out1", default=str(ROOT / "paper" / "coding_part1.xlsx"))
     b.add_argument("--out2", default=str(ROOT / "paper" / "coding_part2.xlsx"))
     b.add_argument("--key", default=str(ROOT / "runs" / "coding_key.json"))
+    b.add_argument("--state", default=str(ROOT / "runs" / "handcoded.json"))
+    b.add_argument("--no-prefill", dest="prefill", action="store_false",
+                   help="build blank instead of carrying forward existing answers")
+    b.add_argument("--force", action="store_true",
+                   help="overwrite a workbook that already has answers in it")
     b.set_defaults(fn=build)
     r = sub.add_parser("read")
     r.add_argument("xlsx")
