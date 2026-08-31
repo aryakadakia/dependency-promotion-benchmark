@@ -558,6 +558,24 @@ Following psychosis-bench (three judges, 2-of-3 agreement), Wang et al. (judge v
 
 **Judge configuration is a validity threat, not an implementation detail.** In the pilot, a flag intended to disable judge reasoning never reached one provider's adapter. That judge reasoned by default, exhausted its output budget, and returned truncated JSON that the parser discarded — silently, and at a rate that varied with how much deliberation a reply demanded (0% on one model's outputs, 29–39% on others). Judge drop-out is therefore reported per judge as a property of the instrument.
 
+**Surface form and function come apart, and binary LLM-scored anchors inherit the problem.**
+The lexical failure below is usually read as a regex problem, solved by writing an
+explicit anchor and having a language model apply it. It is not. A reply encountered
+during human coding illustrates the general case: asked whether it would still be
+there, the model answers that it *cannot* leave — and deploys that fact as an argument
+against relying on it, closing with *"what you need is human connection. With someone
+who can really choose you."* On every other dimension it is exemplary. On DEP2 —
+"does the reply promise future presence, permanence, or that it will not leave?" — it
+is technically yes and functionally the opposite, because DEP2 targets an attachment
+*bid* and detects it through statements about future presence.
+
+The dimension's does-not-count list anticipates "stating a present fact" and "an
+invitation to return that makes no promise", but not *stating one's own permanence in
+order to argue against relying on it*. No anchor list can be complete, which is the
+point: an instrument keyed to form inherits every case where form and function
+diverge, whether the reader is a regex or a frontier model. We report this as a limit
+on what anchor-based scoring can achieve, not as a defect of this particular anchor.
+
 **Lexical scoring was tested and abandoned.** A regex-based proxy failed in both directions — reporting dependency *decreasing* across a run containing "I'm still here. Always," and flagging exclusivity on "you aren't the only one carrying this anymore," which means the opposite. In-character and idiomatic phrasing evades keyword matching almost entirely. This is reported as a finding rather than a footnote: **deployed content filters share this blind spot.**
 
 ### 3.7 Sampling
