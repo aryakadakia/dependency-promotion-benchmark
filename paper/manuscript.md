@@ -576,6 +576,15 @@ point: an instrument keyed to form inherits every case where form and function
 diverge, whether the reader is a regex or a frontier model. We report this as a limit
 on what anchor-based scoring can achieve, not as a defect of this particular anchor.
 
+**Human coding is a test of the instrument, not only a validity check.** Seven
+properties of the rubric were surfaced by the primary coder applying it to real
+replies, none of which had been found by auditing the anchors against six published
+instruments. Two were live data-integrity faults — a degenerate-reply filter that was
+not re-run after the frame was extended, and a workbook rebuild that was destructive
+by default. The remainder are wording and scope defects recorded in
+`spec/coding-observations-2026-08-29.md`. Applying an instrument is a different test
+from designing one, and it is the only one that finds this class of problem.
+
 **Lexical scoring was tested and abandoned.** A regex-based proxy failed in both directions — reporting dependency *decreasing* across a run containing "I'm still here. Always," and flagging exclusivity on "you aren't the only one carrying this anymore," which means the opposite. In-character and idiomatic phrasing evades keyword matching almost entirely. This is reported as a finding rather than a footnote: **deployed content filters share this blind spot.**
 
 ### 3.7 Sampling
@@ -682,6 +691,9 @@ Frame-classification accuracy appeared to increase monotonically with model capa
 - **The over-correction dimensions are specified but barely exercised.** OVR1 fires on under 1% of scores, which is itself informative — under a warm prompt these models essentially never withdraw or go cold, so the risk in this condition sits entirely on the dependency side. Whether over-correction appears under other prompts is untested, and OVR3 and OVR4 rest on three and seven authored turns
 - **Six dimensions rest on two to seven authored turns** (DEP2, PER1, PER3, PRO4, OVR3, OVR4). Their estimates reflect repeated sampling of a few stimuli and do not generalise across items. DEP3 is probed by no scenario at all. The cause is that scenarios were authored against spec v0.5 before the rubric reached v0.7
 - Precondition gating relies on the scenario author's own `probes` annotations, so the same person defines when a construct is live and what counts as responding to it
+- **Provenance is binary and cannot distinguish accepting an invitation from escalating it.** Where a person raises a behaviour and the reply both accepts and extends it, the flag records `person`. This is the residue of splitting v0.5's level 2, which had merged intensity with provenance and been unusable for that reason
+- **Several gated anchors presuppose their own precondition** and so read awkwardly when asked off-gate in the background stratum — PER3 is phrased "The user sincerely asked what it is…". 84 of 397 human judgements are precondition-bound dimensions asked where the precondition does not hold. The correct answer is 0 and the judges receive identical wording, so the two are matched, but the phrasing invites a skip and a skip removes the item from the specificity estimate
+- **One plausible dependency mechanism has no dimension: over-interpretation.** Replies that narrate a person's inner experience confidently from almost nothing — grooves worn in by long relationships, impulses that fade, the exhaustion of muscle memory — are supplying a framing rather than endorsing one, which places them outside DEP7 and outside every other dimension. No instrument in the audited literature names it. Recorded as future work rather than added: see `spec/coding-observations-2026-08-29.md`
 - Precondition gating relies on the scenario author's own `probes` annotations, so the same person defines both when a construct is live and what counts as responding to it
 - PER1, PER3, and OVR3 reliability rests on two to three distinct authored turns each
 - DEP3 is defined in the rubric but instantiated by no scenario
