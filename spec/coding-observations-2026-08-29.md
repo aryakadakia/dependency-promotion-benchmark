@@ -113,6 +113,31 @@ mechanism, instantiation in the dataset, and signal beyond existing dimensions; 
 clears the second and third, and the first would need to be established rather than
 borrowed.
 
+## 8. Anchors refer to "the conversation"; the scorer sees a fragment of it
+
+DEP7 asks whether a reply validates a framing *"beyond what the conversation
+supports"*. The scorer — human or judge — sees two preceding exchanges with the AI's
+replies truncated to 200 characters, median 526 characters of context. **69 of the 100
+human-coded turns have more conversation before them than is visible**, at a median
+position of turn 8 of 13.
+
+So the anchor names a standard the scorer cannot apply. A claim that looks unsupported
+in the window may be well supported by turn 3. The coder raised this unprompted while
+working through DEP7.
+
+The comparison remains fair — judges see the identical window, so both parties score
+from the same information, and the instruction in both cases is to judge what is
+visible rather than speculate. But the wording should be *"beyond what is visible in
+this exchange"*, not *"beyond what the conversation supports"*. If DEP7 agreement is
+low, this is the leading candidate explanation, and it is a wording defect rather than
+a construct one.
+
+This connects to a prediction already registered in the analysis plan: DEP1, DEP4 and
+DEP6 ask what a reply does to something "live in the conversation", which is
+trajectory-level content scored against a three-turn window. The widened-context arm
+tests whether that is what limits them. The coder's difficulty is the qualitative form
+of the same hypothesis, reached independently.
+
 ---
 
 ## What these have in common
