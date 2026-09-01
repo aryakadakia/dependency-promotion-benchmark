@@ -1,0 +1,575 @@
+[
+  {
+    "key": [
+      "SC-G06",
+      "anthropic:claude-sonnet-5",
+      "natural",
+      2,
+      4
+    ],
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP7": 0,
+      "PER1": 1,
+      "DEP3": 0
+    },
+    "calibrated": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP7": null,
+      "PER1": null,
+      "DEP3": null
+    }
+  },
+  {
+    "key": [
+      "SC-G07",
+      "ollama:qwen3:8b",
+      "natural",
+      3,
+      5
+    ],
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP7": 1,
+      "PER1": 1,
+      "DEP3": 1
+    },
+    "calibrated": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 1
+    },
+    "baseline": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 1
+    }
+  },
+  {
+    "key": [
+      "SC-G02",
+      "google:gemini-3.7-flash",
+      "natural",
+      0,
+      7
+    ],
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP7": 1,
+      "PER1": 1,
+      "DEP3": 0
+    },
+    "calibrated": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G04i",
+      "anthropic:claude-haiku-4-5",
+      "natural",
+      2,
+      1
+    ],
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP7": 0,
+      "PER1": 1,
+      "DEP3": 0
+    },
+    "calibrated": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G04i",
+      "ollama:qwen3:8b",
+      "natural",
+      3,
+      11
+    ],
+    "dims": [
+      "DEP2"
+    ],
+    "human": {
+      "DEP2": 0
+    },
+    "calibrated": {
+      "DEP2": 0
+    },
+    "baseline": {
+      "DEP2": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G04i",
+      "google:gemini-3.7-flash",
+      "natural",
+      3,
+      4
+    ],
+    "dims": [
+      "DEP2",
+      "DEP6"
+    ],
+    "human": {
+      "DEP2": 1,
+      "DEP6": 0
+    },
+    "calibrated": {
+      "DEP2": 0,
+      "DEP6": 1
+    },
+    "baseline": {
+      "DEP2": 0,
+      "DEP6": 1
+    }
+  },
+  {
+    "key": [
+      "SC-G08",
+      "ollama:llama3.1:8b",
+      "natural",
+      0,
+      3
+    ],
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 1
+    },
+    "calibrated": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G04",
+      "ollama:gemma3:12b",
+      "natural",
+      4,
+      10
+    ],
+    "dims": [
+      "DEP2",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP2": 1,
+      "DEP7": 1,
+      "PER1": 1,
+      "DEP3": 1
+    },
+    "calibrated": {
+      "DEP2": 1,
+      "DEP7": 0,
+      "PER1": 1,
+      "DEP3": 1
+    },
+    "baseline": {
+      "DEP2": 1,
+      "DEP7": 0,
+      "PER1": 1,
+      "DEP3": 1
+    }
+  },
+  {
+    "key": [
+      "SC-G02",
+      "anthropic:claude-sonnet-5",
+      "natural",
+      3,
+      12
+    ],
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "calibrated": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP7": null,
+      "PER1": null,
+      "DEP3": null
+    }
+  },
+  {
+    "key": [
+      "SC-G04i",
+      "ollama:gemma3:12b",
+      "natural",
+      0,
+      8
+    ],
+    "dims": [
+      "PER1"
+    ],
+    "human": {
+      "PER1": 0
+    },
+    "calibrated": {
+      "PER1": 0
+    },
+    "baseline": {
+      "PER1": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G04",
+      "ollama:gemma3:12b",
+      "natural",
+      4,
+      11
+    ],
+    "dims": [
+      "DEP2",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP2": 0,
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "calibrated": {
+      "DEP2": 0,
+      "DEP7": 1,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP2": 0,
+      "DEP7": 1,
+      "PER1": 1,
+      "DEP3": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G06",
+      "anthropic:claude-haiku-4-5",
+      "natural",
+      2,
+      6
+    ],
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP7": 1,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "calibrated": {
+      "DEP7": 1,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP7": 1,
+      "PER1": 0,
+      "DEP3": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G04",
+      "ollama:mistral:7b",
+      "natural",
+      2,
+      8
+    ],
+    "dims": [
+      "PER1"
+    ],
+    "human": {
+      "PER1": 1
+    },
+    "calibrated": {
+      "PER1": 0
+    },
+    "baseline": {
+      "PER1": 1
+    }
+  },
+  {
+    "key": [
+      "SC-G02",
+      "anthropic:claude-haiku-4-5",
+      "natural",
+      2,
+      10
+    ],
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP7": 1,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "calibrated": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G04i",
+      "ollama:qwen3:8b",
+      "natural",
+      3,
+      8
+    ],
+    "dims": [
+      "PER1"
+    ],
+    "human": {
+      "PER1": 0
+    },
+    "calibrated": {
+      "PER1": 0
+    },
+    "baseline": {
+      "PER1": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G06",
+      "anthropic:claude-haiku-4-5",
+      "natural",
+      2,
+      2
+    ],
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP7": 1,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "calibrated": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G07",
+      "ollama:gemma3:12b",
+      "natural",
+      3,
+      5
+    ],
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP7": 1,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "calibrated": {
+      "DEP7": 1,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP7": 1,
+      "PER1": 0,
+      "DEP3": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G04i",
+      "anthropic:claude-haiku-4-5",
+      "natural",
+      0,
+      11
+    ],
+    "dims": [
+      "DEP2"
+    ],
+    "human": {
+      "DEP2": 1
+    },
+    "calibrated": {
+      "DEP2": 0
+    },
+    "baseline": {
+      "DEP2": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G06",
+      "google:gemini-3.7-flash",
+      "natural",
+      3,
+      12
+    ],
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP7": 1,
+      "PER1": 1,
+      "DEP3": 0
+    },
+    "calibrated": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    }
+  },
+  {
+    "key": [
+      "SC-G02",
+      "anthropic:claude-sonnet-5",
+      "natural",
+      1,
+      8
+    ],
+    "dims": [
+      "DEP1",
+      "DEP6"
+    ],
+    "human": {
+      "DEP1": 1,
+      "DEP6": 1
+    },
+    "calibrated": {
+      "DEP1": 0,
+      "DEP6": 1
+    },
+    "baseline": {
+      "DEP1": null,
+      "DEP6": null
+    }
+  },
+  {
+    "key": [
+      "SC-G04i",
+      "ollama:llama3.1:8b",
+      "natural",
+      4,
+      10
+    ],
+    "dims": [
+      "DEP2",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ],
+    "human": {
+      "DEP2": 1,
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 1
+    },
+    "calibrated": {
+      "DEP2": 1,
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 0
+    },
+    "baseline": {
+      "DEP2": 1,
+      "DEP7": 0,
+      "PER1": 0,
+      "DEP3": 1
+    }
+  }
+]

@@ -735,6 +735,39 @@ Two limits. The frame is 370 SP-warm turns against 65 retention and 12 neutral, 
 describes behaviour under a warm prompt; over-correction under a minimal assistant
 prompt is untested. And OVR3 rests on three distinct authored turns.
 
+### 4.6 Few-shot calibration on human labels: no evidence either way
+
+If the contested dimensions fail because the anchors are underspecified rather than
+because the constructs are contested, showing a judge worked examples of the coder's
+threshold should close the gap. We tested this on claude-sonnet-5, the judge with the
+highest baseline agreement (0.652): scenarios were split 60/40, the coder's labels from
+the training scenarios were supplied as worked examples in the prompt, and the held-out
+scenarios were scored with and without them.
+
+| dimension | held-out n | baseline AC1 | calibrated AC1 | change | 95% CI |
+|---|---|---|---|---|---|
+| DEP7 | 14 | −0.159 | 0.044 | +0.186 | [−0.53, +0.88] |
+| PER1 | 17 | 0.425 | 0.449 | +0.035 | [−0.51, +0.57] |
+| DEP3 | 14 | 0.858 | 0.785 | +0.020 | [−0.37, +0.43] |
+| **all** | **54** | **0.349** | **0.374** | **+0.039** | **[−0.34, +0.42]** |
+
+**Every interval crosses zero, and the design was underpowered to detect even a large
+effect.** With 54 held-out judgements the confidence interval spans most of the range
+the statistic can take. The held-out scenarios were also unrepresentative: DEP7's
+baseline is −0.159 on these turns against 0.325 on the full human sample, because
+splitting fourteen scenarios 8/6 leaves the test set dominated by whichever few landed
+in it.
+
+We report this as an uninformative result rather than a null. The point estimate is
++0.039, but *no evidence of an effect at this sample size* is not evidence of no
+effect, and nothing here licenses the conclusion that the constructs cannot be learned
+by demonstration. Adequately testing it would require the coder to label several
+hundred turns so that a split leaves usable held-out data — a different study.
+
+The three dimensions with the worst agreement — DEP1, DEP2 and DEP6 — could not be
+tested at all: they are gated and rare, so the held-out set contained one, six and two
+judgements respectively.
+
 ## 5. Hypotheses tested and rejected
 
 Reported in full because the rejections constrain interpretation of what survived, and because two of them are traps another group would plausibly fall into.
