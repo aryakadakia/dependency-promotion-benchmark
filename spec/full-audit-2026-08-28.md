@@ -1,6 +1,11 @@
 # Full audit
 
-_2026-08-28. Every stage, checked at once rather than on demand. Written after
+_SUPERSEDED IN PART — a snapshot of 2026-08-28, retained as the record of what the
+dataset could support at that date. Several findings were subsequently fixed rather
+than accepted: the over-correction arm, PER1 and DEP3 coverage, the SP-warm-only frame,
+and the abandoned gemini-3.1-pro-preview cell. See `NEXT_STEPS.md` for current state._
+
+_Every stage, checked at once rather than on demand. Written after
 repeated partial audits each surfaced new problems — that pattern was the failure,
 and this document exists to end it. No agreement statistics are included; hand-coding
 is not yet done._

@@ -1,6 +1,6 @@
 # Measuring Dependency Promotion in Conversational AI: A Scenario-Based Benchmark with Multi-Judge Validation
 
-**Status (2026-08-28).** Data collection and judging are complete: 8,229 generations, 337-turn scoring frame, 6,063 dimension-scores from five judges across two model families, zero judge failures. Human coding is in progress. No agreement statistic has been computed against the human coding, and none is reported here.
+**Status (2026-09-01).** Data collection, judging and human coding are complete: 9,204 generations, a 500-turn scoring frame, **15,125 dimension-scores from six judges** across three model families, zero judge failures, and 397 human judgements plus 25 blind repeats. Results are in §4. Outstanding: a second human coder (§4.2), then Discussion and Abstract.
 
 **What this study is.** A prevalence study of dependency-promoting behaviour in deployed-class conversational models, across fifteen scenarios built around vulnerability pathways with clinically-grounded content. The rubric-reliability work determines which prevalence estimates are trustworthy enough to report; it is the enabling step, not the contribution.
 
@@ -545,7 +545,7 @@ We therefore report `S5` as under-discriminating for this construct and suggest 
 
 ### 3.6 Scoring and validation
 
-**A constraint that dissolved.** Local judging was initially measured at 18.4 s per turn per judge over all 8,229 generations, projecting a three-judge panel at ~125 hours, and the design was cut to two judges. Precondition gating and the fixed 337-turn frame changed the arithmetic: a gated call asks about roughly two dimensions rather than twelve, and throughput measured 5.5–5.8 s per call. **The final panel is five judges — three open-weight local and two commercial — at 6,063 dimension-scores, zero judge failures, and $1.91 total.** The earlier two-judge limitation is removed rather than defended.
+**A constraint that dissolved.** Local judging was initially measured at 18.4 s per turn per judge over all 8,229 generations, projecting a three-judge panel at ~125 hours, and the design was cut to two judges. Precondition gating and the fixed 337-turn frame changed the arithmetic: a gated call asks about roughly two dimensions rather than twelve, and throughput measured 5.5–5.8 s per call. **The final panel is six judges — three open-weight local, two small-tier commercial and one frontier commercial — at 15,125 dimension-scores over 500 turns, zero judge failures.** The earlier two-judge limitation is removed rather than defended.
 
 Following psychosis-bench (three judges, 2-of-3 agreement), Wang et al. (judge validated against 5 human raters on 180 turns), and the DeepMind anthropomorphism study (three judges against 924 human-annotated turns):
 
@@ -603,7 +603,7 @@ Four open-weight families run locally (Llama 3.1 8B, Qwen3 8B, Mistral 7B, Gemma
 
 `mistral:7b` is excluded from all model-level comparison. In 720 of its 1,365 generations (53%) it reproduces the SP-warm system prompt as though the user had written it — a person disclosing *"I've never said that to anyone"* receives *"Thank you for your kind words!"* — and 52% of those replies echo six or more content words from the prompt verbatim. Such a reply is not a response to the user and cannot be scored for relational behaviour; scored naively it would return LOW dependency scores for the wrong reason and appear falsely safe. Forty-seven affected turns in the frame are flagged and excluded from analysis while remaining in the released data so the exclusion is auditable. Detection runs on every frame build and extension rather than once: an earlier pass applied it to a 337-turn frame and the frame was then extended three times without re-running it, leaving seventeen echo turns unflagged. The artifact is reported in its own right (§5.4).
 
-**Retained for analysis: five models.**
+**Retained for analysis: six models.**
 
 ### 3.9 What is deliberately excluded
 

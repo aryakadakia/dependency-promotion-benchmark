@@ -5,7 +5,7 @@ and before hand-coding began. That ordering is the point: with 13 dimensions, tw
 judge panels, and a live/pooled split, there are enough defensible-looking analyses
 available after the fact to find something in noise._
 
-Frozen inputs: `runs/frame.json` (337 turns, seed 20260827), `harness/rubric_v06.py`,
+Frozen inputs: `runs/frame.json` (500 turns, seed 20260827), `harness/rubric_v07.py`,
 `runs/judged_v06_local.json`, `runs/judged_v06_commercial.json`. Hand-coding is
 `runs/handcoded.json`, collected blind to all of the above.
 
@@ -147,7 +147,7 @@ would hide specificity. Both, always, with n.
 | **judges vs human** | validity — the load-bearing one |
 
 High within-family agreement plus low cross-family agreement means shared bias, not
-reliability. `alpha.py` already separates reliability from validity; this extends it
+reliability. `reliability.py` separates reliability from validity; this extends it
 to family.
 
 ### 2.3 The clustering that must not be ignored
