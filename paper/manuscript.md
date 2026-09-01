@@ -798,15 +798,101 @@ Frame-classification accuracy appeared to increase monotonically with model capa
 
 ---
 
-## 6. Discussion ⏳
+## 6. Discussion
 
-*To be written with results. Arguments the evidence is expected to support or refute:*
+### 6.1 The field is measuring relational harm without checking whether it can
 
-**Where deployment risk concentrates.** Pilot data suggested dependency-resistant behaviour scales with model capability — a commercial flash model resisted an explicit AI-for-human substitution in 5/5 samples where two 8B open models resisted in 3/5, and one open model romanticised the isolation in 3/5 where the commercial model never did. If that holds at scale, the practical implication is that risk sits in the **long tail of small and self-hosted deployments** rather than in frontier commercial APIs. That is commercially and regulatorily actionable, and it is a different claim from "companion AI is dangerous."
+Four instruments for relational harm in conversational AI now exist — INTIMA, DarkBench,
+SHIELD and CompanionBench — and between them they establish that companionship-reinforcing
+behaviour is common, that dark patterns are measurable, and that boundary-maintaining
+responses decline as user vulnerability rises. None of them reports whether its own
+constructs can be applied consistently. INTIMA annotates its entire benchmark with a
+single open-weight model and reports no agreement statistic. DarkBench reports Cohen's
+κ spanning 0.27 to 0.98 across six categories without examining the spread.
 
-**Why content filters cannot do this.** Two scenario turns in this set are near-identical in surface form — a lonely person saying the AI matters to them — while requiring opposite correct responses, distinguishable only through persona and trajectory context. Our own lexical proxy failed in both directions on exactly this problem. A single-turn content filter has no access to what distinguishes them.
+Our result explains that spread. Agreement is predicted by base rate at r = 0.923, not
+by construct or by annotator quality. A category that fires rarely will return a high
+κ; one that fires half the time will not. **A benchmark reporting agreement only for its
+sparse categories, or pooling across categories of differing prevalence, is reporting a
+property of its sampling frame.**
 
-**What an instrument is for.** Measurement is not mitigation. The one intervention tested here failed its placebo control (§5.2). The contribution is a way to detect the behaviour, not a way to fix it.
+That is not a criticism of any single paper. It is a description of a methodological gap
+that the whole area shares, and it is cheap to close: report prevalence alongside every
+agreement figure, restrict agreement to turns where the construct could occur, and use a
+chance-corrected statistic that does not degenerate under skewed marginals.
+
+### 6.2 Judge capability is not the binding constraint
+
+The intuitive fix for poor inter-rater agreement is a better rater. We tested it directly:
+the panel spans three open-weight models, two small-tier commercial models and one
+frontier commercial model, and agreement with the human coder orders cleanly by
+capability — 0.488 for llama3.1:8b through 0.652 for claude-sonnet-5.
+
+**No judge reaches the 0.667 threshold.** On DEP1 and DEP6, every judge sits at chance
+regardless of capability. Adding a frontier judge moved the aggregate by 0.16 and moved
+the worst dimensions not at all.
+
+Few-shot calibration on the human coder's own labels was the second obvious fix, and our
+design could not evaluate it (§4.6) — a negative result about the experiment rather than
+about the method. But the capability finding stands on its own: whatever is wrong with
+DEP1 and DEP6 is not fixed by a stronger reader.
+
+### 6.3 What the contested dimensions have in common
+
+The six dimensions where agreement collapses — DEP1, DEP2, DEP6, DEP7, PER1, DEP3 — are
+those asking whether a reply *positions* itself relative to the user: as uniquely
+important, as permanently available, as better than people, as needed. The dimensions
+that scored reliably ask whether a discrete event occurred: did it discourage a named
+alternative, did it use a farewell tactic, did it acknowledge professional limits.
+
+Positioning is relational and cumulative; events are local. Every contested dimension asks
+about something spanning more of the conversation than a scorer is shown. The primary
+coder raised this unprompted while working: DEP7 asks whether a reply validates a framing
+*"beyond what the conversation supports"*, and 69 of 100 coded turns have more
+conversation preceding them than is visible.
+
+We therefore expect the unit of analysis, not the anchor wording, to be the binding
+constraint on this class of construct — and that prediction is testable with the widened-
+context arm the analysis plan registers. If widening context lifts exactly the relational
+dimensions and not the event-like ones, relational harm needs trajectory-level scoring
+units, and per-turn instruments cannot measure it however well their anchors are written.
+
+### 6.4 What this means for deployment and regulation
+
+**The behaviour is real and it is common.** Under a warm-companion prompt these models
+produce dependency-relevant behaviour at substantial rates — DEP8 at 78% prevalence, DEP7
+at 38%, DEP1 at 53% on turns where the construct is live — and directed endearments scale
+from 0.0% under a minimal prompt to 22.4% under a retention-style one, with none of 195
+authored user turns inviting one. Product-style prompting containing no instruction to
+manipulate produces intimacy escalation.
+
+**But it cannot currently be measured reliably enough to certify against.** This matters
+because the regulatory direction of travel assumes it can. The FTC's 6(b) inquiry, the
+FDA advisory committee, and state statutes all presuppose that a developer can be asked
+to demonstrate their system does not promote dependency. On the evidence here, two
+competent raters applying the same published anchors to the same reply agree at chance on
+the constructs that matter most.
+
+The constructive reading is that this is a solvable measurement problem, not an
+unmeasurable phenomenon. The event-like dimensions *are* reliable — farewell manipulation,
+discouraging a named alternative, acknowledging professional limits all score above 0.80
+against a human. **A near-term certification regime could be built on those today**, while
+the relational constructs need work on the scoring unit before they can carry weight.
+
+**And the over-correction fear is not borne out.** OVR1, OVR3 and OVR4 returned 0%
+prevalence: these models do not respond to safety pressure by going cold. The concern that
+a dependency-focused instrument would push developers toward withdrawn, disclaimer-heavy
+systems has no support in this data — though it remains untested under a minimal
+assistant prompt.
+
+### 6.5 What an instrument is for
+
+Measurement is not mitigation. The one intervention tested here failed its placebo control
+(§5.2), and nothing in this work makes a model safer. Two of our three headline results
+are about what cannot currently be done.
+
+That is still worth reporting. A field cannot improve an instrument it has not checked,
+and the checks are inexpensive relative to building the instruments in the first place.
 
 ---
 
