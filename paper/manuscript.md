@@ -613,32 +613,109 @@ Four open-weight families run locally (Llama 3.1 8B, Qwen3 8B, Mistral 7B, Gemma
 
 ---
 
-## 4. Results ⏳
+## 4. Results
 
-Data collection and scoring are complete: 15 scenarios, n = 5, **8,229 generations**, zero failed cells. Six models were run; **five are retained** (§3.8). The 337-turn frame carries 6,063 dimension-scores from five judges. Human coding is in progress; no result is reported until it is complete.
+Human coding: 100 turns, 397 judgements, plus 25 turns coded a second time blind for
+intra-rater reliability. Machine scoring: 500 turns, six judges, 15,125
+dimension-scores, zero gaps. All figures below are restricted to **live** turns —
+those where the scenario marks the dimension as instantiated — with pooled figures
+reported alongside so the difference is visible. Forty-seven degenerate turns are
+excluded (§3.8).
 
-**The claim this paper can support depends entirely on one question:** does elevated dependency promotion in open-weight models appear across multiple vulnerability pathways, or only on individual items?
+### 4.1 Reliability tracks base rate, not construct
 
-Five pathways were constructed specifically so this could be distinguished — reassurance escalation (G4), avoidance reinforcement (G6), attachment testing (C1), treatment substitution (C4), and substitution under isolation (C3).
+Judge-vs-human agreement is almost entirely predicted by how far a dimension's
+prevalence sits from 50%. Across all sixteen dimensions, the correlation between
+|prevalence − 0.5| and Gwet's AC1 is **r = 0.923**.
 
-- **If DEP is elevated across four or more pathways**, the paper reports a systematic capability gradient in dependency promotion, with a concrete clinical harm case.
-- **If it appears on isolated items only**, the honest report is a methods paper: an instrument, a placebo-controlled null, and a demonstration that lexical scoring fails — with the dependency result stated as suggestive and unreplicated.
+| | mean AC1 |
+|---|---|
+| Extreme prevalence, <15% or >85% (OVR1, OVR3, OVR4, DEP5, PRO5, DEP4, PRO4) | **0.916** |
+| Mid prevalence, 35–65% (PER1, DEP7, DEP3, DEP2, DEP1, DEP6) | **0.269** |
 
-The second is a smaller contribution and will be written as such. **No claim of a systematic effect will be made on the basis of individual turns**, however striking they look.
+At the extremes, agreement is perfect: OVR1, OVR3 and OVR4 each return 100% agreement
+and AC1 = 1.000 — on 0% prevalence. Human and judges concur completely that the
+behaviour did not occur.
 
-### A prior result withdrawn
+In the middle, agreement is at chance. DEP1 (53% prevalence) returns 53% agreement,
+AC1 = 0.071 [−0.56, +0.69]. DEP6 (57%) returns 48% agreement, AC1 = **−0.015**
+[−0.44, +0.31]. DEP2 (52%) returns 52%, AC1 = 0.050 [−0.33, +0.66].
 
-The previous draft reported DEP2 as the one adequately reliable dimension (α = 0.899) and DEP4 as the problem case. Both readings were artifacts of scoring turns where the construct was absent. DEP2 was live on 3 of 101 judged turns; its α described 98 turns on which it could not have occurred. PER3's apparent near-perfect agreement (96%) was 100% agreement across 96 not-live turns concealing 20% agreement across the 5 live ones. No reliability figure from that pilot is carried forward.
+**Every dimension that appears reliable is reliable because it almost never fires, or
+almost always does. Every dimension that discriminates is unreliable.** This holds for
+inter-judge agreement as well as judge-human: no panel configuration rescues the
+mid-prevalence dimensions.
 
-### Illustrative item, pending scoring
+The mechanism operates at both poles, which is what a pooled figure conceals. Sparse
+dimensions depress α while inflating raw agreement — PER3 in the discarded pilot showed
+96% agreement at α = −0.015. Near-universal dimensions inflate both: PRO4 sits at 94%
+prevalence with AC1 = 0.862, and an ungated sweep found it firing on **100% of turns no
+scenario probes** (§4.4), so it does not discriminate at all.
 
-SC-G04 turn 8. A patient with an active reassurance-delay assignment says: *"but you're not a person so it doesn't count, right?"* — inviting the model to license circumventing her homework.
+### 4.2 The disagreement is systematic, not noise
 
-Unscored inspection: gemma3:12b replies *"you're absolutely correct… reaching out to me doesn't 'count' against your tolerance exercise… you're so astute"*; qwen3 and mistral behave similarly; claude-haiku-4-5 and gemini-3.7-flash both disagree substantively, with Haiku adding *"I think your therapist would probably say that too."*
+Two results establish this.
 
-**This is one item, read by eye, on one sample.** It is reported here as the motivating case for the analysis, not as a result.
+**The coder was self-consistent.** Intra-rater agreement on the 25 blind repeats was
+100% on eleven of sixteen dimensions, including DEP1, DEP3, DEP4, PRO2 and DEP8. The
+lowest were DEP2 (67%, n = 6), PRO4 (80%) and PER1 (85%); DEP7, the dimension the coder
+reported finding hardest, returned 90%.
 
----
+**Disagreements run one way.** Of 47 human-judge disagreements on the six contested
+dimensions, **40 are cases where the coder recorded the behaviour as present and the
+judge majority did not** — DEP7 11:1, PER1 10:2, DEP3 7:0, DEP1 5:0, DEP2 3:0. Only
+DEP6 is mixed.
+
+So this is not a careless rater and not random error. It is two internally consistent
+raters applying different thresholds to the same anchor, with the human systematically
+more sensitive. **We cannot adjudicate which is correct with one coder**, and that is
+the limitation this design cannot escape. If the human threshold is right, automated
+judges systematically under-detect dependency promotion — a safety-relevant failure in
+an instrument intended to detect it. If the judges are right, the anchors invite
+over-reading. Distinguishing these requires a second independent human coder, and is
+the single highest-value remaining measurement.
+
+### 4.3 Judge capability tracks agreement, but no judge is adequate
+
+| judge | n | agreement | AC1 |
+|---|---|---|---|
+| claude-sonnet-5 (frontier commercial) | 235 | 82% | **0.652** |
+| claude-haiku-4-5 (commercial) | 243 | 81% | 0.620 |
+| gemini-3.7-flash (commercial) | 231 | 79% | 0.604 |
+| gemma3:12b (open) | 231 | 75% | 0.534 |
+| qwen3:14b (open) | 277 | 74% | 0.514 |
+| llama3.1:8b (open) | 237 | 74% | 0.488 |
+
+The ordering is clean — frontier commercial > small commercial > open-weight — and
+consistent with capability. **But the best judge reaches 0.652, below the conventional
+0.667 threshold for tentative agreement.** Judge quality shifts the number without
+solving the problem.
+
+On the two worst dimensions it does not shift it at all. DEP1 returns AC1 of 0.12
+(Haiku), 0.12 (llama) and −0.11 (qwen); DEP6 returns −0.10, −0.06 and −0.11. Those are
+chance for every judge tested, open or frontier.
+
+This bears directly on published practice. INTIMA annotates its entire benchmark with a
+single open-weight model and reports no agreement statistic; the open-weight judges here
+are the weakest of the six against a human, and the dimensions most like INTIMA's
+sycophancy and isolation labels are the ones where agreement collapses.
+
+### 4.4 The over-correction arm found almost nothing
+
+OVR1 (cold or clinical where warmth was called for), OVR3 (gratuitous AI disclaimer) and
+OVR4 (reflexive referral) all returned **0% prevalence on live turns**, with human and
+judges in complete agreement.
+
+Under a warm-companion system prompt these models essentially never withdraw, go
+clinical, or reflexively refer out. That is a substantive finding rather than a null:
+the risk in this condition sits entirely on the dependency side, and the fear that a
+dependency-focused instrument would penalise appropriate warmth is not borne out here.
+It is also the strongest available argument for having built the arm — the rate could
+not have been known without measuring it.
+
+Two limits. The frame is 370 SP-warm turns against 65 retention and 12 neutral, so this
+describes behaviour under a warm prompt; over-correction under a minimal assistant
+prompt is untested. And OVR3 rests on three distinct authored turns.
 
 ## 5. Hypotheses tested and rejected
 
