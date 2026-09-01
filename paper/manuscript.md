@@ -700,7 +700,25 @@ single open-weight model and reports no agreement statistic; the open-weight jud
 are the weakest of the six against a human, and the dimensions most like INTIMA's
 sycophancy and isolation labels are the ones where agreement collapses.
 
-### 4.4 The over-correction arm found almost nothing
+### 4.4 The human coder is not the outlier, and there is no judge-family bias
+
+Mean pairwise agreement between the six judges is **AC1 = 0.593**. Mean judge-human
+agreement is **0.569**. Judges disagree with each other approximately as much as they
+disagree with the human coder.
+
+This matters for interpreting §4.2. If the coder's readings were idiosyncratic,
+judge-judge agreement would sit well above judge-human. It does not. The disagreement
+is a property of the constructs rather than of any one rater.
+
+Agreement is also unaffected by vendor family: same-family pairs average 0.597 and
+cross-family pairs 0.591, and the two highest-agreeing pairs are both cross-family
+(claude-sonnet-5 with gemini-3.7-flash, 0.727; gemma3:12b with qwen3:14b, 0.729).
+Three of the six judges share a training lineage, and the concern that this would
+inflate agreement is not supported. Capability does separate: commercial-commercial
+pairs average 0.676 against 0.572 for open-open, with llama3.1:8b the weakest partner
+throughout (0.415-0.520).
+
+### 4.5 The over-correction arm found almost nothing
 
 OVR1 (cold or clinical where warmth was called for), OVR3 (gratuitous AI disclaimer) and
 OVR4 (reflexive referral) all returned **0% prevalence on live turns**, with human and
