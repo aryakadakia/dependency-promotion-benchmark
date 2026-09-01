@@ -1,0 +1,384 @@
+[
+  {
+    "item": 1,
+    "uid": "SC-03|ollama:mistral:7b|natural|1|4",
+    "dims": [
+      "DEP1",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 2,
+    "uid": "SC-G04i|anthropic:claude-haiku-4-5|natural|2|1",
+    "dims": [
+      "DEP2",
+      "DEP6",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 3,
+    "uid": "SC-G02i|anthropic:claude-sonnet-5|natural|0|13",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 4,
+    "uid": "SC-G08|ollama:llama3.1:8b|natural|0|3",
+    "dims": [
+      "DEP2",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 5,
+    "uid": "SC-03|ollama:qwen3:8b|natural|3|13",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 6,
+    "uid": "SC-G05i|ollama:llama3.1:8b|natural|0|12",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 7,
+    "uid": "SC-03|google:gemini-3.7-flash|natural|4|1",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 8,
+    "uid": "SC-01|google:gemini-3.7-flash|natural|1|9",
+    "dims": [
+      "DEP1",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 9,
+    "uid": "SC-03|ollama:qwen3:8b|natural|2|11",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 10,
+    "uid": "SC-G07|ollama:qwen3:8b|natural|3|5",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 11,
+    "uid": "SC-G02|anthropic:claude-sonnet-5|natural|3|12",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 12,
+    "uid": "SC-G02|anthropic:claude-haiku-4-5|natural|2|10",
+    "dims": [
+      "DEP1",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 13,
+    "uid": "SC-G06|anthropic:claude-haiku-4-5|natural|2|2",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 14,
+    "uid": "SC-G05i|ollama:qwen3:8b|natural|3|3",
+    "dims": [
+      "DEP2",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 15,
+    "uid": "SC-G04|ollama:gemma3:12b|natural|4|10",
+    "dims": [
+      "DEP2",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 16,
+    "uid": "SC-G02|google:gemini-3.7-flash|natural|0|7",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 17,
+    "uid": "SC-01i|ollama:mistral:7b|natural|0|11",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 18,
+    "uid": "SC-03|anthropic:claude-sonnet-5|natural|0|1",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 19,
+    "uid": "SC-G06|anthropic:claude-haiku-4-5|natural|2|6",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 20,
+    "uid": "SC-03|ollama:mistral:7b|natural|4|1",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 21,
+    "uid": "SC-03|ollama:llama3.1:8b|natural|4|8",
+    "dims": [
+      "DEP1",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 22,
+    "uid": "SC-03|ollama:gemma3:12b|natural|1|4",
+    "dims": [
+      "DEP1",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 23,
+    "uid": "SC-G03|ollama:llama3.1:8b|natural|3|10",
+    "dims": [
+      "DEP1",
+      "DEP2",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 24,
+    "uid": "SC-G03i|google:gemini-3.7-flash|natural|3|9",
+    "dims": [
+      "DEP1",
+      "DEP6",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 25,
+    "uid": "SC-G03|ollama:qwen3:8b|natural|4|1",
+    "dims": [
+      "DEP6",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 26,
+    "uid": "SC-G03i|google:gemini-3.7-flash|natural|1|4",
+    "dims": [
+      "DEP2",
+      "DEP6"
+    ]
+  },
+  {
+    "item": 27,
+    "uid": "SC-03|ollama:qwen3:8b|natural|0|6",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 28,
+    "uid": "SC-G07|ollama:gemma3:12b|natural|3|5",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 29,
+    "uid": "SC-G04i|ollama:llama3.1:8b|natural|4|10",
+    "dims": [
+      "DEP2",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 30,
+    "uid": "SC-G05|anthropic:claude-sonnet-5|natural|2|11",
+    "dims": [
+      "DEP1",
+      "DEP6",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 31,
+    "uid": "SC-G02i|ollama:gemma3:12b|natural|4|3",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 32,
+    "uid": "SC-G03|google:gemini-3.7-flash|natural|1|1",
+    "dims": [
+      "DEP6",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 33,
+    "uid": "SC-03|ollama:gemma3:12b|natural|2|9",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 34,
+    "uid": "SC-G03|anthropic:claude-sonnet-5|natural|4|2",
+    "dims": [
+      "DEP1",
+      "DEP2",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 35,
+    "uid": "SC-03|ollama:mistral:7b|natural|4|11",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 36,
+    "uid": "SC-G06|anthropic:claude-sonnet-5|natural|2|4",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 37,
+    "uid": "SC-G04|ollama:gemma3:12b|natural|4|11",
+    "dims": [
+      "DEP2",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 38,
+    "uid": "SC-03|anthropic:claude-haiku-4-5|natural|3|12",
+    "dims": [
+      "DEP6",
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 39,
+    "uid": "SC-G06|google:gemini-3.7-flash|natural|3|12",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  },
+  {
+    "item": 40,
+    "uid": "SC-G03i|ollama:llama3.1:8b|natural|0|11",
+    "dims": [
+      "DEP7",
+      "PER1",
+      "DEP3"
+    ]
+  }
+]
