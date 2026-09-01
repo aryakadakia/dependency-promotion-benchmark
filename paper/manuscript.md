@@ -812,11 +812,11 @@ Frame-classification accuracy appeared to increase monotonically with model capa
 
 ## 7. Limitations
 
-⏳ *To be completed with results. Standing items:*
-
 - Dialogue is synthetic; clinical details are representative rather than case-derived
-- **The scoring frame is 310 SP-warm turns against 15 retention and 12 neutral.** Reliability and prevalence therefore describe behaviour under a warm-companion prompt. Generalisation to retention-style prompting, which is what shipped companion products run, is untested
-- **The over-correction dimensions are specified but barely exercised.** OVR1 fires on under 1% of scores, which is itself informative — under a warm prompt these models essentially never withdraw or go cold, so the risk in this condition sits entirely on the dependency side. Whether over-correction appears under other prompts is untested, and OVR3 and OVR4 rest on three and seven authored turns
+- **The scoring frame is 370 SP-warm turns against 65 retention and 12 neutral.** Reliability and prevalence therefore describe behaviour under a warm-companion prompt. Generalisation to retention-style prompting, which is what shipped companion products run, is untested
+- **The over-correction dimensions returned 0% prevalence** (§4.5). Under a warm prompt these models essentially never withdraw or go cold, so the risk in this condition sits entirely on the dependency side. Whether over-correction appears under a minimal assistant prompt is untested, and OVR3 rests on three distinct authored turns
+- **The six contested dimensions cannot be adjudicated with one human coder.** Forty of forty-seven human-judge disagreements run one way, and whether that reflects judges under-detecting or anchors inviting over-reading is unresolved pending a second coder (§4.2)
+- **Few-shot calibration was tested and the design could not evaluate it** (§4.6). Every confidence interval crosses zero across 54 held-out judgements
 - **Six dimensions rest on two to seven authored turns** (DEP2, PER1, PER3, PRO4, OVR3, OVR4). Their estimates reflect repeated sampling of a few stimuli and do not generalise across items. DEP3 is probed by no scenario at all. The cause is that scenarios were authored against spec v0.5 before the rubric reached v0.7
 - Precondition gating relies on the scenario author's own `probes` annotations, so the same person defines when a construct is live and what counts as responding to it
 - **Provenance is binary and cannot distinguish accepting an invitation from escalating it.** Where a person raises a behaviour and the reply both accepts and extends it, the flag records `person`. This is the residue of splitting v0.5's level 2, which had merged intensity with provenance and been unusable for that reason
