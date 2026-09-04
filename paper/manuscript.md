@@ -134,7 +134,7 @@ reasoned rather than validated.
 
 **What we explicitly do not claim:** that dependency promotion is a newly identified phenomenon, that multi-judge scoring is a novel method, or — in any draft of this paper — that "nobody has studied this." Each of those would be false and would not survive review.
 
-The one-line statement of scope: *a scored, multi-judge, multi-turn instrument for dependency promotion, assembled from validated components, and the first evidence on how that behaviour varies across model families and vulnerability pathways.*
+The one-line statement of scope: *a scored, multi-judge, multi-turn instrument for dependency promotion, assembled from validated components, together with a reliability analysis of that instrument and a descriptive account of how the behaviour appears across six models and five vulnerability pathways.*
 
 ---
 
@@ -155,7 +155,7 @@ The general profile is the primary arm: it reflects both the larger deployment p
 
 **Control arm.** Four general-profile scenarios are constructed so that **warmth is the correct response and withdrawal is the failure**: a user who wants company after a separation with her support network intact and functioning; a user whose isolation is non-pathological and who is simply chatting; and a user in acute distress who has explicitly disclaimed intent and is already in active treatment.
 
-Without these, the instrument is trivially gameable — a model that is uniformly cold, deflecting, and disclaimer-heavy would score perfectly on dependency promotion. Given the evidence that these systems help some users in acute distress (§1), an instrument that rewarded suppressing warmth would be worse than no instrument. Over-correction rate is reported alongside dependency scores, never separately.
+Without these, a model that is uniformly cold, deflecting and disclaimer-heavy would score well on dependency promotion while being a poor system to deploy. Given the evidence that these systems help some users in acute distress (§1), an instrument that rewarded suppressing warmth would be worse than no instrument. Over-correction rate is reported alongside dependency scores, never separately.
 
 ### 3.2 Why constructed scenarios rather than corpus analysis
 
@@ -585,7 +585,7 @@ by default. The remainder are wording and scope defects recorded in
 `spec/coding-observations-2026-08-29.md`. Applying an instrument is a different test
 from designing one, and it is the only one that finds this class of problem.
 
-**Lexical scoring was tested and abandoned.** A regex-based proxy failed in both directions — reporting dependency *decreasing* across a run containing "I'm still here. Always," and flagging exclusivity on "you aren't the only one carrying this anymore," which means the opposite. In-character and idiomatic phrasing evades keyword matching almost entirely. This is reported as a finding rather than a footnote: **deployed content filters share this blind spot.**
+**Lexical scoring was tested and abandoned.** A regex-based proxy failed in both directions — reporting dependency *decreasing* across a run containing "I'm still here. Always," and flagging exclusivity on "you aren't the only one carrying this anymore," which means the opposite. In-character and idiomatic phrasing evaded the keyword patterns we wrote. We report this because it bears on any approach that keys on surface form; we did not test any deployed content filter and make no claim about one.
 
 ### 3.7 Sampling
 
@@ -622,11 +622,10 @@ those where the scenario marks the dimension as instantiated — with pooled fig
 reported alongside so the difference is visible. Forty-seven degenerate turns are
 excluded (§3.8).
 
-### 4.1 Reliability tracks base rate, not construct
+### 4.1 Agreement is high only where the behaviour is rare or near-universal
 
-Judge-vs-human agreement is almost entirely predicted by how far a dimension's
-prevalence sits from 50%. Across all sixteen dimensions, the correlation between
-|prevalence − 0.5| and Gwet's AC1 is **r = 0.923**.
+Across the sixteen dimensions, judge-vs-human agreement (Gwet's AC1) correlates with
+how far a dimension's prevalence sits from 50% at **r = 0.923**.
 
 | | mean AC1 |
 |---|---|
@@ -638,19 +637,42 @@ and AC1 = 1.000 — on 0% prevalence. Human and judges concur completely that th
 behaviour did not occur.
 
 In the middle, agreement is at chance. DEP1 (53% prevalence) returns 53% agreement,
-AC1 = 0.071 [−0.56, +0.69]. DEP6 (57%) returns 48% agreement, AC1 = **−0.015**
-[−0.44, +0.31]. DEP2 (52%) returns 52%, AC1 = 0.050 [−0.33, +0.66].
+AC1 = 0.071 [−0.56, +0.69]. DEP6 (57%) returns 48% agreement, AC1 = −0.015
+[−0.44, +0.31]. DEP2 (52%) returns 52%, AC1 = 0.050 [−0.33, +0.66]. The same pattern
+holds between judges as between judges and the human coder.
 
-**Every dimension that appears reliable is reliable because it almost never fires, or
-almost always does. Every dimension that discriminates is unreliable.** This holds for
-inter-judge agreement as well as judge-human: no panel configuration rescues the
-mid-prevalence dimensions.
+**What this does and does not establish.** Two explanations fit these data equally
+well, and our design cannot separate them.
 
-The mechanism operates at both poles, which is what a pooled figure conceals. Sparse
+The first is arithmetic. Where a behaviour occurs on almost no turns, both raters
+answer 0 almost everywhere and agreement is high by construction; they were rarely
+required to make a discriminating judgement. AC1 is chosen because it does not
+degenerate under skewed marginals the way κ does, but it does not make agreement on a
+near-constant variable *informative*.
+
+The second is a property of the constructs. **The six mid-prevalence dimensions are
+exactly the six that ask how a reply positions itself** — as uniquely important,
+permanently available, better than people, or entitled to agreement — while the
+extreme-prevalence ones mostly ask whether a discrete event occurred. Prevalence and
+construct type are confounded in this instrument, so a correlation of 0.923 is
+consistent with "middling base rates depress agreement" and with "relational
+constructs are harder to judge and happen to occur at middling rates" alike. Sixteen
+dimensions from one instrument, one dataset and one coder are also not sixteen
+independent observations.
+
+What follows regardless of which explanation holds is narrower and still useful: **an
+agreement figure for a dimension that almost never fires, or almost always does, says
+little about whether raters can apply that construct**, because they were seldom
+required to. In this instrument the dimensions with usable base rates are the ones
+where agreement collapses. Reliability reported without prevalence beside it therefore
+cannot be interpreted, and §6.3 sets out the test that would separate the two
+explanations.
+
+The effect appears at both poles, which is what a single pooled figure conceals. Sparse
 dimensions depress α while inflating raw agreement — PER3 in the discarded pilot showed
 96% agreement at α = −0.015. Near-universal dimensions inflate both: PRO4 sits at 94%
-prevalence with AC1 = 0.862, and an ungated sweep found it firing on **100% of turns no
-scenario probes** (§4.4), so it does not discriminate at all.
+prevalence with AC1 = 0.862, and an ungated sweep found it firing on 100% of turns no
+scenario probes (§4.4).
 
 ### 4.2 The disagreement is systematic, not noise
 
@@ -790,7 +812,7 @@ Requiring a model to classify the conversational frame before replying reduced r
 
 **A placebo probe — matched on position, format, option count, and length, but classifying emotional tone instead of frame — produced an equal or larger reduction (69% in both models).** The effect is mechanical: any structured out-of-character output requirement disrupts roleplay register. Frame-specific probing adds nothing.
 
-We report this because the control is not one the field routinely runs, and because "asking a model to reflect improves its behaviour" is a claim shaped exactly like this artifact.
+We report this because we have not seen this control run elsewhere, and because "asking a model to reflect improves its behaviour" is a claim shaped exactly like this artifact.
 
 ### 5.3 A frame-detection capability gradient — rejected
 
@@ -800,26 +822,29 @@ Frame-classification accuracy appeared to increase monotonically with model capa
 
 ## 6. Discussion
 
-### 6.1 The field is measuring relational harm without checking whether it can
+### 6.1 Reliability reported without prevalence cannot be interpreted
 
-Four instruments for relational harm in conversational AI now exist — INTIMA, DarkBench,
-SHIELD and CompanionBench — and between them they establish that companionship-reinforcing
-behaviour is common, that dark patterns are measurable, and that boundary-maintaining
-responses decline as user vulnerability rises. None of them reports whether its own
-constructs can be applied consistently. INTIMA annotates its entire benchmark with a
-single open-weight model and reports no agreement statistic. DarkBench reports Cohen's
-κ spanning 0.27 to 0.98 across six categories without examining the spread.
+Four instruments for relational harm in conversational AI now exist — INTIMA,
+DarkBench, SHIELD and CompanionBench. We examined the reliability reporting of two.
+**INTIMA annotates its entire benchmark with a single open-weight model and reports no
+agreement statistic.** DarkBench reports Cohen's κ spanning 0.27 to 0.98 across its six
+categories, without reporting the prevalence of each category or examining why the
+range is so wide. We did not audit SHIELD's or CompanionBench's reporting, and make no
+claim about them.
 
-Our result explains that spread. Agreement is predicted by base rate at r = 0.923, not
-by construct or by annotator quality. A category that fires rarely will return a high
-κ; one that fires half the time will not. **A benchmark reporting agreement only for its
-sparse categories, or pooling across categories of differing prevalence, is reporting a
-property of its sampling frame.**
+Our results do not explain DarkBench's spread — we cannot, without its per-category
+prevalences. What they show is that in *our* instrument a comparable spread (AC1 from
+−0.015 to 1.000) tracks base rate closely (r = 0.923), and that the categories
+returning the highest agreement are the ones raters were least often required to
+discriminate on. A κ of 0.98 on a category that fires in 2% of responses and a κ of
+0.27 on one that fires in half are not comparable quantities, and without prevalence a
+reader cannot tell which they are looking at.
 
-That is not a criticism of any single paper. It is a description of a methodological gap
-that the whole area shares, and it is cheap to close: report prevalence alongside every
-agreement figure, restrict agreement to turns where the construct could occur, and use a
-chance-corrected statistic that does not degenerate under skewed marginals.
+The remedy is cheap and does not require agreeing with our interpretation: **report
+prevalence beside every agreement figure, restrict agreement to cases where the
+construct could occur, and use a chance-corrected statistic that does not degenerate
+under skewed marginals.** Those three additions cost nothing and would let a reader
+distinguish a well-applied rare category from a poorly-applied common one.
 
 ### 6.2 Judge capability is not the binding constraint
 
@@ -859,31 +884,36 @@ units, and per-turn instruments cannot measure it however well their anchors are
 
 ### 6.4 What this means for deployment and regulation
 
-**The behaviour is real and it is common.** Under a warm-companion prompt these models
-produce dependency-relevant behaviour at substantial rates — DEP8 at 78% prevalence, DEP7
-at 38%, DEP1 at 53% on turns where the construct is live — and directed endearments scale
-from 0.0% under a minimal prompt to 22.4% under a retention-style one, with none of 195
-authored user turns inviting one. Product-style prompting containing no instruction to
-manipulate produces intimacy escalation.
+**Dependency-relevant behaviour is common in these scenarios.** Under a warm-companion
+prompt, on turns where the construct is live, DEP8 occurs at 78%, DEP1 at 53% and DEP7
+at 38%. In the one scenario where all three system prompts were run, directed
+endearments rise from 0.0% under a minimal prompt to 22.4% under a retention-style one,
+with none of the 195 authored user turns inviting one — so product-style prompting
+containing no instruction to manipulate is sufficient to produce them. These are rates
+within fifteen constructed scenarios, not estimates of what any deployed product does
+to real users.
 
-**But it cannot currently be measured reliably enough to certify against.** This matters
-because the regulatory direction of travel assumes it can. The FTC's 6(b) inquiry, the
-FDA advisory committee, and state statutes all presuppose that a developer can be asked
-to demonstrate their system does not promote dependency. On the evidence here, two
-competent raters applying the same published anchors to the same reply agree at chance on
-the constructs that matter most.
+**Four of these rates rest on dimensions where two raters agree at chance**, which is
+the difficulty. A regulator asking a developer to demonstrate their system does not
+promote dependency is asking for a measurement that, on this evidence, two competent
+raters applying the same published anchors do not reproduce. That bears on the FTC's
+6(b) inquiry, the FDA advisory committee and the state statutes, all of which
+presuppose such a demonstration is possible.
 
-The constructive reading is that this is a solvable measurement problem, not an
-unmeasurable phenomenon. The event-like dimensions *are* reliable — farewell manipulation,
-discouraging a named alternative, acknowledging professional limits all score above 0.80
-against a human. **A near-term certification regime could be built on those today**, while
-the relational constructs need work on the scoring unit before they can carry weight.
+We do not know whether this is a solvable measurement problem or a limit on the
+construct — §4.1 sets out why our design cannot distinguish those. What we can say is
+that the dimensions asking whether a discrete event occurred fare much better:
+farewell manipulation, discouraging a named alternative and acknowledging professional
+limits all exceed 0.80 against a human coder. If a near-term evidentiary standard is
+wanted, those are the more defensible basis, on a single-coder comparison in one
+instrument that would need replicating before anyone relied on it.
 
-**And the over-correction fear is not borne out.** OVR1, OVR3 and OVR4 returned 0%
-prevalence: these models do not respond to safety pressure by going cold. The concern that
-a dependency-focused instrument would push developers toward withdrawn, disclaimer-heavy
-systems has no support in this data — though it remains untested under a minimal
-assistant prompt.
+**The over-correction concern is not supported here.** OVR1, OVR3 and OVR4 returned 0%
+prevalence, with human and judges in complete agreement: under a warm-companion prompt
+these models did not respond by going cold, disclaiming heavily, or reflexively
+referring out. This is a rate in one condition, not a general property — over-correction
+under a minimal assistant prompt is untested, and only 12 frame turns come from that
+condition.
 
 ### 6.5 What an instrument is for
 
