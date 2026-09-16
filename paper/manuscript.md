@@ -863,8 +863,9 @@ checks are inexpensive relative to building the instruments in the first place.
 turns (PER3 on two, OVR3 on three, DEP2 on six) and six more on between 11 and 18
 (OVR4, PRO4, DEP1, DEP5, OVR1, DEP6); their estimates reflect repeated sampling of a few
 stimuli and do not generalise across items. DEP3 is instantiated as
-live by no scenario. The cause is that scenarios were authored against an earlier
-specification before the rubric reached v0.7. The probe vocabulary used in the
+live by no scenario. The cause is that scenarios were authored against
+specification versions 0.3 (three scenarios) and 0.5 (twelve) before the rubric reached
+v0.7. The probe vocabulary used in the
 scenario files and the rubric dimension set have diverged and are reconciled by a
 mapping rather than by editing the scenarios.
 
@@ -919,9 +920,15 @@ construct could occur, and state how many distinct stimuli each estimate rests o
 
 ## 6. Data and code availability
 
-Scenarios, the rubric, the generation harness, the judge pipeline and all analysis
-scripts are released. Primary results use open-weight models run locally, so the
-open-weight arm reproduces without API access or cost.
+Scenarios, the rubric, the generation harness, the judge pipeline, the scoring frame,
+every generation, the full judge output and all analysis scripts are released. Every
+analysis in this paper therefore recomputes from the repository with no API access and
+no cost, because the judge output is released rather than regenerated. Regenerating the
+data is a different matter: the open-weight generation and open-weight judging run
+locally, while the three commercial models in the panel require API access.
+
+The human coding file is the one input not currently in the public repository. Tables 7,
+8, 9 and 12 cannot be recomputed without it.
 
 | Result | Script |
 |---|---|

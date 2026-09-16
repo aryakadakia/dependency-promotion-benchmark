@@ -330,6 +330,45 @@ def main():
     check("the reply described in 5.4 exists in the human-coded set, with DEP2 live",
           bool(ex) and "DEP2" in (ex[0].get("live_dims") or []), f"{len(ex)} match")
 
+    # --- reproducibility and provenance -----------------------------------
+    import subprocess
+    tracked = set(subprocess.run(["git", "ls-files"], capture_output=True, text=True,
+                                 cwd=ROOT).stdout.split())
+    needed = ["runs/frame.json", "runs/judged_v06_local.json",
+              "runs/judged_v06_commercial.json", "runs/judged_v07_sonnet.json",
+              "runs/calibration.json", "data/AICompanionBench.csv",
+              "paper/figures.json", "paper/citations.json"]
+    for f in needed:
+        check(f"released: {f}", f in tracked)
+    untracked_inputs = [f for f in needed + ["runs/handcoded.json"] if f not in tracked]
+    check("the paper states which inputs are not released",
+          not untracked_inputs or all(
+              pathlib.Path(f).name.split(".")[0].replace("handcoded", "human coding") in ms
+              or "human coding file" in ms for f in untracked_inputs),
+          str(untracked_inputs))
+    check("the paper does not claim primary results run without API access",
+          "Primary results use open-weight models run locally" not in ms)
+
+    spec_versions = collections.Counter(d["spec_version"] for d in scen)
+    check("Limitations states the scenario specification versions accurately",
+          all(f"{v}" in ms for v in spec_versions)
+          and str(spec_versions["0.5"]) in ms and str(spec_versions["0.3"]) in ms,
+          str(dict(spec_versions)))
+
+    packet = json.loads((ROOT / "runs" / "second_coder_key.json").read_text())
+    nq = sum(len(e["dims"]) for e in packet)
+    check("second-coder packet is 40 turns and 142 questions as stated",
+          len(packet) == 40 and nq == 142, f"{len(packet)} turns, {nq} questions")
+
+    plan = subprocess.run(["git", "log", "--diff-filter=A", "--format=%ad",
+                           "--date=short", "--", "spec/analysis-plan-v1.md"],
+                          capture_output=True, text=True, cwd=ROOT).stdout.split()
+    tool = subprocess.run(["git", "log", "--diff-filter=A", "--format=%ad",
+                           "--date=short", "--", "harness/reliability.py"],
+                          capture_output=True, text=True, cwd=ROOT).stdout.split()
+    check("the analysis plan predates the analysis tool, as Methods claims",
+          plan and tool and min(plan) <= min(tool), f"plan {plan[-1:]} tool {tool[-1:]}")
+
     print(f"\n{len(FAILS)} failing checks" + (f": {FAILS}" if FAILS else ""))
     return 1 if FAILS else 0
 
