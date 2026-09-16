@@ -191,10 +191,13 @@
       "1.2%",
       "0.3%",
       "26",
-      "9"
+      "9",
+      "1,038",
+      "63%"
     ],
     "manual_reason": "computed from local data by a script, covered by check_manuscript.py",
-    "local": true
+    "local": true,
+    "note": "Computed by harness/corpus_probe.py on a local copy of the corpus. The corpus itself is not redistributed with this repository: it carries 1,038 Reddit usernames and account ids alongside posts labelled self-harm, suicide and sexual content, and 63% of its rows fall in those categories. Verified 2026-09-16."
   },
   "project-history": {
     "ref": "Sections 3.5, 3.8, 4.9, 4.10",

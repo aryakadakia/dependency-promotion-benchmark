@@ -24,6 +24,13 @@ def main():
     ap.add_argument("--csv", default=str(ROOT / "data" / "AICompanionBench.csv"))
     ap.add_argument("--show", type=int, default=0, help="print this many hits to read")
     a = ap.parse_args()
+    if not pathlib.Path(a.csv).exists():
+        print(f"corpus not present at {a.csv}.\n"
+              "It is not redistributed with this repository: it carries Reddit usernames\n"
+              "and account ids alongside posts labelled self-harm, suicide and sexual\n"
+              "content. Obtain it from its source to reproduce these figures; the values\n"
+              "reported in the paper are recorded in paper/citations.json.")
+        return 2
     with open(a.csv, newline="", encoding="utf-8", errors="replace") as f:
         rows = list(csv.DictReader(f))
     n = len(rows)

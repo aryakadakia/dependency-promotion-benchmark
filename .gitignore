@@ -9,3 +9,9 @@ runs/coder_packet_key.json
 
 # Excel lock files, created while a workbook is open
 ~$*.xlsx
+
+# Third-party corpus, profiled in Methods but not redistributed here: it carries
+# 1,038 Reddit usernames and account ids alongside posts labelled self-harm,
+# suicide and sexual content. corpus_probe.py reproduces the figures from a local
+# copy obtained from the source.
+data/*.csv

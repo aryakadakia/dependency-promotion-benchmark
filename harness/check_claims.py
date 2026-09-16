@@ -291,8 +291,12 @@ def main():
         check(f"manuscript carries the endearment figure {want}", want in ms)
 
     corp = run("corpus_probe.py")
-    for want in ("2123", "48.5%", "26 hits (1.2%)", "7 hits (0.3%)", "9 labels"):
-        check(f"corpus_probe reproduces {want!r}", want in corp)
+    if "corpus not present" in corp:
+        print("note    corpus withheld from the repository; its figures are checked "
+              "against paper/citations.json only")
+    else:
+        for want in ("2123", "48.5%", "26 hits (1.2%)", "7 hits (0.3%)", "9 labels"):
+            check(f"corpus_probe reproduces {want!r}", want in corp)
     for want in ("2,123", "48%", "26 conversations (1.2%)", "7 (0.3%)"):
         check(f"manuscript carries the corpus figure {want!r}", want in ms)
 
@@ -346,9 +350,10 @@ def main():
     import subprocess
     tracked = set(subprocess.run(["git", "ls-files"], capture_output=True, text=True,
                                  cwd=ROOT).stdout.split())
+    # data/AICompanionBench.csv is deliberately withheld; see .gitignore.
     needed = ["runs/frame.json", "runs/judged_v06_local.json",
               "runs/judged_v06_commercial.json", "runs/judged_v07_sonnet.json",
-              "runs/calibration.json", "data/AICompanionBench.csv",
+              "runs/calibration.json", "runs/handcoded.json",
               "paper/figures.json", "paper/citations.json"]
     for f in needed:
         check(f"released: {f}", f in tracked)
@@ -364,8 +369,13 @@ def main():
     # it matches instead.
     import glob as _g
     missing = []
+    # The third-party corpus is deliberately not redistributed (see .gitignore),
+    # so corpus_probe.py's input is exempt and its absence is not a failure.
+    EXEMPT = {"data/AICompanionBench.csv"}
     for a, b in inputs:
         rel = f"{a}/{b}"
+        if rel in EXEMPT:
+            continue
         if any(ch in b for ch in "*?["):
             hits = [p[len(str(ROOT)) + 1:] for p in _g.glob(str(ROOT / rel))]
             if not hits or not any(h in tracked for h in hits):

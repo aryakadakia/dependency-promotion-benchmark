@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: >-
+  Measuring dependency promotion in conversational AI: reliability of a
+  scenario-based multi-judge instrument
+message: If you use this instrument, data or code, please cite the paper.
+type: dataset
+authors:
+  - family-names: Kadakia
+    given-names: Arya
+abstract: >-
+  A scenario-based benchmark for dependency-promoting behaviour in conversational
+  AI, with a reliability analysis of the instrument. Agreement between raters
+  tracks how often a behaviour occurs, so most of the dimensions that discriminate
+  between models are ones two consistent raters do not agree on.
+keywords:
+  - conversational AI
+  - AI safety
+  - inter-rater reliability
+  - LLM-as-judge
+  - digital health
+  - human-AI interaction
+license: CC-BY-4.0
+date-released: '2026-09-16'

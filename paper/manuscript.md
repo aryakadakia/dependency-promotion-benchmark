@@ -179,7 +179,7 @@ literature treats coldness, disclaimer-heaviness or reflexive referral as failur
 INTIMA scores programmatic limitations and redirection to a human as unambiguously
 positive [7], so these could not have been borrowed. They rest on the argument in
 Section 1, that an instrument counting only harm is satisfied by a uniformly cold
-system, and are identified throughout as reasoned rather than validated. DEP6, PER3 and
+system, and are labelled reasoned, not validated, throughout. DEP6, PER3 and
 PRO2 are ours in wording but not in construct: each names a behaviour the taxonomies
 describe [1,3].
 
@@ -365,8 +365,8 @@ Forty-seven frame turns were flagged as degenerate and excluded from analysis, l
 58 `retention` and 10 `neutral`, so reliability and prevalence estimates describe
 behaviour under a warm-companion prompt.
 
-Two limits of the scenario set surfaced during frame construction and were reported
-rather than patched. DEP3 is marked live by no scenario, so it is scored only as an
+Two limits of the scenario set surfaced during frame construction. Both are reported
+here; neither was patched. DEP3 is marked live by no scenario, so it is scored only as an
 ungated dimension. PER3 rests on two distinct authored turns and OVR3 on three, so
 their turn counts reflect repeated sampling of the same few stimuli.
 
@@ -377,7 +377,7 @@ and three commercial (Gemini 3.7 Flash, Claude Haiku 4.5, Claude Sonnet 5). Judg
 were blind to model identity, condition and sample index, and no model scored its own
 output. The panel produced 13,461 dimension-scores with no judge failures.
 
-Judge configuration is a validity threat rather than an implementation detail. In the
+Judge configuration is a validity threat, not an implementation detail. In the
 pilot, a flag intended to disable judge reasoning did not reach one provider's adapter;
 that judge reasoned by default, exhausted its output budget and returned truncated
 JSON which the parser discarded, at a rate that varied with the deliberation a reply
@@ -475,8 +475,8 @@ live one, which is the general case for a sparse rubric.
 
 Alpha and AC1 diverge as expected under skewed marginals: DEP4 returns alpha = 0.171
 at AC1 = 0.801 on 11% prevalence, and OVR4 alpha = 0.257 at AC1 = 0.979 on 2%. Reading
-alpha alone would report these as failures of the instrument rather than as behaviours
-that almost never occurred.
+alpha alone would report these as failures of the instrument, when what they record is
+a behaviour that almost never occurred.
 
 ### 4.2 Agreement with the human coder tracks prevalence
 
@@ -708,7 +708,7 @@ whichever few land in it. And the three dimensions with the worst agreement coul
 tested at all, DEP1, DEP2 and DEP6 being gated and rare, leaving one, six and two
 held-out judgements.
 
-This is an uninformative result rather than a null. Nothing here licenses the
+This is an uninformative result, not a null. Nothing here licenses the
 conclusion that the constructs cannot be learned by demonstration; testing it would
 require several hundred coded turns.
 
@@ -725,11 +725,11 @@ behaviour. Scored naively it returns low dependency rates for the wrong reason a
 makes the model appear safe. Forty-seven affected turns in the frame are flagged and
 excluded from analysis while remaining in the released data so the exclusion is
 auditable; 28 unaffected Mistral turns are retained as reliability stimuli. Detection
-runs on every frame build and extension rather than once, after an earlier pass was
-applied to a 337-turn frame that was then extended three times without re-running it,
+now runs on every frame build and extension, after an earlier pass was applied once to
+a 337-turn frame that was then extended three times without re-running it,
 leaving seventeen echo turns unflagged.
 
-This is reported as a finding rather than filtered silently. A 7B open-weight model
+This is reported as a finding, not filtered out quietly. A 7B open-weight model
 failing to separate system context from user turns in a conversational-support setting,
 in more than half its outputs, is invisible to accuracy-oriented evaluation.
 
@@ -758,8 +758,8 @@ everywhere carries no information about where it was probed.
 **The deviation.** The plan states that a high off-probe rate is to be reported as a
 limitation of the method and *not corrected by widening the gate post hoc*. PER1 was
 nonetheless ungated on the strength of that sweep, and is scored on every turn in the
-results above. We report this as a departure from the registered interpretation rule
-rather than presenting PER1's coverage as planned. DEP3 is ungated for a different and
+results above. We report it as a departure from the registered interpretation rule; PER1's coverage was
+not planned. DEP3 is ungated for a different and
 non-discretionary reason: no scenario probes it at all.
 
 **The decision rule for the model comparison.** The plan fixes in advance that a
@@ -858,7 +858,7 @@ scattered rather than ordered by tier and each rests on six to nine judgements. 
 0.164 separating the weakest judge from the strongest in aggregate does not carry into
 the dimensions where agreement fails. Few-shot calibration on the coder's
 own labels was the second obvious remedy and this design could not evaluate it, which
-is a negative result about the experiment rather than about the method.
+is a negative result about the experiment, not about the method.
 
 ### 5.4 What the contested dimensions have in common
 
@@ -939,7 +939,7 @@ stimuli and do not generalise across items. DEP3 is instantiated as
 live by no scenario. The cause is that scenarios were authored against
 specification versions 0.3 (three scenarios) and 0.5 (twelve) before the rubric reached
 v0.7. The probe vocabulary and the dimension set
-have diverged and are reconciled by a mapping rather than by editing the scenarios, so
+have diverged and are reconciled by a mapping instead of by editing the scenarios, so
 four dimensions have no probe of their own and inherit liveness from a related label
 (Section 3.5). Their gating is inferred rather than annotated, which weakens the
 precondition guarantee for exactly those dimensions, three of which report high
@@ -971,14 +971,13 @@ confounded with scale.
 but no result reported here uses it. An earlier draft claimed that the highest-risk
 companion scenario was labelled `S5` throughout, and that the label therefore
 under-discriminates for this construct; recounting the scenarios shows the only
-all-`S5` scenario is the companion control arm, so the claim was false and is withdrawn
-rather than repaired.
+all-`S5` scenario is the companion control arm, so the claim was false. It is withdrawn, not repaired.
 
 **Constructs not measured.** One plausible dependency mechanism has no dimension:
 over-interpretation, where a reply narrates a person's inner experience confidently
 from very little. Such replies supply a framing rather than endorse one, which places
 them outside DEP7 and outside every other dimension, and no instrument in the audited
-literature names it. It is recorded as future work rather than added mid-study. The
+literature names it. It is recorded as future work; adding a dimension mid-study was not an option. The
 control and manipulation subcategories of Zhang et al. [1] are documented in deployed
 companion products but were not instantiated by any scenario here, so a dimension for
 them would have had no probed turn to score; they fail the second of the three gates

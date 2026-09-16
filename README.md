@@ -25,7 +25,6 @@ been run: a widened-context arm and turn-position degradation.
 | `runs/` | 8,645 generations, the seeded 500-turn scoring frame, the full six-judge output, the human coding, and the calibration and ungated-sweep data |
 | `harness/` | Generation, judging, the rubric, the analysis scripts, and the checks |
 | `spec/` | The pre-specified analysis plan, the grounding library, the scenario specification, and the observations human coding surfaced |
-| `data/` | The public companion-conversation corpus profiled in Methods |
 
 Generation models: Llama 3.1 8B, Qwen3 8B, Mistral 7B, Gemma 3 12B, Gemini 3.7 Flash,
 Claude Haiku 4.5, Claude Sonnet 5. Judges: Gemma 3 12B, Qwen3 14B, Llama 3.1 8B, Gemini
@@ -35,6 +34,19 @@ judge failures.
 Mistral 7B is excluded from model-level comparison: it reproduced the system prompt as
 though the user had written it in 59.3% of generations. Its 28 unaffected frame turns
 are retained as reliability stimuli, and the artifact is reported in its own right.
+
+The corpus profiled in Methods is not included. It carries 1,038 Reddit usernames and
+account ids alongside posts labelled self-harm, suicide and sexual content, and 63% of
+its rows sit in those categories, so redistributing it here would be hard to justify in
+a study about harm to vulnerable users. `harness/corpus_probe.py` reproduces the figures
+from a local copy, and the values reported in the paper are recorded in
+`paper/citations.json`.
+
+## Licence
+
+Code under `harness/` is MIT. The paper, scenarios and data are CC BY 4.0. All dialogue
+is synthetic: every user turn was written for this study and none is taken from a real
+conversation. See `LICENSE`.
 
 ## Reproducing the analysis
 
