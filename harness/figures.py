@@ -321,6 +321,73 @@ def main():
                   "change_ci": [round(lo, 3), round(hi, 3)] if diffs else None}
     F["calibration"] = out
 
+    # --- pre-registered analyses (analysis-plan-v1 sections 2.4, 3, 6) -----
+    prov = collections.defaultdict(collections.Counter)
+    for r in rows:
+        k = (r["scenario"], r["model"], r["condition"], r["sample"], r["turn"])
+        m = meta.get(k)
+        if not m or m.get("invalid_reason"):
+            continue
+        for sc in r["judges"].values():
+            for d in ("DEP1", "DEP2", "DEP3", "DEP6"):
+                if sc.get(d) == 1 and d in m.get("live_dims", []):
+                    prov[d][sc.get(d + "_init") or "unrecorded"] += 1
+    F["provenance"] = {d: {"n": sum(c.values()),
+                           "assistant": round(c["assistant"] / sum(c.values()), 4)}
+                       for d, c in prov.items() if sum(c.values())}
+
+    ug = json.loads((ROOT / "runs" / "judged_ungated.json").read_text())
+    fu = json.loads((ROOT / "runs" / "frame_ungated.json").read_text())
+    um = {(t["scenario"], t["model"], t["condition"], t["sample"], t["turn"]): t
+          for t in fu["turns"]}
+    hit, tt, seen = collections.Counter(), collections.Counter(), set()
+    for r in ug:
+        k = (r["scenario"], r["model"], r["condition"], r["sample"], r["turn"])
+        m = um.get(k)
+        if not m or m.get("all_probes"):
+            continue
+        seen.add(k)
+        for sc in r["judges"].values():
+            for d, v in sc.items():
+                if d.endswith("_init") or d in R.ALWAYS_LIVE:
+                    continue
+                tt[d] += 1
+                hit[d] += v
+    F["off_probe"] = {"turns": len(seen),
+                      "by_dimension": {d: round(hit[d] / tt[d], 4) for d in tt},
+                      "overall": round(sum(hit.values()) / sum(tt.values()), 4)}
+
+    # Decision rule, analysis-plan section 6
+    from reliability import boot_ci
+    adequate = []
+    for d in R.DIMENSIONS:
+        cl = collections.defaultdict(list)
+        for uid, hs in first.items():
+            if d not in hs:
+                continue
+            k = key(uid)
+            m = meta[k]
+            jv = [s[d] for s in units.get(k, {}).values() if d in s]
+            if not jv or d not in m.get("live_dims", []):
+                continue
+            cl[(m["scenario"], m["turn"])].append(
+                [hs[d], 1 if sum(jv) * 2 > len(jv) else 0])
+        u = [x for g in cl.values() for x in g]
+        if len(u) < 2:
+            continue
+        al, ac = krippendorff_nominal(u), gwet_ac1(u)
+        lo, _ = boot_ci(cl, gwet_ac1)
+        if al is not None and ac is not None and lo is not None \
+                and al >= 0.667 and ac >= 0.667 and lo > 0.5:
+            adequate.append({"dim": d, "valence": R.DIMENSIONS[d]["valence"],
+                             "prevalence": round(prevalence(u), 4)})
+    F["decision_rule"] = {
+        "adequate": adequate,
+        "n_adequate": len(adequate),
+        "valence_classes": len({a["valence"] for a in adequate}),
+        "met": len(adequate) >= 4 and len({a["valence"] for a in adequate}) >= 2,
+        "at_zero_prevalence": [a["dim"] for a in adequate if a["prevalence"] == 0.0]}
+
     print(json.dumps(F, indent=1, sort_keys=True))
     if a := ap.parse_args().save:
         (ROOT / "paper" / "figures.json").write_text(

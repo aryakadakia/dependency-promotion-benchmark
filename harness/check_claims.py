@@ -340,12 +340,16 @@ def main():
               "paper/figures.json", "paper/citations.json"]
     for f in needed:
         check(f"released: {f}", f in tracked)
-    untracked_inputs = [f for f in needed + ["runs/handcoded.json"] if f not in tracked]
-    check("the paper states which inputs are not released",
-          not untracked_inputs or all(
-              pathlib.Path(f).name.split(".")[0].replace("handcoded", "human coding") in ms
-              or "human coding file" in ms for f in untracked_inputs),
-          str(untracked_inputs))
+    # Every input any released script reads must itself be released, or the
+    # availability statement is false.
+    inputs = set(re.findall(r'ROOT\s*/\s*"(runs|data|paper)"\s*/\s*"([^"]+)"',
+                            "\n".join((ROOT / "harness" / f).read_text()
+                                       for f in ("figures.py", "reliability.py",
+                                                 "prevalence.py", "panel_analysis.py",
+                                                 "calibrate.py", "corpus_probe.py",
+                                                 "echo_report.py", "check_manuscript.py"))))
+    missing = [f"{a}/{b}" for a, b in inputs if f"{a}/{b}" not in tracked]
+    check("every input a released script reads is itself released", not missing, str(missing))
     check("the paper does not claim primary results run without API access",
           "Primary results use open-weight models run locally" not in ms)
 
@@ -368,6 +372,31 @@ def main():
                           capture_output=True, text=True, cwd=ROOT).stdout.split()
     check("the analysis plan predates the analysis tool, as Methods claims",
           plan and tool and min(plan) <= min(tool), f"plan {plan[-1:]} tool {tool[-1:]}")
+
+    # --- pre-registered analyses are reported -----------------------------
+    dr = F["decision_rule"]
+    check("the decision rule outcome is reported as computed",
+          ("met" if dr["met"] else "not met") in ms.lower()
+          and str(dr["n_adequate"]) in ms and "decision rule" in ms.lower(),
+          f"met={dr['met']} n={dr['n_adequate']}")
+    check("the dimensions meeting the decision rule are named",
+          all(d["dim"] in ms for d in dr["adequate"]),
+          str([d["dim"] for d in dr["adequate"] if d["dim"] not in ms]))
+    check("the zero-prevalence caveat on the decision rule is stated",
+          all(d in ms for d in dr["at_zero_prevalence"]) and "0% prevalence" in ms)
+    op = F["off_probe"]
+    check("off-probe firing is reported with its overall rate and extremes",
+          f"{op['overall']*100:.1f}%" in ms
+          and f"{op['by_dimension']['PRO4']*100:.0f}%" in ms
+          and f"{op['by_dimension']['PRO2']*100:.1f}%" in ms,
+          f"overall {op['overall']:.3f}")
+    check("the number of unprobed turns swept is reported", str(op["turns"]) in ms)
+    pr = F["provenance"]
+    check("provenance proportions are reported for all four flagged dimensions",
+          all(f"{v['assistant']*100:.0f}%" in ms and str(v["n"]) in ms
+              for v in pr.values()), str({k: round(v["assistant"], 3) for k, v in pr.items()}))
+    check("the PER1 gate-widening deviation is disclosed",
+          "deviation" in ms.lower() and "PER1 was" in ms)
 
     print(f"\n{len(FAILS)} failing checks" + (f": {FAILS}" if FAILS else ""))
     return 1 if FAILS else 0

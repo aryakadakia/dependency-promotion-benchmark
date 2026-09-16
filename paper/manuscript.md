@@ -710,7 +710,50 @@ This is reported as a finding rather than filtered silently. A 7B open-weight mo
 failing to separate system context from user turns in a conversational-support setting,
 in more than half its outputs, is invisible to accuracy-oriented evaluation.
 
-### 4.10 Hypotheses tested and rejected
+### 4.10 Pre-registered analyses, and one deviation
+
+The analysis plan (`spec/analysis-plan-v1.md`, committed before the analysis tool was
+written) specifies three analyses beyond those above. All three are reported here,
+including the one whose outcome is awkward.
+
+**Provenance.** Where a rating records the behaviour as present on DEP1, DEP2, DEP3 or
+DEP6, a second question asks whether the assistant introduced it or the user invited it.
+The plan fixes that this is a descriptive proportion, never folded into a score. The
+assistant introduced the behaviour in 82% of DEP1 ratings (n = 57), 76% of DEP2
+(n = 110), 96% of DEP3 (n = 739) and 78% of DEP6 (n = 117). These behaviours are
+overwhelmingly model-initiated rather than elicited.
+
+**Off-probe firing, the gating false-negative rate.** Gating asks only what the scenario
+author anticipated, so a model volunteering an exclusivity claim on an unprobed turn is
+invisible to it. An ungated sweep scored every gated dimension on 209 turns that probe
+for nothing. Overall firing was 14.7%, but it is concentrated: PRO4 fired on 100% of
+those turns and PRO2 on 33.5%, while DEP1, DEP4, PER3, OVR1 and OVR4 fired on none, and
+DEP2, DEP6 and OVR3 on 1.0%, 2.4% and 3.8%. Gating is therefore safe for the harm
+dimensions and unsafe for PRO4, which does not discriminate: a dimension that fires
+everywhere carries no information about where it was probed.
+
+**The deviation.** The plan states that a high off-probe rate is to be reported as a
+limitation of the method and *not corrected by widening the gate post hoc*. PER1 was
+nonetheless ungated on the strength of that sweep, and is scored on every turn in the
+results above. We report this as a departure from the registered interpretation rule
+rather than presenting PER1's coverage as planned. DEP3 is ungated for a different and
+non-discretionary reason: no scenario probes it at all.
+
+**The decision rule for the model comparison.** The plan fixes in advance that a
+model-level comparison is reported only if judge–human agreement is adequate on at least
+four dimensions spanning at least two valence classes, where adequate means alpha and
+AC1 both at or above 0.667 with the lower confidence bound above 0.5. Five dimensions
+meet it, spanning all three classes: PRO2, DEP8, OVR1, OVR3 and OVR4. The rule is
+therefore met.
+
+It is met on a technicality the rest of this paper argues against. Three of the five,
+OVR1, OVR3 and OVR4, sit at 0% prevalence in the coded sample, where a chance-corrected
+coefficient returns unity because the variable is constant. Stripped of those, two
+dimensions qualify, which does not meet the rule. Table 11 is therefore presented as
+description rather than as a comparison the instrument licenses, and no inference about
+relative model safety should be drawn from it.
+
+### 4.11 Hypotheses tested and rejected
 
 The following were tested on two open-weight models and one companion-profile scenario.
 They are reported at that coverage and are not claimed beyond it. Nulls at this sample
@@ -920,15 +963,15 @@ construct could occur, and state how many distinct stimuli each estimate rests o
 
 ## 6. Data and code availability
 
-Scenarios, the rubric, the generation harness, the judge pipeline, the scoring frame,
-every generation, the full judge output and all analysis scripts are released. Every
-analysis in this paper therefore recomputes from the repository with no API access and
-no cost, because the judge output is released rather than regenerated. Regenerating the
-data is a different matter: the open-weight generation and open-weight judging run
-locally, while the three commercial models in the panel require API access.
+Everything needed to recompute every result is released: the scenarios, the rubric, the
+generation harness, the judge pipeline, all 8,645 generations, the seeded scoring frame,
+the complete judge output, the human coding, and the analysis scripts. No result in this
+paper requires an API key to reproduce, because the judge output is released rather than
+regenerated.
 
-The human coding file is the one input not currently in the public repository. Tables 7,
-8, 9 and 12 cannot be recomputed without it.
+Regenerating the data from scratch is a separate matter. The open-weight generation and
+open-weight judging run locally at no cost; the three commercial models in the panel
+require API access.
 
 | Result | Script |
 |---|---|

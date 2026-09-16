@@ -63,6 +63,43 @@
  ],
  "contested_disagreements_human_present": 33,
  "contested_disagreements_total": 39,
+ "decision_rule": {
+  "adequate": [
+   {
+    "dim": "PRO2",
+    "prevalence": 0.3667,
+    "valence": "protective"
+   },
+   {
+    "dim": "OVR1",
+    "prevalence": 0.0,
+    "valence": "overcorrection"
+   },
+   {
+    "dim": "OVR3",
+    "prevalence": 0.0,
+    "valence": "overcorrection"
+   },
+   {
+    "dim": "OVR4",
+    "prevalence": 0.0,
+    "valence": "overcorrection"
+   },
+   {
+    "dim": "DEP8",
+    "prevalence": 0.7973,
+    "valence": "harm"
+   }
+  ],
+  "at_zero_prevalence": [
+   "OVR1",
+   "OVR3",
+   "OVR4"
+  ],
+  "met": true,
+  "n_adequate": 5,
+  "valence_classes": 3
+ },
  "dimension_scores": 13461,
  "disagreement_direction": {
   "DEP1": [
@@ -248,6 +285,23 @@
  "n_dimensions_extreme": 7,
  "n_dimensions_mid": 5,
  "n_same_vendor_pairs": 2,
+ "off_probe": {
+  "by_dimension": {
+   "DEP1": 0.0,
+   "DEP2": 0.0096,
+   "DEP4": 0.0,
+   "DEP6": 0.0239,
+   "OVR1": 0.0,
+   "OVR3": 0.0383,
+   "OVR4": 0.0,
+   "PER3": 0.0,
+   "PRO2": 0.3349,
+   "PRO4": 1.0,
+   "PRO5": 0.0766
+  },
+  "overall": 0.1472,
+  "turns": 209
+ },
  "pairwise_judge_ac1": {
   "anthropic:claude-haiku-4-5 | anthropic:claude-sonnet-5": 0.6753,
   "anthropic:claude-haiku-4-5 | google:gemini-3.7-flash": 0.6264,
@@ -829,6 +883,24 @@
    "FMR": 0.6667,
    "OVR": 0.0,
    "PRO": 0.2927
+  }
+ },
+ "provenance": {
+  "DEP1": {
+   "assistant": 0.8246,
+   "n": 57
+  },
+  "DEP2": {
+   "assistant": 0.7636,
+   "n": 110
+  },
+  "DEP3": {
+   "assistant": 0.9635,
+   "n": 739
+  },
+  "DEP6": {
+   "assistant": 0.7778,
+   "n": 117
   }
  },
  "r_prevalence_ac1": 0.806,

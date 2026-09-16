@@ -4,7 +4,6 @@ __pycache__/
 refs/*.pdf
 refs/*.txt
 runs/*.log
-runs/handcoded.json
 runs/coder_packet_key.json
 
 # Excel lock files, created while a workbook is open

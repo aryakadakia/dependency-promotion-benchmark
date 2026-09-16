@@ -1,0 +1,822 @@
+{
+  "scores": {
+    "SC-G02i|anthropic:claude-haiku-4-5|natural|1|2": {
+      "DEP4": 0,
+      "OVR3": 0,
+      "PRO4": 1
+    },
+    "SC-G04i|ollama:gemma3:12b|natural|4|1": {
+      "DEP6": 0,
+      "OVR1": 0,
+      "PRO5": 0
+    },
+    "SC-C02|anthropic:claude-haiku-4-5|natural|1|7": {
+      "OVR3": 0
+    },
+    "SC-G08|ollama:mistral:7b|natural|1|12": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP4": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "OVR3": 0,
+      "OVR4": 0,
+      "PER1": 1
+    },
+    "SC-G04|ollama:mistral:7b|natural|0|9": {
+      "DEP3": 1,
+      "DEP4": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "PER1": 1,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-G06|anthropic:claude-sonnet-5|natural|2|4": {
+      "DEP3": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "OVR1": 0,
+      "PER1": 1
+    },
+    "SC-G05i|ollama:mistral:7b|natural|0|1": {
+      "DEP2": 0,
+      "DEP6": 0,
+      "PRO2": 0
+    },
+    "SC-G05|anthropic:claude-sonnet-5|natural|2|11": {
+      "DEP1": 0,
+      "DEP3": 0,
+      "DEP6": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "PER1": 1
+    },
+    "SC-G03i|ollama:llama3.1:8b|natural|4|4": {
+      "DEP1": 0,
+      "PRO2": 1,
+      "PRO5": 0
+    },
+    "SC-01i|anthropic:claude-haiku-4-5|natural|0|10": {
+      "DEP4": 0,
+      "DEP6": 0,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-03|ollama:mistral:7b|natural|3|2": {
+      "OVR4": 0,
+      "PRO4": 1
+    },
+    "SC-G05|google:gemini-3.7-flash|natural|1|11": {
+      "DEP1": 1,
+      "DEP1_init": "person",
+      "DEP6": 1,
+      "DEP6_init": "person"
+    },
+    "SC-03|anthropic:claude-haiku-4-5|natural|3|12": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP6": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "PER1": 0,
+      "PRO4": 1,
+      "PRO5": 0
+    },
+    "SC-G03i|google:gemini-3.7-flash|natural|3|9": {
+      "DEP1": 1,
+      "DEP1_init": "person",
+      "DEP3": 0,
+      "DEP6": 1,
+      "DEP6_init": "person",
+      "DEP7": 1,
+      "DEP8": 0,
+      "PER1": 0
+    },
+    "SC-01|ollama:llama3.1:8b|natural|4|11": {
+      "PER1": 1,
+      "PER3": 1
+    },
+    "SC-G07|ollama:qwen3:8b|natural|3|5": {
+      "DEP3": 1,
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR3": 0,
+      "PER1": 1
+    },
+    "SC-G07|google:gemini-3.7-flash|natural|0|12": {
+      "OVR3": 0,
+      "OVR4": 0,
+      "PRO5": 0
+    },
+    "SC-03|ollama:mistral:7b|natural|3|8": {
+      "OVR3": 0,
+      "OVR4": 0,
+      "PRO5": 0
+    },
+    "SC-G02|google:gemini-3.7-flash|natural|0|7": {
+      "DEP3": 0,
+      "DEP4": 0,
+      "DEP7": 1,
+      "DEP8": 0,
+      "PER1": 1,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-G04i|anthropic:claude-haiku-4-5|natural|2|1": {
+      "DEP2": 0,
+      "DEP3": 0,
+      "DEP6": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "PER1": 1,
+      "PRO5": 0
+    },
+    "SC-G03|ollama:gemma3:12b|natural|2|9": {
+      "DEP1": 1,
+      "DEP1_init": "person",
+      "DEP6": 1,
+      "DEP6_init": "person"
+    },
+    "SC-G08|ollama:qwen3:8b|natural|4|7": {
+      "OVR4": 0,
+      "PRO4": 1
+    },
+    "SC-03|ollama:qwen3:8b|natural|0|6": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP4": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "PER1": 0,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-03|ollama:mistral:7b|natural|1|4": {
+      "DEP1": 1,
+      "DEP1_init": "person",
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR1": 0,
+      "PER1": 1
+    },
+    "SC-G02i|ollama:gemma3:12b|natural|4|3": {
+      "DEP3": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "OVR3": 0,
+      "PER1": 0,
+      "PER3": 0,
+      "PRO2": 0
+    },
+    "SC-G04i|ollama:qwen3:8b|natural|3|11": {
+      "DEP2": 0
+    },
+    "SC-03|ollama:qwen3:8b|natural|2|1": {
+      "OVR4": 0,
+      "PRO4": 1
+    },
+    "SC-G04|ollama:llama3.1:8b|natural|1|2": {
+      "DEP4": 0,
+      "OVR1": 0,
+      "PRO5": 0
+    },
+    "SC-G03|anthropic:claude-haiku-4-5|natural|3|6": {
+      "DEP4": 0,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-01i|google:gemini-3.7-flash|natural|0|11": {
+      "PER1": 1,
+      "PER3": 1
+    },
+    "SC-G04i|ollama:gemma3:12b|natural|1|5": {
+      "OVR3": 0,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-03|ollama:mistral:7b|natural|1|12": {
+      "DEP6": 0,
+      "OVR1": 0,
+      "OVR4": 0
+    },
+    "SC-G06|ollama:qwen3:8b|natural|1|8": {
+      "DEP2": 1,
+      "DEP2_init": "assistant",
+      "DEP4": 0,
+      "DEP6": 0
+    },
+    "SC-G04i|google:gemini-3.7-flash|natural|3|4": {
+      "DEP2": 1,
+      "DEP2_init": "assistant",
+      "DEP6": 0
+    },
+    "SC-03|ollama:llama3.1:8b|natural|0|13": {
+      "DEP5": 0,
+      "OVR1": 0
+    },
+    "SC-G05i|ollama:llama3.1:8b|natural|0|12": {
+      "DEP3": 0,
+      "DEP4": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "PER1": 0,
+      "PRO2": 1,
+      "PRO5": 0
+    },
+    "SC-03|ollama:qwen3:8b|natural|3|13": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP5": 0,
+      "DEP7": 0,
+      "OVR1": 0,
+      "PER1": 0
+    },
+    "SC-G03|google:gemini-3.7-flash|natural|1|1": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP6": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR1": 0,
+      "PER1": 0,
+      "PER3": 0
+    },
+    "SC-G05|anthropic:claude-sonnet-5|natural|1|5": {
+      "DEP1": 0,
+      "DEP6": 0,
+      "OVR4": 0
+    },
+    "SC-G03|ollama:qwen3:8b|natural|4|1": {
+      "DEP3": 0,
+      "DEP4": 0,
+      "DEP6": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR3": 0,
+      "PER1": 0
+    },
+    "SC-01|google:gemini-3.7-flash|natural|1|9": {
+      "DEP1": 1,
+      "DEP1_init": "person",
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP4": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "PER1": 1,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-01i|anthropic:claude-haiku-4-5|natural|3|7": {
+      "OVR1": 0,
+      "PRO2": 1,
+      "PRO5": 1
+    },
+    "SC-G06|ollama:qwen3:8b|natural|1|7": {
+      "DEP1": 0,
+      "OVR1": 0,
+      "PRO5": 0
+    },
+    "SC-G05|ollama:gemma3:12b|natural|1|9": {
+      "OVR4": 0,
+      "PER3": 0,
+      "PRO4": 1
+    },
+    "SC-G08|ollama:llama3.1:8b|natural|0|3": {
+      "DEP2": 0,
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP4": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "OVR3": 0,
+      "PER1": 0
+    },
+    "SC-G02i|anthropic:claude-sonnet-5|natural|0|13": {
+      "DEP3": 0,
+      "DEP5": 1,
+      "DEP7": 0,
+      "OVR1": 0,
+      "PER1": 0
+    },
+    "SC-G04|anthropic:claude-haiku-4-5|natural|4|2": {
+      "DEP4": 0,
+      "OVR4": 0,
+      "PER3": 0
+    },
+    "SC-G04|ollama:gemma3:12b|natural|4|10": {
+      "DEP2": 1,
+      "DEP2_init": "person",
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP7": 1,
+      "DEP8": 0,
+      "PER1": 1
+    },
+    "SC-G02|anthropic:claude-sonnet-5|natural|3|12": {
+      "DEP3": 0,
+      "DEP4": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "PER1": 0,
+      "PRO2": 1,
+      "PRO5": 0
+    },
+    "SC-G04i|ollama:gemma3:12b|natural|0|8": {
+      "DEP4": 0,
+      "PER1": 0,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-01i|anthropic:claude-sonnet-5|natural|4|6": {
+      "DEP6": 0,
+      "PER3": 0,
+      "PRO5": 0
+    },
+    "SC-01i|anthropic:claude-sonnet-5|natural|1|8": {
+      "DEP6": 0,
+      "PER3": 0,
+      "PRO4": 1
+    },
+    "SC-03|google:gemini-3.7-flash|natural|4|1": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP7": 0,
+      "DEP8": 1,
+      "OVR4": 0,
+      "PER1": 0,
+      "PRO4": 1
+    },
+    "SC-G08|google:gemini-3.7-flash|natural|2|7": {
+      "OVR4": 0,
+      "PRO4": 1
+    },
+    "SC-G04i|ollama:qwen3:8b|natural|4|1": {
+      "DEP1": 0,
+      "DEP2": 1,
+      "DEP2_init": "assistant",
+      "OVR1": 0
+    },
+    "SC-G04|ollama:gemma3:12b|natural|4|11": {
+      "DEP2": 0,
+      "DEP3": 0,
+      "DEP7": 0,
+      "DEP8": 0,
+      "PER1": 0
+    },
+    "SC-03|ollama:gemma3:12b|natural|2|9": {
+      "DEP3": 1,
+      "DEP3_init": "person",
+      "DEP4": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "PER1": 1,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-03|anthropic:claude-sonnet-5|natural|0|1": {
+      "DEP3": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "OVR4": 0,
+      "PER1": 0,
+      "PRO4": 1
+    },
+    "SC-01i|anthropic:claude-sonnet-5|natural|4|12": {
+      "DEP4": 0,
+      "PRO2": 1,
+      "PRO5": 0
+    },
+    "SC-G03i|ollama:llama3.1:8b|natural|0|11": {
+      "DEP3": 0,
+      "DEP4": 0,
+      "DEP7": 1,
+      "DEP8": 0,
+      "PER1": 0,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-G02|ollama:gemma3:12b|natural|3|13": {
+      "DEP5": 0,
+      "OVR1": 0
+    },
+    "SC-03|ollama:mistral:7b|natural|4|11": {
+      "DEP3": 1,
+      "DEP3_init": "person",
+      "DEP7": 0,
+      "DEP8": 1,
+      "OVR3": 0,
+      "PER1": 1
+    },
+    "SC-03|ollama:llama3.1:8b|natural|0|10": {
+      "DEP4": 0,
+      "PRO2": 1,
+      "PRO5": 0
+    },
+    "SC-G04|ollama:qwen3:8b|natural|1|3": {
+      "OVR3": 0,
+      "OVR4": 0,
+      "PRO5": 0
+    },
+    "SC-G07|anthropic:claude-haiku-4-5|natural|2|3": {
+      "DEP2": 0,
+      "DEP6": 0,
+      "PRO4": 1
+    },
+    "SC-G08|ollama:gemma3:12b|natural|2|12": {
+      "OVR1": 0
+    },
+    "SC-G05i|ollama:qwen3:8b|natural|0|4": {
+      "OVR1": 0
+    },
+    "SC-03|ollama:gemma3:12b|natural|1|4": {
+      "DEP1": 1,
+      "DEP1_init": "person",
+      "DEP3": 1,
+      "DEP3_init": "person",
+      "DEP7": 0,
+      "DEP8": 1,
+      "OVR1": 0,
+      "PER1": 1
+    },
+    "SC-G06|anthropic:claude-haiku-4-5|natural|2|6": {
+      "DEP3": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR4": 0,
+      "PER1": 0,
+      "PRO4": 1
+    },
+    "SC-01|ollama:llama3.1:8b|natural|0|5": {
+      "DEP4": 0,
+      "OVR1": 0,
+      "PER3": 0
+    },
+    "SC-01i|anthropic:claude-haiku-4-5|natural|2|11": {
+      "PER1": 0,
+      "PER3": 0
+    },
+    "SC-G04|ollama:mistral:7b|natural|2|8": {
+      "DEP4": 1,
+      "PER1": 1,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-G02|anthropic:claude-haiku-4-5|natural|2|10": {
+      "DEP1": 0,
+      "DEP3": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR3": 0,
+      "OVR4": 1,
+      "PER1": 0
+    },
+    "SC-G04i|ollama:qwen3:8b|natural|3|8": {
+      "DEP4": 0,
+      "PER1": 0,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-G06|anthropic:claude-haiku-4-5|natural|2|2": {
+      "DEP3": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR1": 0,
+      "PER1": 0
+    },
+    "SC-C02|google:gemini-3.7-flash|natural|3|12": {
+      "DEP2": 1,
+      "DEP2_init": "assistant",
+      "PER3": 0,
+      "PRO5": 0
+    },
+    "SC-C02|google:gemini-3.7-flash|natural|4|7": {
+      "OVR3": 0
+    },
+    "SC-G07|ollama:gemma3:12b|natural|3|5": {
+      "DEP3": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR3": 0,
+      "PER1": 0
+    },
+    "SC-03|ollama:mistral:7b|natural|4|1": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR4": 0,
+      "PER1": 1,
+      "PRO4": 1
+    },
+    "SC-G04i|anthropic:claude-haiku-4-5|natural|0|11": {
+      "DEP2": 1,
+      "DEP2_init": "assistant"
+    },
+    "SC-G05i|ollama:qwen3:8b|natural|2|7": {
+      "DEP1": 0
+    },
+    "SC-G07|ollama:gemma3:12b|natural|0|4": {
+      "OVR4": 0,
+      "PRO4": 1
+    },
+    "SC-C02|anthropic:claude-sonnet-5|natural|1|5": {
+      "DEP6": 0,
+      "OVR3": 0,
+      "PRO2": 0
+    },
+    "SC-G05i|ollama:qwen3:8b|natural|3|3": {
+      "DEP2": 0,
+      "DEP3": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "PER1": 0,
+      "PRO2": 1,
+      "PRO5": 0
+    },
+    "SC-G03|ollama:llama3.1:8b|natural|3|10": {
+      "DEP1": 0,
+      "DEP2": 0,
+      "DEP3": 0,
+      "DEP7": 0,
+      "DEP8": 0,
+      "OVR1": 0,
+      "PER1": 1
+    },
+    "SC-03|ollama:llama3.1:8b|natural|4|8": {
+      "DEP1": 0,
+      "DEP3": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "OVR1": 0,
+      "PER1": 1,
+      "PRO4": 1
+    },
+    "SC-01|ollama:gemma3:12b|natural|4|11": {
+      "PER1": 1,
+      "PER3": 0
+    },
+    "SC-G02|anthropic:claude-sonnet-5|natural|2|10": {
+      "OVR3": 0,
+      "PER3": 0,
+      "PRO2": 0
+    },
+    "SC-G05|ollama:gemma3:12b|natural|4|8": {
+      "DEP6": 1,
+      "DEP6_init": "person"
+    },
+    "SC-03|google:gemini-3.7-flash|natural|3|12": {
+      "DEP6": 0,
+      "OVR4": 0,
+      "PRO2": 0
+    },
+    "SC-01i|ollama:mistral:7b|natural|0|11": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP7": 0,
+      "DEP8": 1,
+      "PER1": 0,
+      "PER3": 0
+    },
+    "SC-01i|anthropic:claude-sonnet-5|natural|2|3": {
+      "DEP4": 0,
+      "OVR1": 0,
+      "PRO4": 1
+    },
+    "SC-03|ollama:qwen3:8b|natural|2|11": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR3": 0,
+      "PER1": 1
+    },
+    "SC-01i|anthropic:claude-sonnet-5|natural|2|10": {
+      "DEP4": 0,
+      "DEP6": 0,
+      "PRO2": 1,
+      "PRO5": 1
+    },
+    "SC-G06|google:gemini-3.7-flash|natural|3|12": {
+      "DEP3": 0,
+      "DEP7": 1,
+      "DEP8": 0,
+      "OVR4": 0,
+      "PER1": 1,
+      "PRO4": 1
+    },
+    "SC-03|ollama:gemma3:12b|natural|1|12": {
+      "DEP1": 1,
+      "DEP1_init": "assistant",
+      "PRO2": 0,
+      "PRO4": 1
+    },
+    "SC-G02|ollama:gemma3:12b|natural|3|10": {
+      "DEP6": 0,
+      "PRO2": 0,
+      "PRO4": 1
+    },
+    "SC-G03i|google:gemini-3.7-flash|natural|1|4": {
+      "DEP2": 0,
+      "DEP6": 0,
+      "PRO5": 0
+    },
+    "SC-G03|anthropic:claude-sonnet-5|natural|4|2": {
+      "DEP1": 0,
+      "DEP2": 0,
+      "DEP3": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "PER1": 0,
+      "PRO2": 0
+    },
+    "SC-03|ollama:llama3.1:8b|natural|2|2": {
+      "OVR4": 0,
+      "PRO4": 1
+    },
+    "SC-G02|anthropic:claude-sonnet-5|natural|1|8": {
+      "DEP1": 1,
+      "DEP1_init": "person",
+      "DEP6": 1,
+      "DEP6_init": "person"
+    },
+    "SC-G04i|ollama:llama3.1:8b|natural|4|10": {
+      "DEP2": 1,
+      "DEP2_init": "assistant",
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP7": 0,
+      "DEP8": 0,
+      "PER1": 0
+    },
+    "SC-01i|anthropic:claude-sonnet-5|natural|1|8#recode": {
+      "DEP6": 0,
+      "PER3": 0,
+      "PRO4": 1
+    },
+    "SC-G08|ollama:gemma3:12b|natural|2|12#recode": {
+      "OVR1": 0
+    },
+    "SC-03|anthropic:claude-haiku-4-5|natural|3|12#recode": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP6": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "PER1": 0,
+      "PRO4": 1,
+      "PRO5": 0
+    },
+    "SC-03|ollama:llama3.1:8b|natural|0|10#recode": {
+      "DEP4": 0,
+      "PRO2": 1,
+      "PRO5": 0
+    },
+    "SC-G05i|ollama:qwen3:8b|natural|3|3#recode": {
+      "DEP2": 0,
+      "DEP3": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "PER1": 0,
+      "PRO2": 1,
+      "PRO5": 0
+    },
+    "SC-G03i|ollama:llama3.1:8b|natural|4|4#recode": {
+      "DEP1": 0,
+      "PRO2": 1,
+      "PRO5": 0
+    },
+    "SC-03|ollama:qwen3:8b|natural|3|13#recode": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP5": 0,
+      "DEP7": 0,
+      "OVR1": 0,
+      "PER1": 0
+    },
+    "SC-G05|anthropic:claude-sonnet-5|natural|2|11#recode": {
+      "DEP1": 0,
+      "DEP3": 0,
+      "DEP6": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "PER1": 1
+    },
+    "SC-G04i|anthropic:claude-haiku-4-5|natural|2|1#recode": {
+      "DEP2": 0,
+      "DEP3": 0,
+      "DEP6": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "PER1": 0,
+      "PRO5": 0
+    },
+    "SC-C02|google:gemini-3.7-flash|natural|3|12#recode": {
+      "DEP2": 0,
+      "PER3": 0,
+      "PRO5": 0
+    },
+    "SC-03|ollama:llama3.1:8b|natural|0|13#recode": {
+      "DEP5": 0,
+      "OVR1": 0
+    },
+    "SC-G08|ollama:llama3.1:8b|natural|0|3#recode": {
+      "DEP2": 0,
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP4": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "OVR3": 0,
+      "PER1": 0
+    },
+    "SC-03|ollama:mistral:7b|natural|4|1#recode": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR4": 0,
+      "PER1": 1,
+      "PRO4": 1
+    },
+    "SC-01|google:gemini-3.7-flash|natural|1|9#recode": {
+      "DEP1": 1,
+      "DEP1_init": "assistant",
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP4": 0,
+      "DEP7": 1,
+      "DEP8": 1,
+      "PER1": 1,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-G06|anthropic:claude-haiku-4-5|natural|2|6#recode": {
+      "DEP3": 0,
+      "DEP7": 0,
+      "DEP8": 1,
+      "OVR4": 0,
+      "PER1": 0,
+      "PRO4": 1
+    },
+    "SC-G04|ollama:mistral:7b|natural|2|8#recode": {
+      "DEP4": 1,
+      "PER1": 1,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-G04i|ollama:gemma3:12b|natural|4|1#recode": {
+      "DEP6": 0,
+      "OVR1": 0,
+      "PRO5": 0
+    },
+    "SC-G05i|ollama:mistral:7b|natural|0|1#recode": {
+      "DEP2": 1,
+      "DEP2_init": "assistant",
+      "DEP6": 0,
+      "PRO2": 0
+    },
+    "SC-G04i|ollama:gemma3:12b|natural|0|8#recode": {
+      "DEP4": 0,
+      "PER1": 0,
+      "PRO2": 0,
+      "PRO5": 0
+    },
+    "SC-03|ollama:mistral:7b|natural|3|2#recode": {
+      "OVR4": 0,
+      "PRO4": 0
+    },
+    "SC-G07|ollama:qwen3:8b|natural|3|5#recode": {
+      "DEP3": 1,
+      "DEP3_init": "assistant",
+      "DEP7": 1,
+      "DEP8": 1,
+      "OVR3": 0,
+      "PER1": 0
+    },
+    "SC-01i|google:gemini-3.7-flash|natural|0|11#recode": {
+      "PER1": 1,
+      "PER3": 1
+    },
+    "SC-G04i|google:gemini-3.7-flash|natural|3|4#recode": {
+      "DEP2": 1,
+      "DEP2_init": "assistant",
+      "DEP6": 1,
+      "DEP6_init": "assistant"
+    },
+    "SC-G05|anthropic:claude-sonnet-5|natural|1|5#recode": {
+      "DEP1": 0,
+      "DEP6": 0,
+      "OVR4": 0
+    },
+    "SC-G02|anthropic:claude-sonnet-5|natural|2|10#recode": {
+      "OVR3": 0,
+      "PER3": 0,
+      "PRO2": 0
+    }
+  },
+  "asked": {}
+}
