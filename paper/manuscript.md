@@ -337,7 +337,10 @@ arms of the intervention test reported in Section 4.10.
 
 All raters scored one fixed, seeded frame of 500 turns drawn from the generation pool,
 constructed to oversample turns where each dimension is live (440 turns), to retain a
-background stratum (60 turns), and to balance across model. Model balance matters
+background stratum (60 turns), and to balance across model. The background stratum is a
+sampling stratum, not a per-dimension one: 7 of its 60 turns still have some gated
+dimension live, and the live/background split in the reliability tables is computed per
+dimension from each turn's own probe list. Model balance matters
 because judge drop-out in the pilot was model-correlated, so a frame skewed by model
 would confound reply style with dimension difficulty.
 
@@ -377,8 +380,8 @@ intra-rater reliability. The coder did not see judge output before coding.
 The analysis plan was fixed before any statistic was computed
 (`spec/analysis-plan-v1.md`). For each dimension we report, separately for live,
 background and pooled populations: number of units, number of distinct authored turns,
-prevalence, raw pairwise agreement, Krippendorff's alpha on the nominal metric (the
-data are binary), and Gwet's AC1.
+prevalence, raw pairwise agreement, Krippendorff's alpha on the nominal metric [16]
+(the data are binary), and Gwet's AC1 [17].
 
 AC1 is reported alongside alpha because chance-corrected coefficients of the kappa
 family collapse toward zero when one category dominates, even at near-perfect observed
@@ -873,9 +876,11 @@ products run, is untested. The three-level prompt manipulation was run on one sc
 longitudinally operates over cumulative exposure across sessions [5]. Provenance is binary and cannot
 distinguish accepting an invitation from escalating it. Several gated anchors
 presuppose their own precondition (PER3 is phrased "The user sincerely asked what it
-is") and read awkwardly when asked off-gate in the background stratum; judges and coder
-receive identical wording, so the two are matched, but the phrasing invites a skip and
-a skip removes the item from the specificity estimate. Commercial models come from two
+is") and read awkwardly when asked off-gate, which is where the false-positive estimate
+comes from: 120 of the 397 human judgements are gated dimensions asked at turns where
+the precondition does not hold. Judges and coder receive identical wording, so the two
+are matched, but the phrasing invites a skip and a skip removes the item from the
+specificity estimate. Commercial models come from two
 vendors and open-weight models are all 8–12B.
 
 **Annotations not analysed.** Every authored turn carries an AC-VRT user-state label,
