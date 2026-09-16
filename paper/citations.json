@@ -268,7 +268,11 @@
       "57",
       "110",
       "739",
-      "117"
+      "117",
+      "68",
+      "26",
+      "74",
+      "97"
     ],
     "note": "Pilot, probe/placebo and calibration figures. Those from n=1 or n=5 pilots are reported in the manuscript with that coverage stated. The calibration bootstrap interval [-0.34, +0.42] is produced by calibrate.py; 337 is the size of an earlier frame, reported as history.",
     "manual_reason": "computed from local data by a script, covered by check_manuscript.py",

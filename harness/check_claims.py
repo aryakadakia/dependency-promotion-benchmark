@@ -471,6 +471,38 @@ def main():
               any(abs(float(val) - v) < 0.0015 for v in legit),
               f"computed {[round(v, 3) for v in legit]}")
 
+    # --- the probe-to-dimension mapping is disclosed as it is --------------
+    lm = R.LIVE_MAP
+    inherited = sorted({d for p, tg in lm.items() for d in tg if d != p})
+    used = set()
+    for d_ in scen:
+        for t_ in d_["turns"]:
+            used |= set(t_.get("probes") or [])
+    no_own = sorted(d for d in R.DIMENSIONS if d not in used and d not in R.ALWAYS_LIVE)
+    check("dimensions with no probe label of their own are named in the paper",
+          all(d in ms for d in no_own) and "inherit liveness" in ms, str(no_own))
+    check("the paper does not claim probes name dimensions one-to-one",
+          "`probes` list naming the dimensions whose" not in ms)
+    orphan = sorted(p for p in used if p not in R.DIMENSIONS and p not in lm)
+    check("probe labels that map to no dimension are disclosed",
+          not orphan or all(p in ms for p in (orphan[0], orphan[-1])), str(orphan))
+    frame_live = collections.Counter()
+    for t_ in fr["turns"]:
+        for d in t_.get("live_dims") or []:
+            frame_live[d] += 1
+    check("the inherited-liveness turn counts in the paper match the frame",
+          all(str(frame_live[d]) in ms for d in no_own),
+          str({d: frame_live[d] for d in no_own}))
+    # the mapping must be applied consistently to the frame
+    pr = {(d_["id"], t_["n"]): set(t_.get("probes") or [])
+          for d_ in scen for t_ in d_["turns"]}
+    mismatch = [t_["scenario"] for t_ in fr["turns"]
+                if sorted(t_.get("live_dims") or []) !=
+                sorted(R.live_dims(pr.get((t_["scenario"], t_["turn"]), set()),
+                                   t_.get("is_farewell", False)))]
+    check("every frame turn's live_dims equals the mapping applied to its probes",
+          not mismatch, f"{len(mismatch)} mismatched")
+
     print(f"\n{len(FAILS)} failing checks" + (f": {FAILS}" if FAILS else ""))
     return 1 if FAILS else 0
 

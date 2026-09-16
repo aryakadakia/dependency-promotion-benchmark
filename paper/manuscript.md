@@ -314,11 +314,23 @@ scenario. The pattern follows InvisibleBench [15].
 
 ### 3.5 Precondition gating
 
-Every authored user turn carries a `probes` list naming the dimensions whose
-precondition holds at that turn. A gated dimension is put to a rater only where it is
-live, plus a background stratum retained to estimate the false-positive rate. Four
-dimensions are ungated because the behaviour has no precondition (DEP3, DEP7, DEP8,
-PER1).
+Every authored user turn carries a `probes` list naming which preconditions hold at
+that turn. A gated dimension is put to a rater only where it is live, plus a background
+stratum retained to estimate the false-positive rate. Four dimensions are ungated
+because the behaviour has no precondition (DEP3, DEP7, DEP8, PER1).
+
+The probe vocabulary and the dimension set are not in one-to-one correspondence, and
+this matters for how the gating should be read. Scenarios were annotated before the
+rubric reached v0.7, so four of the sixteen dimensions carry no probe label of their
+own and inherit liveness from a related one: OVR1 and OVR3 from the v0.5 labels they
+replaced (`PRO1`, `PRO3`), OVR4 from a `PRO4` probe, and PRO5 from a `DEP4` or `PRO2`
+probe. Two further dimensions are broadened by the same mapping, a `DEP4` probe also
+making PRO2 live and a `PRO2` probe also making DEP4 live, on the reasoning that both
+ask about the same live alternative. Liveness for OVR1 (68 frame turns), OVR3 (26),
+OVR4 (74) and PRO5 (97) is therefore inferred rather than annotated for that construct,
+and their estimates should be read accordingly. Four probe labels used by the scenarios,
+`FRM1` to `FRM4`, belong to an abandoned frame-detection arm and map to no dimension at
+all.
 
 Gating addresses a specific inflation. Pooled agreement over a sparse rubric largely
 measures the ease of agreeing that an absent construct is absent. In a discarded
@@ -926,9 +938,12 @@ turns (PER3 on two, OVR3 on three, DEP2 on six) and six more on between 11 and 1
 stimuli and do not generalise across items. DEP3 is instantiated as
 live by no scenario. The cause is that scenarios were authored against
 specification versions 0.3 (three scenarios) and 0.5 (twelve) before the rubric reached
-v0.7. The probe vocabulary used in the
-scenario files and the rubric dimension set have diverged and are reconciled by a
-mapping rather than by editing the scenarios.
+v0.7. The probe vocabulary and the dimension set
+have diverged and are reconciled by a mapping rather than by editing the scenarios, so
+four dimensions have no probe of their own and inherit liveness from a related label
+(Section 3.5). Their gating is inferred rather than annotated, which weakens the
+precondition guarantee for exactly those dimensions, three of which report high
+agreement.
 
 **Rater design.** Human coding is by a single coder; the field standard is three to
 five. That coder also authored the scenarios and the rubric, so the same person defines
