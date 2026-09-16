@@ -107,7 +107,8 @@ def main():
     body = re.sub(r"(?:Llama|Gemini|Gemma|Qwen3?|Mistral|Claude|GPT|Phi|OLMo)"
                   r"[\s-]+[0-9.]+[A-Za-z0-9.\-\s]*?(?=[,.;)\n]|$)", "", body,
                   flags=re.S)
-    tokens = re.findall(r"(?<![\w.])[−+-]?[0-9][0-9,]*(?:\.[0-9]+)?%?(?![\w])", body)
+    tokens = re.findall(r"(?<![\w.,])[−+-]?[0-9][0-9,]*(?:\.[0-9]+)?%?(?![\w,]|\.[0-9])",
+                        body)
     unsourced = []
     for t in sorted(set(tokens)):
         v = parse(t)

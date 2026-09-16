@@ -407,6 +407,71 @@ def main():
         "met": len(adequate) >= 4 and len({a["valence"] for a in adequate}) >= 2,
         "at_zero_prevalence": [a["dim"] for a in adequate if a["prevalence"] == 0.0]}
 
+    # --- corpus, context and pilot descriptives ---------------------------
+    import glob as _glob, statistics as _st
+    cells = {}
+    for fn in sorted(_glob.glob(str(ROOT / "runs" / "SC-*_sp-*_n*.json"))):
+        dd = json.loads(pathlib.Path(fn).read_text())
+        for mm, conds in dd["results"].items():
+            cells[(dd["scenario_id"], dd["system_prompt_id"], mm)] = conds
+    by_cond = collections.Counter()
+    per_model = collections.Counter()
+    for (sid, sp, mm), conds in cells.items():
+        for cond, blk in conds.items():
+            if isinstance(blk, dict):
+                for smp in blk.get("samples", []):
+                    by_cond[cond] += len(smp)
+                    per_model[mm] += len(smp)
+    F["generations"] = {"total": sum(by_cond.values()),
+                        "by_condition": dict(by_cond),
+                        "measurement_corpus": by_cond["natural"],
+                        "probe_and_placebo": sum(v for k, v in by_cond.items()
+                                                 if k != "natural"),
+                        "per_model": dict(per_model)}
+
+    F["prior_context_chars_median"] = _st.median(
+        len(t.get("prior") or "") for t in fr["turns"])
+
+    F["judge_spread"] = round(max(v["ac1"] for v in per.values())
+                              - min(v["ac1"] for v in per.values()), 4)
+    F["off_gate_human_judgements"] = sum(
+        1 for uid, hs in first.items() for d in hs
+        if not d.endswith("_init") and d not in R.ALWAYS_LIVE
+        and d not in (meta[key(uid)].get("live_dims") or []))
+
+    # Same restriction endearments.py applies: models present at every level.
+    EXC = {"ollama:mistral:7b", "google:gemini-3.1-pro-preview"}
+    at = collections.defaultdict(set)
+    for (sid, sp, mm) in cells:
+        if sid == "SC-03" and mm not in EXC:
+            at[sp].add(mm)
+    common = set.intersection(*at.values()) if len(at) >= 3 else set()
+    end_counts = collections.Counter()
+    for (sid, sp, mm), conds in cells.items():
+        if sid != "SC-03" or mm not in common:
+            continue
+        for blk in conds.values():
+            if isinstance(blk, dict):
+                for smp in blk.get("samples", []):
+                    end_counts[sp] += len(smp)
+    F["endearment"] = {"models": len(common),
+                       "replies_per_level": dict(end_counts)}
+
+    # The prior-context truncation the judge pipeline applies, read from the code
+    # rather than asserted, since Methods and Limitations both quote it.
+    jt = (ROOT / "harness" / "judge.py").read_text()
+    m_ = re.search(r"model_reply'\]\[:(\d+)\]", jt) or re.search(r"\[:(\d+)\]", jt)
+    F["prior_truncation_chars"] = int(m_.group(1)) if m_ else None
+
+    pilot = json.loads((ROOT / "runs" / "judged_pilot.json").read_text())
+    PJ = sorted({j for r in pilot for j in r["judges"]})
+    both = [r for r in pilot if all(j in r["judges"] and r["judges"][j] for j in PJ)]
+    u3 = [[r["judges"][j]["PER3"] for j in PJ] for r in both
+          if all("PER3" in r["judges"][j] for j in PJ)]
+    F["pilot"] = {"both_judged_turns": len(both),
+                  "per3_alpha": round(krippendorff_nominal(u3), 4) if len(u3) > 1 else None,
+                  "per3_agreement": round(raw_agreement(u3), 4) if len(u3) > 1 else None}
+
     print(json.dumps(F, indent=1, sort_keys=True))
     if a := ap.parse_args().save:
         (ROOT / "paper" / "figures.json").write_text(

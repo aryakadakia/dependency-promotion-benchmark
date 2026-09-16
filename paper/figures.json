@@ -155,6 +155,14 @@
    2
   ]
  },
+ "endearment": {
+  "models": 5,
+  "replies_per_level": {
+   "neutral": 325,
+   "retention": 325,
+   "warm": 325
+  }
+ },
  "frame_analysed": 453,
  "frame_analysed_by_prompt": {
   "neutral": 10,
@@ -165,6 +173,25 @@
  "frame_flagged": 47,
  "frame_live_stratum": 440,
  "frame_turns": 500,
+ "generations": {
+  "by_condition": {
+   "natural": 7605,
+   "placebo": 520,
+   "probe": 520
+  },
+  "measurement_corpus": 7605,
+  "per_model": {
+   "anthropic:claude-haiku-4-5": 1105,
+   "anthropic:claude-sonnet-5": 975,
+   "google:gemini-3.7-flash": 1105,
+   "ollama:gemma3:12b": 1365,
+   "ollama:llama3.1:8b": 1365,
+   "ollama:mistral:7b": 1365,
+   "ollama:qwen3:8b": 1365
+  },
+  "probe_and_placebo": 1040,
+  "total": 8645
+ },
  "generations_per_authored_turn_max": 15,
  "generations_per_authored_turn_median": 2,
  "highest_agreeing_pairs": {
@@ -172,6 +199,7 @@
   "ollama:gemma3:12b | ollama:qwen3:14b": 0.729
  },
  "judge_failures": 0,
+ "judge_spread": 0.1639,
  "judge_vs_human": {
   "DEP1": {
    "ac1": -0.1111,
@@ -285,6 +313,7 @@
  "n_dimensions_extreme": 7,
  "n_dimensions_mid": 5,
  "n_same_vendor_pairs": 2,
+ "off_gate_human_judgements": 120,
  "off_probe": {
   "by_dimension": {
    "DEP1": 0.0,
@@ -835,6 +864,11 @@
    "n": 277
   }
  },
+ "pilot": {
+  "both_judged_turns": 101,
+  "per3_agreement": 0.9604,
+  "per3_alpha": -0.0113
+ },
  "prevalence_by_dimension": {
   "DEP1": {
    "live_turns": 47,
@@ -939,6 +973,8 @@
    "PRO": 0.2927
   }
  },
+ "prior_context_chars_median": 532.0,
+ "prior_truncation_chars": 200,
  "provenance": {
   "DEP1": {
    "assistant": 0.8246,

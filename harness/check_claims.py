@@ -360,7 +360,18 @@ def main():
                                                  "prevalence.py", "panel_analysis.py",
                                                  "calibrate.py", "corpus_probe.py",
                                                  "echo_report.py", "check_manuscript.py"))))
-    missing = [f"{a}/{b}" for a, b in inputs if f"{a}/{b}" not in tracked]
+    # A glob pattern is not a file; the tracked set is checked against the files
+    # it matches instead.
+    import glob as _g
+    missing = []
+    for a, b in inputs:
+        rel = f"{a}/{b}"
+        if any(ch in b for ch in "*?["):
+            hits = [p[len(str(ROOT)) + 1:] for p in _g.glob(str(ROOT / rel))]
+            if not hits or not any(h in tracked for h in hits):
+                missing.append(rel)
+        elif rel not in tracked:
+            missing.append(rel)
     check("every input a released script reads is itself released", not missing, str(missing))
     check("the paper does not claim primary results run without API access",
           "Primary results use open-weight models run locally" not in ms)
