@@ -37,10 +37,11 @@ are retained as reliability stimuli, and the artifact is reported in its own rig
 
 The corpus profiled in Methods is not included. It carries 1,038 Reddit usernames and
 account ids alongside posts labelled self-harm, suicide and sexual content, and 63% of
-its rows sit in those categories, so redistributing it here would be hard to justify in
-a study about harm to vulnerable users. `harness/corpus_probe.py` reproduces the figures
-from a local copy, and the values reported in the paper are recorded in
-`paper/citations.json`.
+its rows sit in those categories, so redistributing it from a study about harm to
+vulnerable users would be hard to justify. `harness/corpus_probe.py` reproduces the
+figures from a local copy; the values reported in the paper, and the date each was
+verified, are in `paper/citations.json`. Source PDFs are not kept here either. Every
+cited work is identified by DOI or arXiv identifier in the reference list.
 
 ## Licence
 

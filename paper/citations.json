@@ -30,17 +30,13 @@
       "1.00"
     ],
     "note": "Tactic percentages are 34.22/21.12/19.79/15.51/13.37/3.21 in the source. Alpha range 0.91 (Chai) to 1.00 (Flourish).",
-    "source_url": "file:refs/defreitas.txt",
+    "source_url": "https://arxiv.org/abs/2508.19258",
     "checks": [
       "1,200 real farewells",
-      "34.22",
-      "21.12",
-      "19.79",
-      "15.51",
-      "13.37",
-      "3.21",
-      "Flourish produced no emotionally manipulative responses"
-    ]
+      "37% of farewells",
+      "emotional manipulation"
+    ],
+    "manual_reason": "The abstract carries the corpus size and the 37% base rate. The six tactic percentages (34.22, 21.12, 19.79, 15.51, 13.37, 3.21), the per-app alpha range 0.91 to 1.00, and the app that produced no manipulative farewells are in the full text, which arXiv does not render as HTML. All were read from the PDF and verified 2026-09-16; the PDF is not redistributed here."
   },
   "chu-2026": {
     "ref": "[3]",
