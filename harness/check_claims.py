@@ -260,6 +260,76 @@ def main():
     for script in re.findall(r"`harness/([a-z_]+\.py)`", ms):
         check(f"script exists: {script}", (ROOT / "harness" / script).exists())
 
+    # --- reported sub-study figures ---------------------------------------
+    import subprocess
+    def run(script):
+        r = subprocess.run([sys.executable, str(ROOT / "harness" / script)],
+                           capture_output=True, text=True, cwd=ROOT / "harness")
+        return r.stdout
+
+    echo = run("echo_report.py")
+    for want in ("809", "1365", "59.3%", "63.4%", "38.5%", "1.5%"):
+        check(f"echo_report reproduces {want!r}", want in echo)
+    for want in ("59.3%", "63.4%", "38.5%", "1.5%"):
+        check(f"manuscript carries the echo figure {want}", want in ms)
+
+    end = run("endearments.py")
+    for want in ("0.0%", "7.7%", "17.2%", "325"):
+        check(f"endearments.py reproduces {want}", want in end)
+        check(f"manuscript carries the endearment figure {want}", want in ms)
+
+    corp = run("corpus_probe.py")
+    for want in ("2123", "48.5%", "26 hits (1.2%)", "7 hits (0.3%)", "9 labels"):
+        check(f"corpus_probe reproduces {want!r}", want in corp)
+    for want in ("2,123", "48%", "26 conversations (1.2%)", "7 (0.3%)"):
+        check(f"manuscript carries the corpus figure {want!r}", want in ms)
+
+    # --- pilot claims -----------------------------------------------------
+    pilot = json.loads((ROOT / "runs" / "judged_pilot.json").read_text())
+    J = sorted({j for r in pilot for j in r["judges"]})
+    both = [r for r in pilot if all(j in r["judges"] and r["judges"][j] for j in J)]
+    check("pilot has 101 turns scored by both judges", len(both) == 101, str(len(both)))
+    probes = {(d["id"], t["n"]): set(t.get("probes") or [])
+              for d in scen for t in d["turns"]}
+    cnt = collections.Counter()
+    for r in both:
+        for d in R.live_dims(probes.get((r["scenario"], r["turn"]), set()),
+                             r.get("is_farewell", False)):
+            cnt[d] += 1
+    check("pilot DEP2 was live on 3 of 101 turns and PER3 on 5",
+          cnt["DEP2"] == 3 and cnt["PER3"] == 5, f"DEP2={cnt['DEP2']} PER3={cnt['PER3']}")
+    drop, tot = collections.Counter(), collections.Counter()
+    for r in pilot:
+        for j in J:
+            if j == r["model"]:
+                continue
+            tot[(r["model"], j)] += 1
+            if not r["judges"].get(j):
+                drop[(r["model"], j)] += 1
+    rates = {k: drop[k] / tot[k] for k in tot if tot[k]}
+    high = sorted(round(v * 100) for v in rates.values() if v > 0)
+    check("pilot drop-out was 0% for one judge and 29-39% for the other",
+          any(v == 0 for v in rates.values()) and high and min(high) == 29
+          and max(high) == 39, f"nonzero rates {high}")
+
+    # --- method constants -------------------------------------------------
+    rel = (ROOT / "harness" / "reliability.py").read_text()
+    check("bootstrap uses 2,000 resamples as stated", "B=2000" in rel)
+    sp = (ROOT / "harness" / "system_prompts.py").read_text()
+    body = sp[sp.index('"retention": ('):]
+    check("the retention prompt contains no instruction to manipulate, deceive or harm",
+          not re.search(r"manipulat|deceive|mislead|lie to|harm the user", body, re.I))
+    check("three system prompts are defined", sp.count('": (') >= 3)
+
+    # --- the worked example in 5.4 ----------------------------------------
+    coded_keys = {keyed(u) for u in hum}
+    ex = [t for t in fr["turns"]
+          if (t["scenario"], t["model"], t["condition"], t["sample"], t["turn"]) in coded_keys
+          and re.search(r"can(no|.)t .{0,40}leave", t.get("reply") or "", re.I)
+          and re.search(r"human connection", t.get("reply") or "", re.I)]
+    check("the reply described in 5.4 exists in the human-coded set, with DEP2 live",
+          bool(ex) and "DEP2" in (ex[0].get("live_dims") or []), f"{len(ex)} match")
+
     print(f"\n{len(FAILS)} failing checks" + (f": {FAILS}" if FAILS else ""))
     return 1 if FAILS else 0
 

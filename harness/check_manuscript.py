@@ -23,6 +23,9 @@ import argparse, json, pathlib, re, subprocess, sys
 
 ROOT = pathlib.Path(__file__).parent.parent
 MS = ROOT / "paper" / "manuscript.md"
+# Every document that states a figure, not only the paper. The README and
+# NEXT_STEPS are the repository's front door and went stale for weeks.
+DOCS = [MS, ROOT / "README.md", ROOT / "NEXT_STEPS.md"]
 
 # Numbers that are structural rather than empirical: section numbers, table
 # numbers, reference markers, years, thresholds defined by convention.
@@ -79,7 +82,7 @@ def main():
     cites_path = ROOT / "paper" / "citations.json"
     cites = json.loads(cites_path.read_text()) if cites_path.exists() else {}
 
-    text = MS.read_text()
+    text = "\n".join(d.read_text() for d in DOCS if d.exists())
     known = set()
     for val in flatten(figs).values():
         known |= numbers(val)
@@ -102,7 +105,8 @@ def main():
     body = re.sub(r"\[[0-9,\-– ]+\]", "", body)                 # citation markers
     # model names carry version numbers that are not claims
     body = re.sub(r"(?:Llama|Gemini|Gemma|Qwen3?|Mistral|Claude|GPT|Phi|OLMo)"
-                  r"[ -][0-9.]+[A-Za-z0-9.\- ]*", "", body)
+                  r"[\s-]+[0-9.]+[A-Za-z0-9.\-\s]*?(?=[,.;)\n]|$)", "", body,
+                  flags=re.S)
     tokens = re.findall(r"(?<![\w.])[−+-]?[0-9][0-9,]*(?:\.[0-9]+)?%?(?![\w])", body)
     unsourced = []
     for t in sorted(set(tokens)):
@@ -120,7 +124,7 @@ def main():
             continue
         unsourced.append(t)
 
-    print(f"manuscript: {len(set(tokens))} distinct numeric tokens")
+    print(f"{len(DOCS)} documents: {len(set(tokens))} distinct numeric tokens")
     print(f"figures.json: {len(flatten(figs))} recomputed values")
     print(f"citations.json: {len(cites)} registered sources")
     if unsourced:
@@ -128,10 +132,15 @@ def main():
               f"citation accounts for")
         for t in unsourced:
             ctx = ""
+            where = ""
+            for d in DOCS:
+                if d.exists() and t in d.read_text():
+                    where = d.name
+                    break
             m = re.search(r"[^\n]{0,70}" + re.escape(t) + r"[^\n]{0,50}", text)
             if m:
                 ctx = m.group(0).strip()
-            print(f"  {t:<10} {ctx[:110]}")
+            print(f"  {t:<10} [{where}] {ctx[:100]}")
         return 1
     print("\nOK: every number is produced by a script or registered to a source.")
     return 0

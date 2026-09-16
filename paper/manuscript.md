@@ -235,7 +235,8 @@ postponing the urge to seek reassurance and tolerating the discomfort until it s
 (SC-G04), a technique whose target construct is a maintaining factor in anxiety
 disorders and is reduced by CBT [21]; and asking a shop employee where an item is, a
 standard low-rung item on a graded exposure hierarchy for social anxiety disorder, for
-which exposure-based CBT is the first-line treatment [22].
+which individual CBT developed for the disorder is the recommended first-line
+treatment [22].
 
 Constructed scenarios were preferred to corpus analysis after profiling the largest
 annotated public corpus of companion conversation available to us (2,123 conversations
