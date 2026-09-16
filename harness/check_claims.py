@@ -406,7 +406,8 @@ def main():
     check("PRO2 is the mid-prevalence exception the text names",
           set(mid) - set(mid_low) == {"PRO2"} and jh["PRO2"]["ac1"] > 0.80,
           f"exception {set(mid) - set(mid_low)}")
-    named = re.findall(r"\((DEP\d|PRO\d|PER\d|OVR\d), 0\.\d{3}\)", ms)
+    sec54 = ms[ms.index("### 5.4 What the contested"):ms.index("### 5.5 Implications")]
+    named = re.findall(r"\((DEP\d|PRO\d|PER\d|OVR\d), 0\.\d{3}\)", sec54)
     check("every dimension named in 5.4 as scoring reliably is above AC1 0.80",
           named and all(jh[d]["ac1"] > 0.80 for d in named),
           str({d: round(jh[d]["ac1"], 3) for d in named}))
@@ -431,6 +432,44 @@ def main():
           "every judge sits at chance" not in ms)
     check("no invented prevalence is attributed to DarkBench",
           "firing in\n2% of responses" not in ms and "firing in half" not in ms)
+
+    # --- model-size and threshold statements -------------------------------
+    import re as _re
+    gen_open = sorted({m for m in F["prevalence_by_model"]} |
+                      {"ollama:mistral:7b"} if True else set())
+    sizes = lambda names: sorted({int(x) for nm in names
+                                  for x in _re.findall(r"(\d+)b$", nm.lower())})
+    gen = sizes([m for m in {r["model"] for r in rows} if m.startswith("ollama")])
+    jud = sizes([j for j in per if j.startswith("ollama")])
+    check("the paper states the open-weight generation size range correctly",
+          f"{min(gen)}B to {max(gen)}B" in ms, f"{min(gen)}-{max(gen)}B")
+    check("the paper states the open-weight judge size range correctly",
+          f"{min(jud)}B to {max(jud)}B" in ms, f"{min(jud)}-{max(jud)}B")
+    check("no stale 8-12B claim remains", "8–12B" not in ms and "8-12B" not in ms)
+    check("DEP3 is described as only just reaching the threshold",
+          0.667 <= jh["DEP3"]["ac1"] < 0.70 and "only just reaches the" in ms,
+          f"{jh['DEP3']['ac1']:.3f}")
+    check("DEP7 is described as well below the threshold",
+          jh["DEP7"]["ac1"] < 0.5 and "well below it" in ms, f"{jh['DEP7']['ac1']:.3f}")
+
+    # --- cross-section consistency ----------------------------------------
+    check("no section claims capability makes no difference on DEP1/DEP6",
+          "capability makes no difference" not in ms)
+    check("the PRO2 exception is carried into the abstract, 5.1 and 5.7",
+          ms.count("exception") >= 3 and "largely" in ms
+          and "most of\nthe dimensions" in ms)
+    check("no section claims agreement spans the full range of the coefficient",
+          "spans the full range of the coefficient" not in ms)
+    # every dimension-with-coefficient pairing anywhere in the paper must match data
+    for d, val in re.findall(r"\b(DEP\d|PER\d|PRO\d|OVR\d)[^.\n]{0,40}?"
+                             r"(?:AC1 = |, )(-?0\.\d{3})\b", ms):
+        # A coefficient quoted for a dimension is either the judge-human figure
+        # (Table 7) or the panel figure (Table 6); both are legitimately cited.
+        legit = [jh[d]["ac1"]] if d in jh else []
+        legit += [pan[d][p]["ac1"] for p in ("LIVE", "POOLED") if p in pan.get(d, {})]
+        check(f"stated coefficient for {d} matches a computed value ({val})",
+              any(abs(float(val) - v) < 0.0015 for v in legit),
+              f"computed {[round(v, 3) for v in legit]}")
 
     print(f"\n{len(FAILS)} failing checks" + (f": {FAILS}" if FAILS else ""))
     return 1 if FAILS else 0

@@ -410,10 +410,11 @@ Preview arm was removed entirely.
 
 ### 3.12 Scope
 
-- Six models are retained for comparison. Open-weight models here are 8–12B and
-  commercial models are Flash and Haiku class, so open-weight status, scale and
-  post-training investment vary together; the model comparison is descriptive and no
-  causal claim separates them.
+- Six models are retained for comparison. The open-weight generation models are 7B to
+  12B and the open-weight judges 8B to 14B, while the commercial models are Flash,
+  Haiku and Sonnet class, so open-weight status, scale and post-training investment
+  vary together; the model comparison is descriptive and no causal claim separates
+  them.
 - Scenario coverage is uneven. Four ungated dimensions rest on 141 to 155 distinct
   authored turns and three gated ones on 34, but three rest on six or fewer (PER3 on
   two, OVR3 on three, DEP2 on six) and a further six on between 11 and 18. Estimates
@@ -632,8 +633,8 @@ it is a rate in one prompt condition and over-correction under a minimal assista
 prompt is untested.
 
 Model-level rates are given in Table 11 as family means. They are descriptive: the
-open-weight models are 8–12B and the commercial models are small-tier, so scale and
-post-training investment vary with weight availability.
+open-weight models are 7B to 12B and two of the three commercial models are small-tier,
+so scale and post-training investment vary with weight availability.
 
 **Table 11. Family rates by model, live turns, majority consensus. FMR is farewell
 manipulation rate, against the 37% published base rate [2].**
@@ -799,13 +800,15 @@ filter was tested and no claim is made about one.
 
 ### 5.1 Principal findings
 
-Agreement on this rubric spans the full range of the coefficient, and where a dimension
-falls in that range tracks its base rate more closely than anything else we measured.
-The dimensions with usable base rates are largely the ones on which raters do not agree,
-with one exception that points at construct type rather than base rate. Judge capability orders agreement cleanly but no judge reaches the conventional
-threshold, and on the two worst dimensions capability makes no difference. Human–judge
-disagreement is one-directional and the human coder is self-consistent, so the
-disagreement reflects a threshold difference that one coder cannot adjudicate.
+Agreement on this rubric runs from below zero to unity, and where a dimension falls in
+that range tracks its base rate more closely than anything else we measured. The
+dimensions with usable base rates are largely the ones on which raters do not agree,
+with one exception that points at construct type rather than base rate. Judge capability
+orders agreement cleanly in aggregate but no judge reaches the conventional threshold,
+and on the two worst dimensions the per-judge estimates neither reach it nor order by
+capability. Human–judge disagreement is one-directional and the human coder is
+self-consistent, so the disagreement reflects a threshold difference that one coder
+cannot adjudicate.
 
 ### 5.2 Reliability reported without prevalence cannot be interpreted
 
@@ -890,8 +893,8 @@ Dependency-relevant behaviour was common in these scenarios: engagement prolongi
 78.3% of live turns, permanence pledges on 45.5%, favourable availability contrast on
 34.4%, reliance encouragement on 26.1%, sycophancy on 21.6%. Of those five, permanence
 pledges and availability contrast fall on dimensions where two competent raters agree at
-or near chance, and reliance encouragement and sycophancy on dimensions at or barely
-above the tentative threshold. These are rates within fifteen constructed
+or near chance, reliance encouragement on a dimension that only just reaches the
+tentative threshold (DEP3, 0.672), and sycophancy on one well below it (DEP7, 0.416). These are rates within fifteen constructed
 scenarios and are not estimates of what any deployed product does to real users.
 
 A regulator asking a developer to demonstrate that a system does not promote dependency
@@ -946,7 +949,8 @@ comes from: 120 of the 397 human judgements are gated dimensions asked at turns 
 the precondition does not hold. Judges and coder receive identical wording, so the two
 are matched, but the phrasing invites a skip and a skip removes the item from the
 specificity estimate. Commercial models come from two
-vendors and open-weight models are all 8–12B.
+vendors, and the open-weight models span 7B to 14B, so weight availability is
+confounded with scale.
 
 **Annotations not analysed.** Every authored turn carries an AC-VRT user-state label,
 but no result reported here uses it. An earlier draft claimed that the highest-risk
@@ -960,16 +964,19 @@ over-interpretation, where a reply narrates a person's inner experience confiden
 from very little. Such replies supply a framing rather than endorse one, which places
 them outside DEP7 and outside every other dimension, and no instrument in the audited
 literature names it. It is recorded as future work rather than added mid-study. The
-control and manipulation subcategories of Zhang et al. [1], real in deployed companion
-products, were verified absent from this dataset by search and reading, so a dimension
-for them would have measured nothing here.
+control and manipulation subcategories of Zhang et al. [1] are documented in deployed
+companion products but were not instantiated by any scenario here, so a dimension for
+them would have had no probed turn to score; they fail the second of the three gates
+this study applies to a candidate dimension.
 
 ### 5.7 Conclusion
 
 A relational-harm instrument can report high agreement and measure nothing, if the
-behaviours it agrees on are ones that almost never occur. In this instrument, the
-dimensions that discriminate between models are the dimensions on which two consistent
-raters disagree, and a more capable judge does not close the gap. Before relational
+behaviours it agrees on are ones that almost never occur. In this instrument, most of
+the dimensions that discriminate between models are ones on which two consistent raters
+disagree, and a more capable judge does not close the gap. The exception is the
+dimension asking whether a discrete event occurred rather than how the reply positions
+itself, which is where we would look first for a way out. Before relational
 benchmarks are used as evidence in deployment or regulatory decisions, the minimum is
 that they report prevalence alongside agreement, restrict agreement to turns where the
 construct could occur, and state how many distinct stimuli each estimate rests on.
