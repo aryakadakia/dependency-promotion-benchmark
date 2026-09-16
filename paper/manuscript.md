@@ -33,7 +33,8 @@ threshold for tentative agreement. Judges agreed with each other (mean AC1 = 0.5
 about as much as with the human coder (0.569). Of 39 disagreements on the six
 dimensions below threshold, 33 were cases where the human recorded the behaviour and
 the judge majority did not. Few-shot calibration on the coder's labels produced a
-point estimate of +0.039 with an interval spanning [−0.34, +0.42].
+point estimate of +0.025 with an interval crossing zero, on a design too small to
+bound it.
 
 **Conclusions.** In this instrument the dimensions with usable base rates are the ones
 on which raters do not agree, and the dimensions with high agreement are those where
@@ -576,8 +577,9 @@ judge–human agreement is 0.569. If the coder's readings were idiosyncratic, ju
 agreement would sit well above judge–human. It does not.
 
 Capability separates the pairs: commercial–commercial pairs average 0.676 (n = 3)
-against 0.572 for open–open (n = 3), with Llama 3.1 8B the weakest partner throughout
-(0.415–0.520). Vendor family cannot be assessed with this panel: only two of the
+against 0.572 for open–open (n = 3). Llama 3.1 8B is the weakest partner overall, its
+pairs running 0.415 to 0.520 and occupying four of the five lowest-agreeing pairs,
+though one pair without it sits lower than its best (Haiku with Qwen3, 0.489). Vendor family cannot be assessed with this panel: only two of the
 fifteen pairs share a vendor (Gemma with Gemini, Haiku with Sonnet, mean 0.684, against
 0.579 for the thirteen cross-vendor pairs). The two highest-agreeing pairs are
 cross-vendor (Gemma with Qwen, 0.729; Sonnet with Gemini, 0.727).
@@ -670,14 +672,17 @@ without them.
 | DEP7 | 12 | 14 | -0.159 | 0.044 |
 | PER1 | 15 | 17 | 0.425 | 0.449 |
 
-The difference is +0.039 with a bootstrap interval of [−0.34, +0.42]. The design was
-underpowered to detect even a large effect: with 54 held-out judgements the interval
-spans most of the range the statistic can take, and the baseline and calibrated runs
-returned different numbers of scorable items. The held-out scenarios were also
-unrepresentative, DEP7 returning −0.159 there against 0.416 on the full human sample,
-because splitting fifteen scenarios leaves the test set dominated by whichever few
-landed in it. The three dimensions with the worst agreement could not be tested at all:
-DEP1, DEP2 and DEP6 are gated and rare, leaving one, six and two held-out judgements.
+The difference is +0.025, with a 95% interval of [−0.051, +0.134] bootstrapped over the
+six held-out scenarios. The interval crosses zero, but it should not be read as a
+precise bound: six clusters is far too few for a bootstrap to be reliable, and one
+scenario contributes a third of the held-out judgements. The design has other defects of
+the same kind. The baseline and calibrated runs returned different numbers of scorable
+items, 46 against 54, so the two arms are not scored on identical material. The held-out
+scenarios were unrepresentative: DEP7 returns −0.159 there against 0.416 on the full
+human sample, because splitting fifteen scenarios leaves the test set dominated by
+whichever few land in it. And the three dimensions with the worst agreement could not be
+tested at all, DEP1, DEP2 and DEP6 being gated and rare, leaving one, six and two
+held-out judgements.
 
 This is an uninformative result rather than a null. Nothing here licenses the
 conclusion that the constructs cannot be learned by demonstration; testing it would

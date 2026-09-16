@@ -169,6 +169,97 @@ def main():
     check("no placeholder markers remain",
           not re.search(r"⏳|TODO|TBD|XXX|FIXME", ms))
 
+    # --- derived prose claims about the results ---------------------------
+    F = json.loads((ROOT / "paper" / "figures.json").read_text())
+    jh, per = F["judge_vs_human"], F["per_judge_vs_human"]
+    pan, pbd = F["panel_reliability"], F["prevalence_by_dimension"]
+
+    check("panel is 3 open-weight and 3 commercial",
+          sum(j.startswith("ollama") for j in per) == 3 and
+          sum(not j.startswith("ollama") for j in per) == 3)
+    check("no judge reaches the 0.667 threshold against the human coder",
+          max(v["ac1"] for v in per.values()) < 0.667,
+          f"max {max(v['ac1'] for v in per.values()):.3f}")
+    check("judge ordering is monotone in tier (all commercial above all open)",
+          min(v["ac1"] for j, v in per.items() if not j.startswith("ollama")) >
+          max(v["ac1"] for j, v in per.items() if j.startswith("ollama")))
+    spread = max(v["ac1"] for v in per.values()) - min(v["ac1"] for v in per.values())
+    check("judge spread is 0.164 as stated", abs(spread - 0.164) < 0.0005, f"{spread:.4f}")
+    check("DEP1 and DEP6 are at or below chance against the human coder",
+          jh["DEP1"]["ac1"] <= 0 and jh["DEP6"]["ac1"] <= 0)
+
+    gated_bg = [d for d in R.DIMENSIONS
+                if "BACKGROUND" in pan.get(d, {}) and "LIVE" in pan[d]]
+    up = [d for d in gated_bg if pan[d]["POOLED"]["ac1"] > pan[d]["LIVE"]["ac1"]]
+    down = [d for d in gated_bg if pan[d]["POOLED"]["ac1"] < pan[d]["LIVE"]["ac1"]]
+    check("pooling raises AC1 on 8 of 10 gated dimensions and lowers it on 2 (PRO4, OVR1)",
+          len(gated_bg) == 10 and len(up) == 8 and set(down) == {"PRO4", "OVR1"},
+          f"{len(gated_bg)} gated, up={len(up)}, down={down}")
+    rise = max(pan[d]["POOLED"]["ac1"] - pan[d]["LIVE"]["ac1"] for d in gated_bg)
+    check("largest pooling inflation is 0.124 on PER3", abs(rise - 0.124) < 0.001, f"{rise:.4f}")
+
+    pairs = F["pairwise_judge_ac1"]
+    top2 = sorted(pairs.items(), key=lambda x: -x[1])[:2]
+    check("the two highest-agreeing judge pairs are both cross-vendor",
+          all(len({p.split(":")[0] for p in k.split("|")}) == 2 or
+              ("gemma" in k and "qwen" in k) or ("sonnet" in k and "gemini" in k)
+              for k, _ in top2), str([k for k, _ in top2]))
+    lla = [v for k, v in pairs.items() if "llama3.1:8b" in k]
+    others = [v for k, v in pairs.items() if "llama3.1:8b" not in k]
+    low5 = [k for k, _ in sorted(pairs.items(), key=lambda x: x[1])[:5]]
+    check("llama occupies four of the five lowest-agreeing pairs",
+          sum("llama3.1:8b" in k for k in low5) == 4, str(low5))
+
+    check("OVR1 and OVR4 are at 0% prevalence on the frame, OVR3 at 14.3%",
+          pbd["OVR1"]["prevalence"] == 0 and pbd["OVR4"]["prevalence"] == 0
+          and abs(pbd["OVR3"]["prevalence"] - 0.1429) < 0.001)
+    top6 = sorted(pbd.items(), key=lambda x: -x[1]["prevalence"])[:6]
+    contested = set(F["contested_dimensions"])
+    check("two of the six highest prevalences are contested dimensions (DEP2, DEP6)",
+          {d for d, _ in top6} & contested == {"DEP2", "DEP6"},
+          str(sorted({d for d, _ in top6} & contested)))
+    check("the four dimensions named in 5.5 as exceeding 0.80 all do",
+          all(jh[d]["ac1"] > 0.80 for d in ("DEP4", "DEP8", "PRO2", "PRO4")),
+          str({d: round(jh[d]["ac1"], 3) for d in ("DEP4", "DEP8", "PRO2", "PRO4")}))
+    check("extreme-prevalence dimensions number 7 and mid-prevalence 5",
+          F["n_dimensions_extreme"] == 7 and F["n_dimensions_mid"] == 5)
+    check("33 of 39 contested disagreements run human-present",
+          F["contested_disagreements_human_present"] == 33
+          and F["contested_disagreements_total"] == 39)
+
+    cal = F["calibration"]["ALL"]
+    check("calibration change is +0.025 on 46 baseline and 54 calibrated judgements",
+          abs(cal["change"] - 0.0251) < 0.001 and cal["baseline_n"] == 46
+          and cal["calibrated_n"] == 54, str(cal))
+    check("the manuscript reports the calibration change it computes",
+          f"+{cal['change']:.3f}".rstrip("0") in ms or f"+{cal['change']:.3f}" in ms,
+          f"computed +{cal['change']:.3f}")
+    ci = F["calibration"]["ALL"]["change_ci"]
+    check("the manuscript reports the calibration interval it computes",
+          f"{ci[0]:.3f}".lstrip("-") in ms and f"{ci[1]:.3f}" in ms, str(ci))
+
+    # --- abstract agrees with results -------------------------------------
+    abstract = ms[ms.index("## Abstract"):ms.index("## 1. Introduction")]
+    for claim, ok_ in [
+        ("r = 0.806", f"{F['r_prevalence_ac1']}" == "0.806"),
+        ("AC1 = 0.883 extreme", f"{F['mean_ac1_extreme_prevalence']}" == "0.883"),
+        ("0.230 mid", abs(F["mean_ac1_mid_prevalence"] - 0.23) < 0.001),
+        ("0.488 llama", abs(per["ollama:llama3.1:8b"]["ac1"] - 0.4882) < 0.001),
+        ("0.652 sonnet", abs(per["anthropic:claude-sonnet-5"]["ac1"] - 0.6521) < 0.001),
+        ("0.593 judge-judge", abs(F["mean_judge_judge_ac1"] - 0.593) < 0.001),
+        ("0.569 judge-human", abs(F["mean_judge_human_ac1"] - 0.569) < 0.001),
+    ]:
+        check(f"abstract figure holds: {claim}", ok_)
+    check("every number in the abstract also appears in the body",
+          all(tok in ms[ms.index("## 1. Introduction"):]
+              for tok in set(re.findall(r"[0-9]+\.[0-9]{3}", abstract))),
+          str([t for t in set(re.findall(r"[0-9]+\.[0-9]{3}", abstract))
+               if t not in ms[ms.index("## 1. Introduction"):]]))
+
+    # --- data-availability table points at scripts that exist -------------
+    for script in re.findall(r"`harness/([a-z_]+\.py)`", ms):
+        check(f"script exists: {script}", (ROOT / "harness" / script).exists())
+
     print(f"\n{len(FAILS)} failing checks" + (f": {FAILS}" if FAILS else ""))
     return 1 if FAILS else 0
 

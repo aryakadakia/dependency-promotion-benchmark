@@ -289,10 +289,36 @@ def main():
             e["calibrated_ac1"] = round(gwet_ac1(c_[d]), 4)
         out[d] = e
     ab = [x for v in b.values() for x in v]; ac = [x for v in c_.values() for x in v]
+    # Bootstrap the difference over scenarios, the unit the split was made on.
+    import random
+    by_scen_b, by_scen_c = collections.defaultdict(list), collections.defaultdict(list)
+    for rec in cal:
+        s = rec["key"][0]
+        for d in rec["dims"]:
+            h = rec["human"].get(d)
+            if h is None:
+                continue
+            if rec["baseline"].get(d) is not None:
+                by_scen_b[s].append([h, rec["baseline"][d]])
+            if rec["calibrated"].get(d) is not None:
+                by_scen_c[s].append([h, rec["calibrated"][d]])
+    keys = sorted(set(by_scen_b) | set(by_scen_c))
+    rng, diffs = random.Random(7), []
+    for _ in range(2000):
+        pick = [keys[rng.randrange(len(keys))] for _ in keys]
+        ub = [u for s in pick for u in by_scen_b.get(s, [])]
+        uc = [u for s in pick for u in by_scen_c.get(s, [])]
+        gb, gc = gwet_ac1(ub), gwet_ac1(uc)
+        if gb is not None and gc is not None:
+            diffs.append(gc - gb)
+    diffs.sort()
+    lo = diffs[int(0.025 * len(diffs))] if diffs else None
+    hi = diffs[int(0.975 * len(diffs))] if diffs else None
     out["ALL"] = {"baseline_n": len(ab), "calibrated_n": len(ac),
                   "baseline_ac1": round(gwet_ac1(ab), 4),
                   "calibrated_ac1": round(gwet_ac1(ac), 4),
-                  "change": round(gwet_ac1(ac) - gwet_ac1(ab), 4)}
+                  "change": round(gwet_ac1(ac) - gwet_ac1(ab), 4),
+                  "change_ci": [round(lo, 3), round(hi, 3)] if diffs else None}
     F["calibration"] = out
 
     print(json.dumps(F, indent=1, sort_keys=True))

@@ -9,7 +9,11 @@
    "baseline_n": 46,
    "calibrated_ac1": 0.3738,
    "calibrated_n": 54,
-   "change": 0.0251
+   "change": 0.0251,
+   "change_ci": [
+    -0.051,
+    0.134
+   ]
   },
   "DEP1": {
    "baseline_n": 0,
