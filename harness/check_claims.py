@@ -68,9 +68,10 @@ def main():
                                                                     "overcorrection")))
     check("the source field is never shown to a rater",
           "EmoClassifiers" not in R.judge_prompt("u", "r", ["DEP1"]))
-    check("DEP5 is live only at departure turns",
-          R.live_dims(["DEP5"], False) == [] or "DEP5" not in R.live_dims(["DEP5"], False),
-          str(R.live_dims(["DEP5"], False)))
+    check("DEP5 is live at departure turns and only there",
+          "DEP5" in R.live_dims(["DEP5"], True)
+          and "DEP5" not in R.live_dims(["DEP5"], False),
+          f"farewell={R.live_dims(['DEP5'], True)} non={R.live_dims(['DEP5'], False)}")
     check("DEP8 is not scored at departure turns",
           "DEP8" not in R.live_dims([], True), str(R.live_dims([], True)))
 
@@ -435,8 +436,6 @@ def main():
 
     # --- model-size and threshold statements -------------------------------
     import re as _re
-    gen_open = sorted({m for m in F["prevalence_by_model"]} |
-                      {"ollama:mistral:7b"} if True else set())
     sizes = lambda names: sorted({int(x) for nm in names
                                   for x in _re.findall(r"(\d+)b$", nm.lower())})
     gen = sizes([m for m in {r["model"] for r in rows} if m.startswith("ollama")])
@@ -502,6 +501,51 @@ def main():
                                    t_.get("is_farewell", False)))]
     check("every frame turn's live_dims equals the mapping applied to its probes",
           not mismatch, f"{len(mismatch)} mismatched")
+
+    # --- numbers bound to their specific claim ----------------------------
+    # check_manuscript only proves a figure is sourced somewhere in the registry.
+    # Mutation testing showed that lets a figure be moved to the wrong sentence
+    # undetected. These bind a figure to the sentence that states it.
+    flat = re.sub(r"\s+", " ", ms)
+
+    def bound(label, pattern, value):
+        # EVERY occurrence must agree. Checking only the first let a fact stated
+        # in two places drift apart: a mutation test changed the second statement
+        # of a stimulus count and the check passed on the first.
+        got = re.findall(pattern, flat)
+        check(label, bool(got) and all(g == str(value) for g in got),
+              f"text={got!r} data={str(value)!r}")
+
+    bound("disagreement total is bound to its sentence",
+          r"Of (\d+) disagreements on the six dimensions below",
+          F["contested_disagreements_total"])
+    bound("one-directional count is bound to its sentence",
+          r"threshold, (\d+) are cases where the coder recorded",
+          F["contested_disagreements_human_present"])
+    for d, v in F["provenance"].items():
+        bound(f"{d} provenance proportion is bound to its sentence",
+              rf"(\d+)% of {d}[ ,]", round(v["assistant"] * 100))
+    words = {2: "two", 3: "three", 6: "six"}
+    st = F["stimuli_per_dimension"]
+    # Word form only: "OVR3 on 1.0%" in the off-probe sentence is a different
+    # claim and must not be matched here.
+    for d, pat in (("PER3", r"PER3 on ([a-z]+)"), ("OVR3", r"OVR3 on ([a-z]+)"),
+                   ("DEP2", r"DEP2 on ([a-z]+)")):
+        bound(f"{d} stimulus count is bound to its sentence", pat,
+              words.get(st[d], st[d]))
+    fl = collections.Counter()
+    for t_ in fr["turns"]:
+        for dd in t_.get("live_dims") or []:
+            fl[dd] += 1
+    for d in ("OVR1", "OVR3", "OVR4", "PRO5"):
+        bound(f"{d} inherited-liveness count is bound to its sentence",
+              rf"{d} \((\d+)", fl[d])
+    nwords = {4: "Four", 5: "Five", 6: "Six"}
+    bound("decision-rule count is bound to its sentence",
+          r"(\w+) dimensions meet it",
+          nwords.get(F["decision_rule"]["n_adequate"]))
+    bound("off-probe overall rate is bound to its sentence",
+          r"Overall firing was ([\d.]+)%", f"{F['off_probe']['overall']*100:.1f}")
 
     print(f"\n{len(FAILS)} failing checks" + (f": {FAILS}" if FAILS else ""))
     return 1 if FAILS else 0
