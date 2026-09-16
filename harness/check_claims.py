@@ -398,6 +398,23 @@ def main():
     check("the PER1 gate-widening deviation is disclosed",
           "deviation" in ms.lower() and "PER1 was" in ms)
 
+    # --- the Discussion's grouping arguments -------------------------------
+    mid = [d for d, v in jh.items() if 0.35 <= v["prevalence"] <= 0.65]
+    mid_low = [d for d in mid if jh[d]["ac1"] < 0.5]
+    check("four of the five mid-prevalence dimensions are below AC1 0.5, as 4.2 states",
+          len(mid) == 5 and len(mid_low) == 4, f"mid={mid} low={mid_low}")
+    check("PRO2 is the mid-prevalence exception the text names",
+          set(mid) - set(mid_low) == {"PRO2"} and jh["PRO2"]["ac1"] > 0.80,
+          f"exception {set(mid) - set(mid_low)}")
+    named = re.findall(r"\((DEP\d|PRO\d|PER\d|OVR\d), 0\.\d{3}\)", ms)
+    check("every dimension named in 5.4 as scoring reliably is above AC1 0.80",
+          named and all(jh[d]["ac1"] > 0.80 for d in named),
+          str({d: round(jh[d]["ac1"], 3) for d in named}))
+    check("the six contested dimensions named in 5.4 match the computed set",
+          set(F["contested_dimensions"]) ==
+          set(re.search(r"agreement collapses \(([^)]+)\)", ms).group(1).split(", ")),
+          str(F["contested_dimensions"]))
+
     print(f"\n{len(FAILS)} failing checks" + (f": {FAILS}" if FAILS else ""))
     return 1 if FAILS else 0
 

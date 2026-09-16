@@ -36,9 +36,11 @@ the judge majority did not. Few-shot calibration on the coder's labels produced 
 point estimate of +0.025 with an interval crossing zero, on a design too small to
 bound it.
 
-**Conclusions.** In this instrument the dimensions with usable base rates are the ones
-on which raters do not agree, and the dimensions with high agreement are those where
-raters were rarely required to discriminate. Agreement figures reported without
+**Conclusions.** In this instrument the dimensions with usable base rates are largely
+the ones on which raters do not agree, and the dimensions with the highest agreement are
+mostly those where raters were rarely required to discriminate. The exception is
+informative: the one mid-prevalence dimension that does agree well asks whether a
+discrete event occurred rather than how the reply positions itself. Agreement figures reported without
 prevalence cannot be interpreted. Whether this reflects a measurement problem that
 better anchors would solve, or a property of relational constructs scored one turn at
 a time, is not resolved by this design.
@@ -500,11 +502,16 @@ Two explanations fit these data and this design cannot separate them. The first 
 arithmetic: where a behaviour occurs on almost no turns, both raters answer no almost
 everywhere and agreement is high by construction. AC1 is chosen because it does not
 degenerate under skewed marginals [17], but it does not make agreement on a
-near-constant variable informative. The second is a property of the constructs: the
-mid-prevalence dimensions are those asking how a reply positions itself, as uniquely
-important, permanently available, better than people, or entitled to agreement, while
-the extreme-prevalence dimensions mostly ask whether a discrete event occurred.
-Prevalence and construct type are confounded in this instrument. Sixteen dimensions
+near-constant variable informative. The second is a property of the constructs. Four of the five mid-prevalence dimensions
+ask how a reply positions itself, as uniquely important, permanently available, better
+than people, or entitled to agreement, and those four are the ones that fall below
+AC1 = 0.5, three of them at or below chance.
+The fifth, PRO2, sits at 37% prevalence and returns AC1 = 0.876, and it is the one that
+asks whether a discrete event occurred: whether the reply named or kept alive a specific
+human option. A mid base rate is therefore not sufficient on its own to depress
+agreement, which is evidence against the purely arithmetic explanation and for the
+construct-type one. It is not decisive: prevalence and construct type remain confounded
+across the instrument as a whole, and PRO2 is a single case. Sixteen dimensions
 from one instrument, one dataset and one coder are also not sixteen independent
 observations, and the correlation should be read as descriptive.
 
@@ -790,9 +797,9 @@ filter was tested and no claim is made about one.
 ### 5.1 Principal findings
 
 Agreement on this rubric spans the full range of the coefficient, and where a dimension
-falls in that range is predicted by its base rate rather than by anything about the
-construct. The dimensions with usable base rates are the ones on which raters do not
-agree. Judge capability orders agreement cleanly but no judge reaches the conventional
+falls in that range tracks its base rate more closely than anything else we measured.
+The dimensions with usable base rates are largely the ones on which raters do not agree,
+with one exception that points at construct type rather than base rate. Judge capability orders agreement cleanly but no judge reaches the conventional
 threshold, and on the two worst dimensions capability makes no difference. Human–judge
 disagreement is one-directional and the human coder is self-consistent, so the
 disagreement reflects a threshold difference that one coder cannot adjudicate.
@@ -837,8 +844,10 @@ is a negative result about the experiment rather than about the method.
 The dimensions where agreement collapses (DEP1, DEP2, DEP6, DEP7, PER1, PER3) ask
 whether a reply positions itself relative to the user: as uniquely important, as
 permanently available, as better than people, as needed, as not an AI. The dimensions
-that scored reliably ask whether a discrete event occurred: did the reply discourage a
-named alternative, use a farewell tactic, acknowledge professional limits.
+that scored reliably ask whether a discrete event occurred: did the reply work to extend
+the exchange (DEP8, 0.880), name or keep alive a specific human option (PRO2, 0.876),
+stay with the difficulty the person raised (PRO4, 0.900), discourage a named alternative
+(DEP4, 0.848).
 
 Positioning is relational and cumulative; events are local. Every contested dimension
 asks about something spanning more of the conversation than the scorer is shown. The
