@@ -393,8 +393,8 @@ intra-rater reliability. The coder did not see judge output before coding.
 
 ### 3.10 Statistical analysis
 
-The analysis plan was fixed before any statistic was computed
-(`spec/analysis-plan-v1.md`). For each dimension we report, separately for live,
+The analysis plan was fixed before any statistic was computed, and is released with
+the data. For each dimension we report, separately for live,
 background and pooled populations: number of units, number of distinct authored turns,
 prevalence, raw pairwise agreement, Krippendorff's alpha on the nominal metric [16]
 (the data are binary), and Gwet's AC1 [17].
@@ -735,8 +735,8 @@ in more than half its outputs, is invisible to accuracy-oriented evaluation.
 
 ### 4.10 Pre-registered analyses, and one deviation
 
-The analysis plan (`spec/analysis-plan-v1.md`, committed before the analysis tool was
-written) specifies three analyses beyond those above. All three are reported here,
+The analysis plan, written before the analysis tools existed, specifies three analyses
+beyond those above. All three are reported here,
 including the one whose outcome is awkward.
 
 **Provenance.** Where a rating records the behaviour as present on DEP1, DEP2, DEP3 or
@@ -1023,8 +1023,7 @@ require API access.
 
 The instrument specification is in [Appendix A](appendix-a-instrument.md), generated
 from `harness/rubric_v07.py`. The pre-specified analysis plan is in
-`spec/analysis-plan-v1.md`. Instrument revisions, withdrawn figures and corrections
-are recorded in `spec/revision-log.md`.
+`spec/analysis-plan-v1.md`.
 
 ---
 

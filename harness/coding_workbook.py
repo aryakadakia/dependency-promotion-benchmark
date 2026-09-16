@@ -278,8 +278,8 @@ def main():
     b = sub.add_parser("build")
     b.add_argument("--recode", type=int, default=25)
     b.add_argument("--seed", type=int, default=11)
-    b.add_argument("--out1", default=str(ROOT / "paper" / "coding_part1.xlsx"))
-    b.add_argument("--out2", default=str(ROOT / "paper" / "coding_part2.xlsx"))
+    b.add_argument("--out1", default=str(ROOT / "runs" / "coding_part1.xlsx"))
+    b.add_argument("--out2", default=str(ROOT / "runs" / "coding_part2.xlsx"))
     b.add_argument("--key", default=str(ROOT / "runs" / "coding_key.json"))
     b.add_argument("--state", default=str(ROOT / "runs" / "handcoded.json"))
     b.add_argument("--no-prefill", dest="prefill", action="store_false",

@@ -472,6 +472,10 @@ def main():
                   "per3_alpha": round(krippendorff_nominal(u3), 4) if len(u3) > 1 else None,
                   "per3_agreement": round(raw_agreement(u3), 4) if len(u3) > 1 else None}
 
+    pk = json.loads((ROOT / "runs" / "second_coder_key.json").read_text())
+    F["second_coder_packet"] = {"turns": len(pk),
+                                "questions": sum(len(e["dims"]) for e in pk)}
+
     print(json.dumps(F, indent=1, sort_keys=True))
     if a := ap.parse_args().save:
         (ROOT / "paper" / "figures.json").write_text(

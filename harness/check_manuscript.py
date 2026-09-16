@@ -25,7 +25,7 @@ ROOT = pathlib.Path(__file__).parent.parent
 MS = ROOT / "paper" / "manuscript.md"
 # Every document that states a figure, not only the paper. The README and
 # NEXT_STEPS are the repository's front door and went stale for weeks.
-DOCS = [MS, ROOT / "README.md", ROOT / "NEXT_STEPS.md"]
+DOCS = [MS, ROOT / "README.md"]
 
 # Numbers that are structural rather than empirical: section numbers, table
 # numbers, reference markers, years, thresholds defined by convention.

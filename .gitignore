@@ -3,6 +3,7 @@ __pycache__/
 .DS_Store
 refs/*.pdf
 refs/*.txt
+!refs/defreitas.txt
 runs/*.log
 runs/coder_packet_key.json
 
