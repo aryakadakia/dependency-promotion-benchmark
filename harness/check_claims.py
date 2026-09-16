@@ -415,6 +415,23 @@ def main():
           set(re.search(r"agreement collapses \(([^)]+)\)", ms).group(1).split(", ")),
           str(F["contested_dimensions"]))
 
+    pjd = F["per_judge_by_dimension"]
+    for d in ("DEP1", "DEP6"):
+        vals = [v["ac1"] for v in pjd[d].values()]
+        ns = [v["n"] for v in pjd[d].values()]
+        check(f"no judge reaches 0.667 on {d}", max(vals) < 0.667, f"max {max(vals):.3f}")
+        check(f"the {d} per-judge range in the text matches the data",
+              f"{min(vals):.2f}".replace("-", "−") in ms and f"{max(vals):.2f}" in ms,
+              f"[{min(vals):.2f}, {max(vals):.2f}]")
+        words = {6: "six", 7: "seven", 8: "eight", 9: "nine"}
+        check(f"the {d} per-judge n range in the text matches the data",
+              f"{words.get(min(ns), min(ns))} to {words.get(max(ns), max(ns))} judgements"
+              in ms, f"n {min(ns)}-{max(ns)}")
+    check("the paper no longer claims every judge sits at chance",
+          "every judge sits at chance" not in ms)
+    check("no invented prevalence is attributed to DarkBench",
+          "firing in\n2% of responses" not in ms and "firing in half" not in ms)
+
     print(f"\n{len(FAILS)} failing checks" + (f": {FAILS}" if FAILS else ""))
     return 1 if FAILS else 0
 

@@ -321,6 +321,25 @@ def main():
                   "change_ci": [round(lo, 3), round(hi, 3)] if diffs else None}
     F["calibration"] = out
 
+    # --- per-judge, per-dimension, for the claims 4.4 and 5.3 make ---------
+    pjd = {}
+    for d in ("DEP1", "DEP6"):
+        row = {}
+        for j in js:
+            u = []
+            for uid, hs in first.items():
+                if d not in hs:
+                    continue
+                k = key(uid)
+                sc = units.get(k, {}).get(j)
+                if not sc or d not in sc or d not in meta[k].get("live_dims", []):
+                    continue
+                u.append([hs[d], sc[d]])
+            if len(u) >= 2:
+                row[j] = {"n": len(u), "ac1": round(gwet_ac1(u), 4)}
+        pjd[d] = row
+    F["per_judge_by_dimension"] = pjd
+
     # --- pre-registered analyses (analysis-plan-v1 sections 2.4, 3, 6) -----
     prov = collections.defaultdict(collections.Counter)
     for r in rows:

@@ -749,6 +749,60 @@
    }
   }
  },
+ "per_judge_by_dimension": {
+  "DEP1": {
+   "anthropic:claude-haiku-4-5": {
+    "ac1": 0.122,
+    "n": 9
+   },
+   "anthropic:claude-sonnet-5": {
+    "ac1": 0.5172,
+    "n": 7
+   },
+   "google:gemini-3.7-flash": {
+    "ac1": 0.3333,
+    "n": 6
+   },
+   "ollama:gemma3:12b": {
+    "ac1": -0.12,
+    "n": 7
+   },
+   "ollama:llama3.1:8b": {
+    "ac1": 0.122,
+    "n": 9
+   },
+   "ollama:qwen3:14b": {
+    "ac1": -0.1111,
+    "n": 9
+   }
+  },
+  "DEP6": {
+   "anthropic:claude-haiku-4-5": {
+    "ac1": -0.0959,
+    "n": 8
+   },
+   "anthropic:claude-sonnet-5": {
+    "ac1": -0.2,
+    "n": 6
+   },
+   "google:gemini-3.7-flash": {
+    "ac1": 0.4,
+    "n": 6
+   },
+   "ollama:gemma3:12b": {
+    "ac1": -0.3208,
+    "n": 7
+   },
+   "ollama:llama3.1:8b": {
+    "ac1": -0.0588,
+    "n": 9
+   },
+   "ollama:qwen3:14b": {
+    "ac1": -0.1111,
+    "n": 9
+   }
+  }
+ },
  "per_judge_vs_human": {
   "anthropic:claude-haiku-4-5": {
    "ac1": 0.6198,

@@ -572,8 +572,11 @@ them.
 
 The ordering is monotone in capability and spans 0.164. The best judge reaches 0.652,
 below the 0.667 threshold conventionally taken as tentative agreement. On DEP1 and DEP6
-every judge sits at chance regardless of tier, so the 0.164 separating the weakest judge
-from the strongest is an aggregate effect that leaves the failing dimensions untouched.
+no judge reaches it either: per-judge estimates run from −0.12 to +0.52 on DEP1 and from
+−0.32 to +0.40 on DEP6, with no ordering by tier, and each rests on six to nine
+judgements, so none of them is individually informative. The 0.164 separating the
+weakest judge from the strongest in aggregate does not carry into the dimensions where
+agreement fails.
 
 This bears on published practice: INTIMA annotates its entire benchmark with a single
 open-weight model [7], and open-weight judges are the weakest three of the six here.
@@ -819,9 +822,11 @@ weakest is on sycophancy (0.27, 0.57 and 0.73), the category most like the relat
 dimensions that fail in this instrument. What our results add is
 that in this instrument a comparable spread tracks base rate closely, and that the
 categories returning the highest agreement are the ones raters were least often
-required to discriminate on. A kappa of 0.98 on a category firing in
-2% of responses and a kappa of 0.27 on one firing in half are not comparable
-quantities, and without prevalence a reader cannot tell which they are looking at.
+required to discriminate on. Two categories can return the same kappa while
+requiring entirely different amounts of discrimination, and without the prevalence
+beside it a reader cannot tell which case a given figure is. That is why we report
+prevalence with every coefficient here, and why we cannot resolve DarkBench's spread
+from the outside.
 
 Three additions would let a reader distinguish them, and none requires accepting our
 interpretation: report prevalence beside every agreement figure; restrict agreement to
@@ -832,10 +837,11 @@ not degenerate under skewed marginals.
 
 The intuitive remedy for poor agreement is a better rater. The panel spans three
 open-weight models, two small-tier commercial models and one frontier model, and
-agreement orders cleanly by capability from 0.488 to 0.652. No judge reaches 0.667, and
-on DEP1 and DEP6 every judge sits at chance. The 0.164 separating the weakest judge from
-the strongest is an aggregate effect; the dimensions where agreement fails are unmoved
-by it. Few-shot calibration on the coder's
+agreement orders cleanly by capability from 0.488 to 0.652. No judge reaches 0.667
+overall, and none reaches it on DEP1 or DEP6 either, where the per-judge estimates are
+scattered rather than ordered by tier and each rests on six to nine judgements. The
+0.164 separating the weakest judge from the strongest in aggregate does not carry into
+the dimensions where agreement fails. Few-shot calibration on the coder's
 own labels was the second obvious remedy and this design could not evaluate it, which
 is a negative result about the experiment rather than about the method.
 
