@@ -1,0 +1,849 @@
+{
+ "all_disagreements_human_present": 45,
+ "all_disagreements_total": 57,
+ "authored_turns_in_frame": 159,
+ "blind_repeats": 25,
+ "calibration": {
+  "ALL": {
+   "baseline_ac1": 0.3487,
+   "baseline_n": 46,
+   "calibrated_ac1": 0.3738,
+   "calibrated_n": 54,
+   "change": 0.0251
+  },
+  "DEP1": {
+   "baseline_n": 0,
+   "calibrated_n": 1
+  },
+  "DEP2": {
+   "baseline_ac1": 0.3333,
+   "baseline_n": 6,
+   "calibrated_ac1": 0.3333,
+   "calibrated_n": 6
+  },
+  "DEP3": {
+   "baseline_ac1": 0.858,
+   "baseline_n": 12,
+   "calibrated_ac1": 0.7846,
+   "calibrated_n": 14
+  },
+  "DEP6": {
+   "baseline_n": 1,
+   "calibrated_ac1": 0.2,
+   "calibrated_n": 2
+  },
+  "DEP7": {
+   "baseline_ac1": -0.1586,
+   "baseline_n": 12,
+   "calibrated_ac1": 0.0439,
+   "calibrated_n": 14
+  },
+  "PER1": {
+   "baseline_ac1": 0.4253,
+   "baseline_n": 15,
+   "calibrated_ac1": 0.4486,
+   "calibrated_n": 17
+  }
+ },
+ "coded_judgements": 397,
+ "coded_turn_position_median": 8.0,
+ "coded_turns": 100,
+ "coded_turns_with_hidden_context": 77,
+ "contested_dimensions": [
+  "DEP1",
+  "DEP2",
+  "DEP6",
+  "DEP7",
+  "PER1",
+  "PER3"
+ ],
+ "contested_disagreements_human_present": 33,
+ "contested_disagreements_total": 39,
+ "dimension_scores": 13461,
+ "disagreement_direction": {
+  "DEP1": [
+   5,
+   0
+  ],
+  "DEP2": [
+   3,
+   0
+  ],
+  "DEP3": [
+   7,
+   0
+  ],
+  "DEP4": [
+   1,
+   1
+  ],
+  "DEP5": [
+   1,
+   0
+  ],
+  "DEP6": [
+   2,
+   3
+  ],
+  "DEP7": [
+   11,
+   1
+  ],
+  "DEP8": [
+   1,
+   2
+  ],
+  "PER1": [
+   10,
+   2
+  ],
+  "PER3": [
+   2,
+   0
+  ],
+  "PRO2": [
+   0,
+   1
+  ],
+  "PRO4": [
+   1,
+   0
+  ],
+  "PRO5": [
+   1,
+   2
+  ]
+ },
+ "frame_analysed": 453,
+ "frame_analysed_by_prompt": {
+  "neutral": 10,
+  "retention": 58,
+  "warm": 385
+ },
+ "frame_background_stratum": 60,
+ "frame_flagged": 47,
+ "frame_live_stratum": 440,
+ "frame_turns": 500,
+ "generations_per_authored_turn_max": 15,
+ "generations_per_authored_turn_median": 2,
+ "highest_agreeing_pairs": {
+  "anthropic:claude-sonnet-5 | google:gemini-3.7-flash": 0.7272,
+  "ollama:gemma3:12b | ollama:qwen3:14b": 0.729
+ },
+ "judge_failures": 0,
+ "judge_vs_human": {
+  "DEP1": {
+   "ac1": -0.1111,
+   "agreement": 0.4444,
+   "n": 9,
+   "prevalence": 0.5
+  },
+  "DEP2": {
+   "ac1": 0.027,
+   "agreement": 0.5,
+   "n": 6,
+   "prevalence": 0.4167
+  },
+  "DEP3": {
+   "ac1": 0.6721,
+   "agreement": 0.8205,
+   "n": 39,
+   "prevalence": 0.3462
+  },
+  "DEP4": {
+   "ac1": 0.8477,
+   "agreement": 0.8667,
+   "n": 15,
+   "prevalence": 0.0667
+  },
+  "DEP5": {
+   "ac1": 0.68,
+   "agreement": 0.75,
+   "n": 4,
+   "prevalence": 0.125
+  },
+  "DEP6": {
+   "ac1": -0.0588,
+   "agreement": 0.4444,
+   "n": 9,
+   "prevalence": 0.6111
+  },
+  "DEP7": {
+   "ac1": 0.4157,
+   "agreement": 0.6923,
+   "n": 39,
+   "prevalence": 0.3846
+  },
+  "DEP8": {
+   "ac1": 0.8802,
+   "agreement": 0.9189,
+   "n": 37,
+   "prevalence": 0.7973
+  },
+  "OVR1": {
+   "ac1": 1.0,
+   "agreement": 1.0,
+   "n": 10,
+   "prevalence": 0.0
+  },
+  "OVR3": {
+   "ac1": 1.0,
+   "agreement": 1.0,
+   "n": 6,
+   "prevalence": 0.0
+  },
+  "OVR4": {
+   "ac1": 1.0,
+   "agreement": 1.0,
+   "n": 11,
+   "prevalence": 0.0
+  },
+  "PER1": {
+   "ac1": 0.5225,
+   "agreement": 0.7391,
+   "n": 46,
+   "prevalence": 0.3478
+  },
+  "PER3": {
+   "ac1": 0.4118,
+   "agreement": 0.6,
+   "n": 5,
+   "prevalence": 0.2
+  },
+  "PRO2": {
+   "ac1": 0.8755,
+   "agreement": 0.9333,
+   "n": 15,
+   "prevalence": 0.3667
+  },
+  "PRO4": {
+   "ac1": 0.9005,
+   "agreement": 0.9091,
+   "n": 11,
+   "prevalence": 0.9545
+  },
+  "PRO5": {
+   "ac1": 0.7561,
+   "agreement": 0.8,
+   "n": 15,
+   "prevalence": 0.1
+  }
+ },
+ "judges": 6,
+ "llama_pair_ac1_max": 0.52,
+ "llama_pair_ac1_min": 0.415,
+ "mean_ac1_extreme_prevalence": 0.883,
+ "mean_ac1_mid_prevalence": 0.23,
+ "mean_commercial_pair_ac1": 0.676,
+ "mean_cross_vendor_pair_ac1": 0.579,
+ "mean_judge_human_ac1": 0.569,
+ "mean_judge_judge_ac1": 0.593,
+ "mean_open_pair_ac1": 0.572,
+ "mean_same_vendor_pair_ac1": 0.684,
+ "n_cross_vendor_pairs": 13,
+ "n_dimensions_extreme": 7,
+ "n_dimensions_mid": 5,
+ "n_same_vendor_pairs": 2,
+ "pairwise_judge_ac1": {
+  "anthropic:claude-haiku-4-5 | anthropic:claude-sonnet-5": 0.6753,
+  "anthropic:claude-haiku-4-5 | google:gemini-3.7-flash": 0.6264,
+  "anthropic:claude-haiku-4-5 | ollama:gemma3:12b": 0.6504,
+  "anthropic:claude-haiku-4-5 | ollama:llama3.1:8b": 0.4458,
+  "anthropic:claude-haiku-4-5 | ollama:qwen3:14b": 0.489,
+  "anthropic:claude-sonnet-5 | google:gemini-3.7-flash": 0.7272,
+  "anthropic:claude-sonnet-5 | ollama:gemma3:12b": 0.6872,
+  "anthropic:claude-sonnet-5 | ollama:llama3.1:8b": 0.4799,
+  "anthropic:claude-sonnet-5 | ollama:qwen3:14b": 0.6098,
+  "google:gemini-3.7-flash | ollama:gemma3:12b": 0.6921,
+  "google:gemini-3.7-flash | ollama:llama3.1:8b": 0.4148,
+  "google:gemini-3.7-flash | ollama:qwen3:14b": 0.6754,
+  "ollama:gemma3:12b | ollama:llama3.1:8b": 0.5202,
+  "ollama:gemma3:12b | ollama:qwen3:14b": 0.729,
+  "ollama:llama3.1:8b | ollama:qwen3:14b": 0.4655
+ },
+ "panel_reliability": {
+  "DEP1": {
+   "BACKGROUND": {
+    "ac1": 0.9169,
+    "agreement": 0.9333,
+    "alpha": -0.0189,
+    "prevalence": 0.0364,
+    "stimuli": 13,
+    "units": 13
+   },
+   "LIVE": {
+    "ac1": 0.591,
+    "agreement": 0.7212,
+    "alpha": 0.2354,
+    "ci": [
+     0.4305,
+     0.7701
+    ],
+    "prevalence": 0.2298,
+    "stimuli": 13,
+    "units": 48
+   },
+   "POOLED": {
+    "ac1": 0.6763,
+    "agreement": 0.7525,
+    "alpha": 0.2511,
+    "prevalence": 0.1947,
+    "stimuli": 26,
+    "units": 61
+   }
+  },
+  "DEP2": {
+   "BACKGROUND": {
+    "ac1": 0.8473,
+    "agreement": 0.8585,
+    "alpha": 0.0746,
+    "prevalence": 0.0781,
+    "stimuli": 14,
+    "units": 15
+   },
+   "LIVE": {
+    "ac1": 0.5349,
+    "agreement": 0.7663,
+    "alpha": 0.5202,
+    "ci": [
+     0.2864,
+     0.8555
+    ],
+    "prevalence": 0.5759,
+    "stimuli": 6,
+    "units": 36
+   },
+   "POOLED": {
+    "ac1": 0.5974,
+    "agreement": 0.785,
+    "alpha": 0.5767,
+    "prevalence": 0.451,
+    "stimuli": 20,
+    "units": 51
+   }
+  },
+  "DEP3": {
+   "LIVE": {
+    "ac1": 0.6345,
+    "agreement": 0.7789,
+    "alpha": 0.4982,
+    "ci": [
+     0.5768,
+     0.6898
+    ],
+    "prevalence": 0.3123,
+    "stimuli": 155,
+    "units": 453
+   },
+   "POOLED": {
+    "ac1": 0.6345,
+    "agreement": 0.7789,
+    "alpha": 0.4982,
+    "prevalence": 0.3123,
+    "stimuli": 155,
+    "units": 453
+   }
+  },
+  "DEP4": {
+   "BACKGROUND": {
+    "ac1": 1.0,
+    "agreement": 1.0,
+    "alpha": 1.0,
+    "prevalence": 0.0,
+    "stimuli": 11,
+    "units": 11
+   },
+   "LIVE": {
+    "ac1": 0.8007,
+    "agreement": 0.8295,
+    "alpha": 0.1711,
+    "ci": [
+     0.665,
+     0.8994
+    ],
+    "prevalence": 0.1116,
+    "stimuli": 34,
+    "units": 86
+   },
+   "POOLED": {
+    "ac1": 0.8275,
+    "agreement": 0.8436,
+    "alpha": 0.1811,
+    "prevalence": 0.1006,
+    "stimuli": 45,
+    "units": 97
+   }
+  },
+  "DEP5": {
+   "LIVE": {
+    "ac1": 0.5639,
+    "agreement": 0.6878,
+    "alpha": 0.1076,
+    "ci": [
+     0.4348,
+     0.6892
+    ],
+    "prevalence": 0.2143,
+    "stimuli": 14,
+    "units": 38
+   },
+   "POOLED": {
+    "ac1": 0.5639,
+    "agreement": 0.6878,
+    "alpha": 0.1076,
+    "prevalence": 0.2143,
+    "stimuli": 14,
+    "units": 38
+   }
+  },
+  "DEP6": {
+   "BACKGROUND": {
+    "ac1": 1.0,
+    "agreement": 1.0,
+    "alpha": 1.0,
+    "prevalence": 0.0,
+    "stimuli": 7,
+    "units": 8
+   },
+   "LIVE": {
+    "ac1": 0.4834,
+    "agreement": 0.72,
+    "alpha": 0.3753,
+    "ci": [
+     0.2464,
+     0.7077
+    ],
+    "prevalence": 0.3411,
+    "stimuli": 18,
+    "units": 66
+   },
+   "POOLED": {
+    "ac1": 0.56,
+    "agreement": 0.7387,
+    "alpha": 0.4023,
+    "prevalence": 0.3112,
+    "stimuli": 25,
+    "units": 74
+   }
+  },
+  "DEP7": {
+   "LIVE": {
+    "ac1": 0.5522,
+    "agreement": 0.7148,
+    "alpha": 0.2754,
+    "ci": [
+     0.4861,
+     0.6118
+    ],
+    "prevalence": 0.2616,
+    "stimuli": 155,
+    "units": 453
+   },
+   "POOLED": {
+    "ac1": 0.5522,
+    "agreement": 0.7148,
+    "alpha": 0.2754,
+    "prevalence": 0.2616,
+    "stimuli": 155,
+    "units": 453
+   }
+  },
+  "DEP8": {
+   "LIVE": {
+    "ac1": 0.6145,
+    "agreement": 0.763,
+    "alpha": 0.3638,
+    "ci": [
+     0.539,
+     0.6795
+    ],
+    "prevalence": 0.7502,
+    "stimuli": 141,
+    "units": 415
+   },
+   "POOLED": {
+    "ac1": 0.6145,
+    "agreement": 0.763,
+    "alpha": 0.3638,
+    "prevalence": 0.7502,
+    "stimuli": 141,
+    "units": 415
+   }
+  },
+  "OVR1": {
+   "BACKGROUND": {
+    "ac1": 0.9744,
+    "agreement": 0.9667,
+    "alpha": 0.0,
+    "prevalence": 0.0143,
+    "stimuli": 15,
+    "units": 16
+   },
+   "LIVE": {
+    "ac1": 1.0,
+    "agreement": 1.0,
+    "alpha": 1.0,
+    "ci": [
+     1.0,
+     1.0
+    ],
+    "prevalence": 0.0,
+    "stimuli": 16,
+    "units": 58
+   },
+   "POOLED": {
+    "ac1": 0.9946,
+    "agreement": 0.9947,
+    "alpha": 0.0,
+    "prevalence": 0.0027,
+    "stimuli": 31,
+    "units": 74
+   }
+  },
+  "OVR3": {
+   "BACKGROUND": {
+    "ac1": 0.96,
+    "agreement": 0.9694,
+    "alpha": 0.0,
+    "prevalence": 0.0175,
+    "stimuli": 10,
+    "units": 13
+   },
+   "LIVE": {
+    "ac1": 0.8847,
+    "agreement": 0.9038,
+    "alpha": 0.5774,
+    "ci": [
+     0.5923,
+     1.0
+    ],
+    "prevalence": 0.124,
+    "stimuli": 3,
+    "units": 23
+   },
+   "POOLED": {
+    "ac1": 0.9152,
+    "agreement": 0.9218,
+    "alpha": 0.5493,
+    "prevalence": 0.0899,
+    "stimuli": 13,
+    "units": 36
+   }
+  },
+  "OVR4": {
+   "BACKGROUND": {
+    "ac1": 1.0,
+    "agreement": 1.0,
+    "alpha": 1.0,
+    "prevalence": 0.0,
+    "stimuli": 13,
+    "units": 14
+   },
+   "LIVE": {
+    "ac1": 0.9788,
+    "agreement": 0.973,
+    "alpha": 0.2568,
+    "ci": [
+     0.9478,
+     1.0
+    ],
+    "prevalence": 0.016,
+    "stimuli": 11,
+    "units": 71
+   },
+   "POOLED": {
+    "ac1": 0.9823,
+    "agreement": 0.9759,
+    "alpha": 0.2581,
+    "prevalence": 0.0138,
+    "stimuli": 24,
+    "units": 85
+   }
+  },
+  "PER1": {
+   "LIVE": {
+    "ac1": 0.6441,
+    "agreement": 0.7853,
+    "alpha": 0.4481,
+    "ci": [
+     0.5792,
+     0.704
+    ],
+    "prevalence": 0.2667,
+    "stimuli": 155,
+    "units": 453
+   },
+   "POOLED": {
+    "ac1": 0.6441,
+    "agreement": 0.7853,
+    "alpha": 0.4481,
+    "prevalence": 0.2667,
+    "stimuli": 155,
+    "units": 453
+   }
+  },
+  "PER3": {
+   "BACKGROUND": {
+    "ac1": 1.0,
+    "agreement": 1.0,
+    "alpha": 1.0,
+    "prevalence": 0.0,
+    "stimuli": 14,
+    "units": 15
+   },
+   "LIVE": {
+    "ac1": 0.7162,
+    "agreement": 0.7821,
+    "alpha": 0.1386,
+    "prevalence": 0.145,
+    "stimuli": 2,
+    "units": 25
+   },
+   "POOLED": {
+    "ac1": 0.8403,
+    "agreement": 0.8356,
+    "alpha": 0.1802,
+    "prevalence": 0.0995,
+    "stimuli": 16,
+    "units": 40
+   }
+  },
+  "PRO2": {
+   "BACKGROUND": {
+    "ac1": 0.7432,
+    "agreement": 0.814,
+    "alpha": 0.3457,
+    "prevalence": 0.1667,
+    "stimuli": 12,
+    "units": 13
+   },
+   "LIVE": {
+    "ac1": 0.4701,
+    "agreement": 0.7179,
+    "alpha": 0.4226,
+    "ci": [
+     0.3501,
+     0.5913
+    ],
+    "prevalence": 0.3996,
+    "stimuli": 34,
+    "units": 86
+   },
+   "POOLED": {
+    "ac1": 0.5059,
+    "agreement": 0.7259,
+    "alpha": 0.4297,
+    "prevalence": 0.3745,
+    "stimuli": 46,
+    "units": 99
+   }
+  },
+  "PRO4": {
+   "BACKGROUND": {
+    "ac1": 0.5484,
+    "agreement": 0.6698,
+    "alpha": 0.0339,
+    "prevalence": 0.7969,
+    "stimuli": 14,
+    "units": 15
+   },
+   "LIVE": {
+    "ac1": 0.8002,
+    "agreement": 0.8393,
+    "alpha": 0.3819,
+    "ci": [
+     0.6066,
+     0.8962
+    ],
+    "prevalence": 0.8537,
+    "stimuli": 11,
+    "units": 71
+   },
+   "POOLED": {
+    "ac1": 0.7594,
+    "agreement": 0.8198,
+    "alpha": 0.3185,
+    "prevalence": 0.8455,
+    "stimuli": 25,
+    "units": 86
+   }
+  },
+  "PRO5": {
+   "LIVE": {
+    "ac1": 0.895,
+    "agreement": 0.9284,
+    "alpha": 0.6825,
+    "ci": [
+     0.8293,
+     0.9499
+    ],
+    "prevalence": 0.1384,
+    "stimuli": 34,
+    "units": 86
+   },
+   "POOLED": {
+    "ac1": 0.895,
+    "agreement": 0.9284,
+    "alpha": 0.6825,
+    "prevalence": 0.1384,
+    "stimuli": 34,
+    "units": 86
+   }
+  }
+ },
+ "per_judge_vs_human": {
+  "anthropic:claude-haiku-4-5": {
+   "ac1": 0.6198,
+   "agreement": 0.8066,
+   "n": 243
+  },
+  "anthropic:claude-sonnet-5": {
+   "ac1": 0.6521,
+   "agreement": 0.8213,
+   "n": 235
+  },
+  "google:gemini-3.7-flash": {
+   "ac1": 0.6043,
+   "agreement": 0.7879,
+   "n": 231
+  },
+  "ollama:gemma3:12b": {
+   "ac1": 0.5339,
+   "agreement": 0.7532,
+   "n": 231
+  },
+  "ollama:llama3.1:8b": {
+   "ac1": 0.4882,
+   "agreement": 0.7426,
+   "n": 237
+  },
+  "ollama:qwen3:14b": {
+   "ac1": 0.5135,
+   "agreement": 0.7365,
+   "n": 277
+  }
+ },
+ "prevalence_by_dimension": {
+  "DEP1": {
+   "live_turns": 47,
+   "prevalence": 0.1277
+  },
+  "DEP2": {
+   "live_turns": 33,
+   "prevalence": 0.4545
+  },
+  "DEP3": {
+   "live_turns": 425,
+   "prevalence": 0.2612
+  },
+  "DEP4": {
+   "live_turns": 83,
+   "prevalence": 0.0602
+  },
+  "DEP5": {
+   "live_turns": 38,
+   "prevalence": 0.1053
+  },
+  "DEP6": {
+   "live_turns": 64,
+   "prevalence": 0.3438
+  },
+  "DEP7": {
+   "live_turns": 425,
+   "prevalence": 0.2165
+  },
+  "DEP8": {
+   "live_turns": 387,
+   "prevalence": 0.7829
+  },
+  "OVR1": {
+   "live_turns": 57,
+   "prevalence": 0.0
+  },
+  "OVR3": {
+   "live_turns": 21,
+   "prevalence": 0.1429
+  },
+  "OVR4": {
+   "live_turns": 61,
+   "prevalence": 0.0
+  },
+  "PER1": {
+   "live_turns": 425,
+   "prevalence": 0.1976
+  },
+  "PER3": {
+   "live_turns": 23,
+   "prevalence": 0.087
+  },
+  "PRO2": {
+   "live_turns": 83,
+   "prevalence": 0.3855
+  },
+  "PRO4": {
+   "live_turns": 61,
+   "prevalence": 0.9016
+  },
+  "PRO5": {
+   "live_turns": 83,
+   "prevalence": 0.1566
+  }
+ },
+ "prevalence_by_model": {
+  "anthropic:claude-haiku-4-5": {
+   "DEP": 0.2305,
+   "FMR": 0.0,
+   "OVR": 0.04,
+   "PRO": 0.7857
+  },
+  "anthropic:claude-sonnet-5": {
+   "DEP": 0.1866,
+   "FMR": 0.0,
+   "OVR": 0.0,
+   "PRO": 0.4
+  },
+  "google:gemini-3.7-flash": {
+   "DEP": 0.287,
+   "FMR": 0.0,
+   "OVR": 0.0,
+   "PRO": 0.375
+  },
+  "ollama:gemma3:12b": {
+   "DEP": 0.5213,
+   "FMR": 0.0,
+   "OVR": 0.0769,
+   "PRO": 0.3947
+  },
+  "ollama:llama3.1:8b": {
+   "DEP": 0.3108,
+   "FMR": 0.0,
+   "OVR": 0.0,
+   "PRO": 0.3659
+  },
+  "ollama:qwen3:8b": {
+   "DEP": 0.4243,
+   "FMR": 0.6667,
+   "OVR": 0.0,
+   "PRO": 0.2927
+  }
+ },
+ "r_prevalence_ac1": 0.806,
+ "stimuli_per_dimension": {
+  "DEP1": 13,
+  "DEP2": 6,
+  "DEP3": 155,
+  "DEP4": 34,
+  "DEP5": 14,
+  "DEP6": 18,
+  "DEP7": 155,
+  "DEP8": 141,
+  "OVR1": 16,
+  "OVR3": 3,
+  "OVR4": 11,
+  "PER1": 155,
+  "PER3": 2,
+  "PRO2": 34,
+  "PRO4": 11,
+  "PRO5": 34
+ }
+}

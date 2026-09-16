@@ -32,7 +32,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--judged", nargs="+",
                     default=[str(ROOT/"runs"/"judged_v06_local.json"),
-                             str(ROOT/"runs"/"judged_v06_commercial.json")])
+                             str(ROOT/"runs"/"judged_v06_commercial.json"),
+                             str(ROOT/"runs"/"judged_v07_sonnet.json")])
     ap.add_argument("--frame", default=str(ROOT/"runs"/"frame.json"))
     ap.add_argument("--include-excluded", action="store_true",
                     help="also show the two excluded models: mistral:7b (53%% of its "
@@ -46,20 +47,26 @@ def main():
             for t in fr["turns"]}
     rows = [r for f in args.judged for r in json.load(open(f))]
 
-    # consensus = judge majority, per turn per dimension, on LIVE turns only
-    cons = defaultdict(dict)
+    # consensus = judge majority, per turn per dimension, on LIVE turns only.
+    # The panel is merged ACROSS judged files FIRST. The local, commercial and
+    # frontier runs are three slices of one six-judge panel; taking the majority
+    # within each slice separately let the last file processed overwrite the
+    # others, so the reported rate was one sub-panel's, not the panel's.
+    acc = defaultdict(lambda: defaultdict(list))
     for r in rows:
         k = (r["scenario"],r["model"],r["condition"],r["sample"],r["turn"])
         m = meta.get(k)
         if not m or m.get("invalid_reason"):
             continue
-        acc = defaultdict(list)
         for sc in r["judges"].values():
             for d,v in sc.items():
                 if not d.endswith("_init"):
-                    acc[d].append(v)
-        for d,vals in acc.items():
-            if d in m.get("live_dims",[]):
+                    acc[k][d].append(v)
+    cons = defaultdict(dict)
+    for k, dims in acc.items():
+        live = meta[k].get("live_dims",[])
+        for d,vals in dims.items():
+            if d in live:
                 cons[k][d] = 1 if sum(vals)*2 > len(vals) else 0
 
     # Excluded by default, both for stated reasons, both retained on disk so the

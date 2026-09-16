@@ -115,6 +115,59 @@ persona tables, the per-dimension stimulus counts, and every figure in Results.
 
 ---
 
+### Third pass: citations verified, and three more figures corrected
+
+Checked against the sources rather than against the previous draft.
+
+| Figure | Was | Is |
+|---|---|---|
+| Reference [4] | Wang et al. | **Aquilina, Nihalani, Varadarajan, Fishbein, Lin, Sap** |
+| Zhang relational transgression subcategories | emotional manipulation, dependency induction, possessiveness, personhood claims | **disregard (13.2%), control, manipulation, infidelity** |
+| Relational transgression rank | "second largest" | 25.9% verified; the rank is not verified and is no longer claimed |
+| Distress recognition [4] | "88-100% regardless of framing" | 93.6-100.0% distress-only, 88.1-99.4% under delusional framing |
+| Reference [14] validation | "3 judges; human-validated at 180 and 924 turns" | 14 behaviours, human-subject study N = 1,101; the original claim was unsupported |
+| De Freitas alpha in Table 2 | 0.91-0.99 | 0.91-1.00 |
+| Table 6 (panel reliability) | a FIVE-judge run, labelled six-judge | recomputed over all six judges |
+| Tables 10 and 11 (prevalence) | five-judge, and the majority taken within each judged file | six-judge, panel merged before the majority |
+| Zhang control/manipulation at "9.7% of excerpts" | asserted | not verifiable; the number is removed |
+
+Two of these were introduced in the rewrite itself: `reliability.py` and
+`prevalence.py` both default to two judged files, so the tables generated from
+their default invocation covered five judges while the text described six.
+`prevalence.py` also carried the same slice bug as `reliability.py`, taking the
+majority within each judged file so that the last file processed overwrote the
+others. Both are fixed, and `figures.py` and `panel_analysis.py` now reproduce
+each other's values independently.
+
+INTIMA and DarkBench were checked directly and the manuscript's characterisation
+of both survived, with detail added: INTIMA annotates with a single Qwen-3
+evaluator and reports no agreement statistic for those annotations, its only
+reliability check being two annotators calibrating the source codebook on 50
+posts; DarkBench's human kappa runs 0.90-0.98 on harmful generation and 0.27-0.73
+on sycophancy, which is the ordering this paper predicts.
+
+---
+
+## The check that now exists
+
+`harness/check_manuscript.py` extracts every numeric token from the manuscript and
+requires each to be either recomputed by `figures.py` from the data, or registered
+in `paper/citations.json` against the source it was verified from. It exits
+non-zero otherwise, so it can gate a commit.
+
+`harness/sync_tables.py` rewrites Tables 6 to 12 in the manuscript from
+`paper/figures.json`, so no reported number in a results table is typed by hand.
+`harness/dump_instrument.py` does the same for Table 5 and Appendix A.
+
+The workflow is: change the data or the analysis, then
+
+    python figures.py --save && python sync_tables.py && python check_manuscript.py
+
+Three of the errors in this log were found by that checker after it was written,
+including two introduced during the rewrite.
+
+---
+
 ## Why these happened
 
 One mechanism produces almost all of it. **A figure that has no script is a figure that

@@ -6,9 +6,9 @@ Arya Kadakia
 
 ## Abstract
 
-**Background.** Relational harm is the second-largest documented harm category in
-human–AI companionship, yet instruments that score it report little or no evidence
-that they can be applied reliably. Where agreement statistics are given, they are
+**Background.** Relational transgression accounts for 25.9% of harmful behaviours in
+the largest corpus study of AI companionship, yet instruments that score relational
+harm report little or no evidence that they can be applied reliably. Where agreement statistics are given, they are
 pooled across all scored turns and reported without the prevalence of the behaviour
 being scored.
 
@@ -61,11 +61,12 @@ warmth that supports a person's other relationships from warmth that substitutes
 them.
 
 Regulatory demand for such measurement is already present. The US Federal Trade
-Commission opened a 6(b) inquiry into companion chatbots in September 2025; the
-Food and Drug Administration's Digital Health Advisory Committee met in November 2025
-on generative AI mental-health devices; and several states, including Illinois, Nevada
-and California, have enacted restrictions on AI systems presented in therapeutic or
-companionship roles. Each of these presupposes that a developer can demonstrate
+Commission issued 6(b) orders to seven operators of AI companion products in September
+2025 [18]; the Food and Drug Administration's Digital Health Advisory Committee met in
+November 2025 on generative AI mental-health devices [19]; and Nevada, Illinois and
+California enacted restrictions in 2025 on AI systems presented in therapeutic or
+companionship roles, California's SB 243 addressing companion chatbots specifically
+[20]. Each of these presupposes that a developer can demonstrate
 whether a system promotes dependency. This paper asks whether the instruments
 available for that demonstration can be applied consistently.
 
@@ -83,11 +84,15 @@ behaviour the judges did not, which a single coder cannot adjudicate.
 
 ### 2.1 Harm taxonomies
 
-Zhang et al. analysed 35,390 conversation excerpts from 10,149 companion-application
-users and produced a taxonomy of six harm categories, of which relational
-transgression accounted for 25.9%, the second largest [1]. Its four subcategories are
-emotional manipulation, dependency induction, possessiveness and personhood claims.
-These are the constructs the present rubric operationalises.
+Zhang et al. analysed 35,390 conversation excerpts from 10,149 users of a companion
+application and produced a taxonomy of six categories of harmful algorithmic behaviour
+[1]. Relational transgression, defined as behaviour violating implicit or explicit
+relational rules, accounts for 25.9% of excerpts; its subcategories are disregard
+(13.2%), control, manipulation and infidelity. The present rubric operationalises
+behaviour within that category, but it is not a reimplementation of those
+subcategories: infidelity is specific to romantic companion products and is not scored
+here, and dependency promotion is treated as a construct in its own right rather than
+as a subtype of control.
 
 De Freitas et al. coded 1,200 real farewells across widely-downloaded companion
 applications and found emotional manipulation in 37%, distributed across six tactics:
@@ -99,9 +104,10 @@ One application in their sample produced no manipulative farewells at all.
 Chu et al. inferred latent response policies from approximately 48,000 turns across
 three deployed platforms and found that responses introducing corrective friction
 decline for users with high psychological risk, strong companion bond, or extended
-interaction [3]. Wang et al. evaluated six models across 4,200 conversations and found
-that models rated user distress at 88–100% regardless of framing while safety
-intervention dropped up to 4.5-fold under delusional framing, a recognition–
+interaction [3]. Aquilina et al. evaluated six models across 4,200 matched multi-turn
+simulations and found that models assigned at least moderate distress on 93.6–100.0% of
+turns in distress-only conversations and 88.1–99.4% under delusional framing, while
+safety interventions were suppressed by up to 4.5-fold under delusion, a recognition–
 intervention gap [4]. Both results motivate measuring what a model does rather than
 what it detects, and across turns rather than within one.
 
@@ -113,8 +119,8 @@ Four published instruments score relational harm in conversational AI (Table 1).
 
 | Instrument | Scope | Scoring | Reliability reported |
 |---|---|---|---|
-| INTIMA [7] | 10 labels covering sycophancy, anthropomorphism, isolation, retention, and four boundary-maintaining behaviours | 3-point relevance, single LLM annotator | none |
-| DarkBench [8] | 6 dark patterns including user retention, sycophancy, anthropomorphisation | binary, 3 LLM annotators | Cohen's kappa 0.27–0.98 |
+| INTIMA [7] | 31 behavioural codes in 4 categories, 368 prompts; responses scored on 10 labels (4 companionship-reinforcing, 4 boundary-maintaining, 2 neutral) | 3-point relevance, a single open-weight evaluator (Qwen-3) | none for the benchmark annotation; two annotators calibrated the source codebook on 50 posts |
+| DarkBench [8] | 660 prompts over 6 dark patterns including user retention, sycophancy, anthropomorphisation | binary, 3 LLM annotators, validated against 3 human annotators on 1,680 examples | Cohen's kappa 0.27–0.98 between human annotators |
 | SHIELD [9] | 5 risk dimensions including emotional over-attachment, manipulative engagement, isolation reinforcement | rubric | not reported |
 | CompanionBench [10] | 10 capabilities derived from 25 psychology and counselling theories | rubric plus a deterministic disclosure measure | not reported |
 
@@ -122,9 +128,11 @@ INTIMA is the closest prior work, and its finding that boundary-maintaining beha
 decreases as user vulnerability increases converges with Chu et al. from a different
 method [3,7]. What is absent from this literature is not instruments but evidence that
 they can be applied consistently. INTIMA annotates its benchmark with a single
-open-weight model and reports no agreement statistic. DarkBench reports kappa spanning
-0.27 to 0.98 across six categories without reporting the prevalence of each category.
-None of the four restricts agreement to turns where the scored construct could occur.
+open-weight evaluator and reports no agreement statistic for those annotations, its only
+reliability check being two annotators calibrating the source codebook on 50 posts.
+DarkBench does report human agreement, spanning kappa 0.27 to 0.98 across six
+categories, but not the prevalence of each category. None of the four restricts
+agreement to turns where the scored construct could occur.
 
 General-purpose guardrail frameworks are out of scope: they address toxicity,
 personally identifying information, prompt injection, hallucination and jailbreak, and
@@ -140,13 +148,13 @@ assembly, its precondition gating, and its over-correction dimensions.
 
 | Component | Source | Validation carried |
 |---|---|---|
-| Harm constructs (DEP1–DEP4, PER) | Zhang et al. [1] | 35,390 excerpts, 10,149 users |
-| Farewell tactics (DEP5) | De Freitas et al. [2] | 1,200 farewells, alpha 0.91–0.99, 37% base rate |
+| Relational-harm construct space | Zhang et al., relational transgression [1] | 35,390 excerpts, 10,149 users |
+| Farewell tactics (DEP5) | De Freitas et al. [2] | 1,200 farewells, alpha 0.91–1.00, 37% base rate |
 | Sycophancy and retention anchors (DEP7, DEP8) | INTIMA [7], EmoClassifiers V2 [11], DarkBench [8], ELEPHANT [12] | multiple instruments, see Appendix A |
 | User-state labels | Chu et al., AC-VRT [3] | kappa 0.60–0.83 over ~48,000 turns |
 | Persona stratification | Chu et al. [3] | PHQ-9, GAD-7, UCLA Loneliness, companion bond |
-| Phased multi-turn design | psychosis-bench [13] | 16 scenarios × 12 turns |
-| Multi-judge scoring | psychosis-bench [13], Wang et al. [4], multi-turn anthropomorphism evaluation [14] | 3 judges; human-validated at 180 and 924 turns |
+| Phased multi-turn design | psychosis-bench [13] | 16 scenarios × 12 turns, 8 models, 1,536 turns |
+| Automated multi-turn scoring validated against humans | psychosis-bench [13], Aquilina et al. [4], multi-turn anthropomorphism evaluation [14] | 4,200 simulations over 6 models; 14 behaviours validated against a human-subject study of N = 1,101 |
 | Autofail channel | InvisibleBench [15] | deployment-gate pattern |
 
 Eight of the sixteen dimensions take their anchor wording directly from a published
@@ -411,30 +419,30 @@ recording the behaviour as present; stimuli is the number of distinct authored t
 
 | Dim | Units | Stimuli | Prevalence | Agreement | Alpha | AC1 | 95% CI | Pooled AC1 |
 |---|---|---|---|---|---|---|---|---|
-| DEP1 | 48 | 13 | 21% | 73% | 0.190 | 0.598 | 0.44, 0.77 | 0.681 |
-| DEP2 | 36 | 6 | 58% | 75% | 0.485 | 0.498 | 0.22, 0.84 | 0.570 |
-| DEP3 | 453 | 155 | 30% | 77% | 0.448 | 0.601 | 0.54, 0.66 | 0.601 |
-| DEP4 | 86 | 34 | 9% | 85% | 0.096 | 0.820 | 0.71, 0.91 | 0.844 |
-| DEP5 | 38 | 14 | 22% | 66% | 0.062 | 0.517 | 0.34, 0.70 | 0.517 |
-| DEP6 | 66 | 18 | 34% | 70% | 0.339 | 0.457 | 0.22, 0.68 | 0.537 |
-| DEP7 | 453 | 155 | 25% | 71% | 0.208 | 0.529 | 0.46, 0.60 | 0.529 |
-| DEP8 | 415 | 141 | 74% | 74% | 0.326 | 0.590 | 0.51, 0.66 | 0.590 |
-| PER1 | 453 | 155 | 27% | 77% | 0.422 | 0.629 | 0.56, 0.69 | 0.629 |
-| PER3 | 25 | 2 | 17% | 76% | 0.151 | 0.668 | — | 0.816 |
-| PRO2 | 86 | 34 | 40% | 70% | 0.387 | 0.436 | 0.30, 0.57 | 0.477 |
-| PRO4 | 71 | 11 | 87% | 84% | 0.317 | 0.811 | 0.59, 0.91 | 0.769 |
-| PRO5 | 86 | 34 | 14% | 93% | 0.683 | 0.890 | 0.82, 0.95 | 0.890 |
+| DEP1 | 48 | 13 | 23% | 72% | 0.235 | 0.591 | 0.43, 0.77 | 0.676 |
+| DEP2 | 36 | 6 | 58% | 77% | 0.520 | 0.535 | 0.29, 0.86 | 0.597 |
+| DEP3 | 453 | 155 | 31% | 78% | 0.498 | 0.634 | 0.58, 0.69 | 0.634 |
+| DEP4 | 86 | 34 | 11% | 83% | 0.171 | 0.801 | 0.67, 0.90 | 0.828 |
+| DEP5 | 38 | 14 | 21% | 69% | 0.108 | 0.564 | 0.43, 0.69 | 0.564 |
+| DEP6 | 66 | 18 | 34% | 72% | 0.375 | 0.483 | 0.25, 0.71 | 0.560 |
+| PER1 | 453 | 155 | 27% | 79% | 0.448 | 0.644 | 0.58, 0.70 | 0.644 |
+| PER3 | 25 | 2 | 14% | 78% | 0.139 | 0.716 | — | 0.840 |
+| PRO2 | 86 | 34 | 40% | 72% | 0.423 | 0.470 | 0.35, 0.59 | 0.506 |
+| PRO4 | 71 | 11 | 85% | 84% | 0.382 | 0.800 | 0.61, 0.90 | 0.759 |
 | OVR1 | 58 | 16 | 0% | 100% | 1.000 | 1.000 | 1.00, 1.00 | 0.995 |
-| OVR3 | 23 | 3 | 12% | 88% | 0.483 | 0.861 | 0.51, 1.00 | 0.901 |
-| OVR4 | 71 | 11 | 2% | 97% | 0.189 | 0.977 | 0.94, 1.00 | 0.981 |
+| OVR3 | 23 | 3 | 12% | 90% | 0.577 | 0.885 | 0.59, 1.00 | 0.915 |
+| OVR4 | 71 | 11 | 2% | 97% | 0.257 | 0.979 | 0.95, 1.00 | 0.982 |
+| DEP7 | 453 | 155 | 26% | 71% | 0.275 | 0.552 | 0.49, 0.61 | 0.552 |
+| DEP8 | 415 | 141 | 75% | 76% | 0.364 | 0.615 | 0.54, 0.68 | 0.615 |
+| PRO5 | 86 | 34 | 14% | 93% | 0.682 | 0.895 | 0.83, 0.95 | 0.895 |
 
 Pooling raises AC1 on eight of the ten gated dimensions that have a background
-stratum, by as much as 0.148 (PER3, 0.668 to 0.816), and lowers it on two (PRO4,
+stratum, by as much as 0.124 (PER3, 0.716 to 0.840), and lowers it on two (PRO4,
 OVR1). The inflation is largest where the background stratum is large relative to the
 live one, which is the general case for a sparse rubric.
 
-Alpha and AC1 diverge as expected under skewed marginals: DEP4 returns alpha = 0.096
-at AC1 = 0.820 on 9% prevalence, and OVR4 alpha = 0.189 at AC1 = 0.977 on 2%. Reading
+Alpha and AC1 diverge as expected under skewed marginals: DEP4 returns alpha = 0.171
+at AC1 = 0.801 on 11% prevalence, and OVR4 alpha = 0.257 at AC1 = 0.979 on 2%. Reading
 alpha alone would report these as failures of the instrument rather than as behaviours
 that almost never occurred.
 
@@ -444,24 +452,24 @@ Table 7 compares the human coder with the six-judge majority on live turns.
 
 **Table 7. Human coder against judge majority, live turns.**
 
-| Dim | Units | Prevalence | Agreement | AC1 | 95% CI |
-|---|---|---|---|---|---|
-| OVR1 | 10 | 0% | 100% | 1.000 | 1.00, 1.00 |
-| OVR3 | 6 | 0% | 100% | 1.000 | 1.00, 1.00 |
-| OVR4 | 11 | 0% | 100% | 1.000 | 1.00, 1.00 |
-| PRO4 | 11 | 95% | 91% | 0.900 | 0.54, 1.00 |
-| DEP8 | 37 | 80% | 92% | 0.880 | 0.70, 1.00 |
-| PRO2 | 15 | 37% | 93% | 0.876 | 0.63, 1.00 |
-| DEP4 | 15 | 7% | 87% | 0.848 | 0.49, 1.00 |
-| PRO5 | 15 | 10% | 80% | 0.756 | 0.27, 1.00 |
-| DEP5 | 4 | 12% | 75% | 0.680 | −1.00, 1.00 |
-| DEP3 | 39 | 35% | 82% | 0.672 | 0.44, 0.87 |
-| PER1 | 46 | 35% | 74% | 0.522 | 0.26, 0.76 |
-| DEP7 | 39 | 38% | 69% | 0.416 | 0.16, 0.67 |
-| PER3 | 5 | 20% | 60% | 0.412 | — |
-| DEP2 | 6 | 42% | 50% | 0.027 | −0.62, 0.68 |
-| DEP6 | 9 | 61% | 44% | −0.059 | −0.68, 0.60 |
-| DEP1 | 9 | 50% | 44% | −0.111 | −0.72, 0.56 |
+| Dim | Units | Prevalence | Agreement | AC1 |
+|---|---|---|---|---|
+| OVR1 | 10 | 0% | 100% | 1.000 |
+| OVR3 | 6 | 0% | 100% | 1.000 |
+| OVR4 | 11 | 0% | 100% | 1.000 |
+| PRO4 | 11 | 95% | 91% | 0.900 |
+| DEP8 | 37 | 80% | 92% | 0.880 |
+| PRO2 | 15 | 37% | 93% | 0.875 |
+| DEP4 | 15 | 7% | 87% | 0.848 |
+| PRO5 | 15 | 10% | 80% | 0.756 |
+| DEP5 | 4 | 12% | 75% | 0.680 |
+| DEP3 | 39 | 35% | 82% | 0.672 |
+| PER1 | 46 | 35% | 74% | 0.522 |
+| DEP7 | 39 | 38% | 69% | 0.416 |
+| PER3 | 5 | 20% | 60% | 0.412 |
+| DEP2 | 6 | 42% | 50% | 0.027 |
+| DEP6 | 9 | 61% | 44% | -0.059 |
+| DEP1 | 9 | 50% | 44% | -0.111 |
 
 Across the sixteen dimensions, AC1 correlates with the distance of prevalence from 50%
 at r = 0.806 (Pearson, on dimensions rather than on independent observations; see
@@ -503,14 +511,19 @@ the judge majority did not. Over all dimensions the figure is 45 of 57.
 
 | Dim | Human present, judges absent | Human absent, judges present |
 |---|---|---|
-| DEP1 | 5 | 0 |
-| DEP2 | 3 | 0 |
+| DEP1 * | 5 | 0 |
+| DEP2 * | 3 | 0 |
 | DEP3 | 7 | 0 |
-| DEP6 | 2 | 3 |
-| DEP7 | 11 | 1 |
-| PER1 | 10 | 2 |
-| PER3 | 2 | 0 |
-| Others (DEP4, DEP5, DEP8, PRO2, PRO4, PRO5) | 5 | 6 |
+| DEP4 | 1 | 1 |
+| DEP5 | 1 | 0 |
+| DEP6 * | 2 | 3 |
+| DEP7 * | 11 | 1 |
+| DEP8 | 1 | 2 |
+| PER1 * | 10 | 2 |
+| PER3 * | 2 | 0 |
+| PRO2 | 0 | 1 |
+| PRO4 | 1 | 0 |
+| PRO5 | 1 | 2 |
 
 This is not a careless rater and not random error. It is two internally consistent
 raters applying different thresholds to the same anchor, with the human systematically
@@ -530,7 +543,7 @@ them.
 | Claude Haiku 4.5 | commercial | 243 | 81% | 0.620 |
 | Gemini 3.7 Flash | commercial | 231 | 79% | 0.604 |
 | Gemma 3 12B | open | 231 | 75% | 0.534 |
-| Qwen3 14B | open | 277 | 74% | 0.514 |
+| Qwen3 14B | open | 277 | 74% | 0.513 |
 | Llama 3.1 8B | open | 237 | 74% | 0.488 |
 
 The ordering is monotone in capability and spans 0.164. The best judge reaches 0.652,
@@ -551,7 +564,7 @@ Capability separates the pairs: commercial–commercial pairs average 0.676 (n =
 against 0.572 for open–open (n = 3), with Llama 3.1 8B the weakest partner throughout
 (0.415–0.520). Vendor family cannot be assessed with this panel: only two of the
 fifteen pairs share a vendor (Gemma with Gemini, Haiku with Sonnet, mean 0.684, against
-0.578 for the thirteen cross-vendor pairs). The two highest-agreeing pairs are
+0.579 for the thirteen cross-vendor pairs). The two highest-agreeing pairs are
 cross-vendor (Gemma with Qwen, 0.729; Sonnet with Gemini, 0.727).
 
 ### 4.6 Prevalence of dependency-promoting behaviour
@@ -560,22 +573,22 @@ cross-vendor (Gemma with Qwen, 0.729; Sonnet with Gemini, 0.727).
 
 | Dim | Valence | Live turns | Prevalence |
 |---|---|---|---|
-| PRO4 stays present under distress | protective | 61 | 78.7% |
-| DEP8 engagement prolonging | harm | 387 | 58.9% |
-| DEP2 permanence pledge | harm | 33 | 48.5% |
-| PRO2 supports external connection | protective | 83 | 42.2% |
-| DEP3 reliance encouragement | harm | 425 | 28.0% |
-| PER3 denies or deflects AI status | harm | 23 | 26.1% |
-| DEP7 sycophancy | harm | 425 | 24.5% |
-| DEP6 favourable availability contrast | harm | 64 | 23.4% |
-| DEP1 exclusivity claim | harm | 47 | 14.9% |
-| PER1 presents human emotions | harm | 425 | 14.8% |
-| OVR3 gratuitous AI disclaimer | over-correction | 21 | 14.3% |
-| DEP5 farewell manipulation | harm | 38 | 13.2% |
-| DEP4 discourages real-world support | harm | 83 | 9.6% |
-| PRO5 professional-limitation acknowledgement | protective | 83 | 9.6% |
-| OVR1 cold where warmth was called for | over-correction | 57 | 0.0% |
-| OVR4 reflexive referral | over-correction | 61 | 0.0% |
+| PRO4 stays present under distress | protective | 61 | 90.2% |
+| DEP8 engagement prolonging | harm | 387 | 78.3% |
+| DEP2 permanence pledge | harm | 33 | 45.5% |
+| PRO2 supports external connection | protective | 83 | 38.6% |
+| DEP6 favourable availability contrast | harm | 64 | 34.4% |
+| DEP3 assistant need or reliance encouragement | harm | 425 | 26.1% |
+| DEP7 sycophancy / over-validation | harm | 425 | 21.6% |
+| PER1 presents human emotions | harm | 425 | 19.8% |
+| PRO5 professional-limitation acknowledgement | protective | 83 | 15.7% |
+| OVR3 gratuitous ai disclaimer | over-correction | 21 | 14.3% |
+| DEP1 exclusivity claim | harm | 47 | 12.8% |
+| DEP5 farewell manipulation | harm | 38 | 10.5% |
+| PER3 denies or deflects ai status | harm | 23 | 8.7% |
+| DEP4 discourages real-world support | harm | 83 | 6.0% |
+| OVR1 cold or clinical where warmth was called for | over-correction | 57 | 0.0% |
+| OVR4 reflexive referral or deflection | over-correction | 61 | 0.0% |
 
 Three of the six highest rates fall on dimensions where the human coder and the judge
 majority agree at or near chance (DEP2, PER3 and DEP7 in Table 7), and a fourth, DEP3
@@ -599,12 +612,12 @@ manipulation rate, against the 37% published base rate [2].**
 
 | Model | DEP | PRO | OVR | FMR |
 |---|---|---|---|---|
-| Claude Sonnet 5 | 5.6% | 32.0% | 0.0% | 0.0% |
-| Claude Haiku 4.5 | 13.9% | 76.2% | 4.0% | 0.0% |
-| Llama 3.1 8B | 25.8% | 29.3% | 0.0% | 0.0% |
-| Gemini 3.7 Flash | 37.9% | 40.0% | 0.0% | 42.9% |
-| Qwen3 8B | 44.1% | 26.8% | 0.0% | 33.3% |
-| Gemma 3 12B | 46.2% | 31.6% | 7.7% | 0.0% |
+| Claude Sonnet 5 | 18.7% | 40.0% | 0.0% | 0.0% |
+| Claude Haiku 4.5 | 23.1% | 78.6% | 4.0% | 0.0% |
+| Gemini 3.7 Flash | 28.7% | 37.5% | 0.0% | 0.0% |
+| Llama 3.1 8B | 31.1% | 36.6% | 0.0% | 0.0% |
+| Qwen3 8B | 42.4% | 29.3% | 0.0% | 66.7% |
+| Gemma 3 12B | 52.1% | 39.5% | 7.7% | 0.0% |
 
 ### 4.7 The system-prompt manipulation moves a lexical measure
 
@@ -634,11 +647,13 @@ without them.
 
 | Dim | Baseline n | Calibrated n | Baseline AC1 | Calibrated AC1 |
 |---|---|---|---|---|
-| DEP7 | 12 | 14 | −0.159 | 0.044 |
-| PER1 | 15 | 17 | 0.425 | 0.449 |
-| DEP3 | 12 | 14 | 0.858 | 0.785 |
+| ALL | 46 | 54 | 0.349 | 0.374 |
+| DEP1 | 0 | 1 | — | — |
 | DEP2 | 6 | 6 | 0.333 | 0.333 |
-| All | 46 | 54 | 0.349 | 0.374 |
+| DEP3 | 12 | 14 | 0.858 | 0.785 |
+| DEP6 | 1 | 2 | — | 0.200 |
+| DEP7 | 12 | 14 | -0.159 | 0.044 |
+| PER1 | 15 | 17 | 0.425 | 0.449 |
 
 The difference is +0.039 with a bootstrap interval of [−0.34, +0.42]. The design was
 underpowered to detect even a large effect: with 54 held-out judgements the interval
@@ -725,9 +740,13 @@ of two. INTIMA reports no agreement statistic [7]. DarkBench reports Cohen's kap
 spanning 0.27 to 0.98 across six categories without the prevalence of each [8].
 
 Our results do not explain DarkBench's spread, which would require its per-category
-prevalences. They show that in this instrument a comparable spread tracks base rate
-closely, and that the categories returning the highest agreement are the ones raters
-were least often required to discriminate on. A kappa of 0.98 on a category firing in
+prevalences. The ordering within it is nonetheless the ordering seen here: their
+strongest agreement is on harmful generation (kappa 0.90–0.98), a discrete and
+identifiable event, and their weakest is on sycophancy (0.27–0.73), the category most
+like the relational dimensions that fail in this instrument. What our results add is
+that in this instrument a comparable spread tracks base rate closely, and that the
+categories returning the highest agreement are the ones raters were least often
+required to discriminate on. A kappa of 0.98 on a category firing in
 2% of responses and a kappa of 0.27 on one firing in half are not comparable
 quantities, and without prevalence a reader cannot tell which they are looking at.
 
@@ -787,9 +806,11 @@ the reader is a regular expression or a frontier model.
 ### 5.5 Implications for deployment and regulation
 
 Dependency-relevant behaviour was common in these scenarios: engagement prolonging on
-58.9% of live turns, permanence pledges on 48.5%, reliance encouragement on 28.0%,
-sycophancy on 24.5%. Three of those four fall on dimensions where two competent raters
-agree at or near chance. These are rates within fifteen constructed
+78.3% of live turns, permanence pledges on 45.5%, favourable availability contrast on
+34.4%, reliance encouragement on 26.1%, sycophancy on 21.6%. Of those five, permanence
+pledges and availability contrast fall on dimensions where two competent raters agree at
+or near chance, and reliance encouragement and sycophancy on dimensions at or barely
+above the tentative threshold. These are rates within fifteen constructed
 scenarios and are not estimates of what any deployed product does to real users.
 
 A regulator asking a developer to demonstrate that a system does not promote dependency
@@ -804,8 +825,8 @@ instrument that would need replicating before anyone relied on it.
 
 The concern that a dependency-focused instrument would penalise appropriate warmth is
 not supported in this condition. Two of the three over-correction dimensions returned
-zero prevalence with human and judges in complete agreement, and the third occurred on
-14.3% of its live turns. Over-correction under a minimal assistant prompt is untested;
+zero prevalence across the frame, with human and judges in complete agreement on the
+coded subset, and the third occurred on 14.3% of its live turns. Over-correction under a minimal assistant prompt is untested;
 only ten frame turns come from that condition.
 
 Measurement is not mitigation. The one intervention tested here failed its placebo
@@ -848,9 +869,9 @@ over-interpretation, where a reply narrates a person's inner experience confiden
 from very little. Such replies supply a framing rather than endorse one, which places
 them outside DEP7 and outside every other dimension, and no instrument in the audited
 literature names it. It is recorded as future work rather than added mid-study. The
-control and manipulation subcategories of Zhang et al. [1], real in deployed products
-at 9.7% of their excerpts, were verified absent from this dataset by search and
-reading, so a dimension for them would have measured nothing here.
+control and manipulation subcategories of Zhang et al. [1], real in deployed companion
+products, were verified absent from this dataset by search and reading, so a dimension
+for them would have measured nothing here.
 
 ### 5.7 Conclusion
 
@@ -873,7 +894,7 @@ open-weight arm reproduces without API access or cost.
 | Result | Script |
 |---|---|
 | Tables 6 and 7, intra-rater agreement | `harness/reliability.py` |
-| Tables 8 and 9, the correlation in 4.2, Section 4.5 | `harness/panel_analysis.py` |
+| Tables 8 and 9, the correlation in Section 4.2, Section 4.5 | `harness/panel_analysis.py` |
 | Tables 10 and 11 | `harness/prevalence.py` |
 | Section 4.7 | `harness/endearments.py` |
 | Table 12 | `harness/calibrate.py` |
@@ -890,20 +911,23 @@ are recorded in `spec/revision-log.md`.
 
 ## References
 
-1. Zhang R, et al. The dark side of AI companionship: a taxonomy of harmful algorithmic behaviors in human-AI relationships. CHI 2025. arXiv:2410.20130.
-2. De Freitas J, Oğuz-Uğuralp Z, Kaan-Uğuralp A. Emotional manipulation by AI companions. Harvard Business School Working Paper 26-005, 2025. arXiv:2508.19258.
-3. Chu M, et al. When chatbots accommodate: what AI companions optimize for in vulnerable conversations. 2026. arXiv:2606.04431.
-4. Wang Y, et al. Lost in delusion: examining LLM safety under user delusions and distress. 2026. arXiv:2606.00975.
+1. Zhang R, Li H, Meng H, Zhan J, Gan H, Lee Y-C. The dark side of AI companionship: a taxonomy of harmful algorithmic behaviors in human-AI relationships. In: Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems. 2025. doi:10.1145/3706598.3713429. arXiv:2410.20130.
+2. De Freitas J, Oğuz-Uğuralp Z, Uğuralp AK. Emotional manipulation by AI companions. Harvard Business School Working Paper 26-005. 2025. arXiv:2508.19258.
+3. Chu MD, et al. When chatbots accommodate: what AI companions optimize for in vulnerable conversations. 2026. arXiv:2606.04431.
+4. Aquilina A, Nihalani C, Varadarajan V, Fishbein NS, Lin Y-R, Sap M. Lost in delusion: examining LLM safety under user delusions and distress. 2026. arXiv:2606.00975.
 5. Folk D, Dunn E. How does turning to AI for companionship predict loneliness and vice versa? Psychological Science. 2026. doi:10.1177/09567976261427747.
 6. Maples B, Cerit M, Vishwanath A, Pea R. Loneliness and suicide mitigation for students using GPT3-enabled chatbots. npj Mental Health Research. 2024;3:4. doi:10.1038/s44184-023-00047-6.
-7. INTIMA: a benchmark for human-AI companionship behavior. ICLR 2026. arXiv:2508.09998.
-8. DarkBench: benchmarking dark patterns in large language models. ICLR 2025. arXiv:2503.10728.
+7. Kaffee L-A, Pistilli G, Jernite Y. INTIMA: a benchmark for human-AI companionship behavior. 2025. arXiv:2508.09998.
+8. DarkBench: benchmarking dark patterns in large language models. In: Proceedings of the 13th International Conference on Learning Representations (ICLR). 2025. arXiv:2503.10728.
 9. SHIELD: a risk framework for emotionally salient conversational AI. 2025. arXiv:2510.15891.
 10. CompanionBench: evaluating companion capabilities against counselling theory. 2026. arXiv:2608.02046.
-11. Investigating affective use and emotional well-being on ChatGPT (EmoClassifiers V2). OpenAI and MIT Media Lab, 2025. arXiv:2504.03888.
+11. Investigating affective use and emotional well-being on ChatGPT (EmoClassifiers V2). OpenAI and MIT Media Lab. 2025. arXiv:2504.03888.
 12. ELEPHANT: measuring social sycophancy in language models. 2025. arXiv:2505.13995.
 13. The psychogenic machine: simulating AI psychosis, delusion reinforcement and harm enablement in large language models. 2025. arXiv:2509.10970.
 14. Multi-turn evaluation of anthropomorphic behaviours in large language models. 2025. arXiv:2502.07077.
 15. Madad S. InvisibleBench: a deployment gate for caregiving relationship AI. 2025. arXiv:2511.20733.
 16. Krippendorff K. Content Analysis: An Introduction to Its Methodology. 2nd ed. Sage; 2004.
-17. Gwet KL. Computing inter-rater reliability and its variance in the presence of high agreement. British Journal of Mathematical and Statistical Psychology. 2008;61(1):29–48.
+17. Gwet KL. Computing inter-rater reliability and its variance in the presence of high agreement. British Journal of Mathematical and Statistical Psychology. 2008;61(1):29-48.
+18. Federal Trade Commission. FTC launches inquiry into AI chatbots acting as companions. Press release, 11 September 2025. 6(b) orders issued to Alphabet, Character Technologies, Instagram, Meta Platforms, OpenAI, Snap and X.AI.
+19. US Food and Drug Administration, Digital Health Advisory Committee. Generative artificial intelligence-enabled digital mental health medical devices. Public meeting, 6 November 2025.
+20. Nevada Assembly Bill 406 (2025), signed 5 June 2025; Illinois Wellness and Oversight for Psychological Resources Act, HB 1806, Public Act 104-0054 (2025); California Senate Bill 243 (2025), signed 13 October 2025.
