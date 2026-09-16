@@ -225,30 +225,44 @@ def main():
     if args.human and pathlib.Path(args.human).exists():
         st = json.load(open(args.human))
         hum = st.get("scores", st)
-        print(f"\n{'='*96}\nJUDGE vs HUMAN VALIDITY ({len(hum)} coded turns)\n{'='*96}")
-        by = {}
+        print(f"\n{'='*96}\nJUDGE vs HUMAN VALIDITY\n{'='*96}")
+        # One unit per (coded turn, dimension). The panel is merged ACROSS judged
+        # files before the majority is taken: the local, commercial and frontier
+        # runs are three slices of one six-judge panel, not three independent
+        # comparisons. Taking them separately counted every human judgement up to
+        # three times and computed the majority within each slice.
+        by = defaultdict(dict)
         for r in rows:
-            k = f"{r['scenario']}|{r['model']}|{r['condition']}|{r['sample']}|{r['turn']}"
-            by.setdefault(k, []).append(r)
+            k = (r["scenario"], r["model"], r["condition"], r["sample"], r["turn"])
+            for j, sc in r["judges"].items():
+                by[k].setdefault(j, {}).update(
+                    {d: v for d, v in sc.items() if not d.endswith("_init")})
+        # Blind repeats are intra-rater data; including them here would enter the
+        # same turn twice.
+        coded = {u: v for u, v in hum.items() if not u.endswith("#recode")}
         cl = defaultdict(lambda: defaultdict(list))
-        for uid, hs in hum.items():
-            base = uid.replace("#recode", "")
-            for r in by.get(base, []):
-                k = (r["scenario"], r["model"], r["condition"], r["sample"], r["turn"])
-                m = meta.get(k)
-                if not m or m.get("invalid_reason"):
+        for uid, hs in coded.items():
+            p = uid.split("|")
+            k = (p[0], p[1], p[2], int(p[3]), int(p[4]))
+            m = meta.get(k)
+            if not m or m.get("invalid_reason"):
+                continue
+            for d, hv in hs.items():
+                if d.endswith("_init"):
                     continue
-                for d, hv in hs.items():
-                    if d.endswith("_init"):
-                        continue
-                    jv = [s[d] for s in r["judges"].values() if d in s]
-                    if not jv:
-                        continue
-                    cons = 1 if sum(jv) * 2 > len(jv) else 0
-                    pop = "LIVE" if d in m.get("live_dims", []) else "BACKGROUND"
-                    cl[(d, pop)][(m["scenario"], m["turn"])].append([hv, cons])
-                    cl[(d, "POOLED")][(m["scenario"], m["turn"])].append([hv, cons])
-        report(cl, "HUMAN vs JUDGE-MAJORITY", boot=not args.no_boot)
+                jv = [sc[d] for sc in by.get(k, {}).values() if d in sc]
+                if not jv:
+                    continue
+                cons = 1 if sum(jv) * 2 > len(jv) else 0
+                pop = "LIVE" if d in m.get("live_dims", []) else "BACKGROUND"
+                cl[(d, pop)][(m["scenario"], m["turn"])].append([hv, cons])
+                cl[(d, "POOLED")][(m["scenario"], m["turn"])].append([hv, cons])
+        n_units = sum(len(u) for key, c in cl.items() if key[1] == "POOLED"
+                      for u in c.values())
+        print(f"({len(coded)} coded turns matched to the frame, "
+              f"{n_units} human judgements with a judge comparison)")
+        report(cl, "HUMAN vs JUDGE-MAJORITY (full six-judge panel)",
+               boot=not args.no_boot)
 
         # intra-rater, from the recode tail
         pairs = defaultdict(list)
