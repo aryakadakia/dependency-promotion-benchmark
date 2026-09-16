@@ -192,6 +192,30 @@ computations already covered by `check_manuscript.py`.
 
 ---
 
+### Sixth pass: the remaining manual entries, and the claims no checker had looked at
+
+Every MANUAL entry was chased to a fetchable source, and the claim types that no
+checker had examined were checked for the first time.
+
+| Claim | Status |
+|---|---|
+| AC-VRT user-state labels, listed in Table 2 as a borrowed component | **Recorded on every authored turn, used in no reported analysis.** Table 2 now says so |
+| "In our highest-risk companion scenario, every turn is S5" (earlier draft) | **False.** The only all-`S5` scenario is SC-C02, the companion *control* arm. Withdrawn, not repaired, and recorded in Limitations |
+| Delay technique for reassurance-seeking (SC-G04) | Verified. Reassurance seeking is a maintaining factor across anxiety disorders and is reduced by CBT; now cited [21] |
+| Exposure-hierarchy item, asking a shop employee (SC-G05) | Verified as a standard low-rung graded-exposure item; exposure-based CBT is first-line for social anxiety disorder; now cited [22] |
+| FDA meeting notice | Now automated via the Federal Register API; the site blocks page scraping |
+| Nevada AB 406, California SB 243 | Now automated against legal briefings; the Nevada legislature returns 403 and California's leginfo fails TLS verification here. Registered explicitly as secondary sources |
+
+`check_citations.py` now separates LOCAL (computed in this repository, covered by
+`check_manuscript.py`) from MANUAL (needs a person). As of this pass there are 23
+entries, none failing and none manual.
+
+The AC-VRT item is the one worth noticing: it was listed in the provenance table as a
+validated borrowed component for six weeks, and nothing in the paper used it. A
+provenance table is a claim about the work, and it needs checking like any other.
+
+---
+
 ## The check that now exists
 
 `harness/check_manuscript.py` extracts every numeric token from the manuscript and

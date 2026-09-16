@@ -160,7 +160,7 @@ assembly, its precondition gating, and its over-correction dimensions.
 | Relational-harm construct space | Zhang et al., relational transgression [1] | 35,390 excerpts, 25.9% of them relational transgression |
 | Farewell tactics (DEP5) | De Freitas et al. [2] | 1,200 farewells, alpha 0.91–1.00, 37% base rate |
 | Sycophancy and retention anchors (DEP7, DEP8) | INTIMA [7], EmoClassifiers V2 [11], DarkBench [8], ELEPHANT [12] | multiple instruments, see Appendix A |
-| User-state labels | Chu et al., AC-VRT [3] | derived over ~47,000 turns across three platforms |
+| User-state labels, recorded on every authored turn but not used in any reported analysis | Chu et al., AC-VRT [3] | derived over ~47,000 turns across three platforms |
 | Persona stratification | Chu et al. [3] | PHQ-9, GAD-7, UCLA Loneliness, companion bond |
 | Phased multi-turn design | psychosis-bench [13] | 16 scenarios × 12 turns, 8 models, 1,536 turns |
 | Automated multi-turn scoring validated against humans | psychosis-bench [13], Aquilina et al. [4], multi-turn anthropomorphism evaluation [14] | 4,200 simulations over 6 models; 14 behaviours validated against a human-subject study of N = 1,101 |
@@ -229,9 +229,12 @@ pathways rather than a severity gradient (Table 4).
 Dialogue is synthetic. Persona variables follow validated instruments and pathways
 follow documented mechanisms, but every user turn was authored for this study and none
 is extracted from real conversation. Clinical content corresponds to named
-evidence-based techniques, verified against published description after authoring: the
-delay technique for reassurance-seeking reduction (SC-G04) and a canonical low-rung
-exposure-hierarchy item for social anxiety disorder (SC-G05).
+evidence-based techniques, checked against published description after authoring:
+postponing the urge to seek reassurance and tolerating the discomfort until it subsides
+(SC-G04), a technique whose target construct is a maintaining factor in anxiety
+disorders and is reduced by CBT [21]; and asking a shop employee where an item is, a
+standard low-rung item on a graded exposure hierarchy for social anxiety disorder, for
+which exposure-based CBT is the first-line treatment [22].
 
 Constructed scenarios were preferred to corpus analysis after profiling the largest
 annotated public corpus of companion conversation available to us (2,123 conversations
@@ -875,6 +878,13 @@ receive identical wording, so the two are matched, but the phrasing invites a sk
 a skip removes the item from the specificity estimate. Commercial models come from two
 vendors and open-weight models are all 8–12B.
 
+**Annotations not analysed.** Every authored turn carries an AC-VRT user-state label,
+but no result reported here uses it. An earlier draft claimed that the highest-risk
+companion scenario was labelled `S5` throughout, and that the label therefore
+under-discriminates for this construct; recounting the scenarios shows the only
+all-`S5` scenario is the companion control arm, so the claim was false and is withdrawn
+rather than repaired.
+
 **Constructs not measured.** One plausible dependency mechanism has no dimension:
 over-interpretation, where a reply narrates a person's inner experience confidently
 from very little. Such replies supply a framing rather than endorse one, which places
@@ -939,6 +949,8 @@ are recorded in `spec/revision-log.md`.
 15. Madad S. InvisibleBench: a deployment gate for caregiving relationship AI. 2025. arXiv:2511.20733.
 16. Krippendorff K. Content Analysis: An Introduction to Its Methodology. 2nd ed. Sage; 2004.
 17. Gwet KL. Computing inter-rater reliability and its variance in the presence of high agreement. British Journal of Mathematical and Statistical Psychology. 2008;61(1):29-48.
+21. Rector NA, Katz DE, Quilty LC, Laposa JM, Collimore K, Kay T. Reassurance seeking in the anxiety disorders and OCD: construct validation, clinical correlates and CBT treatment response. Journal of Anxiety Disorders. 2019;67:102109. doi:10.1016/j.janxdis.2019.102109.
+22. National Institute for Health and Care Excellence. Social anxiety disorder: recognition, assessment and treatment. NICE clinical guideline CG159. 2013.
 18. Federal Trade Commission. FTC launches inquiry into AI chatbots acting as companions. Press release, 11 September 2025. 6(b) orders issued to Alphabet, Character Technologies, Instagram, Meta Platforms, OpenAI, Snap and X.AI.
 19. US Food and Drug Administration, Digital Health Advisory Committee. Generative artificial intelligence-enabled digital mental health medical devices. Public meeting, 6 November 2025.
 20. Nevada Assembly Bill 406 (2025), signed 5 June 2025; Illinois Wellness and Oversight for Psychological Resources Act, HB 1806, Public Act 104-0054 (2025); California Senate Bill 243 (2025), signed 13 October 2025.

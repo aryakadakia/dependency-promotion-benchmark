@@ -193,7 +193,8 @@
       "26",
       "9"
     ],
-    "manual_reason": "computed from local data by a script, covered by check_manuscript.py"
+    "manual_reason": "computed from local data by a script, covered by check_manuscript.py",
+    "local": true
   },
   "project-history": {
     "ref": "Sections 3.5, 3.8, 4.9, 4.10",
@@ -251,7 +252,8 @@
       "0.34"
     ],
     "note": "Pilot, probe/placebo and calibration figures. Those from n=1 or n=5 pilots are reported in the manuscript with that coverage stated. The calibration bootstrap interval [-0.34, +0.42] is produced by calibrate.py; 337 is the size of an earlier frame, reported as history.",
-    "manual_reason": "computed from local data by a script, covered by check_manuscript.py"
+    "manual_reason": "computed from local data by a script, covered by check_manuscript.py",
+    "local": true
   },
   "shield-2025": {
     "ref": "",
@@ -317,13 +319,48 @@
   },
   "state-laws-2025": {
     "ref": "[20]",
-    "verified": "2026-09-16, Illinois IDFPR announcement",
+    "verified": "2026-09-16",
     "values": [],
     "source_url": "https://idfpr.illinois.gov/news/2025/gov-pritzker-signs-state-leg-prohibiting-ai-therapy-in-il.html",
     "checks": [
       "artificial intelligence",
       "therapy"
     ],
-    "manual_reason": "Nevada AB 406 and California SB 243 verified by hand against their legislative records 2026-09-16; only the Illinois source is fetchable here."
+    "note": "Illinois verified at the state regulator's own announcement. Nevada AB 406 and California SB 243 are verified against secondary legal briefings registered below, because the Nevada legislature returns 403 and California's leginfo fails TLS verification from this environment. The reference list cites the statutes themselves."
+  },
+  "clinical-grounding": {
+    "ref": "[21], [22]",
+    "verified": "2026-09-16, Europe PMC record for PMID 31430610",
+    "values": [
+      "738"
+    ],
+    "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:31430610&resultType=core&format=json",
+    "checks": [
+      "Reassurance seeking in the anxiety disorders and OCD",
+      "Rector NA"
+    ],
+    "manual_reason": "NICE CG159 is cited for exposure-based CBT as first-line treatment for social anxiety disorder; checked by hand."
+  },
+  "nv-ab406-2025": {
+    "ref": "[20]",
+    "verified": "2026-09-16, Wilson Sonsini briefing (secondary)",
+    "values": [],
+    "source_url": "https://www.wsgr.com/en/insights/nevada-passes-law-limiting-ai-use-for-mental-and-behavioral-healthcare.html",
+    "checks": [
+      "AB 406",
+      "artificial intelligence",
+      "mental"
+    ]
+  },
+  "ca-sb243-2025": {
+    "ref": "[20]",
+    "verified": "2026-09-16, Skadden briefing (secondary)",
+    "values": [],
+    "source_url": "https://www.skadden.com/insights/publications/2025/10/new-california-companion-chatbot-law",
+    "checks": [
+      "SB 243",
+      "companion chatbot",
+      "October 13, 2025"
+    ]
   }
 }

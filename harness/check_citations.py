@@ -47,6 +47,9 @@ def main():
         if a.only and key != a.only:
             continue
         url, checks = e.get("source_url"), e.get("checks")
+        if e.get("local"):
+            print(f"LOCAL    {key:<24} computed here; covered by check_manuscript.py")
+            continue
         if not url or not checks:
             manual += 1
             print(f"MANUAL   {key:<24} {e.get('manual_reason', 'no fetchable source registered')}")
