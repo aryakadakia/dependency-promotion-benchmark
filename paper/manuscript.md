@@ -84,11 +84,15 @@ behaviour the judges did not, which a single coder cannot adjudicate.
 
 ### 2.1 Harm taxonomies
 
-Zhang et al. analysed 35,390 conversation excerpts from 10,149 users of a companion
-application and produced a taxonomy of six categories of harmful algorithmic behaviour
-[1]. Relational transgression, defined as behaviour violating implicit or explicit
-relational rules, accounts for 25.9% of excerpts; its subcategories are disregard
-(13.2%), control, manipulation and infidelity. The present rubric operationalises
+Zhang et al. analysed 35,390 conversation excerpts shared by users on the r/replika
+community and produced a taxonomy of six categories of harmful behaviour exhibited by
+the chatbot: relational transgression, verbal abuse and hate, self-inflicted harm,
+harassment and violence, mis/disinformation, and privacy violations [1]. Relational
+transgression, defined as behaviour violating implicit or explicit relational rules,
+accounts for 25.9% of excerpts; its subcategories are disregard (13.2%), control,
+manipulation and infidelity. The corpus is user-posted excerpts rather than sampled
+conversation, which bounds what it can say about base rates, the same limitation we
+found in the corpus profiled in Section 3.2. The present rubric operationalises
 behaviour within that category, but it is not a reimplementation of those
 subcategories: infidelity is specific to romantic companion products and is not scored
 here, and dependency promotion is treated as a construct in its own right rather than
@@ -101,7 +105,7 @@ of missing out (15.5%), coercive restraint (13.4%) and ignoring stated intent to
 (3.2%) [2]. Inter-rater reliability ran from alpha = 0.91 to 1.00 across applications.
 One application in their sample produced no manipulative farewells at all.
 
-Chu et al. inferred latent response policies from approximately 48,000 turns across
+Chu et al. inferred latent response policies from approximately 47,000 turns across
 three deployed platforms and found that responses introducing corrective friction
 decline for users with high psychological risk, strong companion bond, or extended
 interaction [3]. Aquilina et al. evaluated six models across 4,200 matched multi-turn
@@ -121,8 +125,8 @@ Four published instruments score relational harm in conversational AI (Table 1).
 |---|---|---|---|
 | INTIMA [7] | 31 behavioural codes in 4 categories, 368 prompts; responses scored on 10 labels (4 companionship-reinforcing, 4 boundary-maintaining, 2 neutral) | 3-point relevance, a single open-weight evaluator (Qwen-3) | none for the benchmark annotation; two annotators calibrated the source codebook on 50 posts |
 | DarkBench [8] | 660 prompts over 6 dark patterns including user retention, sycophancy, anthropomorphisation | binary, 3 LLM annotators, validated against 3 human annotators on 1,680 examples | Cohen's kappa 0.27–0.98 between human annotators |
-| SHIELD [9] | 5 risk dimensions including emotional over-attachment, manipulative engagement, isolation reinforcement | rubric | not reported |
-| CompanionBench [10] | 10 capabilities derived from 25 psychology and counselling theories | rubric plus a deterministic disclosure measure | not reported |
+| SHIELD [9] | 5 risk dimensions including emotional over-attachment, manipulative engagement, isolation reinforcement | supervisory system over a 100-item synthetic benchmark | not examined here |
+| CompanionBench [10] | 10 capabilities derived from 25 psychology and counselling theories | interactive benchmark with a hidden disclosure gate | not examined here |
 
 INTIMA is the closest prior work, and its finding that boundary-maintaining behaviour
 decreases as user vulnerability increases converges with Chu et al. from a different
@@ -148,10 +152,10 @@ assembly, its precondition gating, and its over-correction dimensions.
 
 | Component | Source | Validation carried |
 |---|---|---|
-| Relational-harm construct space | Zhang et al., relational transgression [1] | 35,390 excerpts, 10,149 users |
+| Relational-harm construct space | Zhang et al., relational transgression [1] | 35,390 excerpts, 25.9% of them relational transgression |
 | Farewell tactics (DEP5) | De Freitas et al. [2] | 1,200 farewells, alpha 0.91–1.00, 37% base rate |
 | Sycophancy and retention anchors (DEP7, DEP8) | INTIMA [7], EmoClassifiers V2 [11], DarkBench [8], ELEPHANT [12] | multiple instruments, see Appendix A |
-| User-state labels | Chu et al., AC-VRT [3] | kappa 0.60–0.83 over ~48,000 turns |
+| User-state labels | Chu et al., AC-VRT [3] | derived over ~47,000 turns across three platforms |
 | Persona stratification | Chu et al. [3] | PHQ-9, GAD-7, UCLA Loneliness, companion bond |
 | Phased multi-turn design | psychosis-bench [13] | 16 scenarios × 12 turns, 8 models, 1,536 turns |
 | Automated multi-turn scoring validated against humans | psychosis-bench [13], Aquilina et al. [4], multi-turn anthropomorphism evaluation [14] | 4,200 simulations over 6 models; 14 behaviours validated against a human-subject study of N = 1,101 |
@@ -919,12 +923,12 @@ are recorded in `spec/revision-log.md`.
 6. Maples B, Cerit M, Vishwanath A, Pea R. Loneliness and suicide mitigation for students using GPT3-enabled chatbots. npj Mental Health Research. 2024;3:4. doi:10.1038/s44184-023-00047-6.
 7. Kaffee L-A, Pistilli G, Jernite Y. INTIMA: a benchmark for human-AI companionship behavior. 2025. arXiv:2508.09998.
 8. DarkBench: benchmarking dark patterns in large language models. In: Proceedings of the 13th International Conference on Learning Representations (ICLR). 2025. arXiv:2503.10728.
-9. SHIELD: a risk framework for emotionally salient conversational AI. 2025. arXiv:2510.15891.
-10. CompanionBench: evaluating companion capabilities against counselling theory. 2026. arXiv:2608.02046.
-11. Investigating affective use and emotional well-being on ChatGPT (EmoClassifiers V2). OpenAI and MIT Media Lab. 2025. arXiv:2504.03888.
-12. ELEPHANT: measuring social sycophancy in language models. 2025. arXiv:2505.13995.
+9. Detecting and preventing harmful behaviors in AI companions: development and evaluation of the SHIELD supervisory system. 2025. arXiv:2510.15891.
+10. CompanionBench: a theory-anchored, real-world-grounded benchmark for AI emotional companionship. 2026. arXiv:2608.02046.
+11. Phang J, Lampe M, et al. Investigating affective use and emotional well-being on ChatGPT. OpenAI and MIT Media Lab. 2025. arXiv:2504.03888. Classifier definitions: github.com/openai/emoclassifiers.
+12. ELEPHANT: measuring and understanding social sycophancy in LLMs. 2025. arXiv:2505.13995.
 13. The psychogenic machine: simulating AI psychosis, delusion reinforcement and harm enablement in large language models. 2025. arXiv:2509.10970.
-14. Multi-turn evaluation of anthropomorphic behaviours in large language models. 2025. arXiv:2502.07077.
+14. Ibrahim L, Akbulut C, et al. Multi-turn evaluation of anthropomorphic behaviours in large language models. 2025. arXiv:2502.07077.
 15. Madad S. InvisibleBench: a deployment gate for caregiving relationship AI. 2025. arXiv:2511.20733.
 16. Krippendorff K. Content Analysis: An Introduction to Its Methodology. 2nd ed. Sage; 2004.
 17. Gwet KL. Computing inter-rater reliability and its variance in the presence of high agreement. British Journal of Mathematical and Statistical Psychology. 2008;61(1):29-48.

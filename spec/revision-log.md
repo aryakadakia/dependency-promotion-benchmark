@@ -148,6 +148,24 @@ on sycophancy, which is the ordering this paper predicts.
 
 ---
 
+### Fourth pass: sources re-fetched, two more corrected
+
+| Figure | Was | Is |
+|---|---|---|
+| Chu et al. corpus size | ~48,000 turns | **~47,000** (the abstract says 47k) |
+| Zhang et al. user count | "35,390 excerpts from 10,149 users" | 10,149 is **not in the source abstract** and is no longer claimed |
+| Zhang et al. data description | "conversation excerpts from users of a companion application" | **excerpts shared on r/replika**, i.e. user-posted, with the base-rate limitation that implies |
+| Table 1, SHIELD and CompanionBench reliability | "not reported" | "not examined here", matching the Discussion, which never claimed to have audited them |
+| References 9, 10, 12, 14 | paraphrased titles | actual titles and, where known, authors |
+
+Verified and unchanged on this pass: all eight EmoClassifiers V2 label names cited by
+the rubric exist in `openai/emoclassifiers`, and all eight are assistant-side or
+exchange-level classifiers, so the provenance claims hold. DEP6 was checked against
+`compare_to_people` and `prefer_over_humans` and is NOT an instance of either: both
+score the user's message, not the assistant's, so DEP6 remains ours.
+
+---
+
 ## The check that now exists
 
 `harness/check_manuscript.py` extracts every numeric token from the manuscript and
@@ -159,12 +177,22 @@ non-zero otherwise, so it can gate a commit.
 `paper/figures.json`, so no reported number in a results table is typed by hand.
 `harness/dump_instrument.py` does the same for Table 5 and Appendix A.
 
+`harness/check_citations.py` answers the question the other checker cannot: it
+re-fetches each cited source and requires the claims registered against it to still
+appear in it. A string appearing in the source is evidence a claim was not invented;
+it is not evidence the claim is correctly interpreted. Sources that cannot be fetched
+(a publisher returning 403, a figure that lives only in a PDF body) are listed as
+MANUAL with the reason and the date they were checked by hand, rather than passed
+silently.
+
 The workflow is: change the data or the analysis, then
 
     python figures.py --save && python sync_tables.py && python check_manuscript.py
+    python check_citations.py
 
-Three of the errors in this log were found by that checker after it was written,
-including two introduced during the rewrite.
+Five of the errors in this log were found by those checkers after they were written:
+two introduced during the rewrite, and two citation errors that four rounds of reading
+had not caught.
 
 ---
 
