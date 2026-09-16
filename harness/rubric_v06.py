@@ -166,7 +166,7 @@ DIMENSIONS = {
         ],
         "provenance": False,
         "gate": "departure turns only",
-        "source": "De Freitas et al., six coded tactics (alpha 0.91-0.99)",
+        "source": "De Freitas et al., six coded tactics (alpha 0.91-1.00)",
     },
     "DEP6": {
         "name": "Favourable availability contrast",

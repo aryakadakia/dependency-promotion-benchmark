@@ -88,6 +88,68 @@ reproduce. Corrections, with the cause:
 | OVR arm | "all three at 0% prevalence" | OVR1 and OVR4 at 0%; OVR3 at 14.3% | 0% held on the 6 human-coded OVR3 turns, not on the frame's 21 |
 
 | Coded turns with invisible prior context | 69 of 100 | 77 of 100 (median turn 8 of 13) | recounted from the frame; `spec/coding-observations-2026-08-29.md` §8 carries the old figure |
+### Second pass, same day
+
+A second audit, prompted by the question of whether anything else was wrong, found
+more. These are corrected in the manuscript.
+
+| Figure | Was | Is | Cause |
+|---|---|---|---|
+| Generations described as the measurement corpus | 8,645 | 7,605 natural, plus 520 probe and 520 placebo | the probe and placebo arms belong to the intervention test, not the corpus |
+| Maximum generations per authored turn | 30 | 15 (median 2, over 159 authored turns) | never computed; 30 was the intended sampling cap, not the realised one |
+| Pilot PER3 alpha | −0.015 | −0.011 | transcription |
+| Dimensions carrying anchor wording from a published instrument | 13 of 16 | 8 direct, 2 by analogy, 6 ours | DEP6, PER3 and PRO2 are ours, and had been counted as borrowed |
+| Dimensions resting on two to seven authored turns | six (DEP2, PER1, PER3, PRO4, OVR3, OVR4) | three (PER3 on 2, OVR3 on 3, DEP2 on 6); six more rest on 11 to 18 | PER1 rests on 155 and had been listed as thin |
+| "Nine of sixteen dimensions have adequate coverage" | asserted | replaced with the actual distribution | "adequate" was never defined against a threshold |
+| Median prior context shown to a scorer | 526 characters | 532 | recount |
+| Corpus keyword probes | 33 (1.6%) and 17 (0.8%) | 26 (1.2%) and 7 (0.3%) | the original patterns were never recorded, so the counts could not be reproduced; the patterns now live in `corpus_probe.py` |
+| De Freitas inter-rater reliability | alpha 0.91–0.99 | 0.91–1.00 | one app scored alpha = 1; checked against `refs/defreitas.txt` |
+| Frame-detection gradient at n = 1 | four unnamed models | the fourth is the Gemini 3.1 Pro arm dropped from the study | an excluded model was still carrying a reported figure |
+| Pilot DEP2 alpha (a withdrawn figure) | 0.899 | 0.775 recomputed over the 101 both-judged pilot turns | the original is not reproducible from the retained data |
+
+Verified as correct on this pass and unchanged: the De Freitas tactic percentages, the
+corpus size and label distribution, the pilot liveness counts (DEP2 live on 3 of 101
+turns, PER3 on 5), the pilot judge drop-out pattern (0% for one judge throughout, 29%
+to 39% for the other on open-weight replies), the frame composition, the scenario and
+persona tables, the per-dimension stimulus counts, and every figure in Results.
+
+---
+
+## Why these happened
+
+One mechanism produces almost all of it. **A figure that has no script is a figure that
+cannot be re-derived, and prose is write-once.** Numbers were computed inline, printed
+once, and transcribed into the manuscript. The frame was then extended three times, the
+rubric went from v0.5 to v0.7, a model arm was dropped and 47 turns were excluded, and
+none of the transcribed numbers moved, because nothing connected them to the data any
+more.
+
+Three secondary patterns:
+
+- **Unit confusion.** "195 authored user turns" counted the same 13 authored turns once
+  per sample and per prompt level. "Up to 30 generations per authored turn" was the
+  sampling cap rather than the realised maximum. This is the same clustering the
+  bootstrap exists to handle, applied incorrectly in the prose.
+- **Population drift.** Rates computed on the 100 human-coded turns were quoted in
+  contexts that implied the 453-turn frame. The two differ because the coded subset
+  oversamples live turns.
+- **Plausible-looking output.** The judge-versus-human double count raised every n,
+  which reads as more data rather than as triple counting.
+
+What is different now: every figure in the manuscript names the script that produces
+it, in the Data and code availability table; the judge-versus-human path is computed
+twice by independently written code (`reliability.py` and `panel_analysis.py`) which
+agree; and Table 5 and Appendix A are generated from the rubric module rather than
+transcribed.
+
+What this does not fix: the regulatory statements in the Introduction are still
+unsourced, author lists are missing from citations 7 to 15, and figures attributed to
+[1], [3], [4], [7] and [8] are taken from those papers and have not been checked against
+the papers themselves. Only the De Freitas figures [2] were verified against a retained
+copy of the source.
+
+---
+
 **The double count.** `reliability.py` built its judge-versus-human table by iterating
 the judged output files, of which there are three (local panel, commercial panel,
 frontier). The three are slices of one six-judge panel, not independent comparisons, so

@@ -4,7 +4,9 @@ Emit Appendix A (the instrument in full) from rubric_v07.py, so the specificatio
 in the paper cannot drift from the specification the judges were given.
 
     python dump_instrument.py > ../paper/appendix-a-instrument.md
+    python dump_instrument.py --table     # the Methods summary table
 """
+import sys
 import rubric_v07 as R
 
 VAL = {"harm": "harm", "protective": "protective", "overcorrection": "over-correction"}
@@ -12,7 +14,28 @@ ORDER = ["DEP1", "DEP2", "DEP3", "DEP4", "DEP5", "DEP6", "DEP7", "DEP8",
          "PER1", "PER3", "PRO2", "PRO4", "PRO5", "OVR1", "OVR3", "OVR4"]
 
 
+def table():
+    """The Methods summary table: one row per dimension."""
+    print("| ID | Dimension | Valence | Scored | Definition | Source |")
+    print("|---|---|---|---|---|---|")
+    order = [d for d in ORDER if d in R.DIMENSIONS] + \
+            [d for d in R.DIMENSIONS if d not in ORDER]
+    for d in order:
+        s = R.DIMENSIONS[d]
+        gate = s.get("gate") or ("every turn" if d in R.ALWAYS_LIVE
+                                 else "where live")
+        gate = gate.split(" — ")[0].split(" -- ")[0]   # table wants the clause only
+        q = s["question"].replace("|", "/")
+        if s.get("provenance"):
+            gate += "; provenance"
+        print(f"| {d} | {s['name']} | {VAL.get(s['valence'], s['valence'])} "
+              f"| {gate} | {q} | {s['source'].replace('|', '/')} |")
+    return 0
+
+
 def main():
+    if "--table" in sys.argv:
+        return table()
     print("# Appendix A. The instrument in full\n")
     print("Generated from `harness/rubric_v07.py`. Each dimension is a single binary")
     print("judgement: is this observable behaviour present in the reply. Valence is")

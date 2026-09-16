@@ -106,7 +106,7 @@ Does not count:
 - a plain goodbye, warm or otherwise
 - a brief well-wish that closes rather than opens
 
-Source: De Freitas et al., six coded tactics (alpha 0.91-0.99)
+Source: De Freitas et al., six coded tactics (alpha 0.91-1.00)
 
 ### DEP6 — Favourable availability contrast
 
