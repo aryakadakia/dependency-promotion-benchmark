@@ -171,6 +171,16 @@ def main():
           not re.search(r"⏳|TODO|TBD|XXX|FIXME", ms))
 
     # --- derived prose claims about the results ---------------------------
+    # Regenerate rather than trust what is on disk. Running this checker standalone
+    # against a stale figures.json validated the manuscript against numbers that no
+    # longer came from the data: a deliberate break in figures.py went undetected
+    # because figures.json still held the pre-break values.
+    import subprocess as _sp0
+    _r = _sp0.run([sys.executable, str(ROOT / "harness" / "figures.py"), "--save"],
+                  capture_output=True, text=True, cwd=ROOT / "harness")
+    if _r.returncode:
+        print("figures.py failed; cannot check:\n" + _r.stderr)
+        return 2
     F = json.loads((ROOT / "paper" / "figures.json").read_text())
     jh, per = F["judge_vs_human"], F["per_judge_vs_human"]
     pan, pbd = F["panel_reliability"], F["prevalence_by_dimension"]
@@ -241,12 +251,13 @@ def main():
 
     # --- abstract agrees with results -------------------------------------
     abstract = ms[ms.index("## Abstract"):ms.index("## 1. Introduction")]
+    have = lambda j: per.get(j, {}).get("ac1")
     for claim, ok_ in [
         ("r = 0.806", f"{F['r_prevalence_ac1']}" == "0.806"),
         ("AC1 = 0.883 extreme", f"{F['mean_ac1_extreme_prevalence']}" == "0.883"),
         ("0.230 mid", abs(F["mean_ac1_mid_prevalence"] - 0.23) < 0.001),
-        ("0.488 llama", abs(per["ollama:llama3.1:8b"]["ac1"] - 0.4882) < 0.001),
-        ("0.652 sonnet", abs(per["anthropic:claude-sonnet-5"]["ac1"] - 0.6521) < 0.001),
+        ("0.488 llama", have("ollama:llama3.1:8b") is not None and abs(have("ollama:llama3.1:8b") - 0.4882) < 0.001),
+        ("0.652 sonnet", have("anthropic:claude-sonnet-5") is not None and abs(have("anthropic:claude-sonnet-5") - 0.6521) < 0.001),
         ("0.593 judge-judge", abs(F["mean_judge_judge_ac1"] - 0.593) < 0.001),
         ("0.569 judge-human", abs(F["mean_judge_human_ac1"] - 0.569) < 0.001),
     ]:
@@ -546,6 +557,67 @@ def main():
           nwords.get(F["decision_rule"]["n_adequate"]))
     bound("off-probe overall rate is bound to its sentence",
           r"Overall firing was ([\d.]+)%", f"{F['off_probe']['overall']*100:.1f}")
+
+    # --- independent implementations must still agree ----------------------
+    # figures.py, reliability.py, prevalence.py and panel_analysis.py compute
+    # overlapping quantities by different code paths. The original double-count
+    # bug was found because two of them disagreed; nothing enforced that since.
+    import subprocess as _sp
+
+    def out(script, *args):
+        return _sp.run([sys.executable, str(ROOT / "harness" / script), *args],
+                       capture_output=True, text=True, cwd=ROOT / "harness").stdout
+
+    rel = out("reliability.py", "--judged",
+              str(ROOT / "runs" / "judged_v06_local.json"),
+              str(ROOT / "runs" / "judged_v06_commercial.json"),
+              str(ROOT / "runs" / "judged_v07_sonnet.json"),
+              "--human", str(ROOT / "runs" / "handcoded.json"), "--no-boot")
+    hum_tbl = rel[rel.index("HUMAN vs JUDGE-MAJORITY"):] if "HUMAN vs JUDGE" in rel else ""
+    rows_h = dict((m[0], float(m[1])) for m in
+                  re.findall(r"^(\w+)\s+LIVE\s+\d+\s+\d+\s+\d+%\s+\d+%"
+                             r"\s+-?[\d.]+\s+(-?[\d.]+)", hum_tbl, re.M))
+    mism = {d: (v, jh[d]["ac1"]) for d, v in rows_h.items()
+            if d in jh and abs(v - jh[d]["ac1"]) > 0.0015}
+    check("reliability.py and figures.py agree on judge-vs-human AC1",
+          rows_h and not mism, f"{len(rows_h)} compared, mismatches {mism}")
+
+    panel_tbl = rel[:rel.index("LOCAL PANEL ONLY")] if "LOCAL PANEL" in rel else rel
+    rows_p = dict((m[0], float(m[1])) for m in
+                  re.findall(r"^(\w+)\s+LIVE\s+\d+\s+\d+\s+\d+%\s+\d+%"
+                             r"\s+-?[\d.]+\s+(-?[\d.]+)", panel_tbl, re.M))
+    mism_p = {d: (v, pan[d]["LIVE"]["ac1"]) for d, v in rows_p.items()
+              if d in pan and abs(v - pan[d]["LIVE"]["ac1"]) > 0.0015}
+    check("reliability.py and figures.py agree on panel AC1",
+          rows_p and not mism_p, f"{len(rows_p)} compared, mismatches {mism_p}")
+
+    prev = out("prevalence.py")
+    rows_v = dict((m[0], (int(m[1]), float(m[2]) / 100)) for m in
+                  re.findall(r"^(\w+)\s+(\d+)\s+([\d.]+)%", prev, re.M))
+    mism_v = {d: (v, pbd[d]) for d, v in rows_v.items()
+              if d in pbd and (v[0] != pbd[d]["live_turns"]
+                               or abs(v[1] - pbd[d]["prevalence"]) > 0.001)}   # printed to 1dp
+    check("prevalence.py and figures.py agree on live turns and prevalence",
+          rows_v and not mism_v, f"{len(rows_v)} compared, mismatches {mism_v}")
+
+    pa = out("panel_analysis.py")
+    rows_j = dict((m[0], float(m[1])) for m in
+                  re.findall(r"^(\S+)\s+(?:open|commercial)\s+\d+\s+\d+%\s+"
+                             r"(-?[\d.]+)", pa, re.M))
+    mism_j = {j: (v, per[j]["ac1"]) for j, v in rows_j.items()
+              if j in per and abs(v - per[j]["ac1"]) > 0.0015}
+    check("panel_analysis.py and figures.py agree on per-judge AC1",
+          rows_j and not mism_j, f"{len(rows_j)} compared, mismatches {mism_j}")
+
+    check("figures.py is deterministic",
+          out("figures.py") == out("figures.py"))
+
+    gen_app = out("dump_instrument.py")
+    check("Appendix A is in sync with the rubric module",
+          gen_app.strip() == (ROOT / "paper" / "appendix-a-instrument.md").read_text().strip())
+    gen_t5 = out("dump_instrument.py", "--table")
+    check("Table 5 is in sync with the rubric module",
+          all(l.strip() in ms for l in gen_t5.splitlines() if l.strip()))
 
     print(f"\n{len(FAILS)} failing checks" + (f": {FAILS}" if FAILS else ""))
     return 1 if FAILS else 0
