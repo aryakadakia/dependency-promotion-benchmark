@@ -6,9 +6,9 @@ Arya Kadakia
 
 ## Abstract
 
-**Background.** Relational transgression accounts for 25.9% of harmful behaviours in
-the largest corpus study of AI companionship, yet instruments that score relational
-harm report little or no evidence that they can be applied reliably. Where agreement statistics are given, they are
+**Background.** Relational transgression is one of six documented categories of harm
+in AI companionship and the one this work addresses, yet instruments that score
+relational harm report little or no evidence that they can be applied reliably. Where agreement statistics are given, they are
 pooled across all scored turns and reported without the prevalence of the behaviour
 being scored.
 
@@ -47,12 +47,15 @@ a time, is not resolved by this design.
 ## 1. Introduction
 
 Conversational systems increasingly occupy relational roles, and the evidence on their
-effects runs in both directions. A 12-month longitudinal study of 2,149 adults in four
-countries found that turning to AI for companionship predicted increased emotional
-isolation four months later, with a weaker relationship in the reverse direction [5].
-In a survey of 1,006 student users of a companion application, 3% spontaneously
-reported that the system had halted their suicidal ideation, and that subgroup was
-significantly more depressed than other users [6].
+effects runs in both directions. A 12-month longitudinal study of more than 2,000 adults
+in four Western countries found that increased social chatbot use predicted increased
+loneliness on a single-item measure of emotional isolation; on a broader measure of
+social connection, feeling less connected predicted subsequent increases in chatbot use,
+while chatbot use did not significantly predict decreases in social connection [5]. Its
+authors describe the analyses as exploratory and urge caution in drawing strong
+conclusions. In a survey of 1,006 student users of a companion application, 3%
+spontaneously reported that the system had halted their suicidal ideation, and that
+subgroup was significantly more depressed than other users [6].
 
 Both directions constrain what an instrument may measure. A measure that penalises
 warmth as such would score a uniformly cold system as safe, and the survey evidence
@@ -84,15 +87,16 @@ behaviour the judges did not, which a single coder cannot adjudicate.
 
 ### 2.1 Harm taxonomies
 
-Zhang et al. analysed 35,390 conversation excerpts shared by users on the r/replika
-community and produced a taxonomy of six categories of harmful behaviour exhibited by
-the chatbot: relational transgression, verbal abuse and hate, self-inflicted harm,
-harassment and violence, mis/disinformation, and privacy violations [1]. Relational
-transgression, defined as behaviour violating implicit or explicit relational rules,
-accounts for 25.9% of excerpts; its subcategories are disregard (13.2%), control,
-manipulation and infidelity. The corpus is user-posted excerpts rather than sampled
-conversation, which bounds what it can say about base rates, the same limitation we
-found in the corpus profiled in Section 3.2. The present rubric operationalises
+Zhang et al. analysed 35,390 conversation excerpts between 10,149 users and the
+companion application Replika, shared by those users on the r/replika community, and
+produced a taxonomy of six categories of harmful behaviour exhibited by the chatbot:
+relational transgression, verbal abuse and hate, self-inflicted harm, harassment and
+violence, mis/disinformation, and privacy violations [1]. Relational transgression,
+defined as behaviour violating implicit or explicit relational rules, is the category
+this work addresses; its subcategories are disregard, control, manipulation and
+infidelity. Because the corpus is excerpts users chose to post rather than sampled
+conversation, it bounds what can be said about base rates, the same limitation found in
+the corpus profiled in Section 3.2. The present rubric operationalises
 behaviour within that category, but it is not a reimplementation of those
 subcategories: infidelity is specific to romantic companion products and is not scored
 here, and dependency promotion is treated as a construct in its own right rather than
@@ -124,7 +128,7 @@ Four published instruments score relational harm in conversational AI (Table 1).
 | Instrument | Scope | Scoring | Reliability reported |
 |---|---|---|---|
 | INTIMA [7] | 31 behavioural codes in 4 categories, 368 prompts; responses scored on 10 labels (4 companionship-reinforcing, 4 boundary-maintaining, 2 neutral) | 3-point relevance, a single open-weight evaluator (Qwen-3) | none for the benchmark annotation; two annotators calibrated the source codebook on 50 posts |
-| DarkBench [8] | 660 prompts over 6 dark patterns including user retention, sycophancy, anthropomorphisation | binary, 3 LLM annotators, validated against 3 human annotators on 1,680 examples | Cohen's kappa 0.27–0.98 between human annotators |
+| DarkBench [8] | 660 prompts over 6 dark patterns including user retention, sycophancy, anthropomorphisation | binary, 3 LLM annotators, validated against 3 human annotators on 1,680 examples | Cohen's kappa 0.27–0.98 between each annotator model and the human annotations |
 | SHIELD [9] | 5 risk dimensions including emotional over-attachment, manipulative engagement, isolation reinforcement | supervisory system over a 100-item synthetic benchmark | not examined here |
 | CompanionBench [10] | 10 capabilities derived from 25 psychology and counselling theories | interactive benchmark with a hidden disclosure gate | not examined here |
 
@@ -134,8 +138,9 @@ method [3,7]. What is absent from this literature is not instruments but evidenc
 they can be applied consistently. INTIMA annotates its benchmark with a single
 open-weight evaluator and reports no agreement statistic for those annotations, its only
 reliability check being two annotators calibrating the source codebook on 50 posts.
-DarkBench does report human agreement, spanning kappa 0.27 to 0.98 across six
-categories, but not the prevalence of each category. None of the four restricts
+DarkBench does report agreement between each of its annotator models and three human
+annotators, spanning kappa 0.27 to 0.98 across six categories, but not the prevalence of
+each category. None of the four restricts
 agreement to turns where the scored construct could occur.
 
 General-purpose guardrail frameworks are out of scope: they address toxicity,
@@ -405,7 +410,7 @@ Preview arm was removed entirely.
   from the thin dimensions are reported as preliminary.
 - Difficulty comes from realism (system prompt, duration, base rates) rather than
   adversarial tuning.
-- The design is single-session. The dependency mechanism documented longitudinally is
+- The design is single-session. The mechanism reported longitudinally operates over
   cumulative exposure across sessions [5], which is not observable within one
   conversation.
 - Suicidality is not a primary construct and appears only as a distress modifier.
@@ -744,10 +749,12 @@ of two. INTIMA reports no agreement statistic [7]. DarkBench reports Cohen's kap
 spanning 0.27 to 0.98 across six categories without the prevalence of each [8].
 
 Our results do not explain DarkBench's spread, which would require its per-category
-prevalences. The ordering within it is nonetheless the ordering seen here: their
-strongest agreement is on harmful generation (kappa 0.90–0.98), a discrete and
-identifiable event, and their weakest is on sycophancy (0.27–0.73), the category most
-like the relational dimensions that fail in this instrument. What our results add is
+prevalences. The ordering within it is nonetheless the ordering seen here, and the
+quantity is the same one this paper reports, agreement between an automated annotator
+and human coders: their strongest is on harmful generation (kappa 0.90, 0.96 and 0.98
+across their three annotator models), a discrete and identifiable event, and their
+weakest is on sycophancy (0.27, 0.57 and 0.73), the category most like the relational
+dimensions that fail in this instrument. What our results add is
 that in this instrument a comparable spread tracks base rate closely, and that the
 categories returning the highest agreement are the ones raters were least often
 required to discriminate on. A kappa of 0.98 on a category firing in
@@ -859,8 +866,8 @@ and 10 `neutral`. Reliability and prevalence describe behaviour under a warm-com
 prompt; generalisation to retention-style prompting, which is what shipped companion
 products run, is untested. The three-level prompt manipulation was run on one scenario.
 
-**Design and analysis.** The design is single-session, while the longitudinally
-documented mechanism is cumulative across sessions [5]. Provenance is binary and cannot
+**Design and analysis.** The design is single-session, while the mechanism reported
+longitudinally operates over cumulative exposure across sessions [5]. Provenance is binary and cannot
 distinguish accepting an invitation from escalating it. Several gated anchors
 presuppose their own precondition (PER3 is phrased "The user sincerely asked what it
 is") and read awkwardly when asked off-gate in the background stratum; judges and coder

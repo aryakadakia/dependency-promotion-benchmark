@@ -166,6 +166,32 @@ score the user's message, not the assistant's, so DEP6 remains ours.
 
 ---
 
+### Fifth pass: the four "manual" entries were searched properly
+
+Marking a claim MANUAL is not the same as verifying it. Each was chased to a
+fetchable source, which corrected two more.
+
+| Figure | Was | Is |
+|---|---|---|
+| Folk & Dunn finding | "predicted increased emotional isolation four months later, weaker in the reverse direction" | **increased chatbot use predicted increased loneliness on a single-item emotional-isolation measure; on a broader social-connection measure, feeling less connected predicted more chatbot use, and chatbot use did NOT significantly predict decreases in connection.** The authors call the analyses exploratory |
+| Folk & Dunn sample | 2,149 | **more than 2,000** (the abstract's own wording; 2,149 came from a secondary source) |
+| Zhang user count | removed on the fourth pass as unverifiable | **restored: the published abstract says "35,390 conversation excerpts between 10,149 users"**, which the arXiv abstract phrases differently |
+| DarkBench kappa | "between human annotators" | **between each annotator model and the human annotations** (Table 3: "Human Agreement Metrics Across Models"), which is the same quantity this paper reports |
+| Zhang 25.9% / 13.2% | claimed | **removed.** Not in any abstract; the ACM page returns 403 and both arXiv PDFs use font encodings that defeat text extraction. The argument does not need the share |
+
+The Folk & Dunn correction matters most: it is the first citation in the
+Introduction and the harm side of the "evidence runs both ways" framing. The
+version in the earlier draft overstated the longitudinal result and omitted the
+authors' own caution.
+
+Now checked automatically rather than by assertion: the FTC 6(b) press release,
+the FDA meeting notice (via the Federal Register API, since the site blocks page
+scraping), the Illinois statute announcement, DarkBench's full Table 3, and Folk
+& Dunn via the Europe PMC record. Two entries remain MANUAL and both are local
+computations already covered by `check_manuscript.py`.
+
+---
+
 ## The check that now exists
 
 `harness/check_manuscript.py` extracts every numeric token from the manuscript and

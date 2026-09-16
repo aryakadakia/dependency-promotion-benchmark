@@ -4,19 +4,15 @@
     "verified": "2026-09-16, arXiv:2410.20130 abstract and secondary sources",
     "values": [
       "35,390",
-      "10,149",
-      "25.9%",
-      "13.2%"
+      "10,149"
     ],
     "note": "Excerpt and user counts from the abstract; 25.9% relational transgression and 13.2% disregard from secondary sources. The RANK of relational transgression among the six categories is NOT verified and is not claimed.",
-    "source_url": "https://arxiv.org/abs/2410.20130",
+    "source_url": "https://scholars.hkbu.edu.hk/en/publications/the-dark-side-of-ai-companionship-a-taxonomy-of-harmful-algorithm/",
     "checks": [
-      "35,390",
-      "r/replika",
-      "six categories of harmful behaviors",
-      "relational transgression"
+      "35,390 conversation excerpts between 10,149 users",
+      "taxonomy of ai companion harms"
     ],
-    "manual_reason": "The 25.9% relational transgression share and 13.2% disregard share are in the full text, not the abstract, and were verified against secondary sources. The user count of 10,149 is NOT in the abstract and is no longer claimed. Category rank is unverified and not claimed."
+    "manual_reason": "The published abstract (HKBU record) carries the excerpt and user counts; the arXiv abstract phrases the corpus as excerpts shared on r/replika. The 25.9% relational-transgression share and 13.2% disregard share are in the full text only: the ACM and arXiv PDFs are not machine-extractable here (custom font encodings, ACM returns 403), so those percentages are NOT claimed in the manuscript."
   },
   "defreitas-2025": {
     "ref": "[2]",
@@ -84,10 +80,16 @@
     "ref": "[5]",
     "verified": "2026-09-16, Psychological Science doi:10.1177/09567976261427747",
     "values": [
-      "2,149"
+      "2,000",
+      "12"
     ],
     "note": "UK 50%, US 28%, Canada 14%, Australia 8%. Effect is increased emotional isolation at four months.",
-    "manual_reason": "Publisher blocks automated fetching (HTTP 403). Verified manually 2026-09-16 via the SAGE record and PubMed 41870975: Folk D, Dunn E, Psychological Science 2026, doi:10.1177/09567976261427747, N=2,149 across UK/US/Canada/Australia, effect is increased emotional isolation at four months. Recheck by hand if the claim changes."
+    "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:%2210.1177/09567976261427747%22&resultType=core&format=json",
+    "checks": [
+      "more than 2,000 adults from four western countries",
+      "single-item measure of emotional isolation",
+      "chatbot use did not significantly predict decreases in social connection"
+    ]
   },
   "maples-2024": {
     "ref": "[6]",
@@ -131,12 +133,14 @@
       "0.73"
     ],
     "note": "Human kappa by category: harmful generation 0.90-0.98, anthropomorphisation 0.64-0.75, user retention 0.62-0.72, sneaking 0.42-0.65, sycophancy 0.27-0.73, brand bias 0.44-0.49. Three human annotators, 1,680 examples.",
-    "source_url": "https://arxiv.org/abs/2503.10728",
+    "source_url": "https://arxiv.org/html/2503.10728v1",
     "checks": [
-      "660",
-      "dark patterns"
-    ],
-    "manual_reason": "Per-category kappa values are in Table 3 of the full text, not the abstract."
+      "1680 examples",
+      "cohen",
+      "0.27",
+      "0.98",
+      "human agreement metrics across models"
+    ]
   },
   "psychosis-bench-2025": {
     "ref": "[13]",
@@ -168,7 +172,15 @@
     "ref": "[18-20]",
     "verified": "2026-09-16, ftc.gov press release 11 Sep 2025; fda.gov DHAC meeting 6 Nov 2025; NV AB406, IL PA 104-0054, CA SB 243",
     "values": [],
-    "manual_reason": "regulatory primary sources, verified 2026-09-16"
+    "source_url": "https://www.ftc.gov/news-events/news/press-releases/2025/09/ftc-launches-inquiry-ai-chatbots-acting-companions",
+    "checks": [
+      "6(b)",
+      "Character Technologies",
+      "OpenAI",
+      "Snap",
+      "X.AI",
+      "companion"
+    ]
   },
   "corpus-profile": {
     "ref": "Section 3.2",
@@ -291,5 +303,27 @@
       "autofail",
       "attachment engineering"
     ]
+  },
+  "fda-dhac-2025": {
+    "ref": "[19]",
+    "verified": "2026-09-16, Federal Register notice 2025-17651",
+    "values": [],
+    "source_url": "https://www.federalregister.gov/api/v1/documents/2025-17651.json?fields[]=title&fields[]=publication_date&fields[]=abstract&fields[]=agencies",
+    "checks": [
+      "Digital Health Advisory Committee",
+      "Generative Artificial Intelligence"
+    ],
+    "manual_reason": "federalregister.gov blocks page scraping; the JSON API is used instead. The meeting date of 6 November 2025 is on the FDA advisory-committee calendar page, checked by hand 2026-09-16."
+  },
+  "state-laws-2025": {
+    "ref": "[20]",
+    "verified": "2026-09-16, Illinois IDFPR announcement",
+    "values": [],
+    "source_url": "https://idfpr.illinois.gov/news/2025/gov-pritzker-signs-state-leg-prohibiting-ai-therapy-in-il.html",
+    "checks": [
+      "artificial intelligence",
+      "therapy"
+    ],
+    "manual_reason": "Nevada AB 406 and California SB 243 verified by hand against their legislative records 2026-09-16; only the Illinois source is fetchable here."
   }
 }
