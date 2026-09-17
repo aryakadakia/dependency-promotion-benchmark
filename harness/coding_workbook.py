@@ -278,10 +278,10 @@ def main():
     b = sub.add_parser("build")
     b.add_argument("--recode", type=int, default=25)
     b.add_argument("--seed", type=int, default=11)
-    b.add_argument("--out1", default=str(ROOT / "runs" / "coding_part1.xlsx"))
-    b.add_argument("--out2", default=str(ROOT / "runs" / "coding_part2.xlsx"))
-    b.add_argument("--key", default=str(ROOT / "runs" / "coding_key.json"))
-    b.add_argument("--state", default=str(ROOT / "runs" / "handcoded.json"))
+    b.add_argument("--out1", default=str(ROOT / "data" / "human" / "coding_part1.xlsx"))
+    b.add_argument("--out2", default=str(ROOT / "data" / "human" / "coding_part2.xlsx"))
+    b.add_argument("--key", default=str(ROOT / "data" / "human" / "coding_key.json"))
+    b.add_argument("--state", default=str(ROOT / "data" / "human" / "handcoded.json"))
     b.add_argument("--no-prefill", dest="prefill", action="store_false",
                    help="build blank instead of carrying forward existing answers")
     b.add_argument("--force", action="store_true",
@@ -289,8 +289,8 @@ def main():
     b.set_defaults(fn=build)
     r = sub.add_parser("read")
     r.add_argument("xlsx")
-    r.add_argument("--key", default=str(ROOT / "runs" / "coding_key.json"))
-    r.add_argument("--state", default=str(ROOT / "runs" / "handcoded.json"))
+    r.add_argument("--key", default=str(ROOT / "data" / "human" / "coding_key.json"))
+    r.add_argument("--state", default=str(ROOT / "data" / "human" / "handcoded.json"))
     r.set_defaults(fn=read)
     args = ap.parse_args()
     return args.fn(args) or 0

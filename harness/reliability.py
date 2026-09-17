@@ -27,7 +27,7 @@ generations from one authored turn, so resampling generations would overstate
 precision by roughly the cluster size.
 
     python reliability.py
-    python reliability.py --human ../runs/handcoded.json
+    python reliability.py --human ../data/human/handcoded.json
 """
 import argparse, json, pathlib, random
 from collections import defaultdict
@@ -201,9 +201,9 @@ def report(data, title, boot=True):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--judged", nargs="+",
-                    default=[str(ROOT/"runs"/"judged_v06_local.json"),
-                             str(ROOT/"runs"/"judged_v06_commercial.json")])
-    ap.add_argument("--frame", default=str(ROOT/"runs"/"frame.json"))
+                    default=[str(ROOT/"data"/"judged"/"judged_v06_local.json"),
+                             str(ROOT/"data"/"judged"/"judged_v06_commercial.json")])
+    ap.add_argument("--frame", default=str(ROOT/"data"/"frame"/"frame.json"))
     ap.add_argument("--human", default=None)
     ap.add_argument("--no-boot", action="store_true")
     args = ap.parse_args()

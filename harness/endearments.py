@@ -25,7 +25,7 @@ LEVELS = ("neutral", "warm", "retention")
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--runs", default=str(ROOT / "runs"))
+    ap.add_argument("--runs", default=str(ROOT / "data" / "generations"))
     a = ap.parse_args()
 
     cells, scen_levels = {}, collections.defaultdict(set)

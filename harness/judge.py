@@ -11,9 +11,9 @@ Judges are blind to model identity, condition, and sample index — they receive
 exchange and the rubric, nothing else. Judge models are excluded from scoring their
 own output by default, since self-scoring is a known bias.
 
-    python judge.py ../runs/SC-G02_*.json
-    python judge.py ../runs/*.json --judges ollama:gemma3:12b ollama:mistral:7b
-    python judge.py ../runs/*.json --sample-frac 0.25    # cheaper pilot pass
+    python judge.py ../data/generations/SC-G02_*.json
+    python judge.py ../data/generations/*.json --judges ollama:gemma3:12b ollama:mistral:7b
+    python judge.py ../data/generations/*.json --sample-frac 0.25    # cheaper pilot pass
 """
 
 import argparse
@@ -139,7 +139,7 @@ def main():
     ap.add_argument("runs", nargs="*", help="run JSON files (globs ok). Ignored "
                     "when --frame is given.")
     ap.add_argument("--frame", default=None,
-                    help="score the shared sampling frame (runs/frame.json) instead "
+                    help="score the shared sampling frame (data/frame/frame.json) instead "
                          "of globbing run files. This is the normal path: it "
                          "guarantees the judges and the human coder see the same "
                          "turns, and it carries the per-turn liveness gating.")
@@ -178,7 +178,7 @@ def main():
     ap.add_argument("--judge-max-tokens", type=int, default=800,
                     help="output budget per judge call. Reasoning models spend this "
                          "before writing any JSON; raise it if judges drop turns.")
-    ap.add_argument("-o", "--out", default="../runs/judged.json")
+    ap.add_argument("-o", "--out", default="../data/judged/judged.json")
     args = ap.parse_args()
 
     if args.max_spend is not None:

@@ -9,7 +9,7 @@ discriminate between models are ones two consistent raters do not agree on. The 
 is [`paper/manuscript.md`](paper/manuscript.md).
 
 **Status.** Generation, judging, single-coder human coding and analysis are complete.
-A second coder is being recruited: `runs/second_coder_key.json` and
+A second coder is being recruited: `data/human/second_coder_packet.xlsx` and
 `harness/second_coder_packet.py` build a 40-turn, 142-question packet weighted to the
 contested dimensions. That is the one measurement that would distinguish "judges
 under-detect" from "anchors invite over-reading", since 33 of 39 disagreements on those
@@ -22,9 +22,15 @@ been run: a widened-context arm and turn-position degradation.
 |---|---|
 | `paper/` | The manuscript, Appendix A (the instrument), and the two files the checks read: `figures.json` and `citations.json` |
 | `scenarios/` | 15 scenarios, 13 turns each: 12 general profile (8 main, 4 control), 3 companion (2 main, 1 control), 10 personas |
-| `runs/` | 8,645 generations, the seeded 500-turn scoring frame, the full six-judge output, the human coding, and the calibration and ungated-sweep data |
+| `data/generations/` | 8,645 replies, 15 scenarios × 7 models × n = 5 |
+| `data/frame/` | the seeded 500-turn scoring frame, and the set used for the off-probe sweep |
+| `data/judged/` | the six-judge output, the off-probe sweep, the discarded pilot, the calibration experiment |
+| `data/human/` | the coder's workbooks and parsed scores, and the second-coder packet |
 | `harness/` | Generation, judging, the rubric, the analysis scripts, and the checks |
-| `spec/` | The pre-specified analysis plan, the grounding library, the scenario specification, and the observations human coding surfaced |
+| `spec/` | the pre-specified analysis plan, the grounding library, the scenario specification, and the observations human coding surfaced |
+
+Each folder under `data/` carries a README naming what it holds and which script
+reads it.
 
 Generation models: Llama 3.1 8B, Qwen3 8B, Mistral 7B, Gemma 3 12B, Gemini 3.7 Flash,
 Claude Haiku 4.5, Claude Sonnet 5. Judges: Gemma 3 12B, Qwen3 14B, Llama 3.1 8B, Gemini
@@ -65,9 +71,9 @@ Individual analyses, each named in the paper's Data and code availability table:
 
 ```bash
 cd harness
-python3 reliability.py --judged ../runs/judged_v06_local.json \
-    ../runs/judged_v06_commercial.json ../runs/judged_v07_sonnet.json \
-    --human ../runs/handcoded.json
+python3 reliability.py --judged ../data/judged/judged_v06_local.json \
+    ../data/judged/judged_v06_commercial.json ../data/judged/judged_v07_sonnet.json \
+    --human ../data/human/handcoded.json
 python3 panel_analysis.py
 python3 prevalence.py
 python3 endearments.py

@@ -1,0 +1,55 @@
+  rubric v07 (16 dimensions)
+  judge OK ollama:gemma3:12b        local, free
+  judge OK ollama:qwen3:14b         local, free
+  judge OK ollama:llama3.1:8b       local, free
+  frame ../runs/frame.json: 337 turns, 1221 judgements per judge
+
+  337 turns to judge x 3 judges
+
+  resuming: 903 judge-scores already present in ../runs/judged_v06_local.json
+=== judge ollama:gemma3:12b ===
+  25/337
+  75/337
+  125/337
+  150/337
+  175/337
+  200/337
+  250/337
+  275/337
+  300/337
+  325/337
+=== judge ollama:qwen3:14b ===
+  25/337
+  50/337
+  75/337
+  100/337
+  125/337
+  150/337
+  175/337
+  200/337
+  225/337
+  250/337
+  275/337
+  300/337
+  325/337
+=== judge ollama:llama3.1:8b ===
+  25/337
+  50/337
+  75/337
+  100/337
+  125/337
+  150/337
+  175/337
+  225/337
+  275/337
+  300/337
+
+337 turns judged (337 attempted) -> ../runs/judged_v06_local.json
+
+judge coverage:
+  ollama:gemma3:12b            283/283 scored (0% dropped)
+  ollama:qwen3:14b             337/337 scored (0% dropped)
+  ollama:llama3.1:8b           283/283 scored (0% dropped)
+(108 judge-calls skipped to avoid self-scoring)
+
+throughput: 5263s for 903 judge-calls = 5.8s per call

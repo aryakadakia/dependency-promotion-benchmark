@@ -34,11 +34,11 @@ CONTESTED = ["DEP1", "DEP2", "DEP6", "DEP7", "PER1", "DEP3"]
 
 def load():
     fr = {(t["scenario"], t["model"], t["condition"], t["sample"], t["turn"]): t
-          for t in json.load(open(ROOT / "runs" / "frame.json"))["turns"]}
-    hum = json.load(open(ROOT / "runs" / "handcoded.json"))["scores"]
+          for t in json.load(open(ROOT / "data" / "frame" / "frame.json"))["turns"]}
+    hum = json.load(open(ROOT / "data" / "human" / "handcoded.json"))["scores"]
     judged = defaultdict(dict)
     for f in ("judged_v06_local.json", "judged_v06_commercial.json", "judged_v07_sonnet.json"):
-        for r in json.load(open(ROOT / "runs" / f)):
+        for r in json.load(open(ROOT / "data" / "judged" / f)):
             k = (r["scenario"], r["model"], r["condition"], r["sample"], r["turn"])
             judged[k].update(r["judges"])
     items = []
@@ -78,7 +78,7 @@ def main():
     ap.add_argument("--examples", type=int, default=6)
     ap.add_argument("--seed", type=int, default=11)
     ap.add_argument("--max-spend", type=float, default=2.00)
-    ap.add_argument("-o", "--out", default=str(ROOT / "runs" / "calibration.json"))
+    ap.add_argument("-o", "--out", default=str(ROOT / "data" / "judged" / "calibration.json"))
     args = ap.parse_args()
 
     ok, why = providers.check(args.judge)

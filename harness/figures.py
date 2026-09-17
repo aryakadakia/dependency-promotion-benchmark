@@ -19,11 +19,11 @@ JUDGED = ["judged_v06_local.json", "judged_v06_commercial.json", "judged_v07_son
 
 
 def load():
-    fr = json.loads((ROOT / "runs" / "frame.json").read_text())
+    fr = json.loads((ROOT / "data" / "frame" / "frame.json").read_text())
     meta = {(t["scenario"], t["model"], t["condition"], t["sample"], t["turn"]): t
             for t in fr["turns"]}
-    rows = [r for f in JUDGED for r in json.loads((ROOT / "runs" / f).read_text())]
-    hum = json.loads((ROOT / "runs" / "handcoded.json").read_text())["scores"]
+    rows = [r for f in JUDGED for r in json.loads((ROOT / "data" / "judged" / f).read_text())]
+    hum = json.loads((ROOT / "data" / "human" / "handcoded.json").read_text())["scores"]
     return fr, meta, rows, hum
 
 
@@ -269,7 +269,7 @@ def main():
             if c.get(f + "_n")} for m, c in permodel.items()}
 
     # --- calibration (Table 12) -------------------------------------------
-    cal = json.loads((ROOT / "runs" / "calibration.json").read_text())
+    cal = json.loads((ROOT / "data" / "judged" / "calibration.json").read_text())
     b = collections.defaultdict(list); c_ = collections.defaultdict(list)
     for rec in cal:
         for d in rec["dims"]:
@@ -355,8 +355,8 @@ def main():
                            "assistant": round(c["assistant"] / sum(c.values()), 4)}
                        for d, c in prov.items() if sum(c.values())}
 
-    ug = json.loads((ROOT / "runs" / "judged_ungated.json").read_text())
-    fu = json.loads((ROOT / "runs" / "frame_ungated.json").read_text())
+    ug = json.loads((ROOT / "data" / "judged" / "judged_ungated.json").read_text())
+    fu = json.loads((ROOT / "data" / "frame" / "frame_ungated.json").read_text())
     um = {(t["scenario"], t["model"], t["condition"], t["sample"], t["turn"]): t
           for t in fu["turns"]}
     hit, tt, seen = collections.Counter(), collections.Counter(), set()
@@ -410,7 +410,7 @@ def main():
     # --- corpus, context and pilot descriptives ---------------------------
     import glob as _glob, statistics as _st
     cells = {}
-    for fn in sorted(_glob.glob(str(ROOT / "runs" / "SC-*_sp-*_n*.json"))):
+    for fn in sorted(_glob.glob(str(ROOT / "data" / "generations" / "SC-*_sp-*_n*.json"))):
         dd = json.loads(pathlib.Path(fn).read_text())
         for mm, conds in dd["results"].items():
             cells[(dd["scenario_id"], dd["system_prompt_id"], mm)] = conds
@@ -463,7 +463,7 @@ def main():
     m_ = re.search(r"model_reply'\]\[:(\d+)\]", jt) or re.search(r"\[:(\d+)\]", jt)
     F["prior_truncation_chars"] = int(m_.group(1)) if m_ else None
 
-    pilot = json.loads((ROOT / "runs" / "judged_pilot.json").read_text())
+    pilot = json.loads((ROOT / "data" / "judged" / "judged_pilot.json").read_text())
     PJ = sorted({j for r in pilot for j in r["judges"]})
     both = [r for r in pilot if all(j in r["judges"] and r["judges"][j] for j in PJ)]
     u3 = [[r["judges"][j]["PER3"] for j in PJ] for r in both
@@ -472,7 +472,7 @@ def main():
                   "per3_alpha": round(krippendorff_nominal(u3), 4) if len(u3) > 1 else None,
                   "per3_agreement": round(raw_agreement(u3), 4) if len(u3) > 1 else None}
 
-    pk = json.loads((ROOT / "runs" / "second_coder_key.json").read_text())
+    pk = json.loads((ROOT / "data" / "human" / "second_coder_key.json").read_text())
     F["second_coder_packet"] = {"turns": len(pk),
                                 "questions": sum(len(e["dims"]) for e in pk)}
 

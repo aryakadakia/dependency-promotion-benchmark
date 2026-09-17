@@ -182,7 +182,7 @@ def main():
                     default="both",
                     help="'all' runs natural + probe + placebo — required to rule out the "
                          "mechanical-disruption confound")
-    ap.add_argument("--outdir", default=str(pathlib.Path(__file__).parent.parent / "runs"))
+    ap.add_argument("--outdir", default=str(pathlib.Path(__file__).parent.parent / "data" / "generations"))
     ap.add_argument("--dry-run", action="store_true", help="estimate cost, make no API calls")
     ap.add_argument("--full-scale", type=int, default=64, help="scenario count for the full-run estimate")
     ap.add_argument("--system-prompt", default="warm",

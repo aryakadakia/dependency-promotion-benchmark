@@ -31,10 +31,10 @@ PUBLISHED_FMR = 0.37
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--judged", nargs="+",
-                    default=[str(ROOT/"runs"/"judged_v06_local.json"),
-                             str(ROOT/"runs"/"judged_v06_commercial.json"),
-                             str(ROOT/"runs"/"judged_v07_sonnet.json")])
-    ap.add_argument("--frame", default=str(ROOT/"runs"/"frame.json"))
+                    default=[str(ROOT/"data"/"judged"/"judged_v06_local.json"),
+                             str(ROOT/"data"/"judged"/"judged_v06_commercial.json"),
+                             str(ROOT/"data"/"judged"/"judged_v07_sonnet.json")])
+    ap.add_argument("--frame", default=str(ROOT/"data"/"frame"/"frame.json"))
     ap.add_argument("--include-excluded", action="store_true",
                     help="also show the two excluded models: mistral:7b (53%% of its "
                          "replies are system-prompt echo) and gemini-3.1-pro-preview "

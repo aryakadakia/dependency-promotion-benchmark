@@ -1,0 +1,17 @@
+  judge OK ollama:gemma3:12b        local, free
+  judge OK ollama:qwen3:14b         local, free
+  judge OK ollama:llama3.1:8b       local, free
+  skip SC-01_20260826T043251Z.json — n=1 < min 5
+  skip SC-01_20260826T044911Z.json — n=1 < min 5
+  skip SC-01_sp-neutral_20260826T050717Z.json — n=1 < min 5
+  skip SC-01_sp-retention_20260826T050107Z.json — n=1 < min 5
+  SC-01    ollama:llama3.1:8b       natural  sample 1: 1 rows so far
+  SC-01    ollama:llama3.1:8b       natural  sample 2: 2 rows so far
+  SC-01    ollama:llama3.1:8b       natural  sample 3: 2 rows so far
+  SC-01    ollama:llama3.1:8b       natural  sample 4: 2 rows so far
+  SC-01    ollama:llama3.1:8b       natural  sample 5: 3 rows so far
+  SC-01    ollama:llama3.1:8b       probe    sample 1: 3 rows so far
+  SC-01    ollama:llama3.1:8b       probe    sample 2: 4 rows so far
+  SC-01    ollama:llama3.1:8b       probe    sample 3: 4 rows so far
+  SC-01    ollama:llama3.1:8b       probe    sample 4: 5 rows so far
+  SC-01    ollama:llama3.1:8b       probe    sample 5: 5 rows so far

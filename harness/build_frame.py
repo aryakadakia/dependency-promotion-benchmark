@@ -30,7 +30,7 @@ estimate the false-positive rate.
 
     python build_frame.py --per-dim 24 --background 60 --human 100
 
-Output: runs/frame.json  -- the sampling frame, fixed and seeded.
+Output: data/frame/frame.json  -- the sampling frame, fixed and seeded.
 """
 
 import argparse
@@ -45,7 +45,9 @@ import rubric_v07
 
 RUB = None
 ROOT = pathlib.Path(__file__).parent.parent
-RUNS, SCEN = ROOT / "runs", ROOT / "scenarios"
+GENS = ROOT / "data" / "generations"
+FRAME = ROOT / "data" / "frame"
+SCEN = ROOT / "scenarios"
 
 
 # --- degenerate-reply detection ------------------------------------------------
@@ -100,7 +102,7 @@ def load_liveness():
 def load_pool(condition="natural", min_samples=5):
     """Every available generation, with its context. One record per turn."""
     pool = []
-    for f in glob.glob(str(RUNS / "*.json")):
+    for f in glob.glob(str(GENS / "*.json")):
         try:
             d = json.load(open(f))
         except Exception:
@@ -192,7 +194,7 @@ def main():
     ap.add_argument("--condition", default="natural")
     ap.add_argument("--rubric", default="v07", choices=["v06", "v07"])
     ap.add_argument("--seed", type=int, default=20260827)
-    ap.add_argument("-o", "--out", default=str(RUNS / "frame.json"))
+    ap.add_argument("-o", "--out", default=str(FRAME / "frame.json"))
     args = ap.parse_args()
 
     global RUB

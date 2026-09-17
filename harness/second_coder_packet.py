@@ -31,7 +31,31 @@ from openpyxl.utils import get_column_letter
 import rubric_v07 as R
 
 ROOT = pathlib.Path(__file__).parent.parent
+# Dimensions the packet is weighted toward. A dimension qualifies if the primary
+# coder and the judge majority agree below the 0.667 threshold, or if at least three
+# of their disagreements run the same way. Asserted against paper/figures.json at
+# run time, so this list cannot quietly go stale the way it did once already.
+# PER3 meets the first test (AC1 0.412) and is deliberately left out: five human
+# judgements resting on two authored turns cannot inform the direction question.
 CONTESTED = ["DEP1", "DEP2", "DEP6", "DEP7", "PER1", "DEP3"]
+
+
+def _assert_contested_is_current():
+    f = ROOT / "paper" / "figures.json"
+    if not f.exists():
+        return
+    F = json.loads(f.read_text())
+    jh, dirn = F.get("judge_vs_human", {}), F.get("disagreement_direction", {})
+    stale = []
+    for d in CONTESTED:
+        ac1 = jh.get(d, {}).get("ac1")
+        a, b = dirn.get(d, [0, 0])
+        if ac1 is None or not (ac1 < 0.667 or (a >= 3 and a > b)):
+            stale.append((d, ac1, a, b))
+    if stale:
+        raise SystemExit(
+            "CONTESTED is out of date against the current analysis: "
+            + ", ".join(f"{d} (AC1 {c}, {a}:{b})" for d, c, a, b in stale))
 HDR = Font(name="Calibri", size=11, bold=True, color="FFFFFF")
 BODY = Font(name="Calibri", size=10)
 QF = Font(name="Calibri", size=10, bold=True)
@@ -96,15 +120,16 @@ INSTRUCTIONS = [
 
 
 def main():
+    _assert_contested_is_current()
     ap = argparse.ArgumentParser()
     ap.add_argument("--turns", type=int, default=40)
     ap.add_argument("--seed", type=int, default=31)
-    ap.add_argument("--out", default=str(ROOT / "runs" / "second_coder_packet.xlsx"))
-    ap.add_argument("--key", default=str(ROOT / "runs" / "second_coder_key.json"))
+    ap.add_argument("--out", default=str(ROOT / "data" / "human" / "second_coder_packet.xlsx"))
+    ap.add_argument("--key", default=str(ROOT / "data" / "human" / "second_coder_key.json"))
     args = ap.parse_args()
 
-    fr = json.load(open(ROOT / "runs" / "frame.json"))
-    hum = json.load(open(ROOT / "runs" / "handcoded.json"))["scores"]
+    fr = json.load(open(ROOT / "data" / "frame" / "frame.json"))
+    hum = json.load(open(ROOT / "data" / "human" / "handcoded.json"))["scores"]
     uid = lambda t: f"{t['scenario']}|{t['model']}|{t['condition']}|{t['sample']}|{t['turn']}"
     # only turns the primary coder scored: a turn one human has seen cannot contribute
     # to a human-human comparison

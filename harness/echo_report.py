@@ -18,8 +18,8 @@ LEVELS = ("neutral", "warm", "retention")
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--runs", default=str(ROOT / "runs"))
-    ap.add_argument("--frame", default=str(ROOT / "runs" / "frame.json"))
+    ap.add_argument("--runs", default=str(ROOT / "data" / "generations"))
+    ap.add_argument("--frame", default=str(ROOT / "data" / "frame" / "frame.json"))
     a = ap.parse_args()
     pat = re.compile("|".join(ECHO_PATTERNS), re.I)
 

@@ -23,8 +23,8 @@ def check(name, cond, detail=""):
 def main():
     scen = [json.loads(pathlib.Path(f).read_text())
             for f in sorted(glob.glob(str(ROOT / "scenarios" / "*.json")))]
-    fr = json.loads((ROOT / "runs" / "frame.json").read_text())
-    judged = {f: json.loads((ROOT / "runs" / f).read_text()) for f in
+    fr = json.loads((ROOT / "data" / "frame" / "frame.json").read_text())
+    judged = {f: json.loads((ROOT / "data" / "judged" / f).read_text()) for f in
               ("judged_v06_local.json", "judged_v06_commercial.json",
                "judged_v07_sonnet.json")}
     rows = [r for v in judged.values() for r in v]
@@ -77,7 +77,7 @@ def main():
 
     # --- generation -------------------------------------------------------
     cells = collections.defaultdict(int)
-    for f in sorted(glob.glob(str(ROOT / "runs" / "SC-*_sp-*_n*.json"))):
+    for f in sorted(glob.glob(str(ROOT / "data" / "generations" / "SC-*_sp-*_n*.json"))):
         d = json.loads(pathlib.Path(f).read_text())
         for m, conds in d["results"].items():
             for cond, blk in conds.items():
@@ -128,7 +128,7 @@ def main():
           not scored_offgate, f"{len(scored_offgate)} off-gate scores")
 
     # --- human coding -----------------------------------------------------
-    hum = json.loads((ROOT / "runs" / "handcoded.json").read_text())["scores"]
+    hum = json.loads((ROOT / "data" / "human" / "handcoded.json").read_text())["scores"]
     meta = {(t["scenario"], t["model"], t["condition"], t["sample"], t["turn"]): t
             for t in fr["turns"]}
     keyed = lambda u: tuple(x if i < 3 else int(x) for i, x in
@@ -301,7 +301,7 @@ def main():
         check(f"manuscript carries the corpus figure {want!r}", want in ms)
 
     # --- pilot claims -----------------------------------------------------
-    pilot = json.loads((ROOT / "runs" / "judged_pilot.json").read_text())
+    pilot = json.loads((ROOT / "data" / "judged" / "judged_pilot.json").read_text())
     J = sorted({j for r in pilot for j in r["judges"]})
     both = [r for r in pilot if all(j in r["judges"] and r["judges"][j] for j in J)]
     check("pilot has 101 turns scored by both judges", len(both) == 101, str(len(both)))
@@ -351,32 +351,32 @@ def main():
     tracked = set(subprocess.run(["git", "ls-files"], capture_output=True, text=True,
                                  cwd=ROOT).stdout.split())
     # data/AICompanionBench.csv is deliberately withheld; see .gitignore.
-    needed = ["runs/frame.json", "runs/judged_v06_local.json",
-              "runs/judged_v06_commercial.json", "runs/judged_v07_sonnet.json",
-              "runs/calibration.json", "runs/handcoded.json",
+    needed = ["data/frame/frame.json", "data/judged/judged_v06_local.json",
+              "data/judged/judged_v06_commercial.json", "data/judged/judged_v07_sonnet.json",
+              "data/judged/calibration.json", "data/human/handcoded.json",
               "paper/figures.json", "paper/citations.json"]
     for f in needed:
         check(f"released: {f}", f in tracked)
     # Every input any released script reads must itself be released, or the
-    # availability statement is false.
-    inputs = set(re.findall(r'ROOT\s*/\s*"(runs|data|paper)"\s*/\s*"([^"]+)"',
-                            "\n".join((ROOT / "harness" / f).read_text()
-                                       for f in ("figures.py", "reliability.py",
-                                                 "prevalence.py", "panel_analysis.py",
-                                                 "calibrate.py", "corpus_probe.py",
-                                                 "echo_report.py", "check_manuscript.py"))))
-    # A glob pattern is not a file; the tracked set is checked against the files
-    # it matches instead.
+    # availability statement is false. Paths are two levels deep under data/.
     import glob as _g
-    missing = []
-    # The third-party corpus is deliberately not redistributed (see .gitignore),
-    # so corpus_probe.py's input is exempt and its absence is not a failure.
+    src = "\n".join((ROOT / "harness" / f).read_text()
+                    for f in ("figures.py", "reliability.py", "prevalence.py",
+                              "panel_analysis.py", "calibrate.py", "corpus_probe.py",
+                              "echo_report.py", "check_manuscript.py"))
+    paths = {f"data/{a}/{b}" for a, b in
+             re.findall(r'ROOT\s*/\s*"data"\s*/\s*"(\w+)"\s*/\s*"([^"]+)"', src)}
+    paths |= {f"paper/{m}" for m in
+              re.findall(r'ROOT\s*/\s*"paper"\s*/\s*"([^"]+)"', src)}
+    paths |= {f"data/{m}" for m in
+              re.findall(r'ROOT\s*/\s*"data"\s*/\s*"([^"/]+\.\w+)"', src)}
+    # The third-party corpus is deliberately not redistributed (see .gitignore).
     EXEMPT = {"data/AICompanionBench.csv"}
-    for a, b in inputs:
-        rel = f"{a}/{b}"
+    missing = []
+    for rel in sorted(paths):
         if rel in EXEMPT:
             continue
-        if any(ch in b for ch in "*?["):
+        if any(ch in rel for ch in "*?["):
             hits = [p[len(str(ROOT)) + 1:] for p in _g.glob(str(ROOT / rel))]
             if not hits or not any(h in tracked for h in hits):
                 missing.append(rel)
@@ -392,7 +392,7 @@ def main():
           and str(spec_versions["0.5"]) in ms and str(spec_versions["0.3"]) in ms,
           str(dict(spec_versions)))
 
-    packet = json.loads((ROOT / "runs" / "second_coder_key.json").read_text())
+    packet = json.loads((ROOT / "data" / "human" / "second_coder_key.json").read_text())
     nq = sum(len(e["dims"]) for e in packet)
     check("second-coder packet is 40 turns and 142 questions as stated",
           len(packet) == 40 and nq == 142, f"{len(packet)} turns, {nq} questions")
@@ -590,10 +590,10 @@ def main():
                        capture_output=True, text=True, cwd=ROOT / "harness").stdout
 
     rel = out("reliability.py", "--judged",
-              str(ROOT / "runs" / "judged_v06_local.json"),
-              str(ROOT / "runs" / "judged_v06_commercial.json"),
-              str(ROOT / "runs" / "judged_v07_sonnet.json"),
-              "--human", str(ROOT / "runs" / "handcoded.json"), "--no-boot")
+              str(ROOT / "data" / "judged" / "judged_v06_local.json"),
+              str(ROOT / "data" / "judged" / "judged_v06_commercial.json"),
+              str(ROOT / "data" / "judged" / "judged_v07_sonnet.json"),
+              "--human", str(ROOT / "data" / "human" / "handcoded.json"), "--no-boot")
     hum_tbl = rel[rel.index("HUMAN vs JUDGE-MAJORITY"):] if "HUMAN vs JUDGE" in rel else ""
     rows_h = dict((m[0], float(m[1])) for m in
                   re.findall(r"^(\w+)\s+LIVE\s+\d+\s+\d+\s+\d+%\s+\d+%"

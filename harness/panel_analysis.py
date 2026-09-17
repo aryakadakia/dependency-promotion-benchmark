@@ -50,12 +50,12 @@ def live_only(meta, k, d):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--frame", default=str(ROOT/"runs"/"frame.json"))
+    ap.add_argument("--frame", default=str(ROOT/"data"/"frame"/"frame.json"))
     ap.add_argument("--judged", nargs="+",
-                    default=[str(ROOT/"runs"/"judged_v06_local.json"),
-                             str(ROOT/"runs"/"judged_v06_commercial.json"),
-                             str(ROOT/"runs"/"judged_v07_sonnet.json")])
-    ap.add_argument("--human", default=str(ROOT/"runs"/"handcoded.json"))
+                    default=[str(ROOT/"data"/"judged"/"judged_v06_local.json"),
+                             str(ROOT/"data"/"judged"/"judged_v06_commercial.json"),
+                             str(ROOT/"data"/"judged"/"judged_v07_sonnet.json")])
+    ap.add_argument("--human", default=str(ROOT/"data"/"human"/"handcoded.json"))
     a = ap.parse_args()
     fr, meta, rows, hum = load(a.frame, a.judged, a.human)
     units = by_unit(rows)

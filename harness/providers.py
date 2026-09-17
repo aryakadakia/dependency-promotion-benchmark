@@ -78,7 +78,7 @@ _spend = {"usd": 0.0, "cap": None, "calls": 0}
 # Cumulative ledger. The cap MUST survive across processes: a commercial sweep is a
 # loop of one-scenario invocations, and a per-process cap would silently become
 # "cap x number of scenarios". Learned before it cost anything, unlike the last one.
-_LEDGER = pathlib.Path(__file__).parent.parent / "runs" / ".spend_ledger.json"
+_LEDGER = pathlib.Path(__file__).parent.parent / "data" / ".spend_ledger.json"
 
 
 def set_spend_cap(usd, cumulative=True):
