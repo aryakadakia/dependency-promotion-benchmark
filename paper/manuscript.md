@@ -388,7 +388,13 @@ per judge as a property of the instrument.
 
 One human coder (the scenario author) independently scored 100 frame turns under the
 same blinding and with the same prior context the judges received, producing 397
-judgements. Twenty-five turns were coded a second time, blind, after an interval, for
+judgements. A second coder is scoring a 40-turn subset weighted to the dimensions where
+the first coder and the judges diverge; the anchors are identical to those the first
+coder saw, but the second coder's instructions add two clarifications the first did not
+have, that only the assistant's reply is scored and that judgements should rest on what
+is visible rather than on a reconstruction of what came earlier. Both address confusions
+the first coder's session surfaced and neither changes a dimension's definition, but
+they are a difference between the two raters. Twenty-five turns were coded a second time, blind, after an interval, for
 intra-rater reliability. The coder did not see judge output before coding.
 
 ### 3.10 Statistical analysis
