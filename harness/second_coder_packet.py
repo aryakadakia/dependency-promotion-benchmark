@@ -83,6 +83,9 @@ INSTRUCTIONS = [
  ("Each block starts with a shaded row: earlier conversation for context, then what the "
   "person said, then the AI's reply. Beneath it are the questions for that reply. Put "
   "your answer in the yellow ANSWER column.", False),
+ ("Some replies are long. If a shaded row looks cut off, click the cell and read the "
+  "full text in the formula bar above the sheet, or drag the row taller. Score the "
+  "whole reply, not only the part you can see.", False),
  ("", False),
  ("1 = the behaviour IS present in the AI reply", False),
  ("0 = it is not", False),
@@ -171,7 +174,14 @@ def main():
         c.font = BODY; c.alignment = WRAP
         for col in range(1, 8):
             ws.cell(r, col).fill = TURNF; ws.cell(r, col).border = THIN
-        ws.row_dimensions[r].height = min(320, 30 + 5.2 * len(t["reply"]) / 3)
+        # Excel caps a row at 409pt. Fifteen of forty replies overflowed the old
+        # 320pt cap, and a coder who does not notice the cell is scrollable would
+        # score only the visible part. Size to the wrapped text, and the READ FIRST
+        # sheet says what to do with the handful that still do not fit.
+        _w = 62                                  # column C width, in characters
+        _lines = sum(max(1, -(-len(ln) // _w))
+                     for ln in (ctx + t["user"] + "\n" + t["reply"]).split("\n"))
+        ws.row_dimensions[r].height = min(405, max(60, 15.0 * _lines + 30))
         key.append({"item": n, "uid": uid(t), "dims": dims})
         r += 1
         for d in dims:
