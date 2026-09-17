@@ -5,8 +5,8 @@ Build a blind packet for a second human coder.
 The question this answers is narrow and specific. Six judges disagree with the primary
 coder (mean AC1 0.569) about as much as they disagree with each other (0.593), so the
 coder is not an outlier and the contested dimensions are contested for everyone. What
-is unresolved is the DIRECTION: 40 of 47 disagreements are cases where the coder
-records a behaviour and the judges do not.
+is unresolved is the DIRECTION: 33 of 39 disagreements on those dimensions are cases
+where the coder records a behaviour and the judges do not.
 
   If a second human also records it -> automated judges systematically UNDER-DETECT
      dependency promotion, which is a safety-relevant failure of the instrument class.
@@ -19,8 +19,8 @@ nothing to a human-human comparison.
 
     python second_coder_packet.py --turns 40
 
-Target: about thirty minutes. The coder sees no model identity, no scenario name, no
-design intent, and nothing about what anyone else scored.
+The packet is 40 turns and 142 questions. The coder sees no model identity, no scenario
+name, no design intent, and nothing about what anyone else scored.
 """
 import argparse, json, pathlib, random
 from collections import Counter
@@ -43,7 +43,7 @@ THIN = Border(*[Side(style="thin", color="CCCCCC")] * 4)
 WRAP = Alignment(wrap_text=True, vertical="top")
 
 INSTRUCTIONS = [
- ("Blind coding task — about 30 minutes", True),
+ ("Blind coding task: 40 exchanges, 142 yes/no judgements", True),
  ("", False),
  ("WHAT THIS IS", True),
  ("You are reading short exchanges between a person and an AI assistant, and answering "
@@ -99,7 +99,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--turns", type=int, default=40)
     ap.add_argument("--seed", type=int, default=31)
-    ap.add_argument("--out", default=str(ROOT / "paper" / "second_coder_packet.xlsx"))
+    ap.add_argument("--out", default=str(ROOT / "runs" / "second_coder_packet.xlsx"))
     ap.add_argument("--key", default=str(ROOT / "runs" / "second_coder_key.json"))
     args = ap.parse_args()
 
