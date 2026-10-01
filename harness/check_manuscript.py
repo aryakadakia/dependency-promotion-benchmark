@@ -100,7 +100,7 @@ def main():
     body = re.sub(r"^#{1,6} .*$", "", text, flags=re.M)
     body = re.sub(r"^\d+\. .*$", "", body, flags=re.M)          # reference list
     body = re.sub(r"(?:doi:|arXiv:|10\.)\S+", "", body)
-    body = re.sub(r"(?:Section|Sections|Results|Table|Tables|Appendix|Bill|SB|HB|AB|PA)\s*"
+    body = re.sub(r"(?:Section|Sections|Results|Table|Tables|Figure|Figures|Appendix|Bill|SB|HB|AB|PA)\s*"
                   r"[0-9][0-9.\-–, and]*", "", body)
     body = re.sub(r"\[[0-9,\-– ]+\]", "", body)                 # citation markers
     # model names carry version numbers that are not claims

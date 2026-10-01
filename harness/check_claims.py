@@ -763,6 +763,50 @@ def main():
                   again == live, "differs" if again != live else "identical")
         pathlib.Path(_p).unlink(missing_ok=True)
 
+    # --- the echo exclusion, and the reference list ------------------------
+    E = F["echo"]
+    _mi = "ollama:mistral:7b"
+    bound("the echo count is bound to its sentence",
+          r"user had written it, in ([\d,]+) of", f"{E['by_model'][_mi]['echoes']:,}")
+    bound("the echo denominator is bound to its sentence",
+          r"of\s+([\d,]+) generations \(", f"{E['by_model'][_mi]['generations']:,}")
+    bound("the echo rate is bound to its sentence",
+          r"generations \(([\d.]+)%\)", f"{E['by_model'][_mi]['rate']*100:.1f}")
+    # Scoped to the one sentence in 3.11: "x% under `warm`" also occurs in 4.8,
+    # where it is an endearment rate and a different claim entirely.
+    _m = re.search(r"The rate was ([\d.]+)% under `warm`, ([\d.]+)% under `neutral` "
+                   r"and ([\d.]+)% under `retention`", flat)
+    check("the per-prompt echo rates are bound to their sentence",
+          bool(_m) and list(_m.groups()) == [f"{E['by_prompt'][_mi][lv]*100:.1f}"
+                                             for lv in ("warm", "neutral", "retention")],
+          str(_m.groups() if _m else None))
+    check("only one model echoed, as Methods states",
+          len(E["affected_models"]) == 1 and "no other model produced a single instance" in flat,
+          str(E["affected_models"]))
+    bound("the flagged-turn count is bound to its sentence",
+          r"([\w-]+) affected frame turns are\s*flagged",
+          {47: "Forty-seven"}.get(E["frame_turns_flagged"]))
+    bound("the retained-turn count is bound to its sentence",
+          r"(\d+) unaffected Mistral turns are retained", E["frame_turns_kept_from_affected"])
+
+    # The reference list: numbering, and that citation markers and entries match.
+    refs = re.findall(r"^(\d+)\. (.+)$", ms[ms.index("## References"):], re.M)
+    nums = [int(n) for n, _ in refs]
+    check("the reference list is numbered sequentially from 1",
+          nums == list(range(1, len(nums) + 1)), f"{nums[:3]}...{nums[-3:]}")
+    # Which numbers are cited, and which are listed, is already checked above.
+    # An entry that opens with its own title has lost its authors, which five
+    # entries did until they were looked up. Author-led entries open with a
+    # surname, possibly multi-word or hyphenated, then initials, then a comma or
+    # full stop. The statutes and agency documents have no personal author.
+    INSTITUTIONAL = {"18", "19", "20", "22"}
+    _noauth = [n for n, body in refs
+               if n not in INSTITUTIONAL
+               and not re.match(r"[A-ZÀ-Þ][\w'’-]*(?: [A-ZÀ-Þ][\w'’-]*)* "
+                                r"[A-ZÀ-Þ][A-Za-zÀ-Þ-]{0,3}[,.] ", body)]
+    check("no reference entry is missing its authors",
+          not _noauth, f"entries {_noauth}")
+
     # --- independent implementations must still agree ----------------------
     # figures.py, reliability.py, prevalence.py and panel_analysis.py compute
     # overlapping quantities by different code paths. The original double-count

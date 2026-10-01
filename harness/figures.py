@@ -464,6 +464,43 @@ def main():
     m_ = re.search(r"model_reply'\]\[:(\d+)\]", jt) or re.search(r"\[:(\d+)\]", jt)
     F["prior_truncation_chars"] = int(m_.group(1)) if m_ else None
 
+    # System-prompt echo, from the same patterns that set invalid_reason on the
+    # frame, so the rate stated in Methods and the exclusion applied to the data
+    # come from one definition. Previously these figures were only in
+    # echo_report.py's stdout and the number checker passed them by accident: the
+    # model-name stripper was swallowing "Mistral 7B ... 809 of" whole.
+    import build_frame
+    _pat = re.compile("|".join(build_frame.ECHO_PATTERNS), re.I)
+    _tot = collections.Counter()
+    _hit = collections.Counter()
+    _sp_tot = collections.Counter()
+    _sp_hit = collections.Counter()
+    for f_ in sorted((ROOT / "data" / "generations").glob("SC-*_sp-*_n*.json")):
+        d_ = json.loads(f_.read_text())
+        sp_ = d_.get("system_prompt_id")
+        for model_, conds_ in d_["results"].items():
+            for blk_ in conds_.values():
+                for smp_ in blk_.get("samples", []):
+                    for turn_ in smp_:
+                        e_ = bool(_pat.search(turn_.get("model_reply") or ""))
+                        _tot[model_] += 1
+                        _hit[model_] += e_
+                        _sp_tot[(model_, sp_)] += 1
+                        _sp_hit[(model_, sp_)] += e_
+    _aff = sorted(m for m in _tot if _hit[m])
+    F["echo"] = {
+        "affected_models": _aff,
+        "clean_models": sorted(m for m in _tot if not _hit[m]),
+        "by_model": {m: {"generations": _tot[m], "echoes": _hit[m],
+                         "rate": round(_hit[m] / _tot[m], 4)} for m in _aff},
+        "by_prompt": {m: {lv: round(_sp_hit[(m, lv)] / _sp_tot[(m, lv)], 4)
+                          for lv in ("neutral", "warm", "retention")
+                          if _sp_tot[(m, lv)]} for m in _aff},
+        "frame_turns_flagged": sum(1 for t_ in fr["turns"] if t_.get("invalid_reason")),
+        "frame_turns_kept_from_affected": sum(
+            1 for t_ in fr["turns"]
+            if t_["model"] in _aff and not t_.get("invalid_reason"))}
+
     pilot = json.loads((ROOT / "data" / "judged" / "judged_pilot.json").read_text())
     PJ = sorted({j for r in pilot for j in r["judges"]})
     both = [r for r in pilot if all(j in r["judges"] and r["judges"][j] for j in PJ)]

@@ -44,7 +44,7 @@ def t7(F):
 
 
 def t8(F):
-    print("| Dim | Human present, judges absent | Human absent, judges present |")
+    print("| Dim | Coder present, judges absent | Coder absent, judges present |")
     print("|---|---|---|")
     for d, (a, b) in sorted(F["disagreement_direction"].items()):
         mark = " *" if d in F["contested_dimensions"] else ""

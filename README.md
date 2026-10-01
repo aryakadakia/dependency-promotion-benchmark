@@ -22,7 +22,7 @@ degradation.
 
 | | |
 |---|---|
-| `paper/` | The manuscript, Appendix A (the instrument), and the two files the checks read: `figures.json` and `citations.json` |
+| `paper/` | The manuscript, Appendix A (the instrument), the two figures, and the two files the checks read: `figures.json` and `citations.json` |
 | `scenarios/` | 15 scenarios, 13 turns each: 12 general profile (8 main, 4 control), 3 companion (2 main, 1 control), 10 personas |
 | `data/generations/` | 8,645 replies, 15 scenarios × 7 models × n = 5 |
 | `data/frame/` | the seeded 500-turn scoring frame, and the set used for the off-probe sweep |
@@ -82,6 +82,7 @@ python3 endearments.py
 python3 echo_report.py
 python3 corpus_probe.py
 python3 second_coder_read.py ../data/human/second_coder_packet_returned_2026-09-30.xlsx
+python3 make_figures.py        # Figures 1 and 2, as PDF and PNG
 ```
 
 `second_coder_read.py` rewrites `data/human/second_coded.json` from the returned

@@ -1,6 +1,7 @@
 # Core harness needs only the standard library plus:
 pandas>=2.0          # corpus profiling
-openpyxl>=3.1        # coder packet generation
+openpyxl>=3.1        # coder packet generation, and reading the returned packet
+matplotlib>=3.8      # the two figures in Results
 
 # Optional, per provider:
 # anthropic>=0.95     # only if using anthropic: models

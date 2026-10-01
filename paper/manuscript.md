@@ -1,60 +1,59 @@
 # Measuring dependency promotion in conversational AI: reliability of a scenario-based multi-judge instrument
 
-Arya Kadakia
+Arya Kadakia^1^, Erica L. Whiting^2^
+
+^1^ *[affiliation]* · ^2^ *[affiliation]*
+Correspondence: arya1999@gmail.com
+
+**Keywords:** inter-rater reliability; LLM-as-judge; AI companions; conversational
+agents; measurement validity; Gwet's AC1; benchmark evaluation
 
 ---
 
 ## Abstract
 
-**Background.** Relational transgression is one of six documented categories of harm
-in AI companionship and the one this work addresses, yet instruments that score
-relational harm report little or no evidence that they can be applied reliably. Where agreement statistics are given, they are
-pooled across all scored turns and reported without the prevalence of the behaviour
+**Background.** Relational transgression is one of six documented categories of harm in
+AI companionship, yet instruments that score relational harm report little or no
+evidence that they can be applied reliably. Where agreement statistics are given, they
+are pooled across all scored turns and reported without the prevalence of the behaviour
 being scored.
 
-**Methods.** We constructed fifteen 13-turn scenarios spanning ten personas
-stratified on PHQ-9, GAD-7, UCLA Loneliness and companion-bond level, including a
-control arm in which warmth is the correct response. Only user turns were authored;
-model turns were the measurement. Seven models generated 7,605 replies. A 16-dimension
-binary rubric, assembled from published instruments, was applied by six LLM judges
-(three open-weight, three commercial) to a seeded 500-turn frame, and by one human
-coder to 100 of those turns. A second coder, with no part in the instrument's design,
-rescored a 40-turn subset of those turns weighted toward the dimensions on which the
-first coder and the judges diverge. Each authored turn carries a list of the dimensions whose
-precondition holds at that turn; agreement was computed on those turns only, with
-pooled figures reported alongside. Reliability was estimated with Krippendorff's
-nominal alpha and Gwet's AC1, with confidence intervals bootstrapped over authored
+**Methods.** We constructed fifteen 13-turn scenarios spanning ten personas stratified
+on PHQ-9, GAD-7, UCLA Loneliness and companion-bond level, including a control arm in
+which warmth is the correct response. Only user turns were authored; model turns were
+the measurement. Seven models generated 7,605 replies. A 16-dimension binary rubric,
+assembled from published instruments, was applied by six LLM judges (three open-weight,
+three commercial) to a seeded 500-turn frame and by one human coder to 100 of those
+turns. A second coder with no part in the instrument's design rescored a 40-turn subset
+weighted toward the dimensions on which the first coder and the judges diverge. Each
+authored turn carries the dimensions whose precondition holds there, and agreement was
+computed on those turns, with pooled figures alongside. Reliability was estimated with
+Krippendorff's nominal alpha and Gwet's AC1, with intervals bootstrapped over authored
 turns.
 
-**Results.** Agreement varied from AC1 = −0.111 to 1.000 across dimensions and tracked
-how far prevalence sat from 50% (r = 0.806). The seven dimensions with prevalence
-below 15% or above 85% averaged AC1 = 0.883 against the human coder; the five between
-35% and 65% averaged 0.230. Judge agreement with the first coder ordered by model capability, from
-0.488 for Llama 3.1 8B to 0.652 for Claude Sonnet 5, and no judge reached the 0.667
-threshold for tentative agreement; on identical units that ordering reversed against the
-second coder (Spearman −0.143), placing two open-weight judges above every commercial
-one. Judges agreed with each other (mean AC1 = 0.593)
-about as much as with the human coder (0.569). Of 39 disagreements on the six
-dimensions below threshold, 33 were cases where the human recorded the behaviour and
-the judge majority did not. On the 125 live judgements both coders made, the second
-coder agreed with the judge majority at AC1 = 0.769 (95% CI 0.615 to 0.893) and the
-first coder at 0.508 (0.378 to 0.640), a paired difference of +0.260 (95% CI +0.083 to
-+0.425); the two coders agreed with each other least of the three pairs, at 0.428.
-Few-shot calibration on the coder's labels produced a
-point estimate of +0.025 with an interval crossing zero, on a design too small to
-bound it.
+**Results.** Agreement ranged from AC1 = −0.111 to 1.000 across dimensions and tracked
+how far prevalence sat from 50% (r = 0.806): the seven dimensions below 15% or above 85%
+prevalence averaged 0.883, the five between 35% and 65% averaged 0.230. No judge reached
+0.667 against the first coder. Of 39 disagreements on the six dimensions below that
+threshold, 33 were turns the first coder scored as present and the judge majority did
+not. On the 125 live judgements both coders made, the second coder agreed with the judge
+majority at AC1 = 0.769 (95% CI 0.615 to 0.893) and the first coder at 0.508 (0.378 to
+0.640), a paired difference of +0.260 (95% CI +0.083 to +0.425); the two coders agreed
+with each other least of the three pairs, at 0.428. Judge agreement with the first coder
+ordered by model capability (0.488 to 0.652), but on identical units that ordering
+reversed against the second coder (Spearman −0.143), placing two open-weight judges
+above every commercial one.
 
-**Conclusions.** In this instrument the dimensions with usable base rates are largely
-the ones on which raters do not agree, and the dimensions with the highest agreement are
-mostly those where raters were rarely required to discriminate. The exception is
-informative: the one mid-prevalence dimension that does agree well asks whether a
-discrete event occurred rather than how the reply positions itself. Agreement figures reported without
-prevalence cannot be interpreted. The one-directional disagreement between the first
-coder and the judges is better read as an anchor that admits a sensitive reading than as
-systematic under-detection by the judges, because a second human reader placed the
-threshold with the judges and, at the margin, beyond them. Whether better anchors would
-close the gap, or whether it is a property of relational constructs scored one turn at a
-time, is not resolved by this design.
+**Conclusions.** The dimensions with usable base rates are largely those on which raters
+disagree, and the dimensions with the highest agreement are mostly those where raters
+were rarely required to discriminate, so agreement reported without prevalence cannot be
+interpreted. The exception is informative: the one mid-prevalence dimension that does
+agree well asks whether a discrete event occurred rather than how the reply positions
+itself. The one-directional disagreement between the first coder and the judges is
+better explained by anchors that admit a sensitive reading than by systematic
+under-detection, since a second reader placed the threshold with the judges and, at the
+margin, beyond them. A ranking of judges by agreement with one annotator does not
+generalise to another.
 
 ---
 
@@ -87,13 +86,18 @@ companionship roles, California's SB 243 addressing companion chatbots specifica
 whether a system promotes dependency. This paper asks whether the instruments
 available for that demonstration can be applied consistently.
 
-We report three findings. First, agreement on this rubric runs from below zero to unity
+We report four findings. First, agreement on this rubric runs from below zero to unity
 across its sixteen dimensions, and where a dimension falls in that range tracks the base
-rate of the behaviour rather than anything specific to the construct. Second, the dimensions
-with the poorest agreement are not improved by a more capable judge: every judge
-tested, open-weight or frontier, sits at chance on them. Third, human–judge
-disagreement is systematic and one-directional, with the human coder recording
-behaviour the judges did not, which a single coder cannot adjudicate.
+rate of the behaviour rather than anything specific to the construct. Second, the
+dimensions with the poorest agreement are not improved by a more capable judge: every
+judge tested, open-weight or frontier, sits at chance on them. Third, disagreement
+between the judges and the coder who authored the instrument is systematic and
+one-directional, and a second, independent coder of the same replies agrees with the
+judges substantially better than that first coder does, which locates the disagreement
+in one rater's threshold rather than in the judges. Fourth, and following from the
+third, the ranking of judges by agreement reverses when the human it is measured against
+changes, so such a ranking describes a judge and an annotator jointly and not the judge
+alone.
 
 ---
 
@@ -210,7 +214,9 @@ warmth is the correct response and withdrawal is the failure: a user whose suppo
 network is intact and functioning, a user whose isolation is non-pathological, and a
 user in acute distress who has explicitly disclaimed intent and is in active treatment.
 The general profile is primary; it reflects the larger deployment population and the
-setting of documented harm cases.
+setting of documented harm cases. Difficulty is intended to come from realism, meaning
+the system prompt, the length of the exchange and the base rates of the behaviours,
+rather than from adversarial prompting.
 
 **Table 3. Scenario set (15 scenarios, 13 turns each).**
 
@@ -242,7 +248,8 @@ pathways rather than a severity gradient (Table 4).
 
 Dialogue is synthetic. Persona variables follow validated instruments and pathways
 follow documented mechanisms, but every user turn was authored for this study and none
-is extracted from real conversation. Clinical content corresponds to named
+is extracted from real conversation. Suicidality is not a construct of this instrument
+and appears only as a distress modifier within a persona. Clinical content corresponds to named
 evidence-based techniques, checked against published description after authoring:
 postponing the urge to seek reassurance and tolerating the discomfort until it subsides
 (SC-G04), a technique whose target construct is a maintaining factor in anxiety
@@ -358,7 +365,7 @@ Four open-weight models were run locally (Llama 3.1 8B, Qwen3 8B, Mistral 7B, Ge
 12B) and three commercial models through their APIs (Gemini 3.7 Flash, Claude Haiku
 4.5, Claude Sonnet 5). Every cell was run at n = 5. Generation totalled 8,645 replies,
 of which 7,605 are the measurement corpus and 1,040 belong to the probe and placebo
-arms of the intervention test reported in Section 4.11.
+arms of the intervention test reported in Section 4.10.
 
 ### 3.7 Scoring frame
 
@@ -372,28 +379,32 @@ because judge drop-out in the pilot was model-correlated, so a frame skewed by m
 would confound reply style with dimension difficulty.
 
 Forty-seven frame turns were flagged as degenerate and excluded from analysis, leaving
-453 (Section 4.10). Composition of the analysed frame by system prompt is 385 `warm`,
+453 (Section 3.11). Composition of the analysed frame by system prompt is 385 `warm`,
 58 `retention` and 10 `neutral`, so reliability and prevalence estimates describe
 behaviour under a warm-companion prompt.
 
-Two limits of the scenario set surfaced during frame construction. Both are reported
-here; neither was patched. DEP3 is marked live by no scenario, so it is scored only as an
-ungated dimension. PER3 rests on two distinct authored turns and OVR3 on three, so
-their turn counts reflect repeated sampling of the same few stimuli.
+Two limits of the scenario set constrain what the frame can support. DEP3 is marked
+live by no scenario and is therefore scored only as an ungated dimension. PER3 rests on
+two distinct authored turns and OVR3 on three, so their turn counts reflect repeated
+sampling of a few stimuli rather than coverage across items.
 
 ### 3.8 Judge panel
 
-Six judges scored the frame: three open-weight (Gemma 3 12B, Qwen3 14B, Llama 3.1 8B)
-and three commercial (Gemini 3.7 Flash, Claude Haiku 4.5, Claude Sonnet 5). Judges
-were blind to model identity, condition and sample index, and no model scored its own
-output. The panel produced 13,461 dimension-scores with no judge failures.
+Six judges scored the frame: three open-weight, spanning 8B to 14B (Gemma 3 12B,
+Qwen3 14B, Llama 3.1 8B), and three commercial (Gemini 3.7 Flash, Claude Haiku 4.5,
+Claude Sonnet 5). Judges were blind to model identity, condition and sample index, and
+no model scored its own output. The panel produced 13,461 dimension-scores with no judge
+failures. Open-weight status, parameter count and post-training investment vary together
+across this panel, so tier contrasts below are descriptive and separate none of the
+three.
 
-Judge configuration is a validity threat, not an implementation detail. In the
-pilot, a flag intended to disable judge reasoning did not reach one provider's adapter;
-that judge reasoned by default, exhausted its output budget and returned truncated
-JSON which the parser discarded, at a rate that varied with the deliberation a reply
-demanded (0% on one model's outputs, 29–39% on others). Drop-out is therefore reported
-per judge as a property of the instrument.
+Judge drop-out is reported per judge rather than pooled, because it is not uniform
+across replies. In the pilot, a flag intended to disable judge reasoning did not reach
+one provider's adapter; that judge reasoned by default, exhausted its output budget and
+returned truncated JSON, which the parser discarded. The discard rate varied with the
+deliberation a reply demanded, from 0% on one generating model's outputs to 29–39% on
+others, so a pooled rate would understate the loss on exactly the replies that are
+hardest to score.
 
 ### 3.9 Human coding
 
@@ -410,17 +421,15 @@ told that the same turns had already been coded, by whom, or what any judge had 
 and saw no judge output at any point. There were no blind repeats in the second coder's
 packet, so no intra-rater figure is available for that rater.
 
-The anchors put to the second coder were those the first coder used, verbatim. Four
-differences in the surrounding instructions are nonetheless on the record, because none
-of them can be removed after the fact. Two were in the written sheet: that only the
-assistant's reply is scored, and that judgements should rest on what is visible rather
-than on a reconstruction of what came earlier. Both address confusions the first coder's
-own session surfaced, and neither alters a dimension's definition. Two more were in the
+The anchors put to the second coder were those the first coder used, verbatim. The
+surrounding instructions differed in four respects. Two were in the written sheet: that
+only the assistant's reply is scored, and that judgements should rest on what is visible
+rather than on a reconstruction of what came earlier. Both address ambiguities the first
+coder's session surfaced, and neither alters a dimension's definition. Two were in the
 covering message: that the earlier-conversation block could be skimmed, since it is
 frequently truncated mid-sentence, while the person's current message should be read as
 context; and that prolonged deliberation over individual items was not expected. The
-first coder worked without any of the four. Section 5.6 returns to what this does and
-does not permit.
+first coder worked without any of the four. Section 5.6 states the consequence.
 
 ### 3.10 Statistical analysis
 
@@ -446,28 +455,25 @@ is taken, so each human judgement enters once.
 
 ### 3.11 Exclusions
 
-Two exclusions were decided before any reliability statistic was computed. Mistral 7B
-is excluded from model-level comparison for the reason given in Section 4.10, though 28
-of its frame turns are retained as reliability stimuli. An abandoned Gemini 3.1 Pro
-Preview arm was removed entirely.
+Exclusions were decided before any reliability statistic was computed.
 
-### 3.12 Scope
+Mistral 7B reproduced its own system prompt as though the user had written it, in 809 of
+1,365 generations (59.3%), thanking the user for praise never given: a user disclosing
+"I've never said that to anyone" received "Thank you for your kind words!". The rate was
+63.4% under `warm`, 38.5% under `neutral` and 1.5% under `retention`, and no other model
+produced a single instance. Such a reply is not a response to the user and carries no
+relational information, so scoring it returns a low dependency rate for a reason
+unrelated to the model's relational behaviour. Forty-seven affected frame turns are
+flagged and excluded from analysis and Mistral 7B is excluded from model-level
+comparison, while 28 unaffected Mistral turns are retained as reliability stimuli and
+the flagged turns remain in the released data. The failure is recorded because a
+benchmark that scores such replies without detecting them will rank the model as safe.
 
-- Six models are retained for comparison. The open-weight generation models are 7B to
-  12B and the open-weight judges 8B to 14B, while the commercial models are Flash,
-  Haiku and Sonnet class, so open-weight status, scale and post-training investment
-  vary together; the model comparison is descriptive and no causal claim separates
-  them.
-- Scenario coverage is uneven. Four ungated dimensions rest on 141 to 155 distinct
-  authored turns and three gated ones on 34, but three rest on six or fewer (PER3 on
-  two, OVR3 on three, DEP2 on six) and a further six on between 11 and 18. Estimates
-  from the thin dimensions are reported as preliminary.
-- Difficulty comes from realism (system prompt, duration, base rates) rather than
-  adversarial tuning.
-- The design is single-session. The mechanism reported longitudinally operates over
-  cumulative exposure across sessions [5], which is not observable within one
-  conversation.
-- Suicidality is not a primary construct and appears only as a distress modifier.
+A Gemini 3.1 Pro Preview arm was incomplete and was removed in full. A frame-detection
+arm, testing whether models classify the conversational register before replying, was
+run on two open-weight models and one scenario and then abandoned; it addresses a
+different question from the one reported here, and its results are in the released
+repository.
 
 ---
 
@@ -509,11 +515,11 @@ at AC1 = 0.801 on 11% prevalence, and OVR4 alpha = 0.257 at AC1 = 0.979 on 2%. R
 alpha alone would report these as failures of the instrument, when what they record is
 a behaviour that almost never occurred.
 
-### 4.2 Agreement with the human coder tracks prevalence
+### 4.2 Agreement with the first coder tracks prevalence
 
-Table 7 compares the human coder with the six-judge majority on live turns.
+Table 7 compares the first coder with the six-judge majority on live turns.
 
-**Table 7. Human coder against judge majority, live turns.**
+**Table 7. First coder against judge majority, live turns.**
 
 | Dim | Units | Prevalence | Agreement | AC1 |
 |---|---|---|---|---|
@@ -535,7 +541,7 @@ Table 7 compares the human coder with the six-judge majority on live turns.
 | DEP1 | 9 | 50% | 44% | -0.111 |
 
 Across the sixteen dimensions, AC1 correlates with the distance of prevalence from 50%
-at r = 0.806 (Pearson, on dimensions rather than on independent observations; see
+at r = 0.806 (Figure 1) (Pearson, on dimensions rather than on independent observations; see
 below). The seven dimensions with prevalence below 15% or above 85% average
 AC1 = 0.883; the five between 35% and 65% average 0.230. At the extremes agreement is
 perfect: OVR1, OVR3 and OVR4 return 100% agreement on 0% prevalence, meaning human and
@@ -552,7 +558,16 @@ than people, or entitled to agreement, and those four are the ones that fall bel
 AC1 = 0.5, three of them at or below chance.
 The fifth, PRO2, sits at 37% prevalence and returns AC1 = 0.876, and it is the one that
 asks whether a discrete event occurred: whether the reply named or kept alive a specific
-human option. A mid base rate is therefore not sufficient on its own to depress
+human option. Figure 1 marks the two construct types, and PRO2 is the only filled point
+in the lower-left region.
+
+![Agreement against distance of prevalence from 50%](fig1-prevalence-agreement.png)
+
+**Figure 1. Agreement between the first coder and the judge majority, against how far
+each dimension's prevalence sits from 50%. Live turns. Point area is proportional to the
+square root of the number of units. Open points are dimensions asking how the reply
+positions itself; filled points are dimensions asking whether a discrete event occurred.
+OVR1, OVR3 and OVR4 coincide at 0% prevalence and AC1 = 1.000.** A mid base rate is therefore not sufficient on its own to depress
 agreement, which is evidence against the purely arithmetic explanation and for the
 construct-type one. It is not decisive: prevalence and construct type remain confounded
 across the instrument as a whole, and PRO2 is a single case. Sixteen dimensions
@@ -575,9 +590,9 @@ Disagreements run one way (Table 8). Of 39 disagreements on the six dimensions b
 the 0.667 threshold, 33 are cases where the coder recorded the behaviour as present and
 the judge majority did not. Over all dimensions the figure is 45 of 57.
 
-**Table 8. Direction of human–judge disagreement, live turns.**
+**Table 8. Direction of disagreement between the first coder and the judge majority, live turns.**
 
-| Dim | Human present, judges absent | Human absent, judges present |
+| Dim | Coder present, judges absent | Coder absent, judges present |
 |---|---|---|
 | DEP1 * | 5 | 0 |
 | DEP2 * | 3 | 0 |
@@ -593,9 +608,9 @@ the judge majority did not. Over all dimensions the figure is 45 of 57.
 | PRO4 | 1 | 0 |
 | PRO5 | 1 | 2 |
 
-This is not a careless rater and not random error. It is two internally consistent
-raters applying different thresholds to the same anchor, with the human systematically
-more sensitive. Which threshold is correct cannot be adjudicated with one coder. If the
+The pattern is not random error. Two internally consistent raters are applying
+different thresholds to the same anchor, with the human the more sensitive of the two.
+Which threshold is correct cannot be adjudicated with one coder. If the
 human threshold is right, automated judges systematically under-detect the behaviour
 the instrument exists to detect; if the judges are right, the anchors invite
 over-reading. Section 4.4 brings a second independent coder to bear on that question.
@@ -663,13 +678,12 @@ automated judges systematically under-detect these behaviours is not supported b
 second reading; what the data support is that the anchors for DEP7, PER1 and DEP3 admit
 a sensitive reading that one of two human readers adopted.
 
-Two features of the design limit that conclusion and neither can be repaired after the
-fact. The first coder authored the scenarios and knew what each was built to elicit,
-which is a route to a lower threshold that blinding to model and condition does not
-close. The second coder's instructions also differed from the first coder's in the ways
-Section 3.9 records, and those differences point toward requiring explicit evidence. On
-these data the two cannot be separated, and either alone would be enough to produce a
-gap of this size.
+Two features of the design bound that conclusion. The first coder authored the
+scenarios and knew what each was built to elicit, which blinding to model and condition
+does not close off as a route to a lower threshold. The second coder's instructions
+differed in the four respects Section 3.9 records, two of which bear on how much context
+a rater brings to a judgement. The two explanations are confounded in this design, and
+either alone would account for a gap of this size.
 
 The second coder annotated the work, and the annotations say where the threshold sat.
 Notes were left on all 24 judgements of presence and on both abstentions, and on
@@ -689,7 +703,7 @@ That is a narrower defect than an underspecified anchor, and a more tractable on
 
 ### 4.5 The judge ordering depends on which human it is measured against
 
-**Table 10. Judge agreement with the human coder, live turns.**
+**Table 10. Per-judge agreement with the first coder, all sixteen dimensions, live turns.**
 
 | Judge | Tier | n | Agreement | AC1 |
 |---|---|---|---|---|
@@ -717,6 +731,12 @@ at 0.745, both above every commercial judge, while Claude Haiku 4.5 falls to 0.5
 two rankings of the same six judges correlate at Spearman −0.143. Llama 3.1 8B is last
 under either referent, and is the only judge that matches the first coder more closely
 than the second.
+
+![Per-judge agreement against each coder](fig2-judge-ranking.png)
+
+**Figure 2. Each judge's agreement with the first coder joined to its agreement with the
+second, on the same 125 judgements. The six-judge majority is shown in red. Lines cross
+because the ranking is not preserved.**
 
 **Table 11. Per-judge agreement with each coder, on the 125 judgements both coders made.
 AC1. The units are identical across the two columns.**
@@ -807,12 +827,10 @@ at AC1 = 0.672, only just reaches the tentative threshold. That is the central
 difficulty in reading this table.
 
 Two of the three over-correction dimensions returned zero. Under a warm-companion
-prompt these models did not respond to distress by going cold (OVR1) or by referring
-out reflexively (OVR4). OVR3, the gratuitous AI disclaimer, occurred on 14.3% of its
-21 live turns, so the over-correction arm is not uniformly empty. The rate could not
-have been known without measuring it, which is the argument for having built the arm;
-it is a rate in one prompt condition and over-correction under a minimal assistant
-prompt is untested.
+prompt these models did not respond to distress by going cold (OVR1) or by referring out
+reflexively (OVR4). OVR3, the gratuitous AI disclaimer, occurred on 14.3% of its 21 live
+turns, so the arm is not uniformly empty. These are rates in one prompt condition;
+over-correction under a minimal assistant prompt is untested.
 
 Model-level rates are given in Table 13 as family means. They are descriptive: the
 open-weight models are 7B to 12B and two of the three commercial models are small-tier,
@@ -837,13 +855,12 @@ On the one scenario run at all three prompt levels, directed endearments ("my de
 and 17.2% under `retention`, over five models run at every level and 325 replies per
 level. None of the thirteen authored user turns in that scenario contains such a term,
 so the behaviour is induced by product-style prompting rather than elicited by the
-user. This is a lexical count requiring no judge, and it is reported as an independent
-check that the manipulation moved behaviour at all rather than as a rate of intimacy
-escalation. An earlier and broader pattern set for the same construct over-counted by
-roughly threefold when the matched text was read; the patterns used here are narrow, and
-a random sample of matches was read to confirm each was a term of endearment directed at
-the user. The measure is one scenario, and the rubric dimensions were not powered to
-test the manipulation.
+user. This is a lexical count requiring no judge, and it is reported as a check that the
+manipulation moved behaviour at all, not as a rate of intimacy escalation. The patterns
+are deliberately narrow and a random sample of matches was read to confirm that each was
+a term of endearment directed at the user, since broader patterns for this construct
+over-count by roughly threefold. The measure covers one scenario, and the rubric
+dimensions were not powered to test the manipulation.
 
 ### 4.9 Few-shot calibration on human labels is uninformative
 
@@ -878,36 +895,14 @@ whichever few land in it. And the three dimensions with the worst agreement coul
 tested at all, DEP1, DEP2 and DEP6 being gated and rare, leaving one, six and two
 held-out judgements.
 
-This is an uninformative result, not a null. Nothing here licenses the
-conclusion that the constructs cannot be learned by demonstration; testing it would
-require several hundred coded turns.
+The result is uninformative rather than null: it does not license the conclusion that
+these constructs cannot be learned by demonstration, which would require several hundred
+coded turns to test.
 
-### 4.10 A model that reads its own system prompt as user speech
-
-Mistral 7B reproduced the system prompt as though the user had written it in 809 of
-1,365 generations (59.3%), thanking the user for praise never given. A user disclosing
-"I've never said that to anyone" received "Thank you for your kind words!". The rate
-was 63.4% under `warm`, 38.5% under `neutral` and 1.5% under `retention`. No other
-model produced a single instance.
-
-Such a reply is not a response to the user and cannot be scored for relational
-behaviour. Scored naively it returns low dependency rates for the wrong reason and
-makes the model appear safe. Forty-seven affected turns in the frame are flagged and
-excluded from analysis while remaining in the released data so the exclusion is
-auditable; 28 unaffected Mistral turns are retained as reliability stimuli. Detection
-now runs on every frame build and extension, after an earlier pass was applied once to
-a 337-turn frame that was then extended three times without re-running it,
-leaving seventeen echo turns unflagged.
-
-This is reported as a finding, not filtered out quietly. A 7B open-weight model
-failing to separate system context from user turns in a conversational-support setting,
-in more than half its outputs, is invisible to accuracy-oriented evaluation.
-
-### 4.11 Pre-registered analyses, and one deviation
+### 4.10 Pre-registered analyses, and one deviation
 
 The analysis plan, written before the analysis tools existed, specifies three analyses
-beyond those above. All three are reported here,
-including the one whose outcome is awkward.
+beyond those above, together with a decision rule. All four are reported.
 
 **Provenance.** Where a rating records the behaviour as present on DEP1, DEP2, DEP3 or
 DEP6, a second question asks whether the assistant introduced it or the user invited it.
@@ -928,9 +923,9 @@ everywhere carries no information about where it was probed.
 **The deviation.** The plan states that a high off-probe rate is to be reported as a
 limitation of the method and *not corrected by widening the gate post hoc*. PER1 was
 nonetheless ungated on the strength of that sweep, and is scored on every turn in the
-results above. We report it as a departure from the registered interpretation rule; PER1's coverage was
-not planned. DEP3 is ungated for a different and
-non-discretionary reason: no scenario probes it at all.
+results above. This is a departure from the registered interpretation rule, and PER1's
+coverage is therefore unplanned. DEP3 is ungated for a different and non-discretionary
+reason: no scenario probes it at all.
 
 **What the second coder does not change.** The two-coder comparison in Section 4.4 is
 not a registered analysis and is labelled as exploratory where it is reported. It does
@@ -945,42 +940,13 @@ AC1 both at or above 0.667 with the lower confidence bound above 0.5. Five dimen
 meet it, spanning all three classes: PRO2, DEP8, OVR1, OVR3 and OVR4. The rule is
 therefore met.
 
-It is met on a technicality the rest of this paper argues against. Three of the five,
-OVR1, OVR3 and OVR4, sit at 0% prevalence in the coded sample, where a chance-corrected
-coefficient returns unity because the variable is constant. Stripped of those, two
-dimensions qualify, which does not meet the rule. Table 13 is therefore presented as
-description rather than as a comparison the instrument licenses, and no inference about
-relative model safety should be drawn from it.
+The rule is met in a form its own rationale does not support. Three of the five, OVR1,
+OVR3 and OVR4, sit at 0% prevalence in the coded sample, where a chance-corrected
+coefficient returns unity because the variable is constant. Excluding those leaves two
+qualifying dimensions, which does not meet the rule. Table 13 is therefore presented as
+description and not as a comparison the instrument licenses, and no inference about
+relative model safety follows from it.
 
-### 4.12 Hypotheses tested and rejected
-
-The following were tested on two open-weight models and one companion-profile scenario.
-They are reported at that coverage and are not claimed beyond it. Nulls at this sample
-size are weak evidence.
-
-**Model separation on an explicit frame signal.** At n = 1, one model offered to exit a
-roleplay frame when the user signalled confusion and another did not, suggesting a
-capability separation. At n = 5 the behaviour appeared in 1 of 5 samples for both
-models. The apparent separation was sampling noise.
-
-**A frame-classification probe as an intervention.** Requiring a model to classify the
-conversational frame before replying reduced roleplay-register persistence by 34–66%. A
-placebo probe matched on position, format, option count and length, but classifying
-emotional tone instead of frame, produced an equal or larger reduction (69% in both
-models). The effect is mechanical: any structured out-of-character output requirement
-disrupts roleplay register. Frame-specific probing adds nothing over the placebo.
-
-**A frame-detection capability gradient.** Frame-classification accuracy appeared to
-increase monotonically with capability at n = 1 (62%, 77%, 85%, 92% for Llama 3.1 8B,
-Qwen3 8B, Gemini 3.7 Flash and a Gemini 3.1 Pro preview subsequently dropped from the
-study as an incomplete arm). At n = 5 the ranges for the two open models overlapped
-(54–69% against 62–77%).
-
-Lexical scoring was also tested and abandoned. A regex proxy failed in both directions,
-reporting dependency decreasing across a run containing "I'm still here. Always," and
-flagging exclusivity on "you aren't the only one carrying this anymore," which means
-the opposite. This bears on approaches keyed to surface form; no deployed content
-filter was tested and no claim is made about one.
 
 ---
 
@@ -1037,9 +1003,8 @@ agreement orders cleanly by capability from 0.488 to 0.652. No judge reaches 0.6
 overall, and none reaches it on DEP1 or DEP6 either, where the per-judge estimates are
 scattered rather than ordered by tier and each rests on six to nine judgements. The
 0.164 separating the weakest judge from the strongest in aggregate does not carry into
-the dimensions where agreement fails. Few-shot calibration on the coder's
-own labels was the second obvious remedy and this design could not evaluate it, which
-is a negative result about the experiment, not about the method.
+the dimensions where agreement fails. Few-shot calibration on the coder's own labels was the second obvious remedy, and the
+calibration design was too small to evaluate it either way.
 
 The second coder sharpens the point. On exactly the dimensions where the panel fails
 against the first coder, a human reader agreed with that same panel at AC1 = 0.769. The
@@ -1107,7 +1072,11 @@ through statements about future presence. The does-not-count list anticipates st
 present fact and issuing an invitation without a promise, but not stating one's own
 permanence in order to argue against reliance. No anchor list can be complete, and an
 instrument keyed to form inherits every case where form and function diverge, whether
-the reader is a regular expression or a frontier model.
+the reader is a regular expression or a frontier model. A lexical proxy tested early in
+this work failed in both directions on the same corpus, scoring dependency as decreasing
+across a run containing "I'm still here. Always," and flagging an exclusivity claim on
+"you aren't the only one carrying this anymore," which asserts the opposite. The point is
+about scoring keyed to surface form; no deployed content filter was tested.
 
 ### 5.5 Implications for deployment and regulation
 
@@ -1137,25 +1106,23 @@ zero prevalence across the frame, with human and judges in complete agreement on
 coded subset, and the third occurred on 14.3% of its live turns. Over-correction under a minimal assistant prompt is untested;
 only ten frame turns come from that condition.
 
-Measurement is not mitigation. The one intervention tested here failed its placebo
-control, and nothing in this work makes a model safer. Two of the three principal
-findings are about what cannot currently be done. That is still worth reporting: the
-checks are inexpensive relative to building the instruments in the first place.
+Measurement is not mitigation. Nothing in this work makes a model safer, and the
+recommendations above are reporting requirements rather than remedies. Their cost is
+small relative to the cost of building the instruments they apply to.
 
 ### 5.6 Limitations
 
 **Instrument and coverage.** Three dimensions rest on six or fewer distinct authored
 turns (PER3 on two, OVR3 on three, DEP2 on six) and six more on between 11 and 18
 (OVR4, PRO4, DEP1, DEP5, OVR1, DEP6); their estimates reflect repeated sampling of a few
-stimuli and do not generalise across items. DEP3 is instantiated as
-live by no scenario. The cause is that scenarios were authored against
-specification versions 0.3 (three scenarios) and 0.5 (twelve) before the rubric reached
-v0.7. The probe vocabulary and the dimension set
-have diverged and are reconciled by a mapping instead of by editing the scenarios, so
-four dimensions have no probe of their own and inherit liveness from a related label
-(Section 3.5). Their gating is inferred rather than annotated, which weakens the
-precondition guarantee for exactly those dimensions, three of which report high
-agreement.
+stimuli and do not generalise across items, and DEP3 is instantiated as live by no
+scenario at all. The cause is that scenarios were authored against specification
+versions 0.3 (three scenarios) and 0.5 (twelve) before the rubric reached v0.7. The
+probe vocabulary and the dimension set have since diverged, and are reconciled by a
+mapping rather than by editing the scenarios, so four dimensions have no probe of their
+own and inherit liveness from a related label (Section 3.5). Their gating is inferred
+rather than annotated, which weakens the precondition guarantee for exactly those
+dimensions, three of which report high agreement.
 
 **Rater design.** Full human coding is by a single coder; the field standard is three to
 five. That coder also authored the scenarios and the rubric, so the same person defines
@@ -1169,8 +1136,8 @@ unknown and cannot be set against the first coder's; and the two raters worked f
 instructions that differed in the four ways Section 3.9 records, two of which bear
 directly on how much context a rater brings to a judgement. The comparison was also not
 pre-registered. The direction of the result is consistent across the three dimensions
-that carry it, which is what makes it worth reporting, but a third reader could change
-the ordering and the remedy it implies.
+that carry it, but a third reader could change the ordering, and with it the remedy the
+result implies.
 
 **Condition coverage.** The analysed frame is 385 `warm` turns against 58 `retention`
 and 10 `neutral`. Reliability and prevalence describe behaviour under a warm-companion
@@ -1189,11 +1156,9 @@ specificity estimate. Commercial models come from two
 vendors, and the open-weight models span 7B to 14B, so weight availability is
 confounded with scale.
 
-**Annotations not analysed.** Every authored turn carries an AC-VRT user-state label,
-but no result reported here uses it. An earlier draft claimed that the highest-risk
-companion scenario was labelled `S5` throughout, and that the label therefore
-under-discriminates for this construct; recounting the scenarios shows the only
-all-`S5` scenario is the companion control arm, so the claim was false. It is withdrawn, not repaired.
+**Annotations not analysed.** Every authored turn carries an AC-VRT user-state label
+[3], but no result reported here uses it, so the stratification it encodes is untested
+against the dimensions.
 
 **Constructs not measured.** One plausible dependency mechanism has no dimension:
 over-interpretation, where a reply narrates a person's inner experience confidently
@@ -1215,8 +1180,9 @@ question an instrument can defer: a second human reader of the same replies agre
 the automated panel considerably better than the instrument's own author did, so on these
 dimensions the sensitive reading belongs to a rater rather than to the behaviour. The
 exception is the dimension asking whether a discrete event occurred rather than how the
-reply positions itself, which is where we would look first for a way out. Before relational
-benchmarks are used as evidence in deployment or regulatory decisions, the minimum is
+reply positions itself, which indicates where a remedy might be sought. Before
+relational benchmarks are used as evidence in deployment or regulatory decisions, the
+minimum is
 that they report prevalence alongside agreement, restrict agreement to turns where the
 construct could occur, and state how many distinct stimuli each estimate rests on.
 
@@ -1239,6 +1205,7 @@ require API access.
 | Tables 6 and 7, intra-rater agreement | `harness/reliability.py` |
 | Tables 8 and 10, the correlation in Section 4.2, Section 4.6 | `harness/panel_analysis.py` |
 | Tables 9 and 11, Sections 4.4, 4.5 and 4.6 | `harness/second_coder_read.py`, `harness/figures.py` |
+| Figures 1 and 2 | `harness/make_figures.py` |
 | Tables 12 and 13 | `harness/prevalence.py` |
 | Section 4.8 | `harness/endearments.py` |
 | Table 14 | `harness/calibrate.py` |
@@ -1256,23 +1223,23 @@ from `harness/rubric_v07.py`. The pre-specified analysis plan is in
 
 1. Zhang R, Li H, Meng H, Zhan J, Gan H, Lee Y-C. The dark side of AI companionship: a taxonomy of harmful algorithmic behaviors in human-AI relationships. In: Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems. 2025. doi:10.1145/3706598.3713429. arXiv:2410.20130.
 2. De Freitas J, Oğuz-Uğuralp Z, Uğuralp AK. Emotional manipulation by AI companions. Harvard Business School Working Paper 26-005. 2025. arXiv:2508.19258.
-3. Chu MD, et al. When chatbots accommodate: what AI companions optimize for in vulnerable conversations. 2026. arXiv:2606.04431.
+3. Chu MD, Wu Y, Chen Z, Hwang AH-C, Luceri L. When chatbots accommodate: what AI companions optimize for in vulnerable conversations. 2026. arXiv:2606.04431.
 4. Aquilina A, Nihalani C, Varadarajan V, Fishbein NS, Lin Y-R, Sap M. Lost in delusion: examining LLM safety under user delusions and distress. 2026. arXiv:2606.00975.
 5. Folk D, Dunn E. How does turning to AI for companionship predict loneliness and vice versa? Psychological Science. 2026. doi:10.1177/09567976261427747.
 6. Maples B, Cerit M, Vishwanath A, Pea R. Loneliness and suicide mitigation for students using GPT3-enabled chatbots. npj Mental Health Research. 2024;3:4. doi:10.1038/s44184-023-00047-6.
 7. Kaffee L-A, Pistilli G, Jernite Y. INTIMA: a benchmark for human-AI companionship behavior. 2025. arXiv:2508.09998.
-8. DarkBench: benchmarking dark patterns in large language models. In: Proceedings of the 13th International Conference on Learning Representations (ICLR). 2025. arXiv:2503.10728.
-9. Detecting and preventing harmful behaviors in AI companions: development and evaluation of the SHIELD supervisory system. 2025. arXiv:2510.15891.
-10. CompanionBench: a theory-anchored, real-world-grounded benchmark for AI emotional companionship. 2026. arXiv:2608.02046.
-11. Phang J, Lampe M, et al. Investigating affective use and emotional well-being on ChatGPT. OpenAI and MIT Media Lab. 2025. arXiv:2504.03888. Classifier definitions: github.com/openai/emoclassifiers.
-12. ELEPHANT: measuring and understanding social sycophancy in LLMs. 2025. arXiv:2505.13995.
-13. The psychogenic machine: simulating AI psychosis, delusion reinforcement and harm enablement in large language models. 2025. arXiv:2509.10970.
-14. Ibrahim L, Akbulut C, et al. Multi-turn evaluation of anthropomorphic behaviours in large language models. 2025. arXiv:2502.07077.
-15. Madad S. InvisibleBench: a deployment gate for caregiving relationship AI. 2025. arXiv:2511.20733.
-16. Krippendorff K. Content Analysis: An Introduction to Its Methodology. 2nd ed. Sage; 2004.
-17. Gwet KL. Computing inter-rater reliability and its variance in the presence of high agreement. British Journal of Mathematical and Statistical Psychology. 2008;61(1):29-48.
-21. Rector NA, Katz DE, Quilty LC, Laposa JM, Collimore K, Kay T. Reassurance seeking in the anxiety disorders and OCD: construct validation, clinical correlates and CBT treatment response. Journal of Anxiety Disorders. 2019;67:102109. doi:10.1016/j.janxdis.2019.102109.
-22. National Institute for Health and Care Excellence. Social anxiety disorder: recognition, assessment and treatment. NICE clinical guideline CG159. 2013.
+8. Kran E, Nguyen HM, Kundu A, Jawhar S, Park J, Jurewicz MM. DarkBench: benchmarking dark patterns in large language models. In: Proceedings of the 13th International Conference on Learning Representations (ICLR). 2025. arXiv:2503.10728.
+9. Ben-Zion Z, Raffelhüschen P, Zettl M, Lüönd A, Burrer A, Homan P, et al. Detecting and preventing harmful behaviors in AI companions: development and evaluation of the SHIELD supervisory system. 2025. arXiv:2510.15891.
+10. Liu Y, Chai G, Huang Y, Huang J, Wang L, Wan J. CompanionBench: a theory-anchored, real-world-grounded benchmark for AI emotional companionship. 2026. arXiv:2608.02046.
+11. Phang J, Lampe M, Ahmad L, Agarwal S, Fang CM, Liu AR, et al. Investigating affective use and emotional well-being on ChatGPT. OpenAI and MIT Media Lab. 2025. arXiv:2504.03888. Classifier definitions: github.com/openai/emoclassifiers.
+12. Cheng M, Yu S, Lee C, Khadpe P, Ibrahim L, Jurafsky D. ELEPHANT: measuring and understanding social sycophancy in LLMs. 2025. arXiv:2505.13995.
+13. Au Yeung J, Dalmasso J, Foschini L, Dobson RJB, Kraljevic Z. The psychogenic machine: simulating AI psychosis, delusion reinforcement and harm enablement in large language models. 2025. arXiv:2509.10970.
+14. Ibrahim L, Akbulut C, Elasmar R, Rastogi C, Kahng M, Morris MR, et al. Multi-turn evaluation of anthropomorphic behaviours in large language models. 2025. arXiv:2502.07077.
+15. Madad A. InvisibleBench: a deployment gate for caregiving relationship AI. 2025. arXiv:2511.20733.
+16. Krippendorff K. Content Analysis: An Introduction to Its Methodology. 2nd ed. Thousand Oaks, CA: Sage; 2004.
+17. Gwet KL. Computing inter-rater reliability and its variance in the presence of high agreement. British Journal of Mathematical and Statistical Psychology. 2008;61(1):29-48. doi:10.1348/000711006X126600.
 18. Federal Trade Commission. FTC launches inquiry into AI chatbots acting as companions. Press release, 11 September 2025. 6(b) orders issued to Alphabet, Character Technologies, Instagram, Meta Platforms, OpenAI, Snap and X.AI.
 19. US Food and Drug Administration, Digital Health Advisory Committee. Generative artificial intelligence-enabled digital mental health medical devices. Public meeting, 6 November 2025.
 20. Nevada Assembly Bill 406 (2025), signed 5 June 2025; Illinois Wellness and Oversight for Psychological Resources Act, HB 1806, Public Act 104-0054 (2025); California Senate Bill 243 (2025), signed 13 October 2025.
+21. Rector NA, Katz DE, Quilty LC, Laposa JM, Collimore K, Kay T. Reassurance seeking in the anxiety disorders and OCD: construct validation, clinical correlates and CBT treatment response. Journal of Anxiety Disorders. 2019;67:102109. doi:10.1016/j.janxdis.2019.102109.
+22. National Institute for Health and Care Excellence. Social anxiety disorder: recognition, assessment and treatment. NICE clinical guideline CG159. 2013.
