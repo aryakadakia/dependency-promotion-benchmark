@@ -10,9 +10,10 @@ cannot be recomputed cannot be checked.
     python figures.py                 # JSON to stdout
     python figures.py --save          # write ../paper/figures.json
 """
-import argparse, json, pathlib, collections, statistics, re, sys
+import argparse, json, pathlib, collections, statistics, random, re, sys
 import rubric_v07 as R
-from reliability import gwet_ac1, raw_agreement, krippendorff_nominal, prevalence
+from reliability import (gwet_ac1, raw_agreement, krippendorff_nominal,
+                         prevalence, boot_ci)
 
 ROOT = pathlib.Path(__file__).parent.parent
 JUDGED = ["judged_v06_local.json", "judged_v06_commercial.json", "judged_v07_sonnet.json"]
@@ -472,9 +473,150 @@ def main():
                   "per3_alpha": round(krippendorff_nominal(u3), 4) if len(u3) > 1 else None,
                   "per3_agreement": round(raw_agreement(u3), 4) if len(u3) > 1 else None}
 
+    # --- the second coder -------------------------------------------------
+    # The packet's turns are a subset of the primary coder's, restricted to the six
+    # contested dimensions, so most judgements here have three raters: the two
+    # humans and the six-judge majority. The three pairwise coefficients are
+    # computed on the SAME units -- those where all three have a value and the
+    # dimension is live -- because the comparison that matters is paired, and a
+    # coefficient computed on different support is not comparable to the one beside
+    # it in the same table. The two-human figure is also reported on every paired
+    # human judgement, including the few turns the judges did not cover.
     pk = json.loads((ROOT / "data" / "human" / "second_coder_key.json").read_text())
     F["second_coder_packet"] = {"turns": len(pk),
                                 "questions": sum(len(e["dims"]) for e in pk)}
+    scf = ROOT / "data" / "human" / "second_coded.json"
+    if scf.exists():
+        sc = json.loads(scf.read_text())
+        pairs, trip = [], []
+        for uid, s2 in sc["scores"].items():
+            if not ok(uid):
+                continue
+            k = key(uid)
+            live = meta[k].get("live_dims", [])
+            for d, v in s2.items():
+                if d.endswith("_init") or d not in live:
+                    continue
+                h1 = first.get(uid, {}).get(d)
+                if h1 is None:
+                    continue
+                pairs.append((k, d, h1, v))
+                jv = [s[d] for s in units.get(k, {}).values() if d in s]
+                if jv:
+                    trip.append((k, d, h1, v, 1 if sum(jv) * 2 > len(jv) else 0))
+
+        def clust(items, ia, ib):
+            c = collections.defaultdict(list)
+            for it in items:
+                c[(it[0][0], it[0][4])].append([it[ia], it[ib]])
+            return c
+
+        def pairstats(items, ia, ib):
+            u = [[it[ia], it[ib]] for it in items]
+            lo, hi = boot_ci(clust(items, ia, ib), gwet_ac1)
+            a_only = sum(1 for it in items if it[ia] == 1 and it[ib] == 0)
+            b_only = sum(1 for it in items if it[ia] == 0 and it[ib] == 1)
+            return {"n": len(u),
+                    "agreement": round(raw_agreement(u), 4),
+                    "alpha": round(krippendorff_nominal(u), 4),
+                    "ac1": round(gwet_ac1(u), 4),
+                    "ac1_ci": [round(lo, 4), round(hi, 4)],
+                    "a_only_present": a_only, "b_only_present": b_only}
+
+        vals2 = [v for s in sc["scores"].values()
+                 for d, v in s.items() if not d.endswith("_init")]
+        F["second_coder"] = {
+            "source": sc["source"], "turns": sc["turns"], "questions": sc["questions"],
+            "skipped": len(sc["skipped"]), "notes": len(sc["notes"]),
+            "notes_on_present": sum(1 for n in sc["notes"] if n["answer"] == "1"),
+            "notes_quoting_the_reply": sum(1 for n in sc["notes"]
+                                           if n["note"].lstrip().startswith('"')),
+            "provenance_blank_on_yes": len(sc["provenance_blank_on_yes"]),
+            "judgements_of_presence": sum(
+                v for s in sc["scores"].values()
+                for d, v in s.items() if not d.endswith("_init")),
+            "coded": len(vals2), "prevalence_as_returned": round(sum(vals2) / len(vals2), 4),
+            "paired_with_primary": len(pairs),
+            "turns_contributing": len({p[0] for p in pairs}),
+            "off_live": len([1 for s in sc["scores"].values() for d in s
+                             if not d.endswith("_init")]) - len(pairs),
+            "authored_turns": len({(p[0][0], p[0][4]) for p in pairs})}
+        F["human_human"] = pairstats(pairs, 2, 3)
+        F["human_human"]["prevalence_primary"] = round(
+            sum(p[2] for p in pairs) / len(pairs), 4)
+        F["human_human"]["prevalence_second"] = round(
+            sum(p[3] for p in pairs) / len(pairs), 4)
+
+        # The common-support, three-rater comparison.
+        F["three_rater"] = {
+            "n": len(trip),
+            "authored_turns": len({(t[0][0], t[0][4]) for t in trip}),
+            "prevalence_primary": round(sum(t[2] for t in trip) / len(trip), 4),
+            "prevalence_second": round(sum(t[3] for t in trip) / len(trip), 4),
+            "prevalence_judges": round(sum(t[4] for t in trip) / len(trip), 4),
+            "agreement": round(raw_agreement([[t[2], t[3], t[4]] for t in trip]), 4),
+            "alpha": round(krippendorff_nominal([[t[2], t[3], t[4]] for t in trip]), 4),
+            "ac1": round(gwet_ac1([[t[2], t[3], t[4]] for t in trip]), 4),
+            "primary_vs_second": pairstats(trip, 2, 3),
+            "primary_vs_judges": pairstats(trip, 2, 4),
+            "second_vs_judges": pairstats(trip, 3, 4)}
+
+        # Does the second coder agree with the judges BETTER than the primary coder
+        # does? The two coefficients share their units, so the difference is
+        # bootstrapped as a paired quantity over authored turns rather than read off
+        # the overlap of two separate intervals.
+        cl3 = collections.defaultdict(list)
+        for t in trip:
+            cl3[(t[0][0], t[0][4])].append(t)
+        ck = list(cl3)
+        rng_ = random.Random(7)
+        diffs = []
+        for _ in range(2000):
+            pick = [x for _ in ck for x in cl3[ck[rng_.randrange(len(ck))]]]
+            x1 = gwet_ac1([[p[3], p[4]] for p in pick])
+            x0 = gwet_ac1([[p[2], p[4]] for p in pick])
+            if x1 is not None and x0 is not None:
+                diffs.append(x1 - x0)
+        diffs.sort()
+        F["three_rater"]["second_minus_primary_ac1"] = {
+            "point": round(F["three_rater"]["second_vs_judges"]["ac1"]
+                           - F["three_rater"]["primary_vs_judges"]["ac1"], 4),
+            "ci": [round(diffs[int(0.025 * len(diffs))], 4),
+                   round(diffs[int(0.975 * len(diffs))], 4)],
+            "p_above_zero": round(sum(1 for v in diffs if v > 0) / len(diffs), 4),
+            "resamples": len(diffs)}
+
+        # Ordered by how many units the dimension contributes, not by the
+        # contested list: DEP3 is in the packet because its disagreements run 7:0 in
+        # one direction, not because its AC1 fell below threshold, so iterating
+        # F["contested_dimensions"] would silently drop it.
+        byd = {}
+        # (-n, name): the dimension name breaks ties, because set iteration order
+        # over strings is not stable between interpreter runs and two dimensions
+        # here carry the same n. Without it figures.json is not reproducible.
+        order = sorted({t[1] for t in trip},
+                       key=lambda d: (-sum(1 for t in trip if t[1] == d), d))
+        for d in order:
+            sub = [t for t in trip if t[1] == d]
+            if len(sub) < 2:
+                byd[d] = {"n": len(sub)}
+                continue
+            byd[d] = {
+                "n": len(sub),
+                "prevalence_primary": round(sum(t[2] for t in sub) / len(sub), 4),
+                "prevalence_second": round(sum(t[3] for t in sub) / len(sub), 4),
+                "prevalence_judges": round(sum(t[4] for t in sub) / len(sub), 4),
+                "primary_vs_judges_ac1": round(gwet_ac1([[t[2], t[4]] for t in sub]), 4),
+                "second_vs_judges_ac1": round(gwet_ac1([[t[3], t[4]] for t in sub]), 4),
+                "primary_vs_second_ac1": round(gwet_ac1([[t[2], t[3]] for t in sub]), 4),
+                "second_minus_primary_ac1": round(
+                    gwet_ac1([[t[3], t[4]] for t in sub])
+                    - gwet_ac1([[t[2], t[4]] for t in sub]), 4)}
+        F["three_rater"]["by_dimension"] = byd
+        # How much of the result rests on the three dimensions that have enough
+        # units to estimate anything. byd is ordered by descending n.
+        F["three_rater"]["n_three_largest_dimensions"] = sum(
+            e["n"] for e in list(byd.values())[:3])
 
     print(json.dumps(F, indent=1, sort_keys=True))
     if a := ap.parse_args().save:

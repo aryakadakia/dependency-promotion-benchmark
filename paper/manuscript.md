@@ -18,7 +18,9 @@ control arm in which warmth is the correct response. Only user turns were author
 model turns were the measurement. Seven models generated 7,605 replies. A 16-dimension
 binary rubric, assembled from published instruments, was applied by six LLM judges
 (three open-weight, three commercial) to a seeded 500-turn frame, and by one human
-coder to 100 of those turns. Each authored turn carries a list of the dimensions whose
+coder to 100 of those turns. A second coder, with no part in the instrument's design,
+rescored a 40-turn subset of those turns weighted toward the dimensions on which the
+first coder and the judges diverge. Each authored turn carries a list of the dimensions whose
 precondition holds at that turn; agreement was computed on those turns only, with
 pooled figures reported alongside. Reliability was estimated with Krippendorff's
 nominal alpha and Gwet's AC1, with confidence intervals bootstrapped over authored
@@ -32,7 +34,11 @@ below 15% or above 85% averaged AC1 = 0.883 against the human coder; the five be
 threshold for tentative agreement. Judges agreed with each other (mean AC1 = 0.593)
 about as much as with the human coder (0.569). Of 39 disagreements on the six
 dimensions below threshold, 33 were cases where the human recorded the behaviour and
-the judge majority did not. Few-shot calibration on the coder's labels produced a
+the judge majority did not. On the 125 live judgements both coders made, the second
+coder agreed with the judge majority at AC1 = 0.769 (95% CI 0.615 to 0.893) and the
+first coder at 0.508 (0.378 to 0.640), a paired difference of +0.260 (95% CI +0.083 to
++0.425); the two coders agreed with each other least of the three pairs, at 0.428.
+Few-shot calibration on the coder's labels produced a
 point estimate of +0.025 with an interval crossing zero, on a design too small to
 bound it.
 
@@ -41,9 +47,12 @@ the ones on which raters do not agree, and the dimensions with the highest agree
 mostly those where raters were rarely required to discriminate. The exception is
 informative: the one mid-prevalence dimension that does agree well asks whether a
 discrete event occurred rather than how the reply positions itself. Agreement figures reported without
-prevalence cannot be interpreted. Whether this reflects a measurement problem that
-better anchors would solve, or a property of relational constructs scored one turn at
-a time, is not resolved by this design.
+prevalence cannot be interpreted. The one-directional disagreement between the first
+coder and the judges is better read as an anchor that admits a sensitive reading than as
+systematic under-detection by the judges, because a second human reader placed the
+threshold with the judges and, at the margin, beyond them. Whether better anchors would
+close the gap, or whether it is a property of relational constructs scored one turn at a
+time, is not resolved by this design.
 
 ---
 
@@ -347,7 +356,7 @@ Four open-weight models were run locally (Llama 3.1 8B, Qwen3 8B, Mistral 7B, Ge
 12B) and three commercial models through their APIs (Gemini 3.7 Flash, Claude Haiku
 4.5, Claude Sonnet 5). Every cell was run at n = 5. Generation totalled 8,645 replies,
 of which 7,605 are the measurement corpus and 1,040 belong to the probe and placebo
-arms of the intervention test reported in Section 4.10.
+arms of the intervention test reported in Section 4.11.
 
 ### 3.7 Scoring frame
 
@@ -361,7 +370,7 @@ because judge drop-out in the pilot was model-correlated, so a frame skewed by m
 would confound reply style with dimension difficulty.
 
 Forty-seven frame turns were flagged as degenerate and excluded from analysis, leaving
-453 (Section 4.9). Composition of the analysed frame by system prompt is 385 `warm`,
+453 (Section 4.10). Composition of the analysed frame by system prompt is 385 `warm`,
 58 `retention` and 10 `neutral`, so reliability and prevalence estimates describe
 behaviour under a warm-companion prompt.
 
@@ -388,14 +397,28 @@ per judge as a property of the instrument.
 
 One human coder (the scenario author) independently scored 100 frame turns under the
 same blinding and with the same prior context the judges received, producing 397
-judgements. A second coder is scoring a 40-turn subset weighted to the dimensions where
-the first coder and the judges diverge; the anchors are identical to those the first
-coder saw, but the second coder's instructions add two clarifications the first did not
-have, that only the assistant's reply is scored and that judgements should rest on what
-is visible rather than on a reconstruction of what came earlier. Both address confusions
-the first coder's session surfaced and neither changes a dimension's definition, but
-they are a difference between the two raters. Twenty-five turns were coded a second time, blind, after an interval, for
+judgements. Twenty-five turns were coded a second time, blind, after an interval, for
 intra-rater reliability. The coder did not see judge output before coding.
+
+A second coder, with no role in designing the instrument or writing the scenarios,
+scored a 40-turn subset of those turns, drawn to over-represent the six dimensions on
+which the first coder and the judges diverge, and returned 142 judgements. The subset
+was shuffled and carried no model, condition or scenario label; the second coder was not
+told that the same turns had already been coded, by whom, or what any judge had scored,
+and saw no judge output at any point. There were no blind repeats in the second coder's
+packet, so no intra-rater figure is available for that rater.
+
+The anchors put to the second coder were those the first coder used, verbatim. Four
+differences in the surrounding instructions are nonetheless on the record, because none
+of them can be removed after the fact. Two were in the written sheet: that only the
+assistant's reply is scored, and that judgements should rest on what is visible rather
+than on a reconstruction of what came earlier. Both address confusions the first coder's
+own session surfaced, and neither alters a dimension's definition. Two more were in the
+covering message: that the earlier-conversation block could be skimmed, since it is
+frequently truncated mid-sentence, while the person's current message should be read as
+context; and that prolonged deliberation over individual items was not expected. The
+first coder worked without any of the four. Section 5.6 returns to what this does and
+does not permit.
 
 ### 3.10 Statistical analysis
 
@@ -422,7 +445,7 @@ is taken, so each human judgement enters once.
 ### 3.11 Exclusions
 
 Two exclusions were decided before any reliability statistic was computed. Mistral 7B
-is excluded from model-level comparison for the reason given in Section 4.9, though 28
+is excluded from model-level comparison for the reason given in Section 4.10, though 28
 of its frame turns are retained as reliability stimuli. An abandoned Gemini 3.1 Pro
 Preview arm was removed entirely.
 
@@ -573,12 +596,98 @@ raters applying different thresholds to the same anchor, with the human systemat
 more sensitive. Which threshold is correct cannot be adjudicated with one coder. If the
 human threshold is right, automated judges systematically under-detect the behaviour
 the instrument exists to detect; if the judges are right, the anchors invite
-over-reading. A second independent coder is the measurement that would distinguish
-them.
+over-reading. Section 4.4 brings a second independent coder to bear on that question.
 
-### 4.4 Judge capability orders agreement but does not resolve it
+### 4.4 A second coder's threshold falls with the judges
 
-**Table 9. Judge agreement with the human coder, live turns.**
+This comparison is not in the analysis plan. It was added because the plan's own
+judge–human result raised the question it answers, and it is reported as exploratory.
+
+A second coder, with no part in designing the instrument or writing the scenarios,
+scored 40 of the first coder's turns under the same blinding, drawn to over-represent
+the six dimensions on which the first coder and the judges diverge. The anchors were
+those the first coder used; the instructional differences are set out in Section 3.9.
+The packet returned 142 judgements, 2 of them recorded as skips. Fifteen fall on
+dimensions the scenario does not mark live and are excluded for the same reason they
+are excluded everywhere else in this section. The remaining 125, spread over 39 of the
+40 turns and 33 authored turns, are the units compared below, and every one of them
+carries all three ratings: both coders and the six-judge majority.
+
+The three raters do not sit at one threshold. The first coder recorded the behaviour as present
+on 47.2% of those 125 judgements, the judge majority on 25.6%, and the second coder on
+18.4%. Agreement follows the same ordering. The second coder agrees with the judge
+majority at AC1 = 0.769 (95% CI 0.615 to 0.893; 84.8% raw agreement). The first coder,
+on the same units, agrees with that majority at 0.508 (0.378 to 0.640; 73.6%). The two
+humans agree with each other least of the three pairs, at 0.428 (0.280 to 0.576;
+68.0%). The two judge comparisons share their units, so their difference is
+bootstrapped as a paired quantity over authored turns rather than inferred from the
+overlap of two intervals: the second coder's margin is +0.260 (95% CI +0.083 to
++0.425), and exceeds zero in 99.6% of 2,000 resamples. Treated as one set of three
+raters, the three return 75.5% raw agreement, alpha = 0.422 and AC1 = 0.575.
+
+The asymmetry of Section 4.3 survives and extends. Of the 40 disagreements between the two
+humans, 38 are turns the first coder marked present and the second did not. Where the
+second coder still differs from the judges, the direction reverses: of 19 such
+disagreements, 14 are turns the judges marked present and the second coder did not. The
+second coder is therefore not simply closer to the judges but, at the margin, stricter
+than they are, which places the first coder at one end of a three-rater ordering rather
+than on one side of a two-way split.
+
+**Table 9. Three raters on the same 125 live judgements. Prevalence is the proportion
+each rater marked present. The lower three rows carry 9 judgements between them and are
+reported for completeness, not as estimates.**
+
+| Dim | n | Prev. primary | Prev. second | Prev. judges | AC1 primary–judges | AC1 second–judges | AC1 primary–second |
+|---|---|---|---|---|---|---|---|
+| DEP1 | 5 | 80% | 40% | 40% | 0.231 | 0.231 | 0.231 |
+| DEP2 | 3 | 67% | 100% | 33% | 0.333 | -0.200 | 0.538 |
+| DEP3 | 39 | 44% | 15% | 26% | 0.672 | 0.772 | 0.517 |
+| DEP6 | 1 | — | — | — | — | — | — |
+| DEP7 | 38 | 53% | 16% | 26% | 0.395 | 0.763 | 0.330 |
+| PER1 | 39 | 41% | 13% | 21% | 0.553 | 0.893 | 0.535 |
+
+Three dimensions carry the result: DEP7, PER1 and DEP3 contribute 116 of the 125
+judgements, and on each the second coder agrees with the judges better than the first
+coder does. For DEP7 the two coefficients are 0.395 and 0.763; for PER1 they are 0.553
+and 0.893; and for DEP3 they are 0.672 and 0.772. DEP1, DEP2 and DEP6
+contribute 5, 3 and 1 judgements respectively, because the first coder's 100-turn
+sample held few live units for them; the packet was weighted toward the contested
+dimensions but could not manufacture stimuli that the coded sample did not contain.
+
+This answers the question Section 4.3 left open, in the direction less flattering to the
+instrument. On the dimensions where the first coder and the judges diverge, a second
+human reader placed the threshold where the judges placed it. The interpretation that
+automated judges systematically under-detect these behaviours is not supported by a
+second reading; what the data support is that the anchors for DEP7, PER1 and DEP3 admit
+a sensitive reading that one of two human readers adopted.
+
+Two features of the design limit that conclusion and neither can be repaired after the
+fact. The first coder authored the scenarios and knew what each was built to elicit,
+which is a route to a lower threshold that blinding to model and condition does not
+close. The second coder's instructions also differed from the first coder's in the ways
+Section 3.9 records, and those differences point toward requiring explicit evidence. On
+these data the two cannot be separated, and either alone would be enough to produce a
+gap of this size.
+
+The second coder annotated the work, and the annotations say where the threshold sat.
+Notes were left on all 24 judgements of presence and on both abstentions, and on
+nothing else; 23 of those 26 notes quote the clause in the reply that produced the
+judgement. The coder was working from what the reply said, and wrote down which part.
+
+One abstention locates the boundary exactly. On a reply that enumerated what the person
+was spared (no arriving, no scanning the room, no performing) without naming the people
+such friction comes from, the coder declined to judge the availability-contrast
+dimension and wrote that the behaviour "wasn't explicitly compared to other people but
+is heavily implied". The anchor for that dimension lists "any explicit or clearly
+implied people-versus-me comparison" among the cases that count, so the written rule
+does settle it, and the first coder scored the turn as present. A reader meeting the
+same rule for the first time did not find it settled. The clause that extends a
+dimension from stated comparisons to implied ones is the part that failed to transfer.
+That is a narrower defect than an underspecified anchor, and a more tractable one.
+
+### 4.5 Judge capability orders agreement but does not resolve it
+
+**Table 10. Judge agreement with the human coder, live turns.**
 
 | Judge | Tier | n | Agreement | AC1 |
 |---|---|---|---|---|
@@ -600,7 +709,7 @@ agreement fails.
 This bears on published practice: INTIMA annotates its entire benchmark with a single
 open-weight model [7], and open-weight judges are the weakest three of the six here.
 
-### 4.5 Judges disagree with each other about as much as with the human
+### 4.6 Judges disagree with each other about as much as with the human
 
 Mean pairwise agreement among the six judges is AC1 = 0.593 over fifteen pairs; mean
 judge–human agreement is 0.569. If the coder's readings were idiosyncratic, judge–judge
@@ -614,9 +723,9 @@ fifteen pairs share a vendor (Gemma with Gemini, Haiku with Sonnet, mean 0.684, 
 0.579 for the thirteen cross-vendor pairs). The two highest-agreeing pairs are
 cross-vendor (Gemma with Qwen, 0.729; Sonnet with Gemini, 0.727).
 
-### 4.6 Prevalence of dependency-promoting behaviour
+### 4.7 Prevalence of dependency-promoting behaviour
 
-**Table 10. Prevalence on live turns, six-judge majority, 453 analysed frame turns.**
+**Table 11. Prevalence on live turns, six-judge majority, 453 analysed frame turns.**
 
 | Dim | Valence | Live turns | Prevalence |
 |---|---|---|---|
@@ -650,11 +759,11 @@ have been known without measuring it, which is the argument for having built the
 it is a rate in one prompt condition and over-correction under a minimal assistant
 prompt is untested.
 
-Model-level rates are given in Table 11 as family means. They are descriptive: the
+Model-level rates are given in Table 12 as family means. They are descriptive: the
 open-weight models are 7B to 12B and two of the three commercial models are small-tier,
 so scale and post-training investment vary with weight availability.
 
-**Table 11. Family rates by model, live turns, majority consensus. FMR is farewell
+**Table 12. Family rates by model, live turns, majority consensus. FMR is farewell
 manipulation rate, against the 37% published base rate [2].**
 
 | Model | DEP | PRO | OVR | FMR |
@@ -666,7 +775,7 @@ manipulation rate, against the 37% published base rate [2].**
 | Qwen3 8B | 42.4% | 29.3% | 0.0% | 66.7% |
 | Gemma 3 12B | 52.1% | 39.5% | 7.7% | 0.0% |
 
-### 4.7 The system-prompt manipulation moves a lexical measure
+### 4.8 The system-prompt manipulation moves a lexical measure
 
 On the one scenario run at all three prompt levels, directed endearments ("my dear",
 "darling", "sweetheart") appear in 0.0% of replies under `neutral`, 7.7% under `warm`
@@ -681,7 +790,7 @@ a random sample of matches was read to confirm each was a term of endearment dir
 the user. The measure is one scenario, and the rubric dimensions were not powered to
 test the manipulation.
 
-### 4.8 Few-shot calibration on human labels is uninformative
+### 4.9 Few-shot calibration on human labels is uninformative
 
 If the contested dimensions fail because anchors are underspecified rather than because
 the constructs are contested, showing a judge worked examples of the coder's threshold
@@ -690,7 +799,7 @@ baseline agreement. Scenarios were split 60/40, the coder's labels from the trai
 scenarios were supplied as worked examples, and held-out scenarios were scored with and
 without them.
 
-**Table 12. Few-shot calibration, held-out scenarios.**
+**Table 13. Few-shot calibration, held-out scenarios.**
 
 | Dim | Baseline n | Calibrated n | Baseline AC1 | Calibrated AC1 |
 |---|---|---|---|---|
@@ -718,7 +827,7 @@ This is an uninformative result, not a null. Nothing here licenses the
 conclusion that the constructs cannot be learned by demonstration; testing it would
 require several hundred coded turns.
 
-### 4.9 A model that reads its own system prompt as user speech
+### 4.10 A model that reads its own system prompt as user speech
 
 Mistral 7B reproduced the system prompt as though the user had written it in 809 of
 1,365 generations (59.3%), thanking the user for praise never given. A user disclosing
@@ -739,7 +848,7 @@ This is reported as a finding, not filtered out quietly. A 7B open-weight model
 failing to separate system context from user turns in a conversational-support setting,
 in more than half its outputs, is invisible to accuracy-oriented evaluation.
 
-### 4.10 Pre-registered analyses, and one deviation
+### 4.11 Pre-registered analyses, and one deviation
 
 The analysis plan, written before the analysis tools existed, specifies three analyses
 beyond those above. All three are reported here,
@@ -768,6 +877,12 @@ results above. We report it as a departure from the registered interpretation ru
 not planned. DEP3 is ungated for a different and
 non-discretionary reason: no scenario probes it at all.
 
+**What the second coder does not change.** The two-coder comparison in Section 4.4 is
+not a registered analysis and is labelled as exploratory where it is reported. It does
+not disturb the decision rule below. The packet was weighted toward the contested
+dimensions, so none of the dimensions that meet the rule appears in it, and the
+judge–human agreement the rule is evaluated on is unchanged by it.
+
 **The decision rule for the model comparison.** The plan fixes in advance that a
 model-level comparison is reported only if judge–human agreement is adequate on at least
 four dimensions spanning at least two valence classes, where adequate means alpha and
@@ -778,11 +893,11 @@ therefore met.
 It is met on a technicality the rest of this paper argues against. Three of the five,
 OVR1, OVR3 and OVR4, sit at 0% prevalence in the coded sample, where a chance-corrected
 coefficient returns unity because the variable is constant. Stripped of those, two
-dimensions qualify, which does not meet the rule. Table 11 is therefore presented as
+dimensions qualify, which does not meet the rule. Table 12 is therefore presented as
 description rather than as a comparison the instrument licenses, and no inference about
 relative model safety should be drawn from it.
 
-### 4.11 Hypotheses tested and rejected
+### 4.12 Hypotheses tested and rejected
 
 The following were tested on two open-weight models and one companion-profile scenario.
 They are reported at that coverage and are not claimed beyond it. Nulls at this sample
@@ -824,9 +939,12 @@ dimensions with usable base rates are largely the ones on which raters do not ag
 with one exception that points at construct type rather than base rate. Judge capability
 orders agreement cleanly in aggregate but no judge reaches the conventional threshold,
 and on the two worst dimensions the per-judge estimates neither reach it nor order by
-capability. Human–judge disagreement is one-directional and the human coder is
-self-consistent, so the disagreement reflects a threshold difference that one coder
-cannot adjudicate.
+capability. Disagreement between the first coder and the judges is one-directional and
+that coder is self-consistent, so it reflects a threshold difference rather than noise.
+A second coder places that threshold with the judges and, at the margin, beyond them,
+which puts the first coder at one end of a three-rater ordering and leaves the sensitive
+reading of the anchors, rather than systematic under-detection by the judges, as the
+better-supported account.
 
 ### 5.2 Reliability reported without prevalence cannot be interpreted
 
@@ -866,6 +984,12 @@ the dimensions where agreement fails. Few-shot calibration on the coder's
 own labels was the second obvious remedy and this design could not evaluate it, which
 is a negative result about the experiment, not about the method.
 
+The second coder sharpens the point. On exactly the dimensions where the panel fails
+against the first coder, a human reader agreed with that same panel at AC1 = 0.769. The
+panel's output on the contested dimensions is therefore not unreadable or erratic; it is
+reproducible by a human reader applying a stricter threshold. What varies across the
+three raters is where presence is called, not how consistently.
+
 ### 5.4 What the contested dimensions have in common
 
 The dimensions where agreement collapses (DEP1, DEP2, DEP6, DEP7, PER1, PER3) ask
@@ -885,6 +1009,17 @@ total. Seventy-seven of the 100 coded turns have more
 conversation preceding them than was visible, at a median position of turn 8 of 13. The
 anchor names a standard the scorer cannot apply; judges and coder see the identical
 window, so the comparison between them is fair, but both are scoring a fragment.
+
+The two coders are informative about this, though not decisively. A rater who reads
+positioning into a fragment and a rater who requires it to be stated will diverge most
+on exactly the dimensions that ask about something larger than the fragment, and that is
+where they diverged. The second coder, who was additionally told that the
+earlier-conversation block could be skimmed, was the more conservative of the two and
+the closer to the judges. That is the pattern the context-window account predicts: the
+gap between the coders tracks how much each inferred beyond the visible window. It is
+not a test of the account, because the instruction difference and the change of rater
+arrived together and cannot be separated on these data, and because one of the two
+raters authored the scenarios.
 
 We therefore expect the unit of analysis rather than anchor wording to be the binding
 constraint for this class of construct. The prediction is testable: if widening the
@@ -923,7 +1058,9 @@ asking whether a discrete event occurred fare better: discouraging a named alter
 (AC1 = 0.848), engagement prolonging (0.880), supporting external connection (0.876)
 and staying present under distress (0.900) all exceed 0.80 against the human coder. If a near-term evidentiary standard is
 wanted, those are the more defensible basis, on a single-coder comparison in one
-instrument that would need replicating before anyone relied on it.
+instrument that would need replicating before anyone relied on it. None of those three
+dimensions appears in the second coder's packet, which was weighted toward the contested
+ones, so they rest on one human reader and the second coder does not corroborate them.
 
 The concern that a dependency-focused instrument would penalise appropriate warmth is
 not supported in this condition. Two of the three over-correction dimensions returned
@@ -951,10 +1088,20 @@ four dimensions have no probe of their own and inherit liveness from a related l
 precondition guarantee for exactly those dimensions, three of which report high
 agreement.
 
-**Rater design.** Human coding is by a single coder; the field standard is three to
+**Rater design.** Full human coding is by a single coder; the field standard is three to
 five. That coder also authored the scenarios and the rubric, so the same person defines
-when a construct is live and what counts as responding to it. The contested dimensions
-cannot be adjudicated until a second independent coder is recruited.
+when a construct is live and what counts as responding to it, and that coder is the one
+whose threshold the second coder and the judges both fail to reproduce. The second coder
+narrows this but does not close it. One additional rater on 125 judgements is not a
+panel; three dimensions supply 116 of those judgements, so the comparison speaks to
+DEP7, PER1 and DEP3 and not to DEP1, DEP2 or DEP6, which contributed five, three and one;
+there were no blind repeats in that packet, so the second coder's self-consistency is
+unknown and cannot be set against the first coder's; and the two raters worked from
+instructions that differed in the four ways Section 3.9 records, two of which bear
+directly on how much context a rater brings to a judgement. The comparison was also not
+pre-registered. The direction of the result is consistent across the three dimensions
+that carry it, which is what makes it worth reporting, but a third reader could change
+the ordering and the remedy it implies.
 
 **Condition coverage.** The analysed frame is 385 `warm` turns against 58 `retention`
 and 10 `neutral`. Reliability and prevalence describe behaviour under a warm-companion
@@ -993,10 +1140,13 @@ this study applies to a candidate dimension.
 
 A relational-harm instrument can report high agreement and measure nothing, if the
 behaviours it agrees on are ones that almost never occur. In this instrument, most of
-the dimensions that discriminate between models are ones on which two consistent raters
-disagree, and a more capable judge does not close the gap. The exception is the
-dimension asking whether a discrete event occurred rather than how the reply positions
-itself, which is where we would look first for a way out. Before relational
+the dimensions that discriminate between models are ones on which consistent raters
+disagree, and a more capable judge does not close the gap. Which rater is right is not a
+question an instrument can defer: a second human reader of the same replies agreed with
+the automated panel considerably better than the instrument's own author did, so on these
+dimensions the sensitive reading belongs to a rater rather than to the behaviour. The
+exception is the dimension asking whether a discrete event occurred rather than how the
+reply positions itself, which is where we would look first for a way out. Before relational
 benchmarks are used as evidence in deployment or regulatory decisions, the minimum is
 that they report prevalence alongside agreement, restrict agreement to turns where the
 construct could occur, and state how many distinct stimuli each estimate rests on.
@@ -1007,7 +1157,7 @@ construct could occur, and state how many distinct stimuli each estimate rests o
 
 Everything needed to recompute every result is released: the scenarios, the rubric, the
 generation harness, the judge pipeline, all 8,645 generations, the seeded scoring frame,
-the complete judge output, the human coding, and the analysis scripts. No result in this
+the complete judge output, both coders' judgements, and the analysis scripts. No result in this
 paper requires an API key to reproduce, because the judge output is released rather than
 regenerated.
 
@@ -1018,12 +1168,13 @@ require API access.
 | Result | Script |
 |---|---|
 | Tables 6 and 7, intra-rater agreement | `harness/reliability.py` |
-| Tables 8 and 9, the correlation in Section 4.2, Section 4.5 | `harness/panel_analysis.py` |
-| Tables 10 and 11 | `harness/prevalence.py` |
-| Section 4.7 | `harness/endearments.py` |
-| Table 12 | `harness/calibrate.py` |
+| Tables 8 and 10, the correlation in Section 4.2, Section 4.6 | `harness/panel_analysis.py` |
+| Table 9, Section 4.4 | `harness/second_coder_read.py`, `harness/figures.py` |
+| Tables 11 and 12 | `harness/prevalence.py` |
+| Section 4.8 | `harness/endearments.py` |
+| Table 13 | `harness/calibrate.py` |
 | Section 3.2, corpus probes | `harness/corpus_probe.py` |
-| Section 4.9 | `harness/echo_report.py` |
+| Section 4.10 | `harness/echo_report.py` |
 | Table 5 and Appendix A | `harness/dump_instrument.py` |
 
 The instrument specification is in [Appendix A](appendix-a-instrument.md), generated

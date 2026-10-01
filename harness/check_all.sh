@@ -6,6 +6,8 @@
 # the check's exit status: it printed ALL CHECKS PASS while check_citations was
 # failing. Exit codes are now captured explicitly.
 cd "$(dirname "$0")" || exit 2
+# PYTHON=../.venv/bin/python ./check_all.sh to pin the interpreter.
+PY=${PYTHON:-python3}
 status=0
 
 run() {
@@ -19,11 +21,11 @@ run() {
     fi
 }
 
-python3 figures.py --save > /dev/null || { echo "figures.py FAILED"; exit 2; }
-python3 sync_tables.py || status=1
-run "check_manuscript" python3 check_manuscript.py
-run "check_claims"     python3 check_claims.py
-run "check_citations"  python3 check_citations.py
+"$PY" figures.py --save > /dev/null || { echo "figures.py FAILED"; exit 2; }
+"$PY" sync_tables.py || status=1
+run "check_manuscript" "$PY" check_manuscript.py
+run "check_claims"     "$PY" check_claims.py
+run "check_citations"  "$PY" check_citations.py
 
 if [ $status -eq 0 ]; then
     echo "ALL CHECKS PASS"

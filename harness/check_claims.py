@@ -498,6 +498,10 @@ def main():
         # (Table 7) or the panel figure (Table 6); both are legitimately cited.
         legit = [jh[d]["ac1"]] if d in jh else []
         legit += [pan[d][p]["ac1"] for p in ("LIVE", "POOLED") if p in pan.get(d, {})]
+        # Since Section 4.4 a dimension may also legitimately carry one of the
+        # three pairwise coefficients from the two-coder comparison (Table 9).
+        legit += [v for k, v in F.get("three_rater", {}).get("by_dimension", {})
+                  .get(d, {}).items() if k.endswith("_ac1")]
         check(f"stated coefficient for {d} matches a computed value ({val})",
               any(abs(float(val) - v) < 0.0015 for v in legit),
               f"computed {[round(v, 3) for v in legit]}")
@@ -578,6 +582,111 @@ def main():
           nwords.get(F["decision_rule"]["n_adequate"]))
     bound("off-probe overall rate is bound to its sentence",
           r"Overall firing was ([\d.]+)%", f"{F['off_probe']['overall']*100:.1f}")
+
+    # --- the two-coder comparison (Section 4.4, Table 9) -------------------
+    SC, TR = F.get("second_coder"), F.get("three_rater")
+    if SC and TR:
+        bound("the second coder's returned judgement count is bound to its sentence",
+              r"packet returned (\d+) judgements", SC["questions"])
+        bound("the skip count is bound to its sentence",
+              r"judgements, (\d+) of them recorded as skips", SC["skipped"])
+        bound("the off-live exclusion is bound to its sentence",
+              r"(\w+) fall on dimensions the scenario does not mark live",
+              {15: "Fifteen"}.get(SC["off_live"]))
+        bound("the compared-unit count is bound to its sentence",
+              r"The remaining (\d+), spread over", TR["n"])
+        bound("the contributing-turn count is bound to its sentence",
+              r"spread over (\d+) of the", SC["turns_contributing"])
+        bound("the authored-turn count is bound to its sentence",
+              r"turns and (\d+) authored turns", SC["authored_turns"])
+        for lbl, pat, v in (
+            ("first coder's prevalence", r"as present on ([\d.]+)% of those",
+             f"{TR['prevalence_primary']*100:.1f}"),
+            ("judge prevalence", r"judge majority on ([\d.]+)%",
+             f"{TR['prevalence_judges']*100:.1f}"),
+            ("second coder's prevalence", r"the second coder on\s*([\d.]+)%",
+             f"{TR['prevalence_second']*100:.1f}"),
+            ("second-vs-judge AC1", r"majority at AC1 = ([\d.]+) \(95% CI",
+             f"{TR['second_vs_judges']['ac1']:.3f}"),
+            ("first-vs-judge AC1", r"agrees with that majority at ([\d.]+)",
+             f"{TR['primary_vs_judges']['ac1']:.3f}"),
+            ("human-human AC1", r"least of the three pairs, at (\d\.\d{3})",
+             f"{TR['primary_vs_second']['ac1']:.3f}"),
+            ("the paired margin", r"second coder's margin is \+([\d.]+)",
+             f"{TR['second_minus_primary_ac1']['point']:.3f}"),
+            ("the resample proportion", r"exceeds zero in ([\d.]+)% of",
+             f"{TR['second_minus_primary_ac1']['p_above_zero']*100:.1f}"),
+            ("three-rater raw agreement",
+             r"raters, the three return ([\d.]+)% raw agreement",
+             f"{TR['agreement']*100:.1f}"),
+            ("human-human disagreement total",
+             r"Of the (\d+) disagreements between the two humans",
+             TR["primary_vs_second"]["a_only_present"]
+             + TR["primary_vs_second"]["b_only_present"]),
+            ("human-human direction", r"(\d+) are turns the first coder marked present",
+             TR["primary_vs_second"]["a_only_present"]),
+            ("second-vs-judge disagreement total",
+             r"of (\d+) such\s+disagreements, \d+ are turns the judges",
+             TR["second_vs_judges"]["a_only_present"]
+             + TR["second_vs_judges"]["b_only_present"]),
+            ("second-vs-judge direction",
+             r"(\d+) are turns the judges marked present", 
+             TR["second_vs_judges"]["b_only_present"]),
+            ("the three-dimension subtotal", r"contribute (\d+) of the 125",
+             TR["n_three_largest_dimensions"]),
+            ("the note total", r"of those (\d+) notes quote", SC["notes"]),
+            ("notes on judgements of presence",
+             r"left on all (\d+) judgements of presence", SC["notes_on_present"]),
+            ("quoting notes", r"nothing else; (\d+) of those \d+ notes quote",
+             SC["notes_quoting_the_reply"]),
+        ):
+            bound(f"{lbl} is bound to its sentence", pat, v)
+
+        check("the paper names the workbook the analysis actually read",
+              SC["source"] == "second_coder_packet_returned_2026-09-30.xlsx"
+              and (ROOT / "data" / "human" / SC["source"]).exists(),
+              SC["source"])
+        check("Section 4.4 is labelled exploratory, as it is not in the plan",
+              "not in the analysis plan" in flat
+              and "second coder" not in (ROOT / "spec" / "analysis-plan-v1.md").read_text(),
+              "")
+        # The claim in Section 4.11 that the packet cannot disturb the decision
+        # rule: it holds only while the two dimension sets stay disjoint.
+        pack = {d for e in json.loads(
+            (ROOT / "data" / "human" / "second_coder_key.json").read_text())
+            for d in e["dims"]}
+        rule = set(F["decision_rule"]["adequate_dimensions"]) \
+            if "adequate_dimensions" in F["decision_rule"] \
+            else {a["dim"] for a in F["decision_rule"]["adequate"]}
+        check("no dimension that meets the decision rule is in the second coder's packet",
+              not (pack & rule), f"packet {sorted(pack)} rule {sorted(rule)}")
+        check("the second coder's notes are not reported as more than they are",
+              SC["notes"] == SC["notes_on_present"] + SC["skipped"],
+              f"{SC['notes']} = {SC['notes_on_present']} + {SC['skipped']}")
+
+        # Re-reading the returned workbook must reproduce the released JSON. The
+        # join from item number to frame uid is the one step where a silent error
+        # would pair every answer with the wrong reply.
+        import subprocess as _sp0, tempfile as _tf
+        with _tf.NamedTemporaryFile(suffix=".json", delete=False) as _t:
+            _p = _t.name
+        _r0 = _sp0.run(
+            [sys.executable, str(ROOT / "harness" / "second_coder_read.py"),
+             str(ROOT / "data" / "human" / SC["source"]), "--out", _p],
+            capture_output=True, text=True, cwd=ROOT / "harness")
+        if _r0.returncode:
+            # Reported as a failure, not skipped. A verification step that
+            # quietly does nothing when a dependency is missing is worse than no
+            # verification step, because it still prints a tick.
+            check("re-reading the returned workbook reproduces the released coding",
+                  False, _r0.stderr.strip().splitlines()[-1] if _r0.stderr else "failed")
+        else:
+            again = json.loads(pathlib.Path(_p).read_text())
+            live = json.loads(
+                (ROOT / "data" / "human" / "second_coded.json").read_text())
+            check("re-reading the returned workbook reproduces the released coding",
+                  again == live, "differs" if again != live else "identical")
+        pathlib.Path(_p).unlink(missing_ok=True)
 
     # --- independent implementations must still agree ----------------------
     # figures.py, reliability.py, prevalence.py and panel_analysis.py compute

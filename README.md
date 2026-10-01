@@ -8,13 +8,15 @@ on this rubric tracks how often the behaviour occurs, so most of the dimensions 
 discriminate between models are ones two consistent raters do not agree on. The paper
 is [`paper/manuscript.md`](paper/manuscript.md).
 
-**Status.** Generation, judging, single-coder human coding and analysis are complete.
-A second coder is being recruited: `data/human/second_coder_packet.xlsx` and
-`harness/second_coder_packet.py` build a 40-turn, 142-question packet weighted to the
-contested dimensions. That is the one measurement that would distinguish "judges
-under-detect" from "anchors invite over-reading", since 33 of 39 disagreements on those
-dimensions run one way. Two analyses are registered in the analysis plan and have not
-been run: a widened-context arm and turn-position degradation.
+**Status.** Generation, judging, human coding by both coders, and analysis are complete.
+The second coder's 40-turn packet is returned and analysed. Where the first coder and
+the judges disagree, 33 of 39 disagreements ran one way, and the open question was
+whether the judges under-detect the behaviour or the anchors invite over-reading. On the
+125 live judgements both coders made, the second coder agrees with the judge majority at
+AC1 = 0.769 and the first coder at 0.508, a paired difference of +0.260 (95% CI +0.083
+to +0.425), which favours the second reading. Two analyses are registered in the
+analysis plan and have not been run: a widened-context arm and turn-position
+degradation.
 
 ## What is here
 
@@ -25,7 +27,7 @@ been run: a widened-context arm and turn-position degradation.
 | `data/generations/` | 8,645 replies, 15 scenarios × 7 models × n = 5 |
 | `data/frame/` | the seeded 500-turn scoring frame, and the set used for the off-probe sweep |
 | `data/judged/` | the six-judge output, the off-probe sweep, the discarded pilot, the calibration experiment |
-| `data/human/` | the coder's workbooks and parsed scores, and the second-coder packet |
+| `data/human/` | both coders' workbooks and parsed scores, and the packet builder's key |
 | `harness/` | Generation, judging, the rubric, the analysis scripts, and the checks |
 | `spec/` | the pre-specified analysis plan, the grounding library, the scenario specification, and the observations human coding surfaced |
 
@@ -79,13 +81,24 @@ python3 prevalence.py
 python3 endearments.py
 python3 echo_report.py
 python3 corpus_probe.py
+python3 second_coder_read.py ../data/human/second_coder_packet_returned_2026-09-30.xlsx
 ```
+
+`second_coder_read.py` rewrites `data/human/second_coded.json` from the returned
+workbook. It compares each item's exchange text against the frame before writing
+anything, because the workbook carries no scenario or model column and an off-by-one in
+the item order would pair every answer with the wrong reply while still producing a
+plausible coefficient.
 
 ## Checking the paper against the data
 
 ```bash
 ./harness/check_all.sh
 ```
+
+It calls `python3`; set `PYTHON` to pin a different interpreter. `check_claims.py`
+re-parses the second coder's workbook, so the interpreter it runs under needs
+`openpyxl`.
 
 Three checks, non-zero exit if any fails:
 

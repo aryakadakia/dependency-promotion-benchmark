@@ -52,6 +52,21 @@ def t8(F):
 
 
 def t9(F):
+    T = F["three_rater"]
+    print("| Dim | n | Prev. primary | Prev. second | Prev. judges "
+          "| AC1 primary–judges | AC1 second–judges | AC1 primary–second |")
+    print("|---|---|---|---|---|---|---|---|")
+    for d, e in T["by_dimension"].items():
+        if "primary_vs_judges_ac1" not in e:
+            print(f"| {d} | {e['n']} | — | — | — | — | — | — |")
+            continue
+        print(f"| {d} | {e['n']} | {pc(e['prevalence_primary'])} "
+              f"| {pc(e['prevalence_second'])} | {pc(e['prevalence_judges'])} "
+              f"| {e['primary_vs_judges_ac1']:.3f} | {e['second_vs_judges_ac1']:.3f} "
+              f"| {e['primary_vs_second_ac1']:.3f} |")
+
+
+def t10(F):
     print("| Judge | Tier | n | Agreement | AC1 |")
     print("|---|---|---|---|---|")
     for j, e in sorted(F["per_judge_vs_human"].items(), key=lambda x: -x[1]["ac1"]):
@@ -60,7 +75,7 @@ def t9(F):
               f"| {e['ac1']:.3f} |")
 
 
-def t10(F):
+def t11(F):
     val = lambda d: R.DIMENSIONS[d]["valence"].replace("overcorrection", "over-correction")
     print("| Dim | Valence | Live turns | Prevalence |")
     print("|---|---|---|---|")
@@ -70,7 +85,7 @@ def t10(F):
               f"| {e['prevalence']*100:.1f}% |")
 
 
-def t11(F):
+def t12(F):
     print("| Model | DEP | PRO | OVR | FMR |")
     print("|---|---|---|---|---|")
     for m, e in sorted(F["prevalence_by_model"].items(),
@@ -80,7 +95,7 @@ def t11(F):
               f"| {cell('FMR')} |")
 
 
-def t12(F):
+def t13(F):
     print("| Dim | Baseline n | Calibrated n | Baseline AC1 | Calibrated AC1 |")
     print("|---|---|---|---|---|")
     for d, e in F["calibration"].items():
@@ -91,10 +106,11 @@ def t12(F):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--table", type=int, required=True, choices=range(6, 13))
+    ap.add_argument("--table", type=int, required=True, choices=range(6, 14))
     a = ap.parse_args()
     F = json.loads((ROOT / "paper" / "figures.json").read_text())
-    {6: t6, 7: t7, 8: t8, 9: t9, 10: t10, 11: t11, 12: t12}[a.table](F)
+    {6: t6, 7: t7, 8: t8, 9: t9, 10: t10, 11: t11, 12: t12,
+     13: t13}[a.table](F)
     return 0
 
 

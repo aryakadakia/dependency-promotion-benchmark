@@ -198,6 +198,20 @@
   "anthropic:claude-sonnet-5 | google:gemini-3.7-flash": 0.7272,
   "ollama:gemma3:12b | ollama:qwen3:14b": 0.729
  },
+ "human_human": {
+  "a_only_present": 38,
+  "ac1": 0.4277,
+  "ac1_ci": [
+   0.2797,
+   0.5757
+  ],
+  "agreement": 0.68,
+  "alpha": 0.277,
+  "b_only_present": 2,
+  "n": 125,
+  "prevalence_primary": 0.472,
+  "prevalence_second": 0.184
+ },
  "judge_failures": 0,
  "judge_spread": 0.1639,
  "judge_vs_human": {
@@ -994,6 +1008,23 @@
   }
  },
  "r_prevalence_ac1": 0.806,
+ "second_coder": {
+  "authored_turns": 33,
+  "coded": 140,
+  "judgements_of_presence": 24,
+  "notes": 26,
+  "notes_on_present": 24,
+  "notes_quoting_the_reply": 23,
+  "off_live": 15,
+  "paired_with_primary": 125,
+  "prevalence_as_returned": 0.1714,
+  "provenance_blank_on_yes": 1,
+  "questions": 142,
+  "skipped": 2,
+  "source": "second_coder_packet_returned_2026-09-30.xlsx",
+  "turns": 40,
+  "turns_contributing": 39
+ },
  "second_coder_packet": {
   "questions": 142,
   "turns": 40
@@ -1015,5 +1046,116 @@
   "PRO2": 34,
   "PRO4": 11,
   "PRO5": 34
+ },
+ "three_rater": {
+  "ac1": 0.5747,
+  "agreement": 0.7547,
+  "alpha": 0.4218,
+  "authored_turns": 33,
+  "by_dimension": {
+   "DEP1": {
+    "n": 5,
+    "prevalence_judges": 0.4,
+    "prevalence_primary": 0.8,
+    "prevalence_second": 0.4,
+    "primary_vs_judges_ac1": 0.2308,
+    "primary_vs_second_ac1": 0.2308,
+    "second_minus_primary_ac1": 0.0,
+    "second_vs_judges_ac1": 0.2308
+   },
+   "DEP2": {
+    "n": 3,
+    "prevalence_judges": 0.3333,
+    "prevalence_primary": 0.6667,
+    "prevalence_second": 1.0,
+    "primary_vs_judges_ac1": 0.3333,
+    "primary_vs_second_ac1": 0.5385,
+    "second_minus_primary_ac1": -0.5333,
+    "second_vs_judges_ac1": -0.2
+   },
+   "DEP3": {
+    "n": 39,
+    "prevalence_judges": 0.2564,
+    "prevalence_primary": 0.4359,
+    "prevalence_second": 0.1538,
+    "primary_vs_judges_ac1": 0.6721,
+    "primary_vs_second_ac1": 0.5172,
+    "second_minus_primary_ac1": 0.0996,
+    "second_vs_judges_ac1": 0.7717
+   },
+   "DEP6": {
+    "n": 1
+   },
+   "DEP7": {
+    "n": 38,
+    "prevalence_judges": 0.2632,
+    "prevalence_primary": 0.5263,
+    "prevalence_second": 0.1579,
+    "primary_vs_judges_ac1": 0.3952,
+    "primary_vs_second_ac1": 0.33,
+    "second_minus_primary_ac1": 0.3683,
+    "second_vs_judges_ac1": 0.7635
+   },
+   "PER1": {
+    "n": 39,
+    "prevalence_judges": 0.2051,
+    "prevalence_primary": 0.4103,
+    "prevalence_second": 0.1282,
+    "primary_vs_judges_ac1": 0.5533,
+    "primary_vs_second_ac1": 0.535,
+    "second_minus_primary_ac1": 0.3402,
+    "second_vs_judges_ac1": 0.8935
+   }
+  },
+  "n": 125,
+  "n_three_largest_dimensions": 116,
+  "prevalence_judges": 0.256,
+  "prevalence_primary": 0.472,
+  "prevalence_second": 0.184,
+  "primary_vs_judges": {
+   "a_only_present": 30,
+   "ac1": 0.5084,
+   "ac1_ci": [
+    0.3777,
+    0.6403
+   ],
+   "agreement": 0.736,
+   "alpha": 0.4321,
+   "b_only_present": 3,
+   "n": 125
+  },
+  "primary_vs_second": {
+   "a_only_present": 38,
+   "ac1": 0.4277,
+   "ac1_ci": [
+    0.2797,
+    0.5757
+   ],
+   "agreement": 0.68,
+   "alpha": 0.277,
+   "b_only_present": 2,
+   "n": 125
+  },
+  "second_minus_primary_ac1": {
+   "ci": [
+    0.0826,
+    0.4252
+   ],
+   "p_above_zero": 0.996,
+   "point": 0.2602,
+   "resamples": 2000
+  },
+  "second_vs_judges": {
+   "a_only_present": 5,
+   "ac1": 0.7686,
+   "ac1_ci": [
+    0.6148,
+    0.8927
+   ],
+   "agreement": 0.848,
+   "alpha": 0.5589,
+   "b_only_present": 14,
+   "n": 125
+  }
  }
 }
