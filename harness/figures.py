@@ -612,6 +612,60 @@ def main():
                 "second_minus_primary_ac1": round(
                     gwet_ac1([[t[3], t[4]] for t in sub])
                     - gwet_ac1([[t[2], t[4]] for t in sub]), 4)}
+        # Per judge, against BOTH coders, on the same units. Table 10 orders the
+        # judges against the first coder across all sixteen dimensions; this asks
+        # whether that ordering survives a change of human referent, holding the
+        # units fixed. It does not, which bears on Section 4.5's claim.
+        pj = {}
+        for j in sorted({j for u in units.values() for j in u}):
+            sub = [t for t in trip if j in {jj for jj in units.get(t[0], {})}
+                   and t[1] in units[t[0]].get(j, {})]
+            if len(sub) < 2:
+                continue
+            a = [[t[3], units[t[0]][j][t[1]]] for t in sub]
+            b = [[t[2], units[t[0]][j][t[1]]] for t in sub]
+            pj[j] = {"n": len(sub),
+                     "second_agreement": round(raw_agreement(a), 4),
+                     "second_ac1": round(gwet_ac1(a), 4),
+                     "primary_agreement": round(raw_agreement(b), 4),
+                     "primary_ac1": round(gwet_ac1(b), 4)}
+        F["three_rater"]["per_judge"] = pj
+        F["three_rater"]["mean_per_judge_second_ac1"] = round(
+            statistics.mean(v["second_ac1"] for v in pj.values()), 3)
+        F["three_rater"]["mean_per_judge_primary_ac1"] = round(
+            statistics.mean(v["primary_ac1"] for v in pj.values()), 3)
+        F["three_rater"]["best_judge_against_second"] = max(
+            pj, key=lambda j: pj[j]["second_ac1"])
+        F["three_rater"]["best_judge_against_primary"] = max(
+            pj, key=lambda j: pj[j]["primary_ac1"])
+
+        # Judge-judge agreement on the same units, for the ensemble comparison:
+        # the majority is a better match to the second coder than its members are.
+        jj = []
+        jl = sorted(pj)
+        for i, x in enumerate(jl):
+            for y in jl[i + 1:]:
+                sub = [[units[t[0]][x][t[1]], units[t[0]][y][t[1]]] for t in trip
+                       if t[1] in units[t[0]].get(x, {})
+                       and t[1] in units[t[0]].get(y, {})]
+                if len(sub) >= 2:
+                    jj.append(gwet_ac1(sub))
+        F["three_rater"]["judge_judge_pairs"] = len(jj)
+        F["three_rater"]["mean_judge_judge_ac1"] = round(statistics.mean(jj), 3)
+        F["three_rater"]["judges_closer_to_primary"] = sorted(
+            j for j, e in pj.items() if e["primary_ac1"] > e["second_ac1"])
+        # Spearman between the two rankings of the same six judges. Reported so
+        # that "the ordering does not survive" is a number rather than a reading
+        # of two sorted columns.
+        def _rank(key):
+            s = sorted(pj, key=lambda j: -pj[j][key])
+            return {j: i + 1 for i, j in enumerate(s)}
+        r1, r2 = _rank("primary_ac1"), _rank("second_ac1")
+        n_ = len(pj)
+        d2 = sum((r1[j] - r2[j]) ** 2 for j in pj)
+        F["three_rater"]["judge_rank_spearman"] = round(
+            1 - 6 * d2 / (n_ * (n_ ** 2 - 1)), 3)
+
         F["three_rater"]["by_dimension"] = byd
         # How much of the result rests on the three dimensions that have enough
         # units to estimate anything. byd is ordered by descending n.

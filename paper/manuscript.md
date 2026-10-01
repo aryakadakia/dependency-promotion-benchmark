@@ -29,9 +29,11 @@ turns.
 **Results.** Agreement varied from AC1 = −0.111 to 1.000 across dimensions and tracked
 how far prevalence sat from 50% (r = 0.806). The seven dimensions with prevalence
 below 15% or above 85% averaged AC1 = 0.883 against the human coder; the five between
-35% and 65% averaged 0.230. Judge–human agreement ordered by model capability, from
+35% and 65% averaged 0.230. Judge agreement with the first coder ordered by model capability, from
 0.488 for Llama 3.1 8B to 0.652 for Claude Sonnet 5, and no judge reached the 0.667
-threshold for tentative agreement. Judges agreed with each other (mean AC1 = 0.593)
+threshold for tentative agreement; on identical units that ordering reversed against the
+second coder (Spearman −0.143), placing two open-weight judges above every commercial
+one. Judges agreed with each other (mean AC1 = 0.593)
 about as much as with the human coder (0.569). Of 39 disagreements on the six
 dimensions below threshold, 33 were cases where the human recorded the behaviour and
 the judge majority did not. On the 125 live judgements both coders made, the second
@@ -685,7 +687,7 @@ same rule for the first time did not find it settled. The clause that extends a
 dimension from stated comparisons to implied ones is the part that failed to transfer.
 That is a narrower defect than an underspecified anchor, and a more tractable one.
 
-### 4.5 Judge capability orders agreement but does not resolve it
+### 4.5 The judge ordering depends on which human it is measured against
 
 **Table 10. Judge agreement with the human coder, live turns.**
 
@@ -706,14 +708,67 @@ judgements, so none of them is individually informative. The 0.164 separating th
 weakest judge from the strongest in aggregate does not carry into the dimensions where
 agreement fails.
 
-This bears on published practice: INTIMA annotates its entire benchmark with a single
-open-weight model [7], and open-weight judges are the weakest three of the six here.
+Nor does the ordering survive a change of human referent. Table 11 recomputes it against
+both coders on the 125 judgements of Section 4.4, holding the units fixed so that the
+referent is the only thing that changes. Against the first coder the three commercial
+judges lead and the three open-weight judges trail, as in Table 10. Against the second
+coder the order is close to reversed: Gemma 3 12B is first at 0.762 and Qwen3 14B second
+at 0.745, both above every commercial judge, while Claude Haiku 4.5 falls to 0.567. The
+two rankings of the same six judges correlate at Spearman −0.143. Llama 3.1 8B is last
+under either referent, and is the only judge that matches the first coder more closely
+than the second.
 
-### 4.6 Judges disagree with each other about as much as with the human
+**Table 11. Per-judge agreement with each coder, on the 125 judgements both coders made.
+AC1. The units are identical across the two columns.**
+
+| Judge | Tier | n | vs first coder | vs second coder |
+|---|---|---|---|---|
+| Gemma 3 12B | open | 104 | 0.430 | 0.762 |
+| Qwen3 14B | open | 125 | 0.336 | 0.745 |
+| Gemini 3.7 Flash | commercial | 105 | 0.646 | 0.731 |
+| Claude Sonnet 5 | commercial | 106 | 0.533 | 0.682 |
+| Claude Haiku 4.5 | commercial | 110 | 0.535 | 0.567 |
+| Llama 3.1 8B | open | 106 | 0.340 | 0.247 |
+| mean of the six | | | 0.470 | 0.622 |
+| six-judge majority | | 125 | 0.508 | 0.769 |
+
+The ordering in Table 10 is therefore not a property of the judges alone. It is a
+property of the judges together with the human they are scored against, and quoting such
+a ranking without naming that human claims more than the design supports. On these
+units the same six models, scored on the same turns by two internally consistent human
+readers, do not rank the same way.
+
+Aggregation recovers agreement, though not uniformly. The six judges average 0.470
+against the first coder individually and 0.508 as a majority; against the second coder
+the figures are 0.622 and 0.769. Pairwise agreement among the judges themselves averages
+0.598 over 15 pairs on these units, so against the second coder the majority matches a
+human reader better than any judge in the panel matches another judge. Against the first
+coder the majority is worse than each of the three commercial judges taken alone, which
+reach 0.646, 0.535 and 0.533 where the majority reaches 0.508. A majority helps only when
+its members are not displaced from the referent in the same direction, and five of these
+six sit closer to the second coder than to the first, so the vote tracks the second
+coder's threshold and the aggregate looks worst against the rater it is furthest from.
+
+This bears on published practice. INTIMA annotates its entire benchmark with a single
+open-weight model [7]. The open-weight judges here are the weakest three against one
+coder and two of the strongest three against the other, which argues against
+single-annotator designs rather than against open-weight judges specifically.
+
+### 4.6 Judges agree with each other about as much as with the first coder
 
 Mean pairwise agreement among the six judges is AC1 = 0.593 over fifteen pairs; mean
-judge–human agreement is 0.569. If the coder's readings were idiosyncratic, judge–judge
-agreement would sit well above judge–human. It does not.
+agreement with the first coder is 0.569. Taken against that coder alone this argues
+against the readings being idiosyncratic: were they, judge–judge agreement would sit well
+above judge–human, and it does not.
+
+The second coder withdraws that argument. On the 125 judgements of Section 4.4,
+judge–judge agreement averages 0.598 while the six-judge majority agrees with the second
+coder at 0.769. The gap the test looks for is present there, and it points at the first
+coder rather than at the judges. The two comparisons do not sit on the same support, since
+the second coder's units are restricted to the contested dimensions, so this qualifies the
+preceding paragraph rather than replacing it. What holds without qualification is narrower:
+judge–judge agreement does not on its own establish that a single human coder's readings
+are representative.
 
 Capability separates the pairs: commercial–commercial pairs average 0.676 (n = 3)
 against 0.572 for open–open (n = 3). Llama 3.1 8B is the weakest partner overall, its
@@ -725,7 +780,7 @@ cross-vendor (Gemma with Qwen, 0.729; Sonnet with Gemini, 0.727).
 
 ### 4.7 Prevalence of dependency-promoting behaviour
 
-**Table 11. Prevalence on live turns, six-judge majority, 453 analysed frame turns.**
+**Table 12. Prevalence on live turns, six-judge majority, 453 analysed frame turns.**
 
 | Dim | Valence | Live turns | Prevalence |
 |---|---|---|---|
@@ -759,11 +814,11 @@ have been known without measuring it, which is the argument for having built the
 it is a rate in one prompt condition and over-correction under a minimal assistant
 prompt is untested.
 
-Model-level rates are given in Table 12 as family means. They are descriptive: the
+Model-level rates are given in Table 13 as family means. They are descriptive: the
 open-weight models are 7B to 12B and two of the three commercial models are small-tier,
 so scale and post-training investment vary with weight availability.
 
-**Table 12. Family rates by model, live turns, majority consensus. FMR is farewell
+**Table 13. Family rates by model, live turns, majority consensus. FMR is farewell
 manipulation rate, against the 37% published base rate [2].**
 
 | Model | DEP | PRO | OVR | FMR |
@@ -799,7 +854,7 @@ baseline agreement. Scenarios were split 60/40, the coder's labels from the trai
 scenarios were supplied as worked examples, and held-out scenarios were scored with and
 without them.
 
-**Table 13. Few-shot calibration, held-out scenarios.**
+**Table 14. Few-shot calibration, held-out scenarios.**
 
 | Dim | Baseline n | Calibrated n | Baseline AC1 | Calibrated AC1 |
 |---|---|---|---|---|
@@ -893,7 +948,7 @@ therefore met.
 It is met on a technicality the rest of this paper argues against. Three of the five,
 OVR1, OVR3 and OVR4, sit at 0% prevalence in the coded sample, where a chance-corrected
 coefficient returns unity because the variable is constant. Stripped of those, two
-dimensions qualify, which does not meet the rule. Table 12 is therefore presented as
+dimensions qualify, which does not meet the rule. Table 13 is therefore presented as
 description rather than as a comparison the instrument licenses, and no inference about
 relative model safety should be drawn from it.
 
@@ -937,9 +992,11 @@ Agreement on this rubric runs from below zero to unity, and where a dimension fa
 that range tracks its base rate more closely than anything else we measured. The
 dimensions with usable base rates are largely the ones on which raters do not agree,
 with one exception that points at construct type rather than base rate. Judge capability
-orders agreement cleanly in aggregate but no judge reaches the conventional threshold,
-and on the two worst dimensions the per-judge estimates neither reach it nor order by
-capability. Disagreement between the first coder and the judges is one-directional and
+orders agreement cleanly against the first coder but no judge reaches the conventional
+threshold, and on the two worst dimensions the per-judge estimates neither reach it nor
+order by capability. That ordering is not a property of the judges: scored against the
+second coder on identical units the same six judges rank almost in reverse, with the two
+best open-weight judges above every commercial one. Disagreement between the first coder and the judges is one-directional and
 that coder is self-consistent, so it reflects a threshold difference rather than noise.
 A second coder places that threshold with the judges and, at the margin, beyond them,
 which puts the first coder at one end of a three-rater ordering and leaves the sensitive
@@ -972,7 +1029,7 @@ interpretation: report prevalence beside every agreement figure; restrict agreem
 cases where the construct could occur; and use a chance-corrected statistic that does
 not degenerate under skewed marginals.
 
-### 5.3 Judge capability is not the binding constraint
+### 5.3 Judge capability is not the binding constraint, and the ranking is not stable
 
 The intuitive remedy for poor agreement is a better rater. The panel spans three
 open-weight models, two small-tier commercial models and one frontier model, and
@@ -989,6 +1046,18 @@ against the first coder, a human reader agreed with that same panel at AC1 = 0.7
 panel's output on the contested dimensions is therefore not unreadable or erratic; it is
 reproducible by a human reader applying a stricter threshold. What varies across the
 three raters is where presence is called, not how consistently.
+
+It also undermines using a ranking of this kind to choose a judge. The ordering reverses
+when the human referent changes and the units do not, so a leaderboard of judges is
+reporting a relationship between a judge and a particular annotator, not a property of
+the judge. A practice of selecting the judge that best matches one human coder will
+select for agreement with that coder's idiosyncrasies, and nothing in a single-coder
+design can tell the two apart. The remedy that does work here is aggregation: the
+majority of six exceeds every member against either coder, and exceeds pairwise
+judge–judge agreement on the same units. The caveat is that this holds against the
+second coder and not against the first, where one commercial judge on its own beats the
+majority of six, as does each of the other two commercial judges. Aggregation is not a
+guarantee: a majority reproduces whichever threshold most of its members hold.
 
 ### 5.4 What the contested dimensions have in common
 
@@ -1169,10 +1238,10 @@ require API access.
 |---|---|
 | Tables 6 and 7, intra-rater agreement | `harness/reliability.py` |
 | Tables 8 and 10, the correlation in Section 4.2, Section 4.6 | `harness/panel_analysis.py` |
-| Table 9, Section 4.4 | `harness/second_coder_read.py`, `harness/figures.py` |
-| Tables 11 and 12 | `harness/prevalence.py` |
+| Tables 9 and 11, Sections 4.4, 4.5 and 4.6 | `harness/second_coder_read.py`, `harness/figures.py` |
+| Tables 12 and 13 | `harness/prevalence.py` |
 | Section 4.8 | `harness/endearments.py` |
-| Table 13 | `harness/calibrate.py` |
+| Table 14 | `harness/calibrate.py` |
 | Section 3.2, corpus probes | `harness/corpus_probe.py` |
 | Section 4.10 | `harness/echo_report.py` |
 | Table 5 and Appendix A | `harness/dump_instrument.py` |

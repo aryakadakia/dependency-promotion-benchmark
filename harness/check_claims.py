@@ -642,6 +642,81 @@ def main():
         ):
             bound(f"{lbl} is bound to its sentence", pat, v)
 
+        for lbl, pat, v in (
+            ("best judge against the second coder",
+             r"Gemma 3 12B is first at ([\d.]+)",
+             f"{TR['per_judge']['ollama:gemma3:12b']['second_ac1']:.3f}"),
+            ("second-placed judge against the second coder",
+             r"Qwen3 14B second\s*at ([\d.]+)",
+             f"{TR['per_judge']['ollama:qwen3:14b']['second_ac1']:.3f}"),
+            ("the judge that falls against the second coder",
+             r"Claude Haiku 4\.5 falls to (\d\.\d{3})",
+             f"{TR['per_judge']['anthropic:claude-haiku-4-5']['second_ac1']:.3f}"),
+            ("the rank correlation between referents",
+             r"correlate at Spearman −(\d\.\d{3})",
+             f"{abs(TR['judge_rank_spearman']):.3f}"),
+            ("mean per-judge agreement with the first coder",
+             r"average ([\d.]+) against the first coder individually",
+             f"{TR['mean_per_judge_primary_ac1']:.3f}"),
+            ("mean per-judge agreement with the second coder",
+             r"second coder the figures are ([\d.]+) and",
+             f"{TR['mean_per_judge_second_ac1']:.3f}"),
+            ("judge-judge agreement on these units",
+             r"judges themselves averages ([\d.]+) over \d+ pairs on these units",
+             f"{TR['mean_judge_judge_ac1']:.3f}"),
+            ("judge-judge pair count on these units",
+             r"averages [\d.]+ over (\d+) pairs on these units",
+             TR["judge_judge_pairs"]),
+            ("the majority figure the commercial judges are compared against",
+             r"the majority reaches (\d\.\d{3})",
+             f"{TR['primary_vs_judges']['ac1']:.3f}"),
+            # Word form. A mutation changing "five of these six" to "four" passed
+            # every numeric check, because a spelled-out count is invisible to the
+            # token scanner.
+            ("the count of judges closer to the second coder",
+             r"and (\w+) of these\s+six sit closer to the second coder",
+             {4: "four", 5: "five", 6: "six"}.get(
+                 len(TR["per_judge"]) - len(TR["judges_closer_to_primary"]))),
+            ("judge-judge agreement restated in 4.6",
+             r"judge–judge agreement averages ([\d.]+) while the six-judge",
+             f"{TR['mean_judge_judge_ac1']:.3f}"),
+        ):
+            bound(f"{lbl} is bound to its sentence", pat, v)
+
+        # Both halves of the reversal claim, asserted rather than read off a table.
+        top2 = sorted(TR["per_judge"],
+                      key=lambda j: -TR["per_judge"][j]["second_ac1"])[:2]
+        check("the two best judges against the second coder are the open-weight pair "
+              "the paper names",
+              set(top2) == {"ollama:gemma3:12b", "ollama:qwen3:14b"}, str(top2))
+        check("every commercial judge sits below both of them, as stated",
+              all(TR["per_judge"][j]["second_ac1"]
+                  < min(TR["per_judge"][k]["second_ac1"] for k in top2)
+                  for j in TR["per_judge"] if not j.startswith("ollama")), "")
+        check("Llama 3.1 8B is the only judge closer to the first coder, as stated",
+              TR["judges_closer_to_primary"] == ["ollama:llama3.1:8b"],
+              str(TR["judges_closer_to_primary"]))
+        check("the majority exceeds every single judge against the second coder, "
+              "as 4.5 states",
+              all(TR["second_vs_judges"]["ac1"] > e["second_ac1"]
+                  for e in TR["per_judge"].values()), "")
+        # 4.5 and 5.3 both say aggregation is not uniformly better, on the strength
+        # of this one judge. If it stopped being true the claim would need redoing.
+        _beat = [j for j, e in TR["per_judge"].items()
+                 if e["primary_ac1"] > TR["primary_vs_judges"]["ac1"]]
+        check("the judges that beat the majority against the first coder are exactly "
+              "the three commercial ones, as 4.5 states",
+              set(_beat) == {j for j in TR["per_judge"] if not j.startswith("ollama")},
+              str(_beat))
+        check("five of six judges sit closer to the second coder, as 4.5 states",
+              len(TR["per_judge"]) - len(TR["judges_closer_to_primary"]) == 5,
+              str(TR["judges_closer_to_primary"]))
+        check("the majority exceeds the mean of its members under both referents",
+              TR["second_vs_judges"]["ac1"] > TR["mean_per_judge_second_ac1"]
+              and TR["primary_vs_judges"]["ac1"] > TR["mean_per_judge_primary_ac1"], "")
+        check("the majority exceeds mean pairwise judge agreement, as 4.5 states",
+              TR["second_vs_judges"]["ac1"] > TR["mean_judge_judge_ac1"], "")
+
         check("the paper names the workbook the analysis actually read",
               SC["source"] == "second_coder_packet_returned_2026-09-30.xlsx"
               and (ROOT / "data" / "human" / SC["source"]).exists(),

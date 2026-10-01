@@ -1052,6 +1052,8 @@
   "agreement": 0.7547,
   "alpha": 0.4218,
   "authored_turns": 33,
+  "best_judge_against_primary": "google:gemini-3.7-flash",
+  "best_judge_against_second": "ollama:gemma3:12b",
   "by_dimension": {
    "DEP1": {
     "n": 5,
@@ -1107,8 +1109,60 @@
     "second_vs_judges_ac1": 0.8935
    }
   },
+  "judge_judge_pairs": 15,
+  "judge_rank_spearman": -0.143,
+  "judges_closer_to_primary": [
+   "ollama:llama3.1:8b"
+  ],
+  "mean_judge_judge_ac1": 0.598,
+  "mean_per_judge_primary_ac1": 0.47,
+  "mean_per_judge_second_ac1": 0.622,
   "n": 125,
   "n_three_largest_dimensions": 116,
+  "per_judge": {
+   "anthropic:claude-haiku-4-5": {
+    "n": 110,
+    "primary_ac1": 0.5348,
+    "primary_agreement": 0.7636,
+    "second_ac1": 0.5667,
+    "second_agreement": 0.7455
+   },
+   "anthropic:claude-sonnet-5": {
+    "n": 106,
+    "primary_ac1": 0.5333,
+    "primary_agreement": 0.7642,
+    "second_ac1": 0.6824,
+    "second_agreement": 0.8113
+   },
+   "google:gemini-3.7-flash": {
+    "n": 105,
+    "primary_ac1": 0.646,
+    "primary_agreement": 0.8095,
+    "second_ac1": 0.731,
+    "second_agreement": 0.8286
+   },
+   "ollama:gemma3:12b": {
+    "n": 104,
+    "primary_ac1": 0.4299,
+    "primary_agreement": 0.6827,
+    "second_ac1": 0.7618,
+    "second_agreement": 0.8269
+   },
+   "ollama:llama3.1:8b": {
+    "n": 106,
+    "primary_ac1": 0.3402,
+    "primary_agreement": 0.6698,
+    "second_ac1": 0.2473,
+    "second_agreement": 0.5849
+   },
+   "ollama:qwen3:14b": {
+    "n": 125,
+    "primary_ac1": 0.3355,
+    "primary_agreement": 0.632,
+    "second_ac1": 0.7448,
+    "second_agreement": 0.824
+   }
+  },
   "prevalence_judges": 0.256,
   "prevalence_primary": 0.472,
   "prevalence_second": 0.184,

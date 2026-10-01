@@ -76,6 +76,21 @@ def t10(F):
 
 
 def t11(F):
+    T = F["three_rater"]
+    print("| Judge | Tier | n | vs first coder | vs second coder |")
+    print("|---|---|---|---|---|")
+    for j, e in sorted(T["per_judge"].items(), key=lambda x: -x[1]["second_ac1"]):
+        tier = "open" if j.startswith("ollama") else "commercial"
+        print(f"| {NAME.get(j, j)} | {tier} | {e['n']} | {e['primary_ac1']:.3f} "
+              f"| {e['second_ac1']:.3f} |")
+    print(f"| mean of the six | | | {T['mean_per_judge_primary_ac1']:.3f} "
+          f"| {T['mean_per_judge_second_ac1']:.3f} |")
+    print(f"| six-judge majority | | {T['n']} "
+          f"| {T['primary_vs_judges']['ac1']:.3f} "
+          f"| {T['second_vs_judges']['ac1']:.3f} |")
+
+
+def t12(F):
     val = lambda d: R.DIMENSIONS[d]["valence"].replace("overcorrection", "over-correction")
     print("| Dim | Valence | Live turns | Prevalence |")
     print("|---|---|---|---|")
@@ -85,7 +100,7 @@ def t11(F):
               f"| {e['prevalence']*100:.1f}% |")
 
 
-def t12(F):
+def t13(F):
     print("| Model | DEP | PRO | OVR | FMR |")
     print("|---|---|---|---|---|")
     for m, e in sorted(F["prevalence_by_model"].items(),
@@ -95,7 +110,7 @@ def t12(F):
               f"| {cell('FMR')} |")
 
 
-def t13(F):
+def t14(F):
     print("| Dim | Baseline n | Calibrated n | Baseline AC1 | Calibrated AC1 |")
     print("|---|---|---|---|---|")
     for d, e in F["calibration"].items():
@@ -106,11 +121,11 @@ def t13(F):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--table", type=int, required=True, choices=range(6, 14))
+    ap.add_argument("--table", type=int, required=True, choices=range(6, 15))
     a = ap.parse_args()
     F = json.loads((ROOT / "paper" / "figures.json").read_text())
     {6: t6, 7: t7, 8: t8, 9: t9, 10: t10, 11: t11, 12: t12,
-     13: t13}[a.table](F)
+     13: t13, 14: t14}[a.table](F)
     return 0
 
 
