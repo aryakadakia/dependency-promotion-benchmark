@@ -21,7 +21,7 @@ def pc(x):
     return f"{x*100:.0f}%"
 
 
-def t6(F):
+def t5(F):
     print("| Dim | Units | Stimuli | Prevalence | Agreement | Alpha | AC1 | 95% CI | Pooled AC1 |")
     print("|---|---|---|---|---|---|---|---|---|")
     for d in R.DIMENSIONS:
@@ -35,7 +35,7 @@ def t6(F):
               f"| {P['ac1']:.3f} |")
 
 
-def t7(F):
+def t6(F):
     print("| Dim | Units | Prevalence | Agreement | AC1 |")
     print("|---|---|---|---|---|")
     for d, e in sorted(F["judge_vs_human"].items(), key=lambda x: -x[1]["ac1"]):
@@ -43,7 +43,7 @@ def t7(F):
               f"| {e['ac1']:.3f} |")
 
 
-def t8(F):
+def t7(F):
     print("| Dim | Coder present, judges absent | Coder absent, judges present |")
     print("|---|---|---|")
     for d, (a, b) in sorted(F["disagreement_direction"].items()):
@@ -51,7 +51,7 @@ def t8(F):
         print(f"| {d}{mark} | {a} | {b} |")
 
 
-def t9(F):
+def t8(F):
     T = F["three_rater"]
     print("| Dim | n | Prev. primary | Prev. second | Prev. judges "
           "| AC1 primary–judges | AC1 second–judges | AC1 primary–second |")
@@ -66,7 +66,7 @@ def t9(F):
               f"| {e['primary_vs_second_ac1']:.3f} |")
 
 
-def t10(F):
+def t9(F):
     print("| Judge | Tier | n | Agreement | AC1 |")
     print("|---|---|---|---|---|")
     for j, e in sorted(F["per_judge_vs_human"].items(), key=lambda x: -x[1]["ac1"]):
@@ -75,7 +75,7 @@ def t10(F):
               f"| {e['ac1']:.3f} |")
 
 
-def t11(F):
+def t10(F):
     T = F["three_rater"]
     print("| Judge | Tier | n | vs first coder | vs second coder |")
     print("|---|---|---|---|---|")
@@ -90,7 +90,7 @@ def t11(F):
           f"| {T['second_vs_judges']['ac1']:.3f} |")
 
 
-def t12(F):
+def t11(F):
     val = lambda d: R.DIMENSIONS[d]["valence"].replace("overcorrection", "over-correction")
     print("| Dim | Valence | Live turns | Prevalence |")
     print("|---|---|---|---|")
@@ -100,7 +100,7 @@ def t12(F):
               f"| {e['prevalence']*100:.1f}% |")
 
 
-def t13(F):
+def t12(F):
     print("| Model | DEP | PRO | OVR | FMR |")
     print("|---|---|---|---|---|")
     for m, e in sorted(F["prevalence_by_model"].items(),
@@ -110,7 +110,7 @@ def t13(F):
               f"| {cell('FMR')} |")
 
 
-def t14(F):
+def t13(F):
     print("| Dim | Baseline n | Calibrated n | Baseline AC1 | Calibrated AC1 |")
     print("|---|---|---|---|---|")
     for d, e in F["calibration"].items():
@@ -121,11 +121,11 @@ def t14(F):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--table", type=int, required=True, choices=range(6, 15))
+    ap.add_argument("--table", type=int, required=True, choices=range(5, 14))
     a = ap.parse_args()
     F = json.loads((ROOT / "paper" / "figures.json").read_text())
-    {6: t6, 7: t7, 8: t8, 9: t9, 10: t10, 11: t11, 12: t12,
-     13: t13, 14: t14}[a.table](F)
+    {5: t5, 6: t6, 7: t7, 8: t8, 9: t9, 10: t10, 11: t11,
+     12: t12, 13: t13}[a.table](F)
     return 0
 
 

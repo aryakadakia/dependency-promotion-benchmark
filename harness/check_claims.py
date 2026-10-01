@@ -763,6 +763,26 @@ def main():
                   again == live, "differs" if again != live else "identical")
         pathlib.Path(_p).unlink(missing_ok=True)
 
+    # --- item origin, in the terms a scale-development paper uses ----------
+    _org = collections.Counter(v["origin"] for v in R.DIMENSIONS.values())
+    check("every dimension declares an origin of adapted or new",
+          set(_org) <= {"adapted", "new"} and sum(_org.values()) == len(R.DIMENSIONS),
+          str(dict(_org)))
+    check("no dimension still describes its source as 'ours'",
+          not any("ours" in v["source"].lower() for v in R.DIMENSIONS.values()))
+    check("every adapted dimension names the instrument it is adapted from",
+          all(v["source"].startswith("Adapted from")
+              for v in R.DIMENSIONS.values() if v["origin"] == "adapted"))
+    check("every new dimension is described as newly developed",
+          all(v["source"].startswith("Newly developed")
+              for v in R.DIMENSIONS.values() if v["origin"] == "new"))
+    # Provenance is carried by Table 4's source column and by in-text citation,
+    # not by a count in the prose, so there is no sentence to bind here. What is
+    # checked is that each dimension in the table states an origin at all.
+    check("the over-correction dimensions are still flagged as reasoned, not validated",
+          "reasoned rather than validated" in flat
+          and all(R.DIMENSIONS[d]["origin"] == "new" for d in ("OVR1", "OVR3", "OVR4")))
+
     # --- the echo exclusion, and the reference list ------------------------
     E = F["echo"]
     _mi = "ollama:mistral:7b"

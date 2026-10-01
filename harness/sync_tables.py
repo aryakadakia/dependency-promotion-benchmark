@@ -14,7 +14,7 @@ import dump_tables
 
 ROOT = pathlib.Path(__file__).parent.parent
 MS = ROOT / "paper" / "manuscript.md"
-TABLES = range(6, 15)
+TABLES = range(5, 14)
 
 
 def render(n):
